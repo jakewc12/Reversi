@@ -13,14 +13,14 @@ package model;
  * <p>A more detailed explanation is shown below.
  * <p><ahref="https://www.redblobgames.com/grids/hexagons/">...</a>.
  */
-public interface GameCell {
+public interface HexagonCell {
 
   /**
    * Gets the contents of this Cell.
    *
    * @return the disc inside this cell.
    */
-  GameCell cellContents();
+  HexagonCell cellContents();
 
   /**
    * Gets the Q coordinate of this cell.

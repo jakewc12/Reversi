@@ -1,5 +1,7 @@
 package model;
 
+import model.GameDisc.DiscColor;
+
 /**
  * An Interface meant to represent either a black or white token in a reversi game.
  */
@@ -15,7 +17,7 @@ public interface Disc {
    *
    * @return a string representation of this discs color. BLACK for black, WHITE for white.
    */
-  String getColor();
+  DiscColor getColor();
   /**
    * Returns the current color of this disc as a string.
    *
