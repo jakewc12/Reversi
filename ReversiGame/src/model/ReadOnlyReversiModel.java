@@ -38,4 +38,8 @@ public interface ReadOnlyReversiModel {
    */
   boolean gameOver();
 
+  /**
+   * Initializes all values
+   */
+  void startGame();
 }
