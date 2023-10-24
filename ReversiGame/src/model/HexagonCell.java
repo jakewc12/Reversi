@@ -20,7 +20,7 @@ public interface HexagonCell {
    *
    * @return the disc inside this cell.
    */
-  HexagonCell cellContents();
+  GameDisc cellContents();
 
   /**
    * Gets the Q coordinate of this cell.
