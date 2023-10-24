@@ -1,6 +1,6 @@
 package model;
 
-public interface ReversiModel {
+public interface ReadOnlyReversiModel {
   String getCardAt(int row, int column);
 
 
