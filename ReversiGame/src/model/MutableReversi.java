@@ -32,7 +32,11 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public String getCurrentTurn() {
-    return null;
+    if(firstPlayersTurn){
+      return "player 1";
+    }else{
+      return "player 2";
+    }
   }
 
   @Override
