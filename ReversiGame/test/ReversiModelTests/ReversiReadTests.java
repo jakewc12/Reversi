@@ -1,3 +1,5 @@
+package ReversiModelTests;
+
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
@@ -11,7 +13,7 @@ import org.junit.Test;
  */
 public class ReversiReadTests {
 
-  private ReadOnlyReversiModel game = new MutableReversi();
+  private ReadOnlyReversiModel game;
 
   @Before
   public void init() {

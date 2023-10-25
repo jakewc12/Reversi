@@ -29,7 +29,7 @@ public class ReversiTextualView implements TextualView {
 
     for (int q = -boardRadius; q < boardRadius; q++) {
       //Append the start with spaces
-      for (int i = Math.abs(q); i < boardRadius; i++) {
+      for (int i = Math.abs(q); i < boardRadius - i; i++) {
         returnString.append(" ");
       }
       for (int r = -boardRadius; r < boardRadius; r++) {
@@ -50,6 +50,9 @@ public class ReversiTextualView implements TextualView {
             default:
               returnString.append("_");
           }
+        }
+        if (q == boardRadius - 1) {
+          returnString.append("\n");
         }
       }
 
