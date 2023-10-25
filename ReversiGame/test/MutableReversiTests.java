@@ -1,8 +1,8 @@
 import model.MutableReversi;
 import model.MutableReversiModel;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.testng.Assert;
 
 /**
  * Test meant for the MutableReversi class. These test should test mutation or edit method and throw

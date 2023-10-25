@@ -1,9 +1,9 @@
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.testng.Assert;
 
 /**
  * Test meant for the ReadOnlyReversiModel class. These test should test read methods and throw
@@ -48,9 +48,12 @@ public class ReversiReadTests {
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {
+          if (q + r + s != 0) {
+            continue;
+          }
           try {
             if (q == 0 && r == 0 && s == 0) {
-              Assert.assertEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
+              Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
             } else if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
               Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
             } else {
@@ -58,13 +61,19 @@ public class ReversiReadTests {
             }
           } catch (Exception e) {
             throw new AssertionError(
-                "An error occurred when getting a disc at q: " + q + " r: " + r + "s: " + s
-                    + "\nException was: " + e);
+                "An error occurred when getting a disc at (Q,R,S): (" + q + ", " + r + ", " + s
+                    + ")\nException was: " + e);
           }
         }
       }
     }
-    Assert.assertEquals(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
+    try {
+      Assert.assertEquals(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
+    } catch (Exception e) {
+      throw new AssertionError(
+          "An error occurred when getting a disc at q: " + 0 + " r: " + 0 + "s: " + 0
+              + "\nException was: " + e);
+    }
   }
 
   @Test
