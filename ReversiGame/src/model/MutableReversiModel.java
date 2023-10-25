@@ -6,14 +6,16 @@ package model;
 public interface MutableReversiModel extends ReadOnlyReversiModel {
 
   /**
-   * Places a disc of the users current turn on the board in a GameCell at coordinates Q,R,S.
-   * @throws IllegalStateException if game isn't started.
+   * Places a disc of the users current turn on the board in a GameCell at coordinates q,r,S.
+   *
+   * @throws IllegalStateException    if game isn't started.
    * @throws IllegalArgumentException if any of the inputs are invalid.
    */
-  void placeDisc(int Q, int R, int S);
+  void placeDisc(int q, int r, int s);
 
   /**
    * Skip the turn of the current player.
+   *
    * @throws IllegalStateException if game isn't started.
    */
   void skipCurrentTurn();

@@ -9,21 +9,20 @@ public interface ReadOnlyReversiModel {
 
   /**
    * returns the disc at the specified coordinate.
-   * @param Q q radius in relation to the center.
-   * @param R r radius in relation to the center.
-   * @param S s radius in relation to the center.
-   * @return disc at specified location.
    *
-   * @throws IllegalStateException if game hasn't started.
+   * @param q q radius in relation to the center.
+   * @param r r radius in relation to the center.
+   * @param s s radius in relation to the center.
+   * @return disc at specified location.
+   * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  Disc getDiscAt(int Q, int R, int S);
+  Disc getDiscAt(int q, int r, int s);
 
   /**
-   * Returns the color of whos turn it is. This is denoted in all caps for example BLACK for black
-   * and WHITE for white.
+   * Returns the color of whos turn it is. This is denoted by DiscColor.
    *
-   * @return a string representing who's turn it currently is.
+   * @return a DiscColor representing who's turn it currently is.
    * @throws IllegalStateException if game hasn't started.
    */
   DiscColor getCurrentTurn();
@@ -48,8 +47,7 @@ public interface ReadOnlyReversiModel {
    * Checks if the game is over by seeing if all the cells are filled or there are new legal moves
    * left.
    *
-   * @return true if the game is over and false if the game is not over and there are legal moves.
-   * left to be played.
+   * @return true if the game is over and false there are legal moves to be played.
    * @throws IllegalStateException if game hasn't started.
    */
   boolean gameOver();
@@ -59,7 +57,7 @@ public interface ReadOnlyReversiModel {
    *
    * @param size is the intended radius of the game, in relation to the center cell.
    * @throws IllegalArgumentException if size is negative.
-   * @throws IllegalStateException if the game has already started.
+   * @throws IllegalStateException    if the game has already started.
    */
   void startGame(int size);
 }

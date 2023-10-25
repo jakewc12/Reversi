@@ -18,6 +18,7 @@ public interface Disc {
    * @return a string representation of this discs color. BLACK for black, WHITE for white.
    */
   DiscColor getColor();
+
   /**
    * Returns the current color of this disc as a string.
    *

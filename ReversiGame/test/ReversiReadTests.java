@@ -35,6 +35,18 @@ public class ReversiReadTests {
     Assert.assertEquals(5, game.getBoardRadius());
   }
 
+  @Test
+  public void gameOverFalseAtGameStart() {
+    game.startGame(5);
+    Assert.assertFalse(game.gameOver());
+  }
+
+  @Test
+  public void getTurnBlackOnStart() {
+    game.startGame(5);
+    Assert.assertEquals(DiscColor.BLACK, game.getCurrentTurn());
+  }
+
   //Tests game start methods
 
   /**
@@ -48,6 +60,7 @@ public class ReversiReadTests {
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {
+          //valid tile should coordinates should equal zero and be within bounds of abs(radius)
           if (q + r + s != 0) {
             continue;
           }
