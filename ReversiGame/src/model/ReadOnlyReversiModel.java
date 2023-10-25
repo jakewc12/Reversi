@@ -23,6 +23,14 @@ public interface ReadOnlyReversiModel {
   int getBoardSize();
 
   /**
+   * Gets the radius from the center of the board to an outside edge without including the center
+   * tile.
+   *
+   * @return the total width of the board including empty cells.
+   */
+  int getBoardRadius();
+
+  /**
    * Checks if the game is over by seeing if all the cells are filled or there are new legal moves
    * left.
    *
