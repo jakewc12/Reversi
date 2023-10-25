@@ -1,8 +1,8 @@
 package model;
 
 /**
- * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board
- * called the origin which is located halfway down and halfway from the side.
+ * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
+ * the origin which is located halfway down and halfway from the side.
  *
  * <p>Q decrease when going left of the origin and increases when going right of the origin.
  *
@@ -10,8 +10,7 @@ package model;
  *
  * <p>S decrease when going right of the origin and increases when going left of the origin.
  *
- * <p>A more detailed explanation is shown below.
- * <p><ahref="https://www.redblobgames.com/grids/hexagons/">...</a>.
+ * <p>A more detailed explanation is shown here https://www.redblobgames.com/grids/hexagons/.
  */
 public interface HexagonCell {
 
@@ -20,29 +19,29 @@ public interface HexagonCell {
    *
    * @return the disc inside this cell.
    */
-  GameDisc cellContents();
+  Disc cellContents();
 
   /**
    * Gets the Q coordinate of this cell.
    *
    * @return an integer that decrease when going left of the origin and increases when going right
-   * of the origin.
+   *          of the origin.
    */
-  int getQ();
+  int getCoordinateQ();
 
   /**
    * Gets the R coordinate of this cell.
    *
    * @return an integer decreases when going up a row from the origin and increases when going down
-   * a row.
+   *        a row.
    */
-  int getR();
+  int getCoordinateR();
 
   /**
    * Gets the S coordinate of this cell.
    *
    * @return an integer that decrease when going right of the origin and increases when going left
-   * of the origin.
+   *        of the origin.
    */
-  int getS();
+  int getCoordinateS();
 }

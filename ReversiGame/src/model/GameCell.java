@@ -1,36 +1,52 @@
 package model;
 
-public class GameCell implements HexagonCell{
-  private GameDisc contents;
-  private final int qCoordinate;
-  private final int rCoordinate;
-  private final int sCoordinate;
+/**
+ * A class meant to represent a hexagonal cell on a reversi board.
+ */
+public class GameCell implements HexagonCell {
 
-  public GameCell(GameDisc contents, int qCoordinate, int rCoordinate, int sCoordinate){
+  private final Disc contents;
+  private final int coordinateQ;
+  private final int coordinateR;
+  private final int coordinateS;
+
+  /**
+   * Creates a new Game Cell which can hold Discs.
+   *
+   * @param contents    the contents of the cell which can be null or a class from the disc
+   *                    interface.
+   * @param coordinateQ an integer that decrease when going left of the origin and increases when
+   *                    going right of the origin.
+   * @param coordinateR an integer decreases when going up a row from the origin and increases when
+   *                    going down a row.
+   * @param coordinateS the coordinate that decrease when going right of the origin and increases *
+   *                    when going left of the origin.
+   */
+  public GameCell(Disc contents, int coordinateQ, int coordinateR, int coordinateS) {
 
     this.contents = contents;
-    this.qCoordinate = qCoordinate;
-    this.rCoordinate = rCoordinate;
-    this.sCoordinate = sCoordinate;
+    this.coordinateQ = coordinateQ;
+    this.coordinateR = coordinateR;
+    this.coordinateS = coordinateS;
   }
 
   @Override
-  public GameDisc cellContents() {
+  public Disc cellContents() {
     return contents;
   }
 
   @Override
-  public int getQ() {
-    return qCoordinate;
+  public int getCoordinateQ() {
+    return coordinateQ;
   }
 
   @Override
-  public int getR() {
-    return rCoordinate;
+  public int getCoordinateR() {
+    return coordinateR;
   }
 
   @Override
-  public int getS() {
-    return sCoordinate;
+  public int getCoordinateS() {
+    return coordinateS;
   }
 }

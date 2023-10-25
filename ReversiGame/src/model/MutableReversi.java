@@ -5,10 +5,11 @@ import java.util.List;
 import model.GameDisc.DiscColor;
 
 /**
- * Meant to simulate the logic of a game of reversi. The game of reversi does not start until
- * start game is called with an adequate board size.
+ * Meant to simulate the logic of a game of reversi. The game of reversi does not start until start
+ * game is called with an adequate board size.
  */
 public class MutableReversi implements MutableReversiModel {
+
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean firstPlayersTurn;
   //width is how far from the center cell every edge cell is
@@ -35,8 +36,8 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
-  private void checkValidCoordinates(int Q, int R, int S) {
-    if (Math.abs(Q) > size || Math.abs(R) > size || Math.abs(S) > size) {
+  private void checkValidCoordinates(int q, int r, int s) {
+    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size) {
       throw new IllegalArgumentException("Invalid coordinates given");
     }
   }
@@ -48,18 +49,18 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   /**
-   * Size is means the distance from an edge cell to the middle most cell.
-   * for example, if a board has a height of 7 cells, size would be 3 cells.
+   * Size is means the distance from an edge cell to the middle most cell. for example, if a board
+   * has a height of 7 cells, size would be 3 cells.
    */
   private void createAllCells() {
     for (int q = -size; q < size; q++) {
       for (int r = -size; r < size; r++) {
         for (int s = -size; s < size; s++) {
-          if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1)
-                  || (q == -1 && r == 1 && s == 0)) {
+          if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
+              && s == 0)) {
             cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s));
-          } else if ((q == 1 && r == -1 && s == 0) || (q == -1 && r == 0 && s == 1)
-                  || (q == 0 && r == 1 && s == -1)) {
+          } else if ((q == 1 && r == -1 && s == 0) || (q == -1 && r == 0 && s == 1) || (q == 0
+              && r == 1 && s == -1)) {
             cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s));
           } else {
             cells.add(new GameCell(new GameDisc(null), q, r, s));
@@ -69,17 +70,17 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
-  private boolean checkLegalMove(int Q, int R, int S) {
+  private boolean checkLegalMove(int q, int r, int s) {
     return false;
   }
 
 
   @Override
-  public void placeDisc(int Q, int R, int S) {
+  public void placeDisc(int q, int r, int s) {
     checkGameStarted();
-    checkValidCoordinates(Q, R, S);
-    if (!checkLegalMove(Q, R, S)) {
-      throw new IllegalStateException("Illegal move when inputting " + Q + ", " + R + ", " + S);
+    checkValidCoordinates(q, r, s);
+    if (!checkLegalMove(q, r, s)) {
+      throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
     //TODO: make the move if it's legal
   }
@@ -91,12 +92,12 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public Disc getDiscAt(int Q, int R, int S) {
+  public Disc getDiscAt(int q, int r, int s) {
     checkGameStarted();
 
     //is there an efficient way of traversing the list? if we use Q,R,S to get the disc, it would
     //quite possibly take O(n) time.
-    checkValidCoordinates(Q, R, S);
+    checkValidCoordinates(q, r, s);
     return null;
   }
 
