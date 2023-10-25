@@ -1,8 +1,8 @@
 package model;
 
 /**
- * A reversi disc that is either Black or white if a player has placed a piece. Grey if a player
- * has not placed a piece.
+ * A reversi disc that is either Black or white if a player has placed a piece. Grey if a player has
+ * not placed a piece.
  */
 public class GameDisc implements Disc {
 
@@ -29,7 +29,7 @@ public class GameDisc implements Disc {
   }
 
   public enum DiscColor {
-    BLACK("BLACK"), WHITE("WHITE"), GREY("GREY"), HIGHLIGHTED("HIGHLIGHTED");
+    BLACK("BLACK"), WHITE("WHITE");
     public final String asString;
 
     DiscColor(String asString) {
