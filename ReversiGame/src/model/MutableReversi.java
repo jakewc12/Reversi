@@ -89,7 +89,6 @@ public class MutableReversi implements MutableReversiModel {
       return "player 2";
     }
   }
-
   @Override
   public int getBoardSize() {
     checkGameStarted();
@@ -105,6 +104,8 @@ public class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     return false;
   }
+
+
 
 
 }
