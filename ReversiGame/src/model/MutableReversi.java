@@ -47,7 +47,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   /**
-   * Size is means the distince from an edge cell to the middle most cell.
+   * Size is means the distance from an edge cell to the middle most cell.
    * for example, if a board has a height of 7 cells, size would be 3 cells.
    */
   private void createAllCells() {
