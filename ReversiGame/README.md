@@ -1,0 +1,1 @@
+Board coordinate design is based on https://www.redblobgames.com/grids/hexagons/

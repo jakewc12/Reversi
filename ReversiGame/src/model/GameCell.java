@@ -49,4 +49,9 @@ public class GameCell implements HexagonCell {
   public int getCoordinateS() {
     return coordinateS;
   }
+
+  @Override
+  public String toString() {
+    return "(" + coordinateQ + ", " + coordinateR + ", " + coordinateS + ")";
+  }
 }

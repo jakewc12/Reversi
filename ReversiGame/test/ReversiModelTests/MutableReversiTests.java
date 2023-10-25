@@ -1,8 +1,13 @@
+package ReversiModelTests;
+
+import model.GameCell;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception

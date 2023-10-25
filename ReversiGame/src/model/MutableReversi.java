@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.GameDisc.DiscColor;
 
 /**
@@ -15,6 +16,8 @@ public class MutableReversi implements MutableReversiModel {
   //width is how far from the center cell every edge cell is
   private int size;
   private boolean gameStarted;
+  private List<GameCell> blackCells = new ArrayList<>();
+  private List<GameCell> whiteCells = new ArrayList<>();
   private List<GameCell> cells = new ArrayList<>();
 
   public MutableReversi() {
@@ -31,7 +34,6 @@ public class MutableReversi implements MutableReversiModel {
     }
     this.size = size;
     createAllCells();
-    //initalize cells
     firstPlayersTurn = true;
     gameStarted = true;
   }
@@ -49,21 +51,39 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   /**
+   * checks to see if all of the cells in the board have a BLACK or WHITE disc.
+   *
+   * @return false if any cell in cells has a grey disc, else returns true.
+   */
+  private boolean checkIfAllCellsFilled() {
+    for (GameCell cell : cells) {
+      if (cell.cellContents().getColor() != DiscColor.GREY) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
    * Size is means the distance from an edge cell to the middle most cell. for example, if a board
    * has a height of 7 cells, size would be 3 cells.
    */
   private void createAllCells() {
-    for (int q = -size; q < size; q++) {
-      for (int r = -size; r < size; r++) {
-        for (int s = -size; s < size; s++) {
-          if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
-              && s == 0)) {
-            cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s));
-          } else if ((q == 1 && r == -1 && s == 0) || (q == -1 && r == 0 && s == 1) || (q == 0
-              && r == 1 && s == -1)) {
-            cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s));
-          } else {
-            cells.add(new GameCell(new GameDisc(null), q, r, s));
+    for (int q = -size; q <= size; q++) {
+      for (int r = -size; r <= size; r++) {
+        for (int s = -size; s <= size; s++) {
+          if (q + r + s ==0) {
+            if (q == 0 && r == -1 && s == 1 || q == 1 && r == 0 && s == -1) {
+              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
+              cells.add(newCell);
+              blackCells.add(newCell);
+            } else if (q == 1 && r == -1 && s == 0 || q == 0 && r == 1 && s == -1) {
+              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
+              cells.add(newCell);
+              whiteCells.add(newCell);
+            } else {
+              cells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
+            }
           }
         }
       }
@@ -71,7 +91,20 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private boolean checkLegalMove(int q, int r, int s) {
+    //we need to check if there are any of the same color tiles on each plane, horizontal, vertical, or diagonal
     return false;
+  }
+
+  private List<GameCell> getAllCellsInSamePlaneQ(int planeQ) {
+    List<GameCell> cellsInPlane = new ArrayList<>();
+    for (GameCell cell : cells) {
+      if (cell.getCoordinateQ() == planeQ) {
+        if (cell.cellContents().getColor() != DiscColor.GREY) {
+          cellsInPlane.add(cell);
+        }
+      }
+    }
+    return cellsInPlane;
   }
 
 
@@ -126,6 +159,12 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public boolean gameOver() {
     checkGameStarted();
+    if (checkIfAllCellsFilled()) {
+      return true;
+    }
+    if (blackCells.size() == 0 || whiteCells.size() == 0) {
+      return true;
+    }
     return false;
   }
 }
