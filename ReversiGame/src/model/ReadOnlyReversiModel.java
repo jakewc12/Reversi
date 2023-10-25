@@ -20,14 +20,14 @@ public interface ReadOnlyReversiModel {
    *
    * @return the total height of the board including empty cells.
    */
-  int getBoardHeight();
+  int getBoardSize();
 
   /**
-   * Gets the total width of the board.
+   * Gets the radius of the board from the center cell, not including it.
    *
    * @return the total width of the board including empty cells.
    */
-  int getBoardWidth();
+  int getBoardRadius();
 
   /**
    * Checks if the game is over by seeing if all the cells are filled or there are new legal moves
@@ -40,6 +40,10 @@ public interface ReadOnlyReversiModel {
 
   /**
    * Initializes all values
+   *
+   * @param size is the intended radius of the game, in relation to the center cell
+   * @throws IllegalArgumentException if size is negative
+   * @throws IllegalStateException if the game has already started
    */
-  void startGame();
+  void startGame(int size);
 }
