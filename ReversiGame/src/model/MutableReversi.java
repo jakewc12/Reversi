@@ -94,7 +94,6 @@ public class MutableReversi implements MutableReversiModel {
       return DiscColor.WHITE;
     }
   }
-
   @Override
   public int getBoardSize() {
     checkGameStarted();
@@ -109,6 +108,8 @@ public class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     return false;
   }
+
+
 
 
 }
