@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.GameDisc.DiscColor;
 
@@ -13,7 +14,7 @@ public class MutableReversi implements MutableReversiModel {
   //width is how far from the center cell every edge cell is
   private int size;
   private boolean gameStarted;
-  private List<GameCell> cells;
+  private List<GameCell> cells = new ArrayList<>();
 
   public MutableReversi() {
     gameStarted = false;
@@ -61,7 +62,7 @@ public class MutableReversi implements MutableReversiModel {
                   || (q == 0 && r == 1 && s == -1)) {
             cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s));
           } else {
-            cells.add(new GameCell(new GameDisc(GameDisc.DiscColor.GREY), q, r, s));
+            cells.add(new GameCell(new GameDisc(null), q, r, s));
           }
         }
       }
