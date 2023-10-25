@@ -1,9 +1,14 @@
 package model;
 
 import java.util.List;
+import model.GameDisc.DiscColor;
 
+/**
+ * Meant to simulate the logic of a game of reversi. The game of reversi does not start until
+ * start game is called with an adequate board size.
+ */
 public class MutableReversi implements MutableReversiModel {
-  //true if it's player 1s turn, false if it's player 2s turn
+  //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean firstPlayersTurn;
   //width is how far from the center cell every edge cell is
   private int size;
@@ -95,19 +100,18 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public String getCurrentTurn() {
+  public DiscColor getCurrentTurn() {
     checkGameStarted();
     if (firstPlayersTurn) {
-      return "player 1";
+      return DiscColor.BLACK;
     } else {
-      return "player 2";
+      return DiscColor.WHITE;
     }
   }
 
   @Override
   public int getBoardSize() {
     checkGameStarted();
-    //from top to bottom
     return getBoardRadius() * 2 + 1;
   }
 
