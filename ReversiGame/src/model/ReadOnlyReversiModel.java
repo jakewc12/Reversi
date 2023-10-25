@@ -1,7 +1,5 @@
 package model;
 
-import model.GameDisc.DiscColor;
-
 /**
  * Anything observable about a reversi game should be included here.
  */
@@ -10,23 +8,22 @@ public interface ReadOnlyReversiModel {
   Disc getDiscAt(int Q, int R, int S);
 
   /**
-   * Returns the color of whose turn it is.
+   * Returns the color of whos turn it is. This is denoted in all caps for example BLACK for black
+   * and WHITE for white.
    *
-   * @return a DiscColor representing which colors turn it is. For example if its whites turn it
-   * would return DiscColor.WHITE.
+   * @return a string representing who's turn it currently is.
    */
-  DiscColor getCurrentTurn();
+  String getCurrentTurn();
 
   /**
-   * Gets the total width of the board.
+   * Gets the total height of the board.
    *
-   * @return the total width of the board including empty cells.
+   * @return the total height of the board including empty cells.
    */
   int getBoardSize();
 
   /**
-   * Gets the radius from the center of the board to an outside edge without including the center
-   * tile.
+   * Gets the radius of the board from the center cell, not including it.
    *
    * @return the total width of the board including empty cells.
    */
@@ -42,9 +39,11 @@ public interface ReadOnlyReversiModel {
   boolean gameOver();
 
   /**
-   * Starts the game of reversi by initializing all the values and creating a board of radius size
-   * not including the origin. For example if a size of 4 was inputted then the total board size
-   * would be 11. Start game also sets the first player to black.
+   * Initializes all values
+   *
+   * @param size is the intended radius of the game, in relation to the center cell
+   * @throws IllegalArgumentException if size is negative
+   * @throws IllegalStateException if the game has already started
    */
   void startGame(int size);
 }
