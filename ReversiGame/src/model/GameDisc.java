@@ -6,7 +6,7 @@ package model;
  */
 public class GameDisc implements Disc {
 
-  private final DiscColor color;
+  private DiscColor color;
 
 
   public GameDisc(DiscColor color) {
@@ -14,8 +14,8 @@ public class GameDisc implements Disc {
   }
 
   @Override
-  public void flipColor() {
-
+  public void flipColor(DiscColor color) {
+    this.color = color;
   }
 
   @Override

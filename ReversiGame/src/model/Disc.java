@@ -10,7 +10,7 @@ public interface Disc {
   /**
    * Changes the current color to the opposite.
    */
-  void flipColor();
+  void flipColor(DiscColor color);
 
   /**
    * Returns the current color of this disc.

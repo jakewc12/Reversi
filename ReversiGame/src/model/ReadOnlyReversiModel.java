@@ -16,18 +16,11 @@ public interface ReadOnlyReversiModel {
   String getCurrentTurn();
 
   /**
-   * Gets the total height of the board.
-   *
-   * @return the total height of the board including empty cells.
-   */
-  int getBoardHeight();
-
-  /**
    * Gets the total width of the board.
    *
    * @return the total width of the board including empty cells.
    */
-  int getBoardWidth();
+  int getBoardSize();
 
   /**
    * Checks if the game is over by seeing if all the cells are filled or there are new legal moves
@@ -41,5 +34,5 @@ public interface ReadOnlyReversiModel {
   /**
    * Initializes all values
    */
-  void startGame();
+  void startGame(int size);
 }
