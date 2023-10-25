@@ -1,8 +1,9 @@
+import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.testng.Assert;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -46,14 +47,14 @@ public class MutableReversiTests {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {
           if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
-            Assert.assertNotNull(game.getDiscAt(q, r, s).getColor());
+            Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
           } else {
-            Assert.assertNull(game.getDiscAt(q, r, s).getColor());
+            Assert.assertEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
           }
         }
       }
     }
-    Assert.assertNull(game.getDiscAt(0, 0, 0).getColor());
+    Assert.assertEquals(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
   }
 
   @Test
