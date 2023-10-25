@@ -130,7 +130,6 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public Disc getDiscAt(int q, int r, int s) {
     checkGameStarted();
-
     //is there an efficient way of traversing the list? if we use Q,R,S to get the disc, it would
     //quite possibly take O(n) time.
     checkValidCoordinates(q, r, s);
