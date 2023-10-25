@@ -42,6 +42,7 @@ public class ReversiReadTests {
     game.startGame(5);
     Assert.assertFalse(game.gameOver());
   }
+
   @Test
   public void gameOverTrueOnOneByOneBoard() {
     game.startGame(1);

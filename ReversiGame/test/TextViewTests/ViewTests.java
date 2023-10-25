@@ -1,14 +1,10 @@
 package TextViewTests;
 
-import model.GameCell;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
-
 import view.ReversiTextualView;
 import view.TextualView;
 
@@ -31,9 +27,8 @@ public class ViewTests {
 
   @Test
   public void testTextViewOnStart() {
-    game.startGame(3);
+    game.startGame(5);
     tv = new ReversiTextualView(game, out);
-    System.out.println(tv.toString());
     String[] lines = out.toString().split("\n");
     String[] blackTokenCount = out.toString().split("X");
     String[] whiteTokenCount = out.toString().split("O");
