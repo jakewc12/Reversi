@@ -5,6 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testng.Assert;
 
+/**
+ * Test meant for the MutableReversi class. These test should test every method and thrown exception
+ * inside the class.
+ */
 public class MutableReversiTests {
 
   private MutableReversiModel game = new MutableReversi();
@@ -67,11 +71,23 @@ public class MutableReversiTests {
           int finalQ = q;
           int finalR = r;
           int finalS = s;
-          Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(finalQ, finalR,
-              finalS));
+          Assert.assertThrows(IllegalStateException.class,
+              () -> game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
+  }
+
+  @Test
+  public void cannotPlaceGameDiscOffBoard() {
+    game.startGame(5);
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(6, 6, 6));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(5, 5, 6));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, 0, 6));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(-6, 5, 5));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(-6, 0, 0));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, -6, 0));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, 0, -6));
   }
 
   @Test
