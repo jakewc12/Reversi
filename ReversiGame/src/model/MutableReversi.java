@@ -6,12 +6,12 @@ public class MutableReversi implements MutableReversiModel {
   //true if it's player 1s turn, false if it's player 2s turn
   private boolean firstPlayersTurn;
   //width is how far from the center cell every edge cell is
-  private final int size;
+  private int size;
   private boolean gameStarted;
   private List<GameCell> cells;
 
-  public MutableReversi(int size) {
-    this.size = size;
+  public MutableReversi() {
+    gameStarted = false;
   }
 
   private void checkValidCoordinates(int Q, int R, int S) {
@@ -26,15 +26,32 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
+  /**
+   * Size is means the distince from an edge cell to the middle most cell.
+   * for example, if a board has a height of 7 cells, size would be 3 cells.
+   */
   private void createAllCells() {
+    for(int q = -size; q <size; q++){
+      for(int r = -size; r < size; r++){
+        for(int s = -size; s < size; s++){
 
+        }
+      }
+    }
   }
 
+  private void checkLegalMove(int Q, int R, int S){
+
+  }
   @Override
-  public void startGame() {
+  public void startGame(int size) {
     if (gameStarted) {
       throw new IllegalStateException("Game already started");
     }
+    if(size<=0){
+      throw new IllegalArgumentException("Invalid size given");
+    }
+    this.size = size;
     //initalize cells
     firstPlayersTurn = true;
     gameStarted = true;
