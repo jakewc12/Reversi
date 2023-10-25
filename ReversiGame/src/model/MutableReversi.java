@@ -90,6 +90,9 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
+  public List<GameCell> getCells() {
+    return cells;
+  }
   private boolean checkLegalMove(int q, int r, int s) {
     //we need to check if there are any of the same color tiles on each plane, horizontal, vertical, or diagonal
     return false;
@@ -131,6 +134,11 @@ public class MutableReversi implements MutableReversiModel {
     //is there an efficient way of traversing the list? if we use Q,R,S to get the disc, it would
     //quite possibly take O(n) time.
     checkValidCoordinates(q, r, s);
+    for(GameCell cell : cells){
+      if(cell.getCoordinateQ()==q && cell.getCoordinateR()==r&& cell.getCoordinateS()==s){
+        return cell.cellContents();
+      }
+    }
     return null;
   }
 

@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+
 import model.ReadOnlyReversiModel;
 
 /**
