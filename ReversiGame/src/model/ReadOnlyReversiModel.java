@@ -1,5 +1,7 @@
 package model;
 
+import model.GameDisc.DiscColor;
+
 /**
  * Anything observable about a reversi game should be included here.
  */
@@ -24,7 +26,7 @@ public interface ReadOnlyReversiModel {
    * @return a string representing who's turn it currently is.
    * @throws IllegalStateException if game hasn't started.
    */
-  String getCurrentTurn();
+  DiscColor getCurrentTurn();
 
   /**
    * Gets the total height of the board.
