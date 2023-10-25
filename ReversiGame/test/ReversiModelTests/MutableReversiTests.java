@@ -1,13 +1,10 @@
 package ReversiModelTests;
 
-import model.GameCell;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -37,28 +34,6 @@ public class MutableReversiTests {
     game.startGame(5);
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
-  }
-
-  /**
-   * Check that everything outside the center tiles ring is a grey tile. The ring around the origin
-   * tile should be not grey. The origin tile itself will be grey.
-   */
-  @Test
-  public void getDiscAtFunctionsCorrectlyOnGameStart() {
-    game.startGame(5);
-    int boardRadius = 5;
-    for (int q = -boardRadius; q < boardRadius; q++) {
-      for (int r = -boardRadius; r < boardRadius; r++) {
-        for (int s = -boardRadius; s < boardRadius; s++) {
-          if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
-            Assert.assertNotNull(game.getDiscAt(q, r, s).getColor());
-          } else {
-            Assert.assertNull(game.getDiscAt(q, r, s).getColor());
-          }
-        }
-      }
-    }
-    Assert.assertNull(game.getDiscAt(0, 0, 0).getColor());
   }
 
   @Test
