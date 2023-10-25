@@ -5,6 +5,16 @@ package model;
  */
 public interface ReadOnlyReversiModel {
 
+  /**
+   * returns the disc at the specified coordinate
+   * @param Q q radius in relation to the center
+   * @param R r radius in relation to the center
+   * @param S s radius in relation to the center
+   * @return disc at specified location
+   *
+   * @throws IllegalStateException if game hasn't started
+   * @throws IllegalArgumentException coordinates are illegal
+   */
   Disc getDiscAt(int Q, int R, int S);
 
   /**
@@ -12,6 +22,7 @@ public interface ReadOnlyReversiModel {
    * and WHITE for white.
    *
    * @return a string representing who's turn it currently is.
+   * @throws IllegalStateException if game hasn't started
    */
   String getCurrentTurn();
 
@@ -19,6 +30,7 @@ public interface ReadOnlyReversiModel {
    * Gets the total height of the board.
    *
    * @return the total height of the board including empty cells.
+   * @throws IllegalStateException if game hasn't started
    */
   int getBoardSize();
 
@@ -26,6 +38,7 @@ public interface ReadOnlyReversiModel {
    * Gets the radius of the board from the center cell, not including it.
    *
    * @return the total width of the board including empty cells.
+   * @throws IllegalStateException if game hasn't started
    */
   int getBoardRadius();
 
@@ -35,6 +48,7 @@ public interface ReadOnlyReversiModel {
    *
    * @return true if the game is over and false if the game is not over and there are legal moves
    * left to be played.
+   * @throws IllegalStateException if game hasn't started
    */
   boolean gameOver();
 
