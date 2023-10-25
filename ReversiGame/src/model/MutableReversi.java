@@ -13,6 +13,19 @@ public class MutableReversi implements MutableReversiModel {
   public MutableReversi() {
     gameStarted = false;
   }
+  @Override
+  public void startGame(int size) {
+    if (gameStarted) {
+      throw new IllegalStateException("Game already started");
+    }
+    if(size<=0){
+      throw new IllegalArgumentException("Invalid size given");
+    }
+    this.size = size;
+    //initalize cells
+    firstPlayersTurn = true;
+    gameStarted = true;
+  }
 
   private void checkValidCoordinates(int Q, int R, int S) {
     if (Math.abs(Q) > size || Math.abs(R) > size || Math.abs(S) > size) {
@@ -43,19 +56,7 @@ public class MutableReversi implements MutableReversiModel {
   private void checkLegalMove(int Q, int R, int S){
 
   }
-  @Override
-  public void startGame(int size) {
-    if (gameStarted) {
-      throw new IllegalStateException("Game already started");
-    }
-    if(size<=0){
-      throw new IllegalArgumentException("Invalid size given");
-    }
-    this.size = size;
-    //initalize cells
-    firstPlayersTurn = true;
-    gameStarted = true;
-  }
+
 
   @Override
   public void placeDisc(int Q, int R, int S) {
@@ -93,12 +94,17 @@ public class MutableReversi implements MutableReversiModel {
   public int getBoardSize() {
     checkGameStarted();
     //from top to bottom
-    return size * 2 + 1;
+    return getBoardRadius() * 2 + 1;
   }
-
+  @Override
+  public int getBoardRadius(){
+    return size;
+  }
   @Override
   public boolean gameOver() {
     checkGameStarted();
     return false;
   }
+
+
 }
