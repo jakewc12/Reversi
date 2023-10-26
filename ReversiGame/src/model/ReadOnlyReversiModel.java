@@ -8,7 +8,7 @@ import model.GameDisc.DiscColor;
 public interface ReadOnlyReversiModel {
 
   /**
-   * returns the disc at the specified coordinate.
+   * returns the disc color at the specified coordinate.
    *
    * @param q q radius in relation to the center.
    * @param r r radius in relation to the center.
@@ -17,7 +17,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  Disc getDiscAt(int q, int r, int s);
+  DiscColor getColorAt(int q, int r, int s);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.

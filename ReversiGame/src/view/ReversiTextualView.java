@@ -40,7 +40,7 @@ public class ReversiTextualView implements TextualView {
             continue;
           }
           //If its black place an X, if white place an O, otherwise do underscore.
-          switch (model.getDiscAt(qq, rr, ss).getColor()) {
+          switch (model.getColorAt(qq, rr, ss)) {
             case BLACK:
               returnString.append("X");
               break;

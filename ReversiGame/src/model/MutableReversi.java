@@ -98,10 +98,7 @@ public class MutableReversi implements MutableReversiModel {
   private boolean movePossibleInLine(List<GameCell> line) {
     DiscColor currentColor = getCurrentTurn();
     int count = 0;
-    System.out.println("Current turn: " + getCurrentTurn());
-    System.out.println("New line: ");
     for (GameCell cell : line) {
-      System.out.println(cell.cellContents());
       if (count == 0 && cell.cellContents().getColor() == currentColor) {
         count = 1;
         continue;
@@ -115,7 +112,7 @@ public class MutableReversi implements MutableReversiModel {
         count = 0;
         continue;
       }
-      if (count > 0 && cell.cellContents().getColor() == currentColor) {
+      if (count > 1 && cell.cellContents().getColor() == currentColor) {
         return true;
       }
     }
@@ -126,10 +123,8 @@ public class MutableReversi implements MutableReversiModel {
     DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
-    //System.out.println("New line: ");
     int count = 0;
     for (GameCell cell : line) {
-      //System.out.println(cell.cellContents());
       if (count == 0 && cell.cellContents().getColor() == currentColor) {
         count = 1;
       }
@@ -142,7 +137,7 @@ public class MutableReversi implements MutableReversiModel {
         count = 0;
         current.clear();
       }
-      if (count > 0 && cell.cellContents().getColor() == currentColor) {
+      if (count > 1 && cell.cellContents().getColor() == currentColor) {
         toFlip.addAll(current);
         count = 1;
         current.clear();
@@ -213,17 +208,17 @@ public class MutableReversi implements MutableReversiModel {
   public void placeDisc(int q, int r, int s) {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
-    if (getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
+    if (this.getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
       throw new IllegalStateException("Cannot place a disc on an occupied disk");
     }
-    getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
+    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (!checkLegalMove(q, r, s)) {
-      getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
+      this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
     ArrayList<Disc> flipDiscs = getAllFlips(q, r, s);
 
-    getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
+    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     System.out.println(flipDiscs);
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
@@ -237,8 +232,7 @@ public class MutableReversi implements MutableReversiModel {
     firstPlayersTurn = !firstPlayersTurn;
   }
 
-  @Override
-  public Disc getDiscAt(int q, int r, int s) {
+  private Disc getDiscAt(int q, int r, int s) {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
     for (GameCell cell : cells) {
@@ -247,6 +241,13 @@ public class MutableReversi implements MutableReversiModel {
       }
     }
     return null;
+  }
+
+  @Override
+  public DiscColor getColorAt(int q, int r, int s) {
+    checkGameStarted();
+    checkValidCoordinates(q, r, s);
+    return getDiscAt(q, r, s).getColor();
   }
 
   @Override

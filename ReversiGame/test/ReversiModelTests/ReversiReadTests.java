@@ -74,11 +74,11 @@ public class ReversiReadTests {
           }
           try {
             if (q == 0 && r == 0 && s == 0) {
-              Assert.assertEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(q, r, s));
             } else if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
-              Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
+              Assert.assertNotEquals(DiscColor.GREY, game.getColorAt(q, r, s));
             } else {
-              Assert.assertEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(q, r, s));
             }
           } catch (Exception e) {
             throw new AssertionError(
@@ -89,7 +89,7 @@ public class ReversiReadTests {
       }
     }
     try {
-      Assert.assertEquals(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
+      Assert.assertEquals(DiscColor.GREY, game.getColorAt(0, 0, 0));
     } catch (Exception e) {
       throw new AssertionError(
           "An error occurred when getting a disc at q: " + 0 + " r: " + 0 + "s: " + 0
@@ -99,7 +99,7 @@ public class ReversiReadTests {
 
   @Test
   public void nothingInReadFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class, () -> game.getDiscAt(0, 0, 0));
+    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
     Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());

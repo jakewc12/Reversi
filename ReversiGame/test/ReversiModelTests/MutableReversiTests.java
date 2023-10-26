@@ -6,6 +6,8 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import view.ReversiTextualView;
+import view.TextualView;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -40,7 +42,7 @@ public class MutableReversiTests {
   @Test
   public void cannotPlaceGameDiscOnGameDisc() {
     game.startGame(5);
-    Assert.assertSame(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
+    Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     for (int q = -1; q <= 1; q++) {
       for (int r = -1; r <= 1; r++) {
         for (int s = -1; s <= 1; s++) {
@@ -74,13 +76,25 @@ public class MutableReversiTests {
 
   @Test
   public void nothingFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class, () -> game.getDiscAt(0, 0, 0));
+    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.skipCurrentTurn());
     Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
     Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardRadius());
+  }
+
+  @Test
+  public void cannotPlaceIllegalDiscs() {
+    TextualView tv = new ReversiTextualView(game);
+    game.startGame(5);
+    System.out.println(tv);
+    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
+    System.out.println(tv);
+    Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
+    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(4, -2, -2));
+    Assert.assertSame(DiscColor.GREY, game.getColorAt(4, -2, -2));
   }
 
   @Test
