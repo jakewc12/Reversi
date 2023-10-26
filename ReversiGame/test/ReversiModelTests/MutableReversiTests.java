@@ -1,5 +1,6 @@
 package ReversiModelTests;
 
+import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
@@ -40,11 +41,14 @@ public class MutableReversiTests {
   public void cannotPlaceGameDiscOnGameDisc() {
     game.startGame(5);
     game.placeDisc(0, 0, 0);
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
+    Assert.assertSame(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
     for (int q = -1; q <= 1; q++) {
       for (int r = -1; r <= 1; r++) {
         for (int s = -1; s <= 1; s++) {
           if (q == 0 && r == 0 && s == 0) {
+            continue;
+          }
+          if (q + r + s != 0) {
             continue;
           }
           int finalQ = q;

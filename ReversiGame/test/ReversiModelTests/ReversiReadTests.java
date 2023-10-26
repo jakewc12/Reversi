@@ -74,7 +74,7 @@ public class ReversiReadTests {
           }
           try {
             if (q == 0 && r == 0 && s == 0) {
-              Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
+              Assert.assertEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
             } else if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
               Assert.assertNotEquals(DiscColor.GREY, game.getDiscAt(q, r, s).getColor());
             } else {
