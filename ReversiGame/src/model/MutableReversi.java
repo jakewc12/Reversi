@@ -98,16 +98,22 @@ public class MutableReversi implements MutableReversiModel {
   private boolean movePossibleInLine(List<GameCell> line) {
     DiscColor currentColor = getCurrentTurn();
     int count = 0;
+    System.out.println("Current turn: " + getCurrentTurn());
+    System.out.println("New line: ");
     for (GameCell cell : line) {
+      System.out.println(cell.cellContents());
       if (count == 0 && cell.cellContents().getColor() == currentColor) {
         count = 1;
+        continue;
       }
       if (cell.cellContents().getColor() != currentColor
           && cell.cellContents().getColor() != DiscColor.GREY && count >= 1) {
         count++;
+        continue;
       }
       if (cell.cellContents().getColor() == DiscColor.GREY) {
         count = 0;
+        continue;
       }
       if (count > 0 && cell.cellContents().getColor() == currentColor) {
         return true;
@@ -119,39 +125,42 @@ public class MutableReversi implements MutableReversiModel {
   private ArrayList<Disc> getInLineFlipsPossible(List<GameCell> line) {
     DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
+    ArrayList<Disc> current = new ArrayList<>();
+    //System.out.println("New line: ");
     int count = 0;
     for (GameCell cell : line) {
+      //System.out.println(cell.cellContents());
       if (count == 0 && cell.cellContents().getColor() == currentColor) {
         count = 1;
       }
       if (cell.cellContents().getColor() != currentColor
           && cell.cellContents().getColor() != DiscColor.GREY && count >= 1) {
         count++;
-        toFlip.add(cell.cellContents());
+        current.add(cell.cellContents());
       }
       if (cell.cellContents().getColor() == DiscColor.GREY) {
         count = 0;
-        toFlip.clear();
+        current.clear();
       }
       if (count > 0 && cell.cellContents().getColor() == currentColor) {
-        return toFlip;
+        toFlip.addAll(current);
+        count = 1;
+        current.clear();
       }
     }
-    toFlip.clear();
+
     return toFlip;
   }
-  private boolean getAllFlips(int q, int r, int s) {
 
+  private ArrayList<Disc> getAllFlips(int q, int r, int s) {
+    ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    if (movePossibleInLine(getAllCellsInSamePlane(q, "Q"))) {
-      return true;
-    }
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(q, "Q")));
     //Check Right diagonal
-    if (movePossibleInLine(getAllCellsInSamePlane(r, "R"))) {
-      return true;
-    }
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(r, "R")));
     //Check Left diagonal
-    return movePossibleInLine(getAllCellsInSamePlane(s, "S"));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(s, "S")));
+    return toFlip;
   }
 
   private boolean checkLegalMove(int q, int r, int s) {
@@ -177,15 +186,11 @@ public class MutableReversi implements MutableReversiModel {
         }
       } else if (Objects.equals(typePlane, "R")) {
         if (cell.getCoordinateR() == plane) {
-          if (cell.cellContents().getColor() != DiscColor.GREY) {
-            cellsInPlane.add(cell);
-          }
+          cellsInPlane.add(cell);
         }
       } else {
         if (cell.getCoordinateS() == plane) {
-          if (cell.cellContents().getColor() != DiscColor.GREY) {
-            cellsInPlane.add(cell);
-          }
+          cellsInPlane.add(cell);
         }
       }
     }
@@ -211,8 +216,17 @@ public class MutableReversi implements MutableReversiModel {
     if (getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
       throw new IllegalStateException("Cannot place a disc on an occupied disk");
     }
+    getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (!checkLegalMove(q, r, s)) {
+      getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
+    }
+    ArrayList<Disc> flipDiscs = getAllFlips(q, r, s);
+
+    getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
+    System.out.println(flipDiscs);
+    for (Disc disc : flipDiscs) {
+      disc.flipDisc();
     }
     //TODO: make the move if it's legal and flip the discs
   }
