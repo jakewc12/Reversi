@@ -21,6 +21,9 @@ public class MutableReversi implements MutableReversiModel {
   private int numWhiteCells;
   private final List<GameCell> cells = new ArrayList<>();
 
+  /**
+   * Creates a MutableReversi and sets all game values to zero until startGame is called.
+   */
   public MutableReversi() {
     gameStarted = false;
     numWhiteCells = 0;
@@ -97,6 +100,12 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
+  /**
+   * Checks to see if a series of cells can be flipped.
+   *
+   * @param line a line of discs that you want checked to see if there is a move possible in them.
+   * @return discs which can be flipped if the move is legal
+   */
   private ArrayList<Disc> getInLineFlipsPossible(List<Disc> line) {
     DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
@@ -124,14 +133,20 @@ public class MutableReversi implements MutableReversiModel {
     return toFlip;
   }
 
-  private ArrayList<Disc> getAllFlips(GameCell cell) {
+  /**
+   * Get all the possible flips if the target cell was placed.
+   *
+   * @param targetCell the cell you want to place on the board.
+   * @return the surrounding cells which will flip if the targetCell was placed.
+   */
+  private ArrayList<Disc> getAllFlips(GameCell targetCell) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "Q")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "Q")));
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "R")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "R")));
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "S")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "S")));
     return toFlip;
   }
 
@@ -169,7 +184,7 @@ public class MutableReversi implements MutableReversiModel {
     return returnList;
   }
 
-  public List<Disc> getCellsInDirection(GameCell targetCell, Direction direction) {
+  private List<Disc> getCellsInDirection(GameCell targetCell, Direction direction) {
     ArrayList<Disc> returnList = new ArrayList<>();
     GameCell currentCell = getHexAt(targetCell.getCellNeighbor(direction));
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {

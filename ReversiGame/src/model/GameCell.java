@@ -15,12 +15,19 @@ public class GameCell implements HexagonCell {
       {0, 1, -1}, //BottomLeft2
       {-1, 0, +1}, // Dead right3
       {-1, +1, 0}, // Bottom Right4
-      {0, -1, +1},}; // Top Right5
+      {0, -1, +1}}; // Top Right5
 
   private int[] cell_Direction(Direction direction) {
     return cellDirectionVectors[direction.directionNum];
   }
 
+  /**
+   * Gets this neighbors cell in a direction.
+   *
+   * @param direction the direction you want to get the neighbor from. See Direction enum class for
+   *                  descriptions.
+   * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
+   */
   public GameCell getCellNeighbor(Direction direction) {
     int[] addCell = cell_Direction(direction);
     return new GameCell(coordinateQ + addCell[0], coordinateR + addCell[1],
@@ -79,6 +86,21 @@ public class GameCell implements HexagonCell {
     return "(" + coordinateQ + ", " + coordinateR + ", " + coordinateS + ")";
   }
 
+  /**
+   * Meant to simulate directions in relation to a hexagon cell. Directions are:
+   *
+   * <p>TOPLEFT for positive s direction static q direction.
+   *
+   * <p>BOTTOMRIGHT for negative s direction static q direction.
+   *
+   * <p>TOPRIGHT for positive q direction static s direction.
+   *
+   * <p>BOTTOMLEFT for negative q direction static s direction.
+   *
+   * <p>DEADLEFT for negative q direction static r direction.
+   *
+   * <p>DEADRIGHT for positive q direction static r direction.
+   */
   public enum Direction {
     TOPLEFT(1), DEADLEFT(0), BOTTOMLEFT(2), TOPRIGHT(5), DEADRIGHT(3), BOTTOMRIGHT(4);
     protected int directionNum;

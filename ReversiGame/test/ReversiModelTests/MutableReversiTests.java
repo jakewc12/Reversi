@@ -89,12 +89,11 @@ public class MutableReversiTests {
   public void cannotPlaceIllegalDiscs() {
     TextualView tv = new ReversiTextualView(game);
     game.startGame(5);
-    System.out.println(tv);
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
-    System.out.println(tv);
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(4, -2, -2));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(4, -2, -2));
+    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(-2, 0, 2));
   }
 
   @Test
