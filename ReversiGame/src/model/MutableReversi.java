@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.NoSuchElementException;
 import model.GameDisc.DiscColor;
 
 /**
@@ -95,49 +95,47 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
-  private boolean movePossibleInLine(List<GameCell> line) {
+  private boolean movePossibleInLine(List<Disc> line) {
     DiscColor currentColor = getCurrentTurn();
     int count = 0;
-    for (GameCell cell : line) {
-      if (count == 0 && cell.cellContents().getColor() == currentColor) {
+    for (Disc disc : line) {
+      if (count == 0 && disc.getColor() == currentColor) {
         count = 1;
         continue;
       }
-      if (cell.cellContents().getColor() != currentColor
-          && cell.cellContents().getColor() != DiscColor.GREY && count >= 1) {
+      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY && count >= 1) {
         count++;
         continue;
       }
-      if (cell.cellContents().getColor() == DiscColor.GREY) {
+      if (disc.getColor() == DiscColor.GREY) {
         count = 0;
         continue;
       }
-      if (count > 1 && cell.cellContents().getColor() == currentColor) {
+      if (count > 1 && disc.getColor() == currentColor) {
         return true;
       }
     }
     return false;
   }
 
-  private ArrayList<Disc> getInLineFlipsPossible(List<GameCell> line) {
+  private ArrayList<Disc> getInLineFlipsPossible(List<Disc> line) {
     DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
     int count = 0;
-    for (GameCell cell : line) {
-      if (count == 0 && cell.cellContents().getColor() == currentColor) {
+    for (Disc disc : line) {
+      if (count == 0 && disc.getColor() == currentColor) {
         count = 1;
       }
-      if (cell.cellContents().getColor() != currentColor
-          && cell.cellContents().getColor() != DiscColor.GREY && count >= 1) {
+      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY && count >= 1) {
         count++;
-        current.add(cell.cellContents());
+        current.add(disc);
       }
-      if (cell.cellContents().getColor() == DiscColor.GREY) {
+      if (disc.getColor() == DiscColor.GREY) {
         count = 0;
         current.clear();
       }
-      if (count > 1 && cell.cellContents().getColor() == currentColor) {
+      if (count > 1 && disc.getColor() == currentColor) {
         toFlip.addAll(current);
         count = 1;
         current.clear();
@@ -147,51 +145,140 @@ public class MutableReversi implements MutableReversiModel {
     return toFlip;
   }
 
-  private ArrayList<Disc> getAllFlips(int q, int r, int s) {
+  private ArrayList<Disc> getAllFlips(HexagonCell cell) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(q, "Q")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "Q")));
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(r, "R")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "R")));
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(s, "S")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(cell, "S")));
     return toFlip;
   }
 
-  private boolean checkLegalMove(int q, int r, int s) {
+  private boolean checkLegalMove(HexagonCell cell) {
 
     //Check Horizontal
-    if (movePossibleInLine(getAllCellsInSamePlane(q, "Q"))) {
+    if (movePossibleInLine(getAllCellsInSamePlane(cell, "Q"))) {
       return true;
     }
     //Check Right diagonal
-    if (movePossibleInLine(getAllCellsInSamePlane(r, "R"))) {
+    if (movePossibleInLine(getAllCellsInSamePlane(cell, "R"))) {
       return true;
     }
     //Check Left diagonal
-    return movePossibleInLine(getAllCellsInSamePlane(s, "S"));
+    return movePossibleInLine(getAllCellsInSamePlane(cell, "S"));
   }
 
-  private List<GameCell> getAllCellsInSamePlane(int plane, String typePlane) {
-    List<GameCell> cellsInPlane = new ArrayList<>();
-    for (GameCell cell : cells) {
-      if (Objects.equals(typePlane, "Q")) {
-        if (cell.getCoordinateQ() == plane) {
-          cellsInPlane.add(cell);
+  private List<Disc> getAllCellsInSamePlane(HexagonCell originCell, String typePlane) {
+    ArrayList<Disc> returnList = new ArrayList<>();
+    // Intake cell and get surrounding cells on that plane. Surrounding is non-grey cells and
+    // ends on grey.
+    switch (typePlane) {
+      case "Q":
+      case "q":
+        //get surrounding cells on q plane
+        getSurroundingOnQ(originCell);
+        break;
+      case "R":
+      case "r":
+        //get surrounding cells on r plane
+        getSurroundingOnR(originCell);
+        break;
+      case "S":
+      case "s":
+        //get surrounding cells on s plane
+        getSurroundingOnS(originCell);
+        break;
+      default:
+        throw new IllegalArgumentException("Valid commands for typePlane are q,r,s");
+    }
+    return returnList;
+  }
+
+  public List<Disc> getSurroundingOnQ(HexagonCell targetCell) {
+    ArrayList<Disc> returnList = new ArrayList<>();
+    int stayCoord = targetCell.getCoordinateQ();
+    int increaseUpCord = targetCell.getCoordinateR();
+    int decreaseUpCord = targetCell.getCoordinateS();
+
+    for (int multiplier = -1; multiplier < 1; multiplier += 2) {
+      //Get the coordinates surrounding target cell
+      for (int moveBy = increaseUpCord; Math.abs(moveBy) < getBoardRadius(); moveBy++) {
+        int tempCord1 = increaseUpCord + (multiplier * moveBy);
+        int tempCord2 = decreaseUpCord + (-multiplier * moveBy);
+        Disc currentDisc = getDiscAt(stayCoord, tempCord1, tempCord2);
+        if (currentDisc == null) {
+          throw new IllegalStateException("thing was null");
         }
-      } else if (Objects.equals(typePlane, "R")) {
-        if (cell.getCoordinateR() == plane) {
-          cellsInPlane.add(cell);
+        if (currentDisc.getColor() == DiscColor.GREY) {
+          return returnList;
         }
-      } else {
-        if (cell.getCoordinateS() == plane) {
-          cellsInPlane.add(cell);
+        if (currentDisc.getColor() == targetCell.cellContents().getColor()) {
+          returnList.add(currentDisc);
+          return returnList;
         }
+        returnList.add(currentDisc);
       }
     }
-    return cellsInPlane;
+    return returnList;
   }
 
+  public List<Disc> getSurroundingOnR(HexagonCell targetCell) {
+    ArrayList<Disc> returnList = new ArrayList<>();
+    int stayCoord = targetCell.getCoordinateR();
+    int increaseUpCord = targetCell.getCoordinateQ();
+    int decreaseUpCord = targetCell.getCoordinateS();
+
+    for (int multiplier = -1; multiplier < 1; multiplier += 2) {
+      //Get the coordinates surrounding target cell
+      for (int moveBy = increaseUpCord; Math.abs(moveBy) < getBoardRadius(); moveBy++) {
+        int tempCord1 = increaseUpCord + (multiplier * moveBy);
+        int tempCord2 = decreaseUpCord + (-multiplier * moveBy);
+        Disc currentDisc = getDiscAt(tempCord1, stayCoord, tempCord2);
+        if (currentDisc == null) {
+          throw new IllegalStateException("thing was null");
+        }
+        if (currentDisc.getColor() == DiscColor.GREY) {
+          return returnList;
+        }
+        if (currentDisc.getColor() == targetCell.cellContents().getColor()) {
+          returnList.add(currentDisc);
+          return returnList;
+        }
+        returnList.add(currentDisc);
+      }
+    }
+    return returnList;
+  }
+
+  public List<Disc> getSurroundingOnS(HexagonCell targetCell) {
+    ArrayList<Disc> returnList = new ArrayList<>();
+    int stayCoord = targetCell.getCoordinateS();
+    int increaseUpCord = targetCell.getCoordinateQ();
+    int decreaseUpCord = targetCell.getCoordinateR();
+
+    for (int multiplier = -1; multiplier < 1; multiplier += 2) {
+      //Get the coordinates surrounding target cell
+      for (int moveBy = increaseUpCord; Math.abs(moveBy) < getBoardRadius(); moveBy++) {
+        int tempCord1 = increaseUpCord + (multiplier * moveBy);
+        int tempCord2 = decreaseUpCord + (-multiplier * moveBy);
+        Disc currentDisc = getDiscAt(tempCord1, tempCord2, stayCoord);
+        if (currentDisc == null) {
+          throw new IllegalStateException("thing was null");
+        }
+        if (currentDisc.getColor() == DiscColor.GREY) {
+          return returnList;
+        }
+        if (currentDisc.getColor() == targetCell.cellContents().getColor()) {
+          returnList.add(currentDisc);
+          return returnList;
+        }
+        returnList.add(currentDisc);
+      }
+    }
+    return returnList;
+  }
 
   /**
    * Checks to see if the move is valid. if it is, it flips all discs inbetween the placed disc and
@@ -212,18 +299,17 @@ public class MutableReversi implements MutableReversiModel {
       throw new IllegalStateException("Cannot place a disc on an occupied disk");
     }
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
-    if (!checkLegalMove(q, r, s)) {
+    if (!checkLegalMove(getHexAt(q, r, s))) {
       this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
-    ArrayList<Disc> flipDiscs = getAllFlips(q, r, s);
+    ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s));
 
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     System.out.println(flipDiscs);
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
     }
-    //TODO: make the move if it's legal and flip the discs
   }
 
   @Override
@@ -235,12 +321,18 @@ public class MutableReversi implements MutableReversiModel {
   private Disc getDiscAt(int q, int r, int s) {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
+    return getHexAt(q, r, s).cellContents();
+  }
+
+  private HexagonCell getHexAt(int q, int r, int s) {
+    checkGameStarted();
+    checkValidCoordinates(q, r, s);
     for (GameCell cell : cells) {
       if (cell.getCoordinateQ() == q && cell.getCoordinateR() == r && cell.getCoordinateS() == s) {
-        return cell.cellContents();
+        return cell;
       }
     }
-    return null;
+    throw new NoSuchElementException("Could not find cell at: " + q + ", " + r + ", " + s);
   }
 
   @Override
@@ -283,9 +375,9 @@ public class MutableReversi implements MutableReversiModel {
     }
     for (GameCell cell : cells) {
       if (!cell.cellContents().getColor().equals(DiscColor.GREY)) {
-        if (getAllCellsInSamePlane(cell.getCoordinateQ(), "Q").size() > 0
-            && getAllCellsInSamePlane(cell.getCoordinateR(), "R").size() > 0
-            && getAllCellsInSamePlane(cell.getCoordinateS(), "S").size() > 0
+        if (getAllCellsInSamePlane(cell, "Q").size() > 0
+            && getAllCellsInSamePlane(cell, "R").size() > 0
+            && getAllCellsInSamePlane(cell, "S").size() > 0
           /* need to check if the placed tile is legal*/) {
           return false;
         }
