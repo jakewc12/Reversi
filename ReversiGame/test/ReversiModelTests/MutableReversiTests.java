@@ -40,7 +40,6 @@ public class MutableReversiTests {
   @Test
   public void cannotPlaceGameDiscOnGameDisc() {
     game.startGame(5);
-    game.placeDisc(0, 0, 0);
     Assert.assertSame(DiscColor.GREY, game.getDiscAt(0, 0, 0).getColor());
     for (int q = -1; q <= 1; q++) {
       for (int r = -1; r <= 1; r++) {

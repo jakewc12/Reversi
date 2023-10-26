@@ -18,7 +18,7 @@ public class MutableReversi implements MutableReversiModel {
   private boolean gameStarted;
   private int numBlackCells;
   private int numWhiteCells;
-  private List<GameCell> cells = new ArrayList<>();
+  private final List<GameCell> cells = new ArrayList<>();
 
   public MutableReversi() {
     gameStarted = false;
@@ -114,6 +114,44 @@ public class MutableReversi implements MutableReversiModel {
       }
     }
     return false;
+  }
+
+  private ArrayList<Disc> getInLineFlipsPossible(List<GameCell> line) {
+    DiscColor currentColor = getCurrentTurn();
+    ArrayList<Disc> toFlip = new ArrayList<>();
+    int count = 0;
+    for (GameCell cell : line) {
+      if (count == 0 && cell.cellContents().getColor() == currentColor) {
+        count = 1;
+      }
+      if (cell.cellContents().getColor() != currentColor
+          && cell.cellContents().getColor() != DiscColor.GREY && count >= 1) {
+        count++;
+        toFlip.add(cell.cellContents());
+      }
+      if (cell.cellContents().getColor() == DiscColor.GREY) {
+        count = 0;
+        toFlip.clear();
+      }
+      if (count > 0 && cell.cellContents().getColor() == currentColor) {
+        return toFlip;
+      }
+    }
+    toFlip.clear();
+    return toFlip;
+  }
+  private boolean getAllFlips(int q, int r, int s) {
+
+    //Check Horizontal
+    if (movePossibleInLine(getAllCellsInSamePlane(q, "Q"))) {
+      return true;
+    }
+    //Check Right diagonal
+    if (movePossibleInLine(getAllCellsInSamePlane(r, "R"))) {
+      return true;
+    }
+    //Check Left diagonal
+    return movePossibleInLine(getAllCellsInSamePlane(s, "S"));
   }
 
   private boolean checkLegalMove(int q, int r, int s) {
