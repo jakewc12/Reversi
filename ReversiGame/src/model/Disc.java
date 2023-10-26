@@ -8,9 +8,14 @@ import model.GameDisc.DiscColor;
 public interface Disc {
 
   /**
-   * Changes the current color to the opposite.
+   * Changes the current color to the provided one.
    */
-  void flipColor(DiscColor color);
+  void changeColorTo(DiscColor color);
+
+  /**
+   * Changes the current color to the opposite. if the color is grey it throws an error
+   */
+  void flipDisc();
 
   /**
    * Returns the current color of this disc.
