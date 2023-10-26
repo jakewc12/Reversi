@@ -14,8 +14,19 @@ public class GameDisc implements Disc {
   }
 
   @Override
-  public void flipColor(DiscColor color) {
+  public void changeColorTo(DiscColor color) {
     this.color = color;
+  }
+
+  @Override
+  public void flipDisc() {
+    if (color == DiscColor.BLACK) {
+      color = DiscColor.WHITE;
+    } else if (color == DiscColor.WHITE) {
+      color = DiscColor.BLACK;
+    } else {
+      throw new IllegalArgumentException("Cannot flip a disk that is not black or white");
+    }
   }
 
   @Override
