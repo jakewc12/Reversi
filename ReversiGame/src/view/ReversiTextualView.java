@@ -1,7 +1,6 @@
 package view;
 
 import java.io.IOException;
-
 import model.ReadOnlyReversiModel;
 
 /**
@@ -19,7 +18,7 @@ public class ReversiTextualView implements TextualView {
 
   public ReversiTextualView(ReadOnlyReversiModel model, Appendable thing) {
     this.model = model;
-    output = thing;
+    this.output = thing;
   }
 
   @Override
@@ -28,14 +27,13 @@ public class ReversiTextualView implements TextualView {
     int boardRadius = model.getBoardRadius();
     StringBuilder returnString = new StringBuilder();
 
-    for (int rr = -boardRadius; rr < boardRadius; rr++) {
-
+    for (int rr = -1 * boardRadius; rr <= boardRadius; rr++) {
       //Append the start with spaces
-      for (int i = Math.abs(rr); i < boardRadius - i; i++) {
+      for (int i = 0; i < boardRadius + Math.abs(rr); i++) {
         returnString.append(" ");
       }
-      for (int qq = -boardRadius; qq < boardRadius; qq++) {
-        for (int ss = -boardRadius; ss < boardRadius; ss++) {
+      for (int qq = -1 * boardRadius; qq <= boardRadius; qq++) {
+        for (int ss = -1 * boardRadius; ss <= boardRadius; ss++) {
 
           //valid tile should coordinates should equal zero and be within bounds of abs(radius)
           if (rr + qq + ss != 0) {
@@ -52,12 +50,13 @@ public class ReversiTextualView implements TextualView {
             default:
               returnString.append("_");
           }
+          if (qq != boardRadius) {
+            returnString.append(" ");
+          }
         }
       }
       // add a new line at then end of the current line.
-      if (rr == boardRadius - 1) {
-        returnString.append("\n");
-      }
+      returnString.append("\n");
     }
     return returnString.toString();
   }

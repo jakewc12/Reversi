@@ -1,5 +1,6 @@
 package TextViewTests;
 
+import java.io.IOException;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
@@ -17,24 +18,39 @@ public class ViewTests {
   private MutableReversiModel game;
   private TextualView tv;
 
-  private Appendable out;
+  private StringBuilder gameLog;
+
+  private int countNumOfInputInView(String input, String view) {
+    int count = 0;
+    String[] splitView = view.split(" ");
+    for (String character : splitView) {
+      if (character.contains(input)) {
+        count++;
+      }
+    }
+    return count;
+  }
 
   @Before
   public void init() {
     game = new MutableReversi();
-    out = new StringBuilder();
+    gameLog = new StringBuilder();
   }
 
   @Test
   public void testTextViewOnStart() {
     game.startGame(5);
-    tv = new ReversiTextualView(game, out);
-    String[] lines = out.toString().split("\n");
-    String[] blackTokenCount = out.toString().split("X");
-    String[] whiteTokenCount = out.toString().split("O");
-    Assert.assertEquals(10, lines.length);
-    Assert.assertEquals(3, blackTokenCount.length);
-    Assert.assertEquals(3, whiteTokenCount.length);
+    tv = new ReversiTextualView(game, gameLog);
+    try {
+      tv.render();
+    } catch (IOException e) {
+      System.out.println("Could not render: " + e);
+    }
+    String[] lines = gameLog.toString().split("\n");
+    Assert.assertEquals(11, lines.length);
+    Assert.assertEquals(3, countNumOfInputInView("X", gameLog.toString()));
+    Assert.assertEquals(3, countNumOfInputInView("O", gameLog.toString()));
+    System.out.println(tv);
   }
 
   // Assumes this as TV board, X as black O as white
@@ -53,12 +69,15 @@ public class ViewTests {
   public void testTextViewUpdates() {
     game.startGame(5);
     game.placeDisc(1, -2, 1);
-    tv = new ReversiTextualView(game, out);
-    String[] lines = out.toString().split("\n");
-    String[] blackTokenCount = out.toString().split("X");
-    String[] whiteTokenCount = out.toString().split("O");
-    Assert.assertEquals(10, lines.length);
-    Assert.assertEquals(5, blackTokenCount.length);
-    Assert.assertEquals(2, whiteTokenCount.length);
+    tv = new ReversiTextualView(game, gameLog);
+    try {
+      tv.render();
+    } catch (IOException e) {
+      System.out.println("Could not render: " + e);
+    }
+    String[] lines = gameLog.toString().split("\n");
+    Assert.assertEquals(11, lines.length);
+    Assert.assertEquals(5, countNumOfInputInView("X", gameLog.toString()));
+    Assert.assertEquals(2, countNumOfInputInView("O", gameLog.toString()));
   }
 }
