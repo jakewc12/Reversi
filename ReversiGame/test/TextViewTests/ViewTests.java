@@ -20,6 +20,17 @@ public class ViewTests {
 
   private StringBuilder gameLog;
 
+  private int countNumOfInputInView(String input, String view) {
+    int count = 0;
+    String[] splitView = view.split(" ");
+    for (String character : splitView) {
+      if (character.contains(input)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
   @Before
   public void init() {
     game = new MutableReversi();
@@ -36,11 +47,10 @@ public class ViewTests {
       System.out.println("Could not render: " + e);
     }
     String[] lines = gameLog.toString().split("\n");
-    String[] blackTokenCount = gameLog.toString().split("X");
-    String[] whiteTokenCount = gameLog.toString().split("O");
     Assert.assertEquals(11, lines.length);
-    Assert.assertEquals(3, blackTokenCount.length);
-    Assert.assertEquals(3, whiteTokenCount.length);
+    Assert.assertEquals(3, countNumOfInputInView("X", gameLog.toString()));
+    Assert.assertEquals(3, countNumOfInputInView("O", gameLog.toString()));
+    System.out.println(tv);
   }
 
   // Assumes this as TV board, X as black O as white
@@ -65,12 +75,9 @@ public class ViewTests {
     } catch (IOException e) {
       System.out.println("Could not render: " + e);
     }
-
     String[] lines = gameLog.toString().split("\n");
-    String[] blackTokenCount = gameLog.toString().split("X");
-    String[] whiteTokenCount = gameLog.toString().split("O");
     Assert.assertEquals(11, lines.length);
-    Assert.assertEquals(5, blackTokenCount.length);
-    Assert.assertEquals(2, whiteTokenCount.length);
+    Assert.assertEquals(5, countNumOfInputInView("X", gameLog.toString()));
+    Assert.assertEquals(2, countNumOfInputInView("O", gameLog.toString()));
   }
 }
