@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import model.GameDisc.DiscColor;
 
@@ -72,12 +73,14 @@ public class MutableReversi implements MutableReversiModel {
     for (int q = -size; q <= size; q++) {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
-          if (q + r + s ==0) {
-            if (q == 0 && r == -1 && s == 1 || q == 1 && r == 0 && s == -1) {
+          if (q + r + s == 0) {
+            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1)
+                    || (q == -1 && r == 1 && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
               blackCells.add(newCell);
-            } else if (q == 1 && r == -1 && s == 0 || q == 0 && r == 1 && s == -1) {
+            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1)
+                    || (q == -1 && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
               whiteCells.add(newCell);
@@ -90,20 +93,31 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
-  public List<GameCell> getCells() {
-    return cells;
-  }
   private boolean checkLegalMove(int q, int r, int s) {
     //we need to check if there are any of the same color tiles on each plane, horizontal, vertical, or diagonal
     return false;
   }
 
-  private List<GameCell> getAllCellsInSamePlaneQ(int planeQ) {
+  private List<GameCell> getAllCellsInSamePlane(int plane, String typePlane) {
     List<GameCell> cellsInPlane = new ArrayList<>();
     for (GameCell cell : cells) {
-      if (cell.getCoordinateQ() == planeQ) {
-        if (cell.cellContents().getColor() != DiscColor.GREY) {
-          cellsInPlane.add(cell);
+      if (Objects.equals(typePlane, "Q")) {
+        if (cell.getCoordinateQ() == plane) {
+          if (cell.cellContents().getColor() != DiscColor.GREY) {
+            cellsInPlane.add(cell);
+          }
+        }
+      } else if (Objects.equals(typePlane, "R")) {
+        if (cell.getCoordinateR() == plane) {
+          if (cell.cellContents().getColor() != DiscColor.GREY) {
+            cellsInPlane.add(cell);
+          }
+        }
+      } else {
+        if (cell.getCoordinateS() == plane) {
+          if (cell.cellContents().getColor() != DiscColor.GREY) {
+            cellsInPlane.add(cell);
+          }
         }
       }
     }
@@ -133,8 +147,8 @@ public class MutableReversi implements MutableReversiModel {
     //is there an efficient way of traversing the list? if we use Q,R,S to get the disc, it would
     //quite possibly take O(n) time.
     checkValidCoordinates(q, r, s);
-    for(GameCell cell : cells){
-      if(cell.getCoordinateQ()==q && cell.getCoordinateR()==r&& cell.getCoordinateS()==s){
+    for (GameCell cell : cells) {
+      if (cell.getCoordinateQ() == q && cell.getCoordinateR() == r && cell.getCoordinateS() == s) {
         return cell.cellContents();
       }
     }
@@ -172,6 +186,20 @@ public class MutableReversi implements MutableReversiModel {
     if (blackCells.size() == 0 || whiteCells.size() == 0) {
       return true;
     }
-    return false;
+    for (GameCell cell : blackCells) {
+      if (getAllCellsInSamePlane(cell.getCoordinateQ(), "Q").size() > 0 &&
+              getAllCellsInSamePlane(cell.getCoordinateR(), "R").size() > 0
+              && getAllCellsInSamePlane(cell.getCoordinateS(), "S").size() > 0) {
+        return false;
+      }
+    }
+    for (GameCell cell : whiteCells) {
+      if (getAllCellsInSamePlane(cell.getCoordinateQ(), "Q").size() > 0 &&
+              getAllCellsInSamePlane(cell.getCoordinateR(), "R").size() > 0
+              && getAllCellsInSamePlane(cell.getCoordinateS(), "S").size() > 0) {
+        return false;
+      }
+    }
+    return true;
   }
 }
