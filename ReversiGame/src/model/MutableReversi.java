@@ -145,18 +145,21 @@ public class MutableReversi implements MutableReversiModel {
       case "q":
         //get surrounding cells on q plane
         returnList.addAll(getCellsInDirection(targetCell, Direction.TOPLEFT));
+        returnList.add(targetCell.cellContents());
         returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMRIGHT));
         break;
       case "R":
       case "r":
         //get surrounding cells on r plane
         returnList.addAll(getCellsInDirection(targetCell, Direction.DEADLEFT));
+        returnList.add(targetCell.cellContents());
         returnList.addAll(getCellsInDirection(targetCell, Direction.DEADRIGHT));
         break;
       case "S":
       case "s":
         //get surrounding cells on s plane
         returnList.addAll(getCellsInDirection(targetCell, Direction.TOPRIGHT));
+        returnList.add(targetCell.cellContents());
         returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMLEFT));
         break;
       default:
@@ -168,7 +171,6 @@ public class MutableReversi implements MutableReversiModel {
 
   public List<Disc> getCellsInDirection(GameCell targetCell, Direction direction) {
     ArrayList<Disc> returnList = new ArrayList<>();
-    returnList.add(targetCell.cellContents());
     GameCell currentCell = getHexAt(targetCell.getCellNeighbor(direction));
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {
       returnList.add(currentCell.cellContents());
@@ -207,7 +209,6 @@ public class MutableReversi implements MutableReversiModel {
     ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s));
 
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
-    System.out.println(flipDiscs);
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
     }
