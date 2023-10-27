@@ -29,6 +29,8 @@ public class GameCell implements HexagonCell {
    * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
    */
   public GameCell getCellNeighbor(Direction direction) {
+    //need to check that neighbor is not off board
+
     int[] addCell = cell_Direction(direction);
     return new GameCell(coordinateQ + addCell[0], coordinateR + addCell[1],
         coordinateS + addCell[2]);

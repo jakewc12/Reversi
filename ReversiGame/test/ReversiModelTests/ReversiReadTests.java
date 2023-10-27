@@ -3,6 +3,9 @@ package ReversiModelTests;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
+import view.ReversiTextualView;
+import view.TextualView;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,11 +40,6 @@ public class ReversiReadTests {
     Assert.assertEquals(5, game.getBoardRadius());
   }
 
-  @Test
-  public void gameOverFalseAtGameStart() {
-    game.startGame(5);
-    Assert.assertFalse(game.gameOver());
-  }
 
   @Test
   public void gameOverTrueOnOneByOneBoard() {

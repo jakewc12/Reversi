@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
 import model.GameCell.Direction;
 import model.GameDisc.DiscColor;
 
@@ -47,7 +48,8 @@ public class MutableReversi implements MutableReversiModel {
   private void checkValidCoordinates(int q, int r, int s) {
     if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size) {
       throw new IllegalArgumentException(
-          "Invalid coordinates given. Max coordinate size is: " + size);
+              "Invalid coordinates given. Max coordinate size is: " + size
+      + "\n coordinates were (" + q +", " + r +", "+ s+ ")");
     }
   }
 
@@ -82,12 +84,12 @@ public class MutableReversi implements MutableReversiModel {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
-                && s == 0)) {
+                    && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
               numBlackCells++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
-                && r == 0 && s == 1)) {
+                    && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
               numWhiteCells++;
@@ -106,8 +108,8 @@ public class MutableReversi implements MutableReversiModel {
    * @param line a line of discs that you want checked to see if there is a move possible in them.
    * @return discs which can be flipped if the move is legal
    */
-  private ArrayList<Disc> getInLineFlipsPossible(List<Disc> line) {
-    DiscColor currentColor = getCurrentTurn();
+  private ArrayList<Disc> getInLineFlipsPossible(List<Disc> line, DiscColor currentColor) {
+    //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
     int count = 0;
@@ -139,14 +141,14 @@ public class MutableReversi implements MutableReversiModel {
    * @param targetCell the cell you want to place on the board.
    * @return the surrounding cells which will flip if the targetCell was placed.
    */
-  private ArrayList<Disc> getAllFlips(GameCell targetCell) {
+  private ArrayList<Disc> getAllFlips(GameCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "Q")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "Q"), currentColor));
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "R")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "R"), currentColor));
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "S")));
+    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "S"), currentColor));
     return toFlip;
   }
 
@@ -159,28 +161,43 @@ public class MutableReversi implements MutableReversiModel {
       case "Q":
       case "q":
         //get surrounding cells on q plane
-        returnList.addAll(getCellsInDirection(targetCell, Direction.TOPLEFT));
-        returnList.add(targetCell.cellContents());
-        returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMRIGHT));
+
+        try{
+          returnList.addAll(getCellsInDirection(targetCell, Direction.TOPLEFT));
+          returnList.add(targetCell.cellContents());
+          returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMRIGHT));
+        }catch(Exception e){
+          break;
+        }
+
         break;
       case "R":
       case "r":
         //get surrounding cells on r plane
-        returnList.addAll(getCellsInDirection(targetCell, Direction.DEADLEFT));
-        returnList.add(targetCell.cellContents());
-        returnList.addAll(getCellsInDirection(targetCell, Direction.DEADRIGHT));
+        try{
+          returnList.addAll(getCellsInDirection(targetCell, Direction.DEADLEFT));
+          returnList.add(targetCell.cellContents());
+          returnList.addAll(getCellsInDirection(targetCell, Direction.DEADRIGHT));
+        }catch(Exception e){
+          break;
+        }
+
         break;
       case "S":
       case "s":
         //get surrounding cells on s plane
-        returnList.addAll(getCellsInDirection(targetCell, Direction.TOPRIGHT));
-        returnList.add(targetCell.cellContents());
-        returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMLEFT));
+        try{
+          returnList.addAll(getCellsInDirection(targetCell, Direction.TOPRIGHT));
+          returnList.add(targetCell.cellContents());
+          returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMLEFT));
+        }catch(Exception e){
+          break;
+        }
         break;
       default:
         throw new IllegalArgumentException("Valid commands for typePlane are q,r,s");
     }
-    System.out.println(returnList);
+    //System.out.println(returnList);
     return returnList;
   }
 
@@ -217,12 +234,11 @@ public class MutableReversi implements MutableReversiModel {
       throw new IllegalStateException("Cannot place a disc on an occupied disk");
     }
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
-    if (getAllFlips(getHexAt(q, r, s)).isEmpty()) {
+    if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
       this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
-    ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s));
-
+    ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s), getCurrentTurn());
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
@@ -298,13 +314,22 @@ public class MutableReversi implements MutableReversiModel {
       return true;
     }
     for (GameCell cell : cells) {
-      if (!cell.cellContents().getColor().equals(DiscColor.GREY)) {
-        if (getAllCellsInSamePlane(cell, "Q").size() > 0
-            && getAllCellsInSamePlane(cell, "R").size() > 0
-            && getAllCellsInSamePlane(cell, "S").size() > 0
-          /* need to check if the placed tile is legal*/) {
+      if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
+                , cell.getCoordinateS()).changeColorTo(DiscColor.WHITE);
+        if (!getAllFlips(getHexAt(cell.getCoordinateQ(), cell.getCoordinateR()
+                , cell.getCoordinateS()), DiscColor.WHITE).isEmpty()) {
           return false;
         }
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
+                , cell.getCoordinateS()).changeColorTo(DiscColor.BLACK);
+
+        if(!getAllFlips(getHexAt(cell.getCoordinateQ(), cell.getCoordinateR()
+                , cell.getCoordinateS()), DiscColor.BLACK).isEmpty()){
+          return false;
+        }
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
+                , cell.getCoordinateS()).changeColorTo(DiscColor.GREY);
       }
     }
     return true;

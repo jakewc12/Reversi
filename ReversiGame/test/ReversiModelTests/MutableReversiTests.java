@@ -3,9 +3,11 @@ package ReversiModelTests;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import view.ReversiTextualView;
 import view.TextualView;
 
@@ -56,7 +58,7 @@ public class MutableReversiTests {
           int finalR = r;
           int finalS = s;
           Assert.assertThrows(IllegalStateException.class,
-              () -> game.placeDisc(finalQ, finalR, finalS));
+                  () -> game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -101,5 +103,31 @@ public class MutableReversiTests {
   public void cannotStartGameWhenGameIsStarted() {
     game.startGame(5);
     Assert.assertThrows(IllegalStateException.class, () -> game.startGame(4));
+  }
+
+  @Test
+  public void placeTileInvalidDoesNotSwapWrongTile() {
+    game.startGame(2);
+    Appendable out = new StringBuffer();
+    TextualView tv = new ReversiTextualView(game, out);
+    System.out.println(tv.toString());
+    game.placeDisc(-2, 1, 1);
+    System.out.println(tv.toString());
+    Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
+    Assert.assertFalse(game.gameOver());
+  }
+
+  @Test
+  public void placeTileMultiplePlanesChanged() {
+    game.startGame(2);
+    Appendable out = new StringBuffer();
+    TextualView tv = new ReversiTextualView(game, out);
+    System.out.println(tv.toString());
+    game.placeDisc(-2, 1, 1);
+    System.out.println(tv.toString());
+    game.placeDisc(1,1,-2);
+    System.out.println(tv.toString());
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
   }
 }
