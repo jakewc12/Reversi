@@ -130,4 +130,11 @@ public class MutableReversiTests {
     System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
   }
+
+  @Test
+  public void placeValidDiscWorks() {
+    game.startGame(2);
+    game.placeDisc(-2,1,1);
+    game.skipCurrentTurn();
+  }
 }
