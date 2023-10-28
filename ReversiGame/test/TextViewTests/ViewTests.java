@@ -50,7 +50,6 @@ public class ViewTests {
     Assert.assertEquals(11, lines.length);
     Assert.assertEquals(3, countNumOfInputInView("X", gameLog.toString()));
     Assert.assertEquals(3, countNumOfInputInView("O", gameLog.toString()));
-    System.out.println(tv);
   }
 
   // Assumes this as TV board, X as black O as white

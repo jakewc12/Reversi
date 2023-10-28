@@ -110,9 +110,7 @@ public class MutableReversiTests {
     game.startGame(2);
     Appendable out = new StringBuffer();
     TextualView tv = new ReversiTextualView(game, out);
-    System.out.println(tv.toString());
     game.placeDisc(-2, 1, 1);
-    System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
     Assert.assertFalse(game.gameOver());
@@ -123,11 +121,8 @@ public class MutableReversiTests {
     game.startGame(2);
     Appendable out = new StringBuffer();
     TextualView tv = new ReversiTextualView(game, out);
-    System.out.println(tv.toString());
     game.placeDisc(-2, 1, 1);
-    System.out.println(tv.toString());
     game.placeDisc(1, 1, -2);
-    System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
   }
 
@@ -149,6 +144,6 @@ public class MutableReversiTests {
     game.placeDisc(2, -1, -1);
     System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(1, -1, 0));
-    Assert.assertNotEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
+    Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
   }
 }
