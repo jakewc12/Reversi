@@ -13,7 +13,7 @@ import model.GameDisc.DiscColor;
 public class MutableReversi implements MutableReversiModel {
 
   //true if it's player BLACK's turn, false if it's WHITE's turn
-  private boolean firstPlayersTurn;
+  private boolean blacksTurn;
   //width is how far from the center cell every edge cell is
   private int size;
   private boolean gameStarted;
@@ -40,7 +40,7 @@ public class MutableReversi implements MutableReversiModel {
     }
     this.size = size;
     createAllCells();
-    firstPlayersTurn = true;
+    blacksTurn = true;
     gameStarted = true;
   }
 
@@ -111,6 +111,7 @@ public class MutableReversi implements MutableReversiModel {
     //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
+    System.out.println("Line: " + line);
     int count = 0;
     for (GameCell cell : line) {
       Disc disc = cell.cellContents();
@@ -143,66 +144,31 @@ public class MutableReversi implements MutableReversiModel {
   private ArrayList<Disc> getAllFlips(GameCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "Q"), currentColor));
+    System.out.println("\nCHECKING Q");
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPLEFT),
+        currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT),
+        currentColor));
 
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "R"), currentColor));
+    System.out.println("\nCHECKING R");
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADLEFT),
+        currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADRIGHT),
+        currentColor));
 
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "S"), currentColor));
+    System.out.println("\nCHECKING S");
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPRIGHT),
+        currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT),
+        currentColor));
     return toFlip;
-  }
-
-
-  private List<GameCell> getAllCellsInSamePlane(GameCell targetCell, String typePlane) {
-    ArrayList<GameCell> returnList = new ArrayList<>();
-    // Intake cell and get surrounding cells on that plane. Surrounding is non-grey cells and
-    // ends on grey.
-    switch (typePlane) {
-      case "Q":
-      case "q":
-        //get surrounding cells on q plane
-
-        try {
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT));
-          returnList.add(targetCell);
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.TOPLEFT));
-        } catch (Exception e) {
-          break;
-        }
-
-        break;
-      case "R":
-      case "r":
-        //get surrounding cells on r plane
-        try {
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.DEADLEFT));
-          returnList.add(targetCell);
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.DEADRIGHT));
-        } catch (Exception e) {
-          break;
-        }
-
-        break;
-      case "S":
-      case "s":
-        //get surrounding cells on s plane
-        try {
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT));
-          returnList.add(targetCell);
-          returnList.addAll(getAllHexInDirection(targetCell, Direction.TOPRIGHT));
-        } catch (Exception e) {
-          break;
-        }
-        break;
-      default:
-        throw new IllegalArgumentException("Valid commands for typePlane are q,r,s");
-    }
-    return returnList;
   }
 
   private List<GameCell> getAllHexInDirection(GameCell targetCell, Direction direction) {
     ArrayList<GameCell> returnList = new ArrayList<>();
+    returnList.add(targetCell);
     GameCell currentCell;
     try {
       currentCell = getHexAt(targetCell.getCellNeighbor(direction));
@@ -248,13 +214,13 @@ public class MutableReversi implements MutableReversiModel {
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
     }
-    firstPlayersTurn = !firstPlayersTurn;
+    blacksTurn = !blacksTurn;
   }
 
   @Override
   public void skipCurrentTurn() {
     checkGameStarted();
-    firstPlayersTurn = !firstPlayersTurn;
+    blacksTurn = !blacksTurn;
   }
 
   private Disc getDiscAt(int q, int r, int s) {
@@ -291,7 +257,7 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public DiscColor getCurrentTurn() {
     checkGameStarted();
-    if (firstPlayersTurn) {
+    if (blacksTurn) {
       return DiscColor.BLACK;
     } else {
       return DiscColor.WHITE;
