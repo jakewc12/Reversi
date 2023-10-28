@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import model.GameCell.Direction;
 import model.GameDisc.DiscColor;
 
@@ -48,8 +47,8 @@ public class MutableReversi implements MutableReversiModel {
   private void checkValidCoordinates(int q, int r, int s) {
     if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size) {
       throw new IllegalArgumentException(
-              "Invalid coordinates given. Max coordinate size is: " + size
-      + "\n coordinates were (" + q +", " + r +", "+ s+ ")");
+          "Invalid coordinates given. Max coordinate size is: " + size + "\n coordinates were (" + q
+              + ", " + r + ", " + s + ")");
     }
   }
 
@@ -84,12 +83,12 @@ public class MutableReversi implements MutableReversiModel {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
-                    && s == 0)) {
+                && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
               numBlackCells++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
-                    && r == 0 && s == 1)) {
+                && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
               numWhiteCells++;
@@ -108,12 +107,13 @@ public class MutableReversi implements MutableReversiModel {
    * @param line a line of discs that you want checked to see if there is a move possible in them.
    * @return discs which can be flipped if the move is legal
    */
-  private ArrayList<Disc> getInLineFlipsPossible(List<Disc> line, DiscColor currentColor) {
+  private ArrayList<Disc> getInLineFlipsPossible(List<GameCell> line, DiscColor currentColor) {
     //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
     int count = 0;
-    for (Disc disc : line) {
+    for (GameCell cell : line) {
+      Disc disc = cell.cellContents();
       if (count == 0 && disc.getColor() == currentColor) {
         count = 1;
       }
@@ -131,7 +131,6 @@ public class MutableReversi implements MutableReversiModel {
         current.clear();
       }
     }
-
     return toFlip;
   }
 
@@ -145,16 +144,18 @@ public class MutableReversi implements MutableReversiModel {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
     toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "Q"), currentColor));
+
     //Check Right diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "R"), currentColor));
+
     //Check Left diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellsInSamePlane(targetCell, "S"), currentColor));
     return toFlip;
   }
 
 
-  private List<Disc> getAllCellsInSamePlane(GameCell targetCell, String typePlane) {
-    ArrayList<Disc> returnList = new ArrayList<>();
+  private List<GameCell> getAllCellsInSamePlane(GameCell targetCell, String typePlane) {
+    ArrayList<GameCell> returnList = new ArrayList<>();
     // Intake cell and get surrounding cells on that plane. Surrounding is non-grey cells and
     // ends on grey.
     switch (typePlane) {
@@ -162,11 +163,11 @@ public class MutableReversi implements MutableReversiModel {
       case "q":
         //get surrounding cells on q plane
 
-        try{
-          returnList.addAll(getCellsInDirection(targetCell, Direction.TOPLEFT));
-          returnList.add(targetCell.cellContents());
-          returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMRIGHT));
-        }catch(Exception e){
+        try {
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT));
+          returnList.add(targetCell);
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.TOPLEFT));
+        } catch (Exception e) {
           break;
         }
 
@@ -174,11 +175,11 @@ public class MutableReversi implements MutableReversiModel {
       case "R":
       case "r":
         //get surrounding cells on r plane
-        try{
-          returnList.addAll(getCellsInDirection(targetCell, Direction.DEADLEFT));
-          returnList.add(targetCell.cellContents());
-          returnList.addAll(getCellsInDirection(targetCell, Direction.DEADRIGHT));
-        }catch(Exception e){
+        try {
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.DEADLEFT));
+          returnList.add(targetCell);
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.DEADRIGHT));
+        } catch (Exception e) {
           break;
         }
 
@@ -186,26 +187,31 @@ public class MutableReversi implements MutableReversiModel {
       case "S":
       case "s":
         //get surrounding cells on s plane
-        try{
-          returnList.addAll(getCellsInDirection(targetCell, Direction.TOPRIGHT));
-          returnList.add(targetCell.cellContents());
-          returnList.addAll(getCellsInDirection(targetCell, Direction.BOTTOMLEFT));
-        }catch(Exception e){
+        try {
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT));
+          returnList.add(targetCell);
+          returnList.addAll(getAllHexInDirection(targetCell, Direction.TOPRIGHT));
+        } catch (Exception e) {
           break;
         }
         break;
       default:
         throw new IllegalArgumentException("Valid commands for typePlane are q,r,s");
     }
-    //System.out.println(returnList);
     return returnList;
   }
 
-  private List<Disc> getCellsInDirection(GameCell targetCell, Direction direction) {
-    ArrayList<Disc> returnList = new ArrayList<>();
-    GameCell currentCell = getHexAt(targetCell.getCellNeighbor(direction));
+  private List<GameCell> getAllHexInDirection(GameCell targetCell, Direction direction) {
+    ArrayList<GameCell> returnList = new ArrayList<>();
+    GameCell currentCell;
+    try {
+      currentCell = getHexAt(targetCell.getCellNeighbor(direction));
+    } catch (IllegalArgumentException e) {
+      return returnList;
+    }
+
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {
-      returnList.add(currentCell.cellContents());
+      returnList.add(currentCell);
       try {
         currentCell = getHexAt(currentCell.getCellNeighbor(direction));
       } catch (IllegalArgumentException e) {
@@ -239,10 +245,10 @@ public class MutableReversi implements MutableReversiModel {
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
     ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s), getCurrentTurn());
-    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
     }
+    firstPlayersTurn = !firstPlayersTurn;
   }
 
   @Override
@@ -315,21 +321,23 @@ public class MutableReversi implements MutableReversiModel {
     }
     for (GameCell cell : cells) {
       if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
-        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
-                , cell.getCoordinateS()).changeColorTo(DiscColor.WHITE);
-        if (!getAllFlips(getHexAt(cell.getCoordinateQ(), cell.getCoordinateR()
-                , cell.getCoordinateS()), DiscColor.WHITE).isEmpty()) {
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR(), cell.getCoordinateS())
+            .changeColorTo(DiscColor.WHITE);
+        if (!getAllFlips(
+            getHexAt(cell.getCoordinateQ(), cell.getCoordinateR(), cell.getCoordinateS()),
+            DiscColor.WHITE).isEmpty()) {
           return false;
         }
-        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
-                , cell.getCoordinateS()).changeColorTo(DiscColor.BLACK);
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR(), cell.getCoordinateS())
+            .changeColorTo(DiscColor.BLACK);
 
-        if(!getAllFlips(getHexAt(cell.getCoordinateQ(), cell.getCoordinateR()
-                , cell.getCoordinateS()), DiscColor.BLACK).isEmpty()){
+        if (!getAllFlips(
+            getHexAt(cell.getCoordinateQ(), cell.getCoordinateR(), cell.getCoordinateS()),
+            DiscColor.BLACK).isEmpty()) {
           return false;
         }
-        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR()
-                , cell.getCoordinateS()).changeColorTo(DiscColor.GREY);
+        this.getDiscAt(cell.getCoordinateQ(), cell.getCoordinateR(), cell.getCoordinateS())
+            .changeColorTo(DiscColor.GREY);
       }
     }
     return true;
