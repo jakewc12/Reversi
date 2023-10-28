@@ -111,7 +111,6 @@ public class MutableReversi implements MutableReversiModel {
     //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
-    System.out.println("Line: " + line);
     int count = 0;
     for (GameCell cell : line) {
       Disc disc = cell.cellContents();
@@ -144,21 +143,18 @@ public class MutableReversi implements MutableReversiModel {
   private ArrayList<Disc> getAllFlips(GameCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    System.out.println("\nCHECKING Q");
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPLEFT),
         currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT),
         currentColor));
 
     //Check Right diagonal
-    System.out.println("\nCHECKING R");
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADLEFT),
         currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADRIGHT),
         currentColor));
 
     //Check Left diagonal
-    System.out.println("\nCHECKING S");
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPRIGHT),
         currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT),
