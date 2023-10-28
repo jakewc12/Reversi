@@ -240,6 +240,13 @@ public class MutableReversi implements MutableReversiModel {
     throw new NoSuchElementException("Could not find cell at: " + q + ", " + r + ", " + s);
   }
 
+  /**
+   * Gets the coordinates of a game cell on the board using a empty game cell that is usually
+   * returned by getCellNeighbor.
+   *
+   * @param cell the cell containing the coordinates you want to find.
+   * @return a GameCell that is in the MutableReversi board.
+   */
   private GameCell getHexAt(GameCell cell) {
     int q = cell.getCoordinateQ();
     int r = cell.getCoordinateR();
