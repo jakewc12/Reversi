@@ -126,7 +126,7 @@ public class MutableReversiTests {
     System.out.println(tv.toString());
     game.placeDisc(-2, 1, 1);
     System.out.println(tv.toString());
-    game.placeDisc(1,1,-2);
+    game.placeDisc(1, 1, -2);
     System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
   }
@@ -134,7 +134,21 @@ public class MutableReversiTests {
   @Test
   public void placeValidDiscWorks() {
     game.startGame(2);
-    game.placeDisc(-2,1,1);
+    game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
+  }
+
+  @Test
+  public void testPlaceDiscFlipsCorrectPlaneAfterSkip() {
+    game.startGame(3);
+    TextualView tv = new ReversiTextualView(game);
+    System.out.println(tv.toString());
+    game.placeDisc(-2, 1, 1);
+    System.out.println(tv.toString());
+    game.skipCurrentTurn();
+    game.placeDisc(2, -1, -1);
+    System.out.println(tv.toString());
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(1, -1, 0));
+    Assert.assertNotEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
   }
 }
