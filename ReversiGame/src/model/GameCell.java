@@ -10,10 +10,10 @@ public class GameCell implements HexagonCell {
   private final int coordinateR;
   private final int coordinateS;
 
-  private final int[][] cellDirectionVectors = {{+1, 0, -1}, // Dead left0
+  private final int[][] cellDirectionVectors = {{-1, 0, 1}, // Dead left0
       {+1, -1, 0}, //Top left1
       {0, 1, -1}, //BottomLeft2
-      {-1, 0, +1}, // Dead right3
+      {1, 0, -1}, // Dead right3
       {-1, +1, 0}, // Bottom Right4
       {0, -1, +1}}; // Top Right5
 
