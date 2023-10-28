@@ -59,7 +59,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   /**
-   * checks to see if all the cells in the board have a BLACK or WHITE disc.
+   * Checks to see if all the cells in the board have a BLACK or WHITE disc.
    *
    * @return false if any cell in cells has a grey disc, else returns true.
    */
@@ -102,9 +102,12 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   /**
-   * Checks to see if a series of cells can be flipped.
+   * Checks to see if a series of discs can be flipped. If they can then it returns a list of discs
+   * which should flip if the move is made, which does not include the target cell.
    *
-   * @param line a line of discs that you want checked to see if there is a move possible in them.
+   * @param currentColor the color of the disc you want placed
+   * @param line         a line of discs that you want checked to see if there is a move possible in
+   *                     them.
    * @return discs which can be flipped if the move is legal
    */
   private ArrayList<Disc> getInLineFlipsPossible(List<GameCell> line, DiscColor currentColor) {
@@ -137,26 +140,27 @@ public class MutableReversi implements MutableReversiModel {
   /**
    * Get all the possible flips if the target cell was placed.
    *
-   * @param targetCell the cell you want to place on the board.
+   * @param currentColor the color of the disc you want placed
+   * @param targetCell   the cell you want to place on the board.
    * @return the surrounding cells which will flip if the targetCell was placed.
    */
   private ArrayList<Disc> getAllFlips(GameCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPLEFT),
-        currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPLEFT), currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT),
         currentColor));
 
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADLEFT),
-        currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADLEFT), currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADRIGHT),
         currentColor));
 
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPRIGHT),
-        currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPRIGHT), currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT),
         currentColor));
     return toFlip;
