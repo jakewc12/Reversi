@@ -318,9 +318,6 @@ public class MutableReversi implements MutableReversiModel {
     if (checkIfAllCellsFilled()) {
       return true;
     }
-    //if (numWhiteCells == 0 || numBlackCells == 0) {
-    //return true;
-    //}
     //if any cell can be made black or white
     // and have moves then return false and set the color back to grey
     for (GameCell cell : cells) {

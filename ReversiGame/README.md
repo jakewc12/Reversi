@@ -1,6 +1,5 @@
 Board coordinate design is based on https://www.redblobgames.com/grids/hexagons/
-An invariant in the model would be that the number of GameCells with BLACK or WHITE GameDiscs
-will never decrease.
+
 
     Overview: 
 This code is designed to allow the user to play a game of Reversi by interacting with the
@@ -12,9 +11,6 @@ to affect things in the model. Prerequisites for using this code would be unders
 of the player move options in the Reversi game.
 
 
-What problem is this codebase trying to solve? What high-level assumptions are made 
-in the codebase, either about the background knowledge needed, about what forms of extensibility 
-are envisioned or are out of scope, or about prerequisites for using this code?
 
     Quick start: 
 ![img.png](img.png)
@@ -38,10 +34,6 @@ Mutable model. The view does not influence anything in the model. However, it do
 parts of the system through the Appendable. The Appendable along with the view's render()
 function allow other systems to effectively accept certain things in the view as input. 
 
-Explain the highest-level components in your system, and what 
-they do. It is trite and useless to merely say “The model represents the data in my system. 
-The view represents the rendering of my system. ...” This is a waste of your time and the reader’s time. 
-Describe which components “drive” the control-flow of your system, and which ones “are driven”.
 
         Key subcomponents: 
 -Within the model, also known as MutableReversi, the first component is size. This is the radius of
@@ -52,11 +44,15 @@ calculates which players turn it is. If blacksTurn is true, then it is blacks tu
 then it is whites turn. The final component to the model is cells, which is the list of all the
 GameCells in the game. This is required for all user interaction and allows the board to have cells
 with assigned discs.
+Invariants in the model would be that the board radius never changes and 
+the number of GameCells with BLACK or WHITE GameDiscs will never decrease,
+
 
 -Within the GameDisc component, there are the assigned coordinates Q,R, and S. These are all stored
 as integers and can be accessed with their respective getter methods. The GameCell also has another
 component, contents, which is the assigned GameDisc for that cell. Through the GameCell, the
 GameDisc can be flipped between BLACK and WHITE.
+Invariants in the GameDisc would be that the color will always be either WHITE, BLACK, or GREY
 
 -Within the ReversiTextualView component, there is the ReadOnlyReversiModel. Using the model's
 getColorAt() method, the textual view can build a rendering of the model's board. The view
@@ -82,7 +78,3 @@ placeDisc(), and skipCurrentTurn() methods along with gameOver().
 -Things associated with the view can be found in the view folder. This includes the interface for
 the view and ReversiTextualView, which creates a basic textual view based on a
 ReadOnlyReversiModel.
-
-Either explain for each component where to find it in your codebase,
-or explain for each directory in your codebase what components it provides. Either way, supply 
-the reader with a “map” to your codebase, so they can navigate around.
