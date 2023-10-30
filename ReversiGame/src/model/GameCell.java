@@ -10,11 +10,11 @@ public class GameCell implements HexagonCell {
   private final int coordinateR;
   private final int coordinateS;
   private final int[][] cellDirectionVectors = {{-1, 0, 1}, //DEADLEFT(0)
-      {1, 0, -1}, //DEADRIGHT(1)
-      {0, -1, 1}, //TOPLEFT(2)
-      {1, -1, 0}, //TOPRIGHT(3)
-      {-1, +1, 0}, //BOTTOMLEFT(4)
-      {0, 1, -1}}; //BOTTOMRIGHT(5)
+      {1, 0, -1}, //DEAD-RIGHT(1)
+      {0, -1, 1}, //TOP-LEFT(2)
+      {1, -1, 0}, //TOP-RIGHT(3)
+      {-1, +1, 0}, //BOTTOM-LEFT(4)
+      {0, 1, -1}}; //BOTTOM-RIGHT(5)
 
 
   private int[] cell_Direction(Direction direction) {
@@ -104,7 +104,7 @@ public class GameCell implements HexagonCell {
    * <p>DEADRIGHT for positive q direction static r direction.
    */
   public enum Direction {
-    DEADLEFT(0), DEADRIGHT(1), TOPLEFT(2), TOPRIGHT(3), BOTTOMLEFT(4), BOTTOMRIGHT(5);
+    DEAD_LEFT(0), DEAD_RIGHT(1), TOP_LEFT(2), TOP_RIGHT(3), BOTTOM_LEFT(4), BOTTOM_RIGHT(5);
     protected int directionNum;
 
     Direction(int i) {
