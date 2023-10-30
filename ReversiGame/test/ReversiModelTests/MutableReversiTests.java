@@ -7,6 +7,7 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Text;
 
 import view.ReversiTextualView;
 import view.TextualView;
@@ -89,7 +90,6 @@ public class MutableReversiTests {
 
   @Test
   public void cannotPlaceIllegalDiscs() {
-    TextualView tv = new ReversiTextualView(game);
     game.startGame(5);
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
@@ -118,12 +118,13 @@ public class MutableReversiTests {
 
   @Test
   public void placeTileMultiplePlanesChanged() {
-    game.startGame(2);
-    Appendable out = new StringBuffer();
-    TextualView tv = new ReversiTextualView(game, out);
-    game.placeDisc(-2, 1, 1);
-    game.placeDisc(1, 1, -2);
-    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
+    game.startGame(3);
+    game.skipCurrentTurn();
+    game.placeDisc(2,-1,-1);
+    game.skipCurrentTurn();
+    game.placeDisc(-1,2,-1);
+    Assert.assertEquals(game.getColorAt(-1,1,0), DiscColor.WHITE);
+    Assert.assertEquals(game.getColorAt(2,-1,-1),DiscColor.WHITE);
   }
 
   @Test
@@ -134,16 +135,41 @@ public class MutableReversiTests {
   }
 
   @Test
-  public void testPlaceDiscFlipsCorrectPlaneAfterSkip() {
+  public void testGameOverAfterGameWonBlack() {
     game.startGame(3);
     TextualView tv = new ReversiTextualView(game);
-    System.out.println(tv.toString());
     game.placeDisc(-2, 1, 1);
-    System.out.println(tv.toString());
     game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
-    System.out.println(tv.toString());
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(1, -1, 0));
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
+    Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
+    game.placeDisc(1,1,-2);
+    Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void testGameOverAfterGameWonWhite() {
+    game.startGame(2);
+    Assert.assertFalse(game.gameOver());
+    TextualView tv = new ReversiTextualView(game);
+    game.skipCurrentTurn();
+    game.placeDisc(1,-2,1);
+    Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-1,2,-1);
+    game.skipCurrentTurn();
+    game.placeDisc(2,-1,-1);
+    Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void testGameOverWhenAllSpotsFilled() {
+    game = new MutableReversi(true,1);
+    TextualView tv = new ReversiTextualView(game);
+    System.out.println(tv.toString());
+    Assert.assertTrue(game.gameOver());
   }
 }
