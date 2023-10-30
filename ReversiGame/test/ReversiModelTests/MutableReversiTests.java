@@ -1,14 +1,12 @@
 package ReversiModelTests;
 
+import java.lang.reflect.Constructor;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Text;
-
 import view.ReversiTextualView;
 import view.TextualView;
 
@@ -59,7 +57,7 @@ public class MutableReversiTests {
           int finalR = r;
           int finalS = s;
           Assert.assertThrows(IllegalStateException.class,
-                  () -> game.placeDisc(finalQ, finalR, finalS));
+              () -> game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -120,11 +118,11 @@ public class MutableReversiTests {
   public void placeTileMultiplePlanesChanged() {
     game.startGame(3);
     game.skipCurrentTurn();
-    game.placeDisc(2,-1,-1);
+    game.placeDisc(2, -1, -1);
     game.skipCurrentTurn();
-    game.placeDisc(-1,2,-1);
-    Assert.assertEquals(game.getColorAt(-1,1,0), DiscColor.WHITE);
-    Assert.assertEquals(game.getColorAt(2,-1,-1),DiscColor.WHITE);
+    game.placeDisc(-1, 2, -1);
+    Assert.assertEquals(game.getColorAt(-1, 1, 0), DiscColor.WHITE);
+    Assert.assertEquals(game.getColorAt(2, -1, -1), DiscColor.WHITE);
   }
 
   @Test
@@ -145,7 +143,7 @@ public class MutableReversiTests {
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
     Assert.assertFalse(game.gameOver());
     game.skipCurrentTurn();
-    game.placeDisc(1,1,-2);
+    game.placeDisc(1, 1, -2);
     Assert.assertTrue(game.gameOver());
   }
 
@@ -155,19 +153,26 @@ public class MutableReversiTests {
     Assert.assertFalse(game.gameOver());
     TextualView tv = new ReversiTextualView(game);
     game.skipCurrentTurn();
-    game.placeDisc(1,-2,1);
+    game.placeDisc(1, -2, 1);
     Assert.assertFalse(game.gameOver());
     game.skipCurrentTurn();
     Assert.assertFalse(game.gameOver());
-    game.placeDisc(-1,2,-1);
+    game.placeDisc(-1, 2, -1);
     game.skipCurrentTurn();
-    game.placeDisc(2,-1,-1);
+    game.placeDisc(2, -1, -1);
     Assert.assertTrue(game.gameOver());
   }
 
   @Test
   public void testGameOverWhenAllSpotsFilled() {
-    game = new MutableReversi(true,1);
+    try {
+      Constructor<MutableReversi> pcc = MutableReversi.class.getDeclaredConstructor(int.class);
+      pcc.setAccessible(true);
+      game = pcc.newInstance(1);
+    } catch (Exception e) {
+      throw new RuntimeException("an error occurred when trying to access the private constructor");
+    }
+
     Assert.assertTrue(game.gameOver());
   }
 }

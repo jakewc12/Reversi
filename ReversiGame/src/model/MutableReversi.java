@@ -26,7 +26,13 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = false;
   }
 
-  public MutableReversi(boolean rigged, int size) {
+  /**
+   * A test only constructor only accessible through reflection. Do not use unless you are
+   * attempting to test code.
+   *
+   * @param size the size of the board you want to create.
+   */
+  private MutableReversi(int size) {
     this.size = size;
     gameStarted = true;
     blacksTurn = true;
@@ -226,7 +232,7 @@ public class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
     if (this.getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
-      throw new IllegalStateException("Cannot place a disc on an occupied disk");
+      throw new IllegalStateException("Cannot place a disc on an occupied disc");
     }
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
