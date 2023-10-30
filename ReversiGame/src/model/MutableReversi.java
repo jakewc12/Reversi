@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import model.GameCell.Direction;
 import model.GameDisc.DiscColor;
 
@@ -27,7 +26,7 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = false;
   }
 
-  public MutableReversi(boolean rigged,int size) {
+  public MutableReversi(boolean rigged, int size) {
     this.size = size;
     gameStarted = true;
     blacksTurn = true;
@@ -50,7 +49,9 @@ public class MutableReversi implements MutableReversiModel {
 
   private void checkValidCoordinates(int q, int r, int s) {
     if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size) {
-      throw new IllegalArgumentException("Invalid coordinates given. Max coordinate size is: " + size + "\n coordinates were (" + q + ", " + r + ", " + s + ")");
+      throw new IllegalArgumentException(
+          "Invalid coordinates given. Max coordinate size is: " + size + "\n coordinates were (" + q
+              + ", " + r + ", " + s + ")");
     }
   }
 
@@ -84,10 +85,12 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
-            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1 && s == 0)) {
+            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
+                && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
-            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1 && r == 0 && s == 1)) {
+            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
+                && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
             } else {
@@ -104,10 +107,12 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
-            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1 && s == 0)) {
+            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
+                && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
-            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1 && r == 0 && s == 1) ||(q==0&&s==0&&r==0)) {
+            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
+                && r == 0 && s == 1) || (q == 0 && s == 0 && r == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
             } else {
@@ -165,16 +170,22 @@ public class MutableReversi implements MutableReversiModel {
   private ArrayList<Disc> getAllFlips(GameCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPLEFT), currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMRIGHT), currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT), currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_RIGHT),
+        currentColor));
 
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADLEFT), currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEADRIGHT), currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_LEFT),
+        currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_RIGHT),
+        currentColor));
 
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOPRIGHT), currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOMLEFT), currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_RIGHT),
+        currentColor));
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
+        currentColor));
     return toFlip;
   }
 
@@ -302,7 +313,7 @@ public class MutableReversi implements MutableReversiModel {
       return true;
     }
     //if (numWhiteCells == 0 || numBlackCells == 0) {
-      //return true;
+    //return true;
     //}
     //if any cell can be made black or white
     // and have moves then return false and set the color back to grey
