@@ -168,8 +168,6 @@ public class MutableReversiTests {
   @Test
   public void testGameOverWhenAllSpotsFilled() {
     game = new MutableReversi(true,1);
-    TextualView tv = new ReversiTextualView(game);
-    System.out.println(tv.toString());
     Assert.assertTrue(game.gameOver());
   }
 }

@@ -67,7 +67,7 @@ public class MutableReversi implements MutableReversiModel {
    */
   private boolean checkIfAllCellsFilled() {
     for (GameCell cell : cells) {
-      if (cell.cellContents().getColor() != DiscColor.GREY) {
+      if (cell.cellContents().getColor() == DiscColor.GREY) {
         return false;
       }
     }
