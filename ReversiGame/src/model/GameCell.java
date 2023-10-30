@@ -17,6 +17,35 @@ public class GameCell implements HexagonCell {
       {0, 1, -1}}; //BOTTOM-RIGHT(5)
 
 
+  /**
+   * Creates a new Game Cell which can hold Discs.
+   *
+   * @param contents    the contents of the cell which can be null or a class from the disc
+   *                    interface.
+   * @param coordinateQ an integer that decrease when going left of the origin and increases when
+   *                    going right of the origin.
+   * @param coordinateR an integer decreases when going up a row from the origin and increases when
+   *                    going down a row.
+   * @param coordinateS the coordinate that decrease when going right of the origin and increases *
+   *                    when going left of the origin.
+   */
+  public GameCell(Disc contents, int coordinateQ, int coordinateR, int coordinateS) {
+    if (contents == null) {
+      throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
+    }
+    this.contents = contents;
+    this.coordinateQ = coordinateQ;
+    this.coordinateR = coordinateR;
+    this.coordinateS = coordinateS;
+  }
+
+  private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
+    this.coordinateQ = coordinateQ;
+    this.coordinateR = coordinateR;
+    this.coordinateS = coordinateS;
+    contents = null;
+  }
+
   private int[] cell_Direction(Direction direction) {
     return cellDirectionVectors[direction.directionNum];
   }
@@ -34,33 +63,6 @@ public class GameCell implements HexagonCell {
     int[] addCell = cell_Direction(direction);
     return new GameCell(coordinateQ + addCell[0], coordinateR + addCell[1],
         coordinateS + addCell[2]);
-  }
-
-
-  /**
-   * Creates a new Game Cell which can hold Discs.
-   *
-   * @param contents    the contents of the cell which can be null or a class from the disc
-   *                    interface.
-   * @param coordinateQ an integer that decrease when going left of the origin and increases when
-   *                    going right of the origin.
-   * @param coordinateR an integer decreases when going up a row from the origin and increases when
-   *                    going down a row.
-   * @param coordinateS the coordinate that decrease when going right of the origin and increases *
-   *                    when going left of the origin.
-   */
-  public GameCell(Disc contents, int coordinateQ, int coordinateR, int coordinateS) {
-    this.contents = contents;
-    this.coordinateQ = coordinateQ;
-    this.coordinateR = coordinateR;
-    this.coordinateS = coordinateS;
-  }
-
-  private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
-    this.coordinateQ = coordinateQ;
-    this.coordinateR = coordinateR;
-    this.coordinateS = coordinateS;
-    contents = null;
   }
 
   @Override

@@ -25,7 +25,7 @@ public class GameDisc implements Disc {
     } else if (color == DiscColor.WHITE) {
       color = DiscColor.BLACK;
     } else {
-      throw new IllegalArgumentException("Cannot flip a disk that is not black or white");
+      throw new IllegalArgumentException("Cannot flip a disc that is not black or white");
     }
   }
 
