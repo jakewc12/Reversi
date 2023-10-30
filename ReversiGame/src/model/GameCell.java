@@ -65,26 +65,53 @@ public class GameCell implements HexagonCell {
         coordinateS + addCell[2]);
   }
 
+  /**
+   * Gets the contents of this Cell.
+   *
+   * @return the disc inside this cell.
+   */
   @Override
   public Disc cellContents() {
     return contents;
   }
 
+  /**
+   * Gets the Q coordinate of this cell.
+   *
+   * @return an integer that decrease when going left of the origin and increases when going right
+   *          of the origin.
+   */
   @Override
   public int getCoordinateQ() {
     return coordinateQ;
   }
 
+  /**
+   * Gets the R coordinate of this cell.
+   *
+   * @return an integer decreases when going up a row from the origin and increases when going down
+   *        a row.
+   */
   @Override
   public int getCoordinateR() {
     return coordinateR;
   }
 
+  /**
+   * Gets the S coordinate of this cell.
+   *
+   * @return an integer that decrease when going right of the origin and increases when going left
+   *        of the origin.
+   */
   @Override
   public int getCoordinateS() {
     return coordinateS;
   }
 
+  /**
+   * returns a String rendering of the GameCell's coordinates.
+   * @return a String formatted as a coordinate from Q to R to S.
+   */
   @Override
   public String toString() {
     return "(" + coordinateQ + ", " + coordinateR + ", " + coordinateS + ")";

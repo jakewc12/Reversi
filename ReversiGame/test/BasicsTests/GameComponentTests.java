@@ -14,12 +14,18 @@ public class GameComponentTests {
   private GameDisc disc;
   private GameCell cell;
 
+  /**
+   * tests that grey discs cannot be flipped.
+   */
   @Test
   public void testGreyDiscCannotBeFlipped() {
     disc = new GameDisc(GameDisc.DiscColor.GREY);
     Assert.assertThrows(IllegalArgumentException.class, () -> disc.flipDisc());
   }
 
+  /**
+   * tests that GameDiscs toString method works.
+   */
   @Test
   public void testToStringWorks() {
     disc = new GameDisc(GameDisc.DiscColor.WHITE);
@@ -30,8 +36,11 @@ public class GameComponentTests {
     Assert.assertEquals("GREY", disc.toString());
   }
 
+  /**
+   * tests that GameCells toString method works.
+   */
   @Test
-  public void testGameCellToString() {
+  public void testGameCellToStringWorks() {
     disc = new GameDisc(DiscColor.GREY);
     cell = new GameCell(disc, 1, 1, 10);
     Assert.assertEquals("(1, 1, 10)", cell.toString());
@@ -41,11 +50,18 @@ public class GameComponentTests {
     Assert.assertEquals("(1, 0, 0)", cell.toString());
   }
 
+  /**
+   * tests that using an invalid disc for GameCell throws an IllegalArgumentException.
+   */
   @Test
   public void testGameCellThrowsErrorOnEmptyContents() {
-    Assert.assertThrows(IllegalArgumentException.class, () -> new GameCell(disc, 0, 0, 0));
+    Assert.assertThrows(IllegalArgumentException.class
+            , () -> new GameCell(disc, 0, 0, 0));
   }
 
+  /**
+   * tests that GameCells getCoordinateQ, getCoordinatesR, getCoordinateS all work correctly.
+   */
   @Test
   public void testGameCellGetQRSWorksAccordingly() {
     int q = 1;

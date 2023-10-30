@@ -18,6 +18,9 @@ public class ReversiReadTests {
 
   private ReadOnlyReversiModel game;
 
+  /**
+   * initalizes game which will be used for testing.
+   */
   @Before
   public void init() {
     game = new MutableReversi();
@@ -33,6 +36,9 @@ public class ReversiReadTests {
   }
 
 
+  /**
+   * tests that getRadius and getBoardSize for ReadOnlyReversiModel works.
+   */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
     game.startGame(5);
@@ -41,12 +47,18 @@ public class ReversiReadTests {
   }
 
 
+  /**
+   * tests that gameOver true for when only radius of one.
+   */
   @Test
   public void gameOverTrueOnOneByOneBoard() {
     game.startGame(1);
     Assert.assertTrue(game.gameOver());
   }
 
+  /**
+   * tests that blacks turn at start.
+   */
   @Test
   public void getTurnBlackOnStart() {
     game.startGame(5);
@@ -80,8 +92,9 @@ public class ReversiReadTests {
             }
           } catch (Exception e) {
             throw new AssertionError(
-                "An error occurred when getting a disc at (Q,R,S): (" + q + ", " + r + ", " + s
-                    + ")\nException was: " + e);
+                    "An error occurred when getting a disc at (Q,R,S): ("
+                            + q + ", " + r + ", " + s
+                            + ")\nException was: " + e);
           }
         }
       }
@@ -90,11 +103,15 @@ public class ReversiReadTests {
       Assert.assertEquals(DiscColor.GREY, game.getColorAt(0, 0, 0));
     } catch (Exception e) {
       throw new AssertionError(
-          "An error occurred when getting a disc at q: " + 0 + " r: " + 0 + "s: " + 0
-              + "\nException was: " + e);
+              "An error occurred when getting a disc at q: " + 0 + " r: "
+                      + 0 + "s: " + 0
+                      + "\nException was: " + e);
     }
   }
 
+  /**
+   * tests that trying to do anything before throwing startGame throws IllegalStateException.
+   */
   @Test
   public void nothingInReadFunctionsBeforeGameStart() {
     Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(0, 0, 0));
@@ -104,6 +121,9 @@ public class ReversiReadTests {
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardRadius());
   }
 
+  /**
+   * tests that cannot call startGame multiple times.
+   */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
     game.startGame(5);

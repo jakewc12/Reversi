@@ -31,12 +31,18 @@ public class ViewTests {
     return count;
   }
 
+  /**
+   * initializes game and gameLog which will be used for testing.
+   */
   @Before
   public void init() {
     game = new MutableReversi();
     gameLog = new StringBuilder();
   }
 
+  /**
+   * tests that textualview is correct at start of game.
+   */
   @Test
   public void testTextViewOnStart() {
     game.startGame(5);
@@ -64,6 +70,10 @@ public class ViewTests {
   //     _ _ _ _ _ _ _ _
   //      _ _ _ _ _ _ _
   //       _ _ _ _ _ _
+
+  /**
+   * tests that textualview updates as game progresses.
+   */
   @Test
   public void testTextViewUpdates() {
     game.startGame(5);

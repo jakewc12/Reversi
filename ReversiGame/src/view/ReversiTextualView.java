@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+
 import model.ReadOnlyReversiModel;
 
 /**
@@ -12,15 +13,33 @@ public class ReversiTextualView implements TextualView {
 
   private Appendable output;
 
+  /**
+   * creates a ReversiTextualView.
+   *
+   * @param model is the ReadOnlyReversiModel which it generates text based on.
+   */
+
   public ReversiTextualView(ReadOnlyReversiModel model) {
     this.model = model;
   }
 
-  public ReversiTextualView(ReadOnlyReversiModel model, Appendable thing) {
+  /**
+   * Creates a ReversiTextualView with an appendable.
+   *
+   * @param model is the ReadOnlyReversiModel which it generates text based on.
+   * @param r     is an appendable which allows for output.
+   */
+
+  public ReversiTextualView(ReadOnlyReversiModel model, Appendable r) {
     this.model = model;
-    this.output = thing;
+    this.output = r;
   }
 
+  /**
+   * Renders a text-based model of the model with piles of foundation, draw, and cascade.
+   *
+   * @return the formatted model of the game.
+   */
   @Override
   public String toString() {
 
@@ -61,6 +80,9 @@ public class ReversiTextualView implements TextualView {
     return returnString.toString();
   }
 
+  /**
+   * Renders a model in some manner (e.g. as text, or as graphics, etc.).
+   */
   @Override
   public void render() {
     try {

@@ -1,12 +1,16 @@
 package ReversiModelTests;
 
-import java.lang.reflect.Constructor;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Constructor;
+
 import view.ReversiTextualView;
 import view.TextualView;
 
@@ -18,6 +22,9 @@ public class MutableReversiTests {
 
   private MutableReversiModel game = new MutableReversi();
 
+  /**
+   * initializes game which will be used for testing.
+   */
   @Before
   public void init() {
     game = new MutableReversi();
@@ -32,7 +39,9 @@ public class MutableReversiTests {
     Assert.assertThrows(IllegalArgumentException.class, () -> game.startGame(0));
   }
 
-
+  /**
+   * tests that the MutableReversi's implementation of getBoardSize and getBoardRadius work.
+   */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
     game.startGame(5);
@@ -40,6 +49,9 @@ public class MutableReversiTests {
     Assert.assertEquals(5, game.getBoardRadius());
   }
 
+  /**
+   * tests that a new GameDisc cannot be placed on an already existing GameDisc location.
+   */
   @Test
   public void cannotPlaceGameDiscOnGameDisc() {
     game.startGame(5);
@@ -57,12 +69,15 @@ public class MutableReversiTests {
           int finalR = r;
           int finalS = s;
           Assert.assertThrows(IllegalStateException.class,
-              () -> game.placeDisc(finalQ, finalR, finalS));
+                  () -> game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
   }
 
+  /**
+   * tests that placing discs at invalid coordinates throws IllegalArgumentException.
+   */
   @Test
   public void cannotPlaceGameDiscOffBoard() {
     game.startGame(5);
@@ -75,6 +90,9 @@ public class MutableReversiTests {
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, 0, -6));
   }
 
+  /**
+   * tests that trying to do anything before throwing startGame throws IllegalStateException.
+   */
   @Test
   public void nothingFunctionsBeforeGameStart() {
     Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(0, 0, 0));
@@ -86,6 +104,9 @@ public class MutableReversiTests {
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardRadius());
   }
 
+  /**
+   * tests that placing any disc no colored WHITE or GREY throws an IllegalStateException.
+   */
   @Test
   public void cannotPlaceIllegalDiscs() {
     game.startGame(5);
@@ -97,23 +118,30 @@ public class MutableReversiTests {
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(2, 0, -2));
   }
 
+  /**
+   * tests that calling startGame multiple times throws an IllegalStateException.
+   */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
     game.startGame(5);
     Assert.assertThrows(IllegalStateException.class, () -> game.startGame(4));
   }
 
+  /**
+   * tests that if a placeTile move is illegal, no tiles are swapped.
+   */
   @Test
   public void placeTileInvalidDoesNotSwapWrongTile() {
     game.startGame(2);
-    Appendable out = new StringBuffer();
-    TextualView tv = new ReversiTextualView(game, out);
     game.placeDisc(-2, 1, 1);
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
     Assert.assertFalse(game.gameOver());
   }
 
+  /**
+   * tests that if a placeTile flips tiles in several different directions/planes they all flip.
+   */
   @Test
   public void placeTileMultiplePlanesChanged() {
     game.startGame(3);
@@ -125,17 +153,23 @@ public class MutableReversiTests {
     Assert.assertEquals(game.getColorAt(2, -1, -1), DiscColor.WHITE);
   }
 
+  /**
+   * tests that placeDisc works correctly.
+   */
   @Test
   public void placeValidDiscWorks() {
     game.startGame(2);
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
+    Assert.assertEquals(game.getColorAt(-2, 1, 1), DiscColor.BLACK);
   }
 
+  /**
+   * tests that gameOver returns true when all white discs are gone.
+   */
   @Test
   public void testGameOverAfterGameWonBlack() {
     game.startGame(3);
-    TextualView tv = new ReversiTextualView(game);
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
@@ -147,11 +181,13 @@ public class MutableReversiTests {
     Assert.assertTrue(game.gameOver());
   }
 
+  /**
+   * tests that gameOver returns true when all black discs are gone.
+   */
   @Test
   public void testGameOverAfterGameWonWhite() {
     game.startGame(2);
     Assert.assertFalse(game.gameOver());
-    TextualView tv = new ReversiTextualView(game);
     game.skipCurrentTurn();
     game.placeDisc(1, -2, 1);
     Assert.assertFalse(game.gameOver());
@@ -163,6 +199,9 @@ public class MutableReversiTests {
     Assert.assertTrue(game.gameOver());
   }
 
+  /**
+   * tests that gameOver returns true when all gameDiscs colors are either BLACK or WHITE.
+   */
   @Test
   public void testGameOverWhenAllSpotsFilled() {
     try {
@@ -172,7 +211,6 @@ public class MutableReversiTests {
     } catch (Exception e) {
       throw new RuntimeException("an error occurred when trying to access the private constructor");
     }
-
     Assert.assertTrue(game.gameOver());
   }
 }
