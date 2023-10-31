@@ -64,7 +64,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private void checkValidCoordinates(int q, int r, int s) {
-    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size && (q+r+s!=0)) {
+    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size || ((q+r+s)!=0)) {
       throw new IllegalArgumentException(
               "Invalid coordinates given. Max coordinate size is: " + size
                       + "\n coordinates were (" + q
@@ -278,6 +278,9 @@ public class MutableReversi implements MutableReversiModel {
   private GameCell getHexAt(int q, int r, int s) {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
+    if(q==3&&r==-2&&s==1){
+      System.out.println("hi");
+    }
     for (GameCell cell : cells) {
       if (cell.getCoordinateQ() == q && cell.getCoordinateR() == r && cell.getCoordinateS() == s) {
         return cell;
