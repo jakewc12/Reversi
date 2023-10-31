@@ -129,5 +129,4 @@ public class ReversiReadTests {
     Assert.assertThrows(IllegalStateException.class, () -> game.startGame());
   }
 
-
 }
