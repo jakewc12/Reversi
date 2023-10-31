@@ -145,12 +145,13 @@ public class MutableReversiTests {
   public void placeTileMultiplePlanesChanged() {
     game = new MutableReversi(3);
     game.startGame();
-    game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
-    game.skipCurrentTurn();
-    game.placeDisc(-1, 2, -1);
-    Assert.assertEquals(game.getColorAt(-1, 1, 0), DiscColor.WHITE);
-    Assert.assertEquals(game.getColorAt(2, -1, -1), DiscColor.WHITE);
+    game.placeDisc(3, -2, -1);
+    game.placeDisc(3, -1, -2);
+    game.placeDisc(1, -2, 1);
+    game.placeDisc(-1, -1, 2);
+    Assert.assertEquals(game.getColorAt(0, -1, 1), DiscColor.BLACK);
+    Assert.assertEquals(game.getColorAt(-1, 0, 1), DiscColor.BLACK);
   }
 
   /**
@@ -222,22 +223,53 @@ public class MutableReversiTests {
       Constructor<MutableReversi> pcc =
               MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
       pcc.setAccessible(true);
-      game = pcc.newInstance(1,true);
+      game = pcc.newInstance(1, true);
     } catch (Exception e) {
       throw new RuntimeException("an error occurred when trying to access the private constructor");
     }
     Assert.assertTrue(game.gameOver());
   }
 
+  /**
+   * tests that when legal moves exists, game over is false and when legal moves dont, gameovertrue.
+   */
   @Test
-  public void testGame() {
+  public void testGameOverWhenGamePlaying() {
     game = new MutableReversi(3);
     game.startGame();
-    TextualView tv = new ReversiTextualView(game);
-    System.out.println(tv.toString());
-    game.placeDisc(2,-1,-1);
-    System.out.println(tv.toString());
-    game.placeDisc(3,-2,1);
-    System.out.println(tv.toString());
+    game.placeDisc(2, -1, -1);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(3, -2, -1);
+    game.placeDisc(3, -1, -2);
+    game.placeDisc(1, -2, 1);
+    game.placeDisc(-1, -1, 2);
+    game.placeDisc(-2, 1, 1);
+    game.placeDisc(-1, 2, -1);
+    game.placeDisc(1, 1, -2);
+    game.placeDisc(-3, 2, 1);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-1, -2, 3);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(2, 1, -3);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-1, 3, -2);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-2, -1, 3);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-2, 3, -1);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(-3, 1, 2);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(1, 2, -3);
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(3, -3, 0);
+    game.placeDisc(-3, 0, 3);
+    game.placeDisc(0, 3, -3);
+    game.placeDisc(-3, 3, 0);
+    game.placeDisc(1, -3, 2);
+    Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
+    game.placeDisc(2, -3, 1);
+    Assert.assertTrue(game.gameOver());
   }
 }

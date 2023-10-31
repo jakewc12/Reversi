@@ -381,13 +381,11 @@ public class MutableReversi implements MutableReversiModel {
         cell.cellContents().changeColorTo(DiscColor.WHITE);
         if (!getAllFlips(cell, DiscColor.WHITE).isEmpty()) {
           cell.cellContents().changeColorTo(DiscColor.GREY);
-          System.out.println(cell.getCoordinateQ()+""+cell.getCoordinateR()+""+cell.getCoordinateS());
           return false;
         }
         cell.cellContents().changeColorTo(DiscColor.BLACK);
         if (!getAllFlips(cell, DiscColor.BLACK).isEmpty()) {
           cell.cellContents().changeColorTo(DiscColor.GREY);
-          System.out.println(cell.getCoordinateQ()+""+cell.getCoordinateR()+""+cell.getCoordinateS());
           return false;
         }
         cell.cellContents().changeColorTo(DiscColor.GREY);
