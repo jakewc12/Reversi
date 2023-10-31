@@ -1,16 +1,14 @@
 package reversimodeltests;
 
+import java.lang.reflect.Constructor;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.lang.reflect.Constructor;
+import view.ReversiTextualView;
+import view.TextualView;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -67,7 +65,7 @@ public class MutableReversiTests {
           int finalR = r;
           int finalS = s;
           Assert.assertThrows(IllegalStateException.class, () ->
-                  game.placeDisc(finalQ, finalR, finalS));
+              game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -220,9 +218,9 @@ public class MutableReversiTests {
   public void testGameOverWhenAllSpotsFilled() {
     try {
       Constructor<MutableReversi> pcc =
-              MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
+          MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
       pcc.setAccessible(true);
-      game = pcc.newInstance(1,true);
+      game = pcc.newInstance(1, true);
     } catch (Exception e) {
       throw new RuntimeException("an error occurred when trying to access the private constructor");
     }
@@ -235,9 +233,9 @@ public class MutableReversiTests {
     game.startGame();
     TextualView tv = new ReversiTextualView(game);
     System.out.println(tv.toString());
-    game.placeDisc(2,-1,-1);
+    game.placeDisc(2, -1, -1);
     System.out.println(tv.toString());
-    game.placeDisc(3,-2,1);
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(3, -2, 1));
     System.out.println(tv.toString());
   }
 }
