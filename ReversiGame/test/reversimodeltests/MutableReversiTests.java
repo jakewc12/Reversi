@@ -64,8 +64,8 @@ public class MutableReversiTests {
           int finalQ = q;
           int finalR = r;
           int finalS = s;
-          Assert.assertThrows(IllegalStateException.class, () ->
-              game.placeDisc(finalQ, finalR, finalS));
+          Assert.assertThrows(IllegalStateException.class,
+              () -> game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -217,8 +217,8 @@ public class MutableReversiTests {
   @Test
   public void testGameOverWhenAllSpotsFilled() {
     try {
-      Constructor<MutableReversi> pcc =
-          MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
+      Constructor<MutableReversi> pcc = MutableReversi.class.getDeclaredConstructor(int.class,
+          boolean.class);
       pcc.setAccessible(true);
       game = pcc.newInstance(1, true);
     } catch (Exception e) {
@@ -228,14 +228,11 @@ public class MutableReversiTests {
   }
 
   @Test
-  public void testGame() {
+  public void testPlaceDiscThrowsErrorsCorrectly() {
     game = new MutableReversi(3);
     game.startGame();
     TextualView tv = new ReversiTextualView(game);
-    System.out.println(tv.toString());
     game.placeDisc(2, -1, -1);
-    System.out.println(tv.toString());
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(3, -2, 1));
-    System.out.println(tv.toString());
   }
 }
