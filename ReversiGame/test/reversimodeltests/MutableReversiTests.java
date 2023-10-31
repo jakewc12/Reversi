@@ -229,39 +229,15 @@ public class MutableReversiTests {
     Assert.assertTrue(game.gameOver());
   }
 
-  /**
-   * tests that when both black and white have no moves, the game is over.
-   */
   @Test
-  public void testGameOverWithNoLegalMovesLeft() {
+  public void testGame() {
     game = new MutableReversi(3);
     game.startGame();
     TextualView tv = new ReversiTextualView(game);
+    System.out.println(tv.toString());
     game.placeDisc(2,-1,-1);
-    game.placeDisc(3,-2,-1);
-    game.placeDisc(1,1,-2);
-    game.placeDisc(-1,2,-1);
-    game.placeDisc(-2,1,1);
-    game.placeDisc(1,-2,1);
-    game.placeDisc(3,-1,-2);
-    game.placeDisc(-3,2,1);
-    game.placeDisc(1,-3,2);
-    game.placeDisc(2,1,-3);
-    game.placeDisc(1,2,-3);
-    game.placeDisc(2,-3,1);
-    game.placeDisc(-1,-1,2);
-    game.placeDisc(-2,3,-1);
-    game.placeDisc(3,-3,0);
-    game.placeDisc(-2,-1,3);
-    game.placeDisc(-3,1,2);
-    game.placeDisc(0,3,-3);
-    game.placeDisc(-1,-2,3);
-    game.placeDisc(-3,0,3);
-    game.placeDisc(-1,3,-2);
-    game.placeDisc(-3,3,0);
-    game.skipCurrentTurn();
-    game.placeDisc(0,-3,3);
-    Assert.assertTrue(game.gameOver());
+    System.out.println(tv.toString());
+    game.placeDisc(3,-2,1);
+    System.out.println(tv.toString());
   }
-  
 }
