@@ -3,6 +3,8 @@ package reversimodeltests;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
+import view.ReversiTextualView;
+import view.TextualView;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -225,5 +227,17 @@ public class MutableReversiTests {
       throw new RuntimeException("an error occurred when trying to access the private constructor");
     }
     Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void testGame() {
+    game = new MutableReversi(3);
+    game.startGame();
+    TextualView tv = new ReversiTextualView(game);
+    System.out.println(tv.toString());
+    game.placeDisc(2,-1,-1);
+    System.out.println(tv.toString());
+    game.placeDisc(3,-2,1);
+    System.out.println(tv.toString());
   }
 }

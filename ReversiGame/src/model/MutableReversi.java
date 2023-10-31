@@ -64,7 +64,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private void checkValidCoordinates(int q, int r, int s) {
-    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size) {
+    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size && (q+r+s!=0)) {
       throw new IllegalArgumentException(
               "Invalid coordinates given. Max coordinate size is: " + size
                       + "\n coordinates were (" + q
@@ -237,7 +237,7 @@ public class MutableReversi implements MutableReversiModel {
    * @param r coordinate r
    * @param s coordinate s
    * @throws IllegalArgumentException if coordinates are invalid
-   * @throws IllegalStateException    if the move is illegal
+   * @throws IllegalStateException    if the move is illegal.
    */
   @Override
   public void placeDisc(int q, int r, int s) {
@@ -297,6 +297,7 @@ public class MutableReversi implements MutableReversiModel {
     int q = cell.getCoordinateQ();
     int r = cell.getCoordinateR();
     int s = cell.getCoordinateS();
+    checkValidCoordinates(q,r,s);
     return getHexAt(q, r, s);
   }
 
