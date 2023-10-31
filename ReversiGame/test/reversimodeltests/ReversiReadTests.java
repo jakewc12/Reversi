@@ -1,10 +1,8 @@
-package ReversiModelTests;
+package reversimodeltests;
 
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +21,7 @@ public class ReversiReadTests {
    */
   @Before
   public void init() {
-    game = new MutableReversi();
+    game = new MutableReversi(5);
   }
 
   /**
@@ -31,8 +29,8 @@ public class ReversiReadTests {
    */
   @Test
   public void startGameThrowsOnInvalidSize() {
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.startGame(-1));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.startGame(0));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(-1));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(0));
   }
 
 
@@ -41,7 +39,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
   }
@@ -52,7 +50,8 @@ public class ReversiReadTests {
    */
   @Test
   public void gameOverTrueOnOneByOneBoard() {
-    game.startGame(1);
+    game = new MutableReversi(1);
+    game.startGame();
     Assert.assertTrue(game.gameOver());
   }
 
@@ -61,7 +60,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getTurnBlackOnStart() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertEquals(DiscColor.BLACK, game.getCurrentTurn());
   }
 
@@ -73,7 +72,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getDiscAtFunctionsCorrectlyOnGameStart() {
-    game.startGame(5);
+    game.startGame();
     int boardRadius = 5;
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
@@ -126,8 +125,8 @@ public class ReversiReadTests {
    */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
-    game.startGame(5);
-    Assert.assertThrows(IllegalStateException.class, () -> game.startGame(4));
+    game.startGame();
+    Assert.assertThrows(IllegalStateException.class, () -> game.startGame());
   }
 
 

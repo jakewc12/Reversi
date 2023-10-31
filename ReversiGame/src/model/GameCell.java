@@ -46,7 +46,7 @@ public class GameCell implements HexagonCell {
     contents = null;
   }
 
-  private int[] cell_Direction(Direction direction) {
+  private int[] cellDirection(Direction direction) {
     return cellDirectionVectors[direction.directionNum];
   }
 
@@ -60,7 +60,7 @@ public class GameCell implements HexagonCell {
   public GameCell getCellNeighbor(Direction direction) {
     //need to check that neighbor is not off board
 
-    int[] addCell = cell_Direction(direction);
+    int[] addCell = cellDirection(direction);
     return new GameCell(coordinateQ + addCell[0], coordinateR + addCell[1],
         coordinateS + addCell[2]);
   }

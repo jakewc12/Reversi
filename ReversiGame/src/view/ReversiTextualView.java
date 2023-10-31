@@ -37,6 +37,8 @@ public class ReversiTextualView implements TextualView {
 
   /**
    * Renders a text-based model of the model with piles of foundation, draw, and cascade.
+   * Grey discs are represented with _, White discs are represented with O, and Black discs are.
+   * represented with X.
    *
    * @return the formatted model of the game.
    */

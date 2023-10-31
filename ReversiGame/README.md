@@ -13,11 +13,11 @@ of the player move options in the Reversi game.
 
 
     Quick start: 
-![img.png](img.png)
 
 A user may interact with MutableReversi through methods placeDisc() and skipTurn().
 A user may interact with ReadOnlyReverseModel through methods like getColorAt(), isGameOver,
 startGame(), etc.
+A user may interact with the ReversiTextualView through toString() and render() methods.
 
 
 
@@ -44,8 +44,8 @@ calculates which players turn it is. If blacksTurn is true, then it is blacks tu
 then it is whites turn. The final component to the model is cells, which is the list of all the
 GameCells in the game. This is required for all user interaction and allows the board to have cells
 with assigned discs.
-Invariants in the model would be that the board radius never changes and 
-the number of GameCells with BLACK or WHITE GameDiscs will never decrease,
+Invariants in the model would be that the game cannot be played unless gameStarted is true.
+Also, an invariant is that model's size will never be less than 1.
 
 
 -Within the GameDisc component, there are the assigned coordinates Q,R, and S. These are all stored

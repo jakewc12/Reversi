@@ -22,8 +22,15 @@ public class MutableReversi implements MutableReversiModel {
 
   /**
    * Creates a MutableReversi and sets all game values to zero until startGame is called.
+   * @param size is the intended radius of the game, in relation to the center cell.
+   * @invariant a game cannot be played unless gameStarted is true.
+   * @invariant size cannot be less than 1.
    */
-  public MutableReversi() {
+  public MutableReversi(int size) {
+    if (size <= 0) {
+      throw new IllegalArgumentException("Invalid size given");
+    }
+    this.size = size;
     gameStarted = false;
   }
 
@@ -33,7 +40,7 @@ public class MutableReversi implements MutableReversiModel {
    *
    * @param size the size of the board you want to create.
    */
-  private MutableReversi(int size) {
+  private MutableReversi(int size, boolean rigged) {
     this.size = size;
     gameStarted = true;
     blacksTurn = true;
@@ -43,19 +50,14 @@ public class MutableReversi implements MutableReversiModel {
   /**
    * Initializes all values.
    *
-   * @param size is the intended radius of the game, in relation to the center cell.
    * @throws IllegalArgumentException if size is negative.
    * @throws IllegalStateException    if the game has already started.
    */
   @Override
-  public void startGame(int size) {
+  public void startGame() {
     if (gameStarted) {
       throw new IllegalStateException("Game already started");
     }
-    if (size <= 0) {
-      throw new IllegalArgumentException("Invalid size given");
-    }
-    this.size = size;
     createAllCells();
     blacksTurn = true;
     gameStarted = true;

@@ -1,8 +1,9 @@
-package BasicsTests;
+package basictests;
 
 import model.GameCell;
 import model.GameDisc;
 import model.GameDisc.DiscColor;
+
 import org.junit.Assert;
 import org.junit.Test;
 

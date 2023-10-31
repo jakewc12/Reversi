@@ -1,4 +1,4 @@
-package ReversiModelTests;
+package reversimodeltests;
 
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
@@ -7,12 +7,8 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Constructor;
-
-import view.ReversiTextualView;
-import view.TextualView;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -20,14 +16,14 @@ import view.TextualView;
  */
 public class MutableReversiTests {
 
-  private MutableReversiModel game = new MutableReversi();
+  private MutableReversiModel game;
 
   /**
    * initializes game which will be used for testing.
    */
   @Before
   public void init() {
-    game = new MutableReversi();
+    game = new MutableReversi(5);
   }
 
   /**
@@ -35,8 +31,8 @@ public class MutableReversiTests {
    */
   @Test
   public void startGameThrowsOnInvalidSize() {
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.startGame(-1));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.startGame(0));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(-1));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(0));
   }
 
   /**
@@ -44,7 +40,7 @@ public class MutableReversiTests {
    */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
   }
@@ -54,7 +50,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceGameDiscOnGameDisc() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     for (int q = -1; q <= 1; q++) {
       for (int r = -1; r <= 1; r++) {
@@ -68,8 +64,8 @@ public class MutableReversiTests {
           int finalQ = q;
           int finalR = r;
           int finalS = s;
-          Assert.assertThrows(IllegalStateException.class,
-                  () -> game.placeDisc(finalQ, finalR, finalS));
+          Assert.assertThrows(IllegalStateException.class, () ->
+                  game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -80,7 +76,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceGameDiscOffBoard() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(6, 6, 6));
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(5, 5, 6));
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, 0, 6));
@@ -109,7 +105,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceIllegalDiscs() {
-    game.startGame(5);
+    game.startGame();
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(4, -2, -2));
@@ -123,8 +119,8 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
-    game.startGame(5);
-    Assert.assertThrows(IllegalStateException.class, () -> game.startGame(4));
+    game.startGame();
+    Assert.assertThrows(IllegalStateException.class, () -> game.startGame());
   }
 
   /**
@@ -132,7 +128,8 @@ public class MutableReversiTests {
    */
   @Test
   public void placeTileInvalidDoesNotSwapWrongTile() {
-    game.startGame(2);
+    game = new MutableReversi(2);
+    game.startGame();
     game.placeDisc(-2, 1, 1);
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
@@ -144,7 +141,8 @@ public class MutableReversiTests {
    */
   @Test
   public void placeTileMultiplePlanesChanged() {
-    game.startGame(3);
+    game = new MutableReversi(3);
+    game.startGame();
     game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
     game.skipCurrentTurn();
@@ -158,10 +156,22 @@ public class MutableReversiTests {
    */
   @Test
   public void placeValidDiscWorks() {
-    game.startGame(2);
+    game = new MutableReversi(2);
+    game.startGame();
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
     Assert.assertEquals(game.getColorAt(-2, 1, 1), DiscColor.BLACK);
+  }
+
+  @Test
+  public void placeValidDoesNotFlipSurroundingTiles() {
+    game = new MutableReversi(2);
+    game.startGame();
+    game.placeDisc(2, -1, -1);
+    Assert.assertEquals(game.getColorAt(2, -1, -1), DiscColor.BLACK);
+    Assert.assertNotEquals(game.getColorAt(2, -2, 0), DiscColor.BLACK);
+    Assert.assertNotEquals(game.getColorAt(1, -2, 1), DiscColor.BLACK);
+    Assert.assertNotEquals(game.getColorAt(2, 0, -2), DiscColor.BLACK);
   }
 
   /**
@@ -169,7 +179,8 @@ public class MutableReversiTests {
    */
   @Test
   public void testGameOverAfterGameWonBlack() {
-    game.startGame(3);
+    game = new MutableReversi(3);
+    game.startGame();
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
@@ -186,7 +197,8 @@ public class MutableReversiTests {
    */
   @Test
   public void testGameOverAfterGameWonWhite() {
-    game.startGame(2);
+    game = new MutableReversi(2);
+    game.startGame();
     Assert.assertFalse(game.gameOver());
     game.skipCurrentTurn();
     game.placeDisc(1, -2, 1);
@@ -205,9 +217,10 @@ public class MutableReversiTests {
   @Test
   public void testGameOverWhenAllSpotsFilled() {
     try {
-      Constructor<MutableReversi> pcc = MutableReversi.class.getDeclaredConstructor(int.class);
+      Constructor<MutableReversi> pcc =
+              MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
       pcc.setAccessible(true);
-      game = pcc.newInstance(1);
+      game = pcc.newInstance(1,true);
     } catch (Exception e) {
       throw new RuntimeException("an error occurred when trying to access the private constructor");
     }

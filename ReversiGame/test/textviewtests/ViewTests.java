@@ -1,11 +1,14 @@
-package TextViewTests;
+package textviewtests;
 
 import java.io.IOException;
+
 import model.MutableReversi;
 import model.MutableReversiModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import view.ReversiTextualView;
 import view.TextualView;
 
@@ -36,7 +39,7 @@ public class ViewTests {
    */
   @Before
   public void init() {
-    game = new MutableReversi();
+    game = new MutableReversi(5);
     gameLog = new StringBuilder();
   }
 
@@ -45,7 +48,7 @@ public class ViewTests {
    */
   @Test
   public void testTextViewOnStart() {
-    game.startGame(5);
+    game.startGame();
     tv = new ReversiTextualView(game, gameLog);
     try {
       tv.render();
@@ -76,7 +79,7 @@ public class ViewTests {
    */
   @Test
   public void testTextViewUpdates() {
-    game.startGame(5);
+    game.startGame();
     game.placeDisc(1, -2, 1);
     tv = new ReversiTextualView(game, gameLog);
     try {

@@ -55,9 +55,8 @@ public interface ReadOnlyReversiModel {
   /**
    * Initializes all values.
    *
-   * @param size is the intended radius of the game, in relation to the center cell.
    * @throws IllegalArgumentException if size is negative.
    * @throws IllegalStateException    if the game has already started.
    */
-  void startGame(int size);
+  void startGame();
 }
