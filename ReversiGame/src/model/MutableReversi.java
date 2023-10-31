@@ -22,6 +22,7 @@ public class MutableReversi implements MutableReversiModel {
 
   /**
    * Creates a MutableReversi and sets all game values to zero until startGame is called.
+   *
    * @param size is the intended radius of the game, in relation to the center cell.
    * @invariant a game cannot be played unless gameStarted is true.
    * @invariant size cannot be less than 1.
@@ -64,7 +65,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private void checkValidCoordinates(int q, int r, int s) {
-    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size || ((q+r+s)!=0)) {
+    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size || ((q + r + s) != 0)) {
       throw new IllegalArgumentException(
               "Invalid coordinates given. Max coordinate size is: " + size
                       + "\n coordinates were (" + q
@@ -278,7 +279,7 @@ public class MutableReversi implements MutableReversiModel {
   private GameCell getHexAt(int q, int r, int s) {
     checkGameStarted();
     checkValidCoordinates(q, r, s);
-    if(q==3&&r==-2&&s==1){
+    if (q == 3 && r == -2 && s == 1) {
       System.out.println("hi");
     }
     for (GameCell cell : cells) {
@@ -300,7 +301,7 @@ public class MutableReversi implements MutableReversiModel {
     int q = cell.getCoordinateQ();
     int r = cell.getCoordinateR();
     int s = cell.getCoordinateS();
-    checkValidCoordinates(q,r,s);
+    checkValidCoordinates(q, r, s);
     return getHexAt(q, r, s);
   }
 

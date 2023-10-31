@@ -3,8 +3,6 @@ package reversimodeltests;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
 
 import org.junit.Assert;
 import org.junit.Before;
