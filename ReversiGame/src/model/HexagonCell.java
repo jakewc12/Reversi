@@ -52,5 +52,5 @@ public interface HexagonCell {
    *                  descriptions.
    * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
    */
-  public GameCell getCellNeighbor(GameCell.Direction direction);
+  GameCell getCellNeighbor(GameCell.Direction direction);
 }
