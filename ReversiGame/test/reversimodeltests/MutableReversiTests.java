@@ -40,7 +40,7 @@ public class MutableReversiTests {
    */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
   }
@@ -50,7 +50,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceGameDiscOnGameDisc() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     for (int q = -1; q <= 1; q++) {
       for (int r = -1; r <= 1; r++) {
@@ -76,7 +76,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceGameDiscOffBoard() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(6, 6, 6));
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(5, 5, 6));
     Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(0, 0, 6));
@@ -105,7 +105,7 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotPlaceIllegalDiscs() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(0, 0, 0));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(0, 0, 0));
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(4, -2, -2));
@@ -119,8 +119,8 @@ public class MutableReversiTests {
    */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
-    game.startGame();
-    Assert.assertThrows(IllegalStateException.class, () -> game.startGame());
+    game.startGame(game.getBoard());
+    Assert.assertThrows(IllegalStateException.class, () -> game.startGame(game.getBoard()));
   }
 
   /**
@@ -129,7 +129,7 @@ public class MutableReversiTests {
   @Test
   public void placeTileInvalidDoesNotSwapWrongTile() {
     game = new MutableReversi(2);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(-2, 1, 1);
     Assert.assertEquals(DiscColor.WHITE, game.getColorAt(0, 1, -1));
     Assert.assertEquals(DiscColor.BLACK, game.getColorAt(-1, 0, 1));
@@ -142,7 +142,7 @@ public class MutableReversiTests {
   @Test
   public void placeTileMultiplePlanesChanged() {
     game = new MutableReversi(3);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(2, -1, -1);
     game.placeDisc(3, -2, -1);
     game.placeDisc(3, -1, -2);
@@ -158,7 +158,7 @@ public class MutableReversiTests {
   @Test
   public void placeValidDiscWorks() {
     game = new MutableReversi(2);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
     Assert.assertEquals(game.getColorAt(-2, 1, 1), DiscColor.BLACK);
@@ -167,7 +167,7 @@ public class MutableReversiTests {
   @Test
   public void placeValidDoesNotFlipSurroundingTiles() {
     game = new MutableReversi(2);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(2, -1, -1);
     Assert.assertEquals(game.getColorAt(2, -1, -1), DiscColor.BLACK);
     Assert.assertNotEquals(game.getColorAt(2, -2, 0), DiscColor.BLACK);
@@ -181,7 +181,7 @@ public class MutableReversiTests {
   @Test
   public void testGameOverAfterGameWonBlack() {
     game = new MutableReversi(3);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
     game.placeDisc(2, -1, -1);
@@ -199,7 +199,7 @@ public class MutableReversiTests {
   @Test
   public void testGameOverAfterGameWonWhite() {
     game = new MutableReversi(2);
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertFalse(game.gameOver());
     game.skipCurrentTurn();
     game.placeDisc(1, -2, 1);
@@ -234,7 +234,7 @@ public class MutableReversiTests {
   @Test
   public void testGameOverWhenGamePlaying() {
     game = new MutableReversi(3);
-    game.startGame();
+    game.startGame(game.getBoard());
     game.placeDisc(2, -1, -1);
     Assert.assertFalse(game.gameOver());
     game.placeDisc(3, -2, -1);
