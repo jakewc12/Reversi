@@ -212,10 +212,12 @@ public class MutableReversi implements MutableReversiModel {
                     && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
               cells.add(newCell);
+              numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                     && r == 0 && s == 1) || (q == 0 && s == 0 && r == 0)) {
               GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
               cells.add(newCell);
+              numWhiteTiles++;
             } else {
               cells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
             }
@@ -337,7 +339,6 @@ public class MutableReversi implements MutableReversiModel {
       numWhiteTiles -= flipDiscs.size();
       numBlackTiles += flipDiscs.size()+1;
     } else {
-      System.out.println(flipDiscs.size());
       numWhiteTiles += flipDiscs.size()+1;
       numBlackTiles -= flipDiscs.size();
     }
