@@ -78,3 +78,13 @@ placeDisc(), and skipCurrentTurn() methods along with gameOver().
 -Things associated with the view can be found in the view folder. This includes the interface for
 the view and ReversiTextualView, which creates a basic textual view based on a
 ReadOnlyReversiModel.
+
+
+    Changes for Part 2: 
+    In part one, we did not include any method to find the score of a given player because we 
+    assumed the controller would handle that. We added this to the model. We also added fuctions
+    to check if there are any legal moves left for the current player and if a given move is legal.
+    In the previous part, we handled this in the placeDisc() method, however, the homework page
+    advised we view this as an observation instead of an operation so we added new methods to check
+    legality of moves.
+    

@@ -95,11 +95,11 @@ public interface ReadOnlyReversiModel {
   /**
    * Returns the score or count of tiles the given player has.
    *
-   * @param player either player one or player two.
+   * @param color either BLACK or WHITE.
    * @return the score of player.
    * @throws IllegalStateException    if the game hasn't started yet.
    * @throws IllegalArgumentException if player is invalid.
    */
-  int checkScoreOfPlayer(int player);
+  int checkScoreOfPlayer(DiscColor color);
 }
 

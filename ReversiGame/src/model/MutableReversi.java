@@ -59,7 +59,7 @@ public class MutableReversi implements MutableReversiModel {
     if (gameStarted) {
       throw new IllegalStateException("Game already started");
     }
-    if(board.isEmpty()){
+    if (board.isEmpty()) {
       throw new IllegalArgumentException("Board is empty for startGame");
     }
     this.cells = board;
@@ -70,6 +70,58 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public List<HexagonCell> getBoard() {
     return createAllCells();
+  }
+
+  @Override
+  public boolean checkLegalMove(int q, int r, int s) {
+    checkValidCoordinates(q,r,s);
+    return false;
+  }
+
+  @Override
+  public boolean checkCurrentPlayerHasLegalMovesLeft() {
+    return checkGivenPlayerHasLegalMoveLeft(blacksTurn);
+  }
+
+  @Override
+  public int checkScoreOfPlayer(DiscColor color) {
+    int count = 0;
+    for(HexagonCell cell : cells) {
+      if(cell.cellContents().getColor() == color ){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /**
+   * Checks if the given player, either black or white, has a legal move left and returns true if
+   * yes, else no.
+   *
+   * @param blacksTurn if it's black or whites turn.
+   * @return if the given player has a legal move left.
+   */
+  private boolean checkGivenPlayerHasLegalMoveLeft(boolean blacksTurn) {
+    for (HexagonCell cell : cells) {
+      if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
+        if (blacksTurn) {
+          cell.cellContents().changeColorTo(DiscColor.BLACK);
+          if (!getAllFlips(cell, DiscColor.BLACK).isEmpty()) {
+            cell.cellContents().changeColorTo(DiscColor.GREY);
+            return true;
+          }
+
+        } else {
+          cell.cellContents().changeColorTo(DiscColor.WHITE);
+          if (!getAllFlips(cell, DiscColor.WHITE).isEmpty()) {
+            cell.cellContents().changeColorTo(DiscColor.GREY);
+            return true;
+          }
+        }
+        cell.cellContents().changeColorTo(DiscColor.GREY);
+      }
+    }
+    return false;
   }
 
   private void checkValidCoordinates(int q, int r, int s) {
@@ -107,7 +159,7 @@ public class MutableReversi implements MutableReversiModel {
    * numWhitesCells whenever a black or white cell is added
    */
   private List<HexagonCell> createAllCells() {
-     List<HexagonCell> localCells = new ArrayList<>();
+    List<HexagonCell> localCells = new ArrayList<>();
     for (int q = -size; q <= size; q++) {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
@@ -387,21 +439,7 @@ public class MutableReversi implements MutableReversiModel {
     }
     //if any cell can be made black or white
     // and have moves then return false and set the color back to grey
-    for (HexagonCell cell : cells) {
-      if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
-        cell.cellContents().changeColorTo(DiscColor.WHITE);
-        if (!getAllFlips(cell, DiscColor.WHITE).isEmpty()) {
-          cell.cellContents().changeColorTo(DiscColor.GREY);
-          return false;
-        }
-        cell.cellContents().changeColorTo(DiscColor.BLACK);
-        if (!getAllFlips(cell, DiscColor.BLACK).isEmpty()) {
-          cell.cellContents().changeColorTo(DiscColor.GREY);
-          return false;
-        }
-        cell.cellContents().changeColorTo(DiscColor.GREY);
-      }
-    }
-    return true;
+    return !checkGivenPlayerHasLegalMoveLeft(blacksTurn)
+            && !checkGivenPlayerHasLegalMoveLeft(!blacksTurn);
   }
 }

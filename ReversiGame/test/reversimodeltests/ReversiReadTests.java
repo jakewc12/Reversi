@@ -136,4 +136,5 @@ public class ReversiReadTests {
     Assert.assertEquals(game.getBoard().size(), 7);
   }
 
+
 }

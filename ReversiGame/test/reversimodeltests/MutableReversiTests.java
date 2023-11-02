@@ -3,6 +3,8 @@ package reversimodeltests;
 import model.GameDisc.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
+import view.ReversiTextualView;
+import view.TextualView;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -269,5 +271,34 @@ public class MutableReversiTests {
     game.skipCurrentTurn();
     game.placeDisc(2, -3, 1);
     Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void testCheckGivenPlayerHasMovesWorksWhenNoMovesLeft() {
+    game = new MutableReversi(1);
+    game.startGame(game.getBoard());
+    Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
+    game.skipCurrentTurn();
+    Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
+  }
+
+  @Test
+  public void testCheckPlayerHasMovesWorksThroughoutGame() {
+    game = new MutableReversi(3);
+    game.startGame(game.getBoard());
+    TextualView tv = new ReversiTextualView(game);
+    Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
+    System.out.println(tv.toString());
+    game.placeDisc(2,-1,-1);
+    Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
+    game.skipCurrentTurn();
+    System.out.println(tv.toString());
+    game.placeDisc(-2,1,1);
+    game.skipCurrentTurn();
+    System.out.println(tv.toString());
+    game.placeDisc(1,1,-2);
+    System.out.println(tv.toString());
+    System.out.println(game.getCurrentTurn());
+    Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
   }
 }
