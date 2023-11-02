@@ -1,6 +1,7 @@
 package reversimodeltests;
 
 import model.GameDisc.DiscColor;
+import model.HexagonCell;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
 
@@ -39,7 +40,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
   }
@@ -51,7 +52,7 @@ public class ReversiReadTests {
   @Test
   public void gameOverTrueOnOneByOneBoard() {
     game = new MutableReversi(1);
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertTrue(game.gameOver());
   }
 
@@ -60,7 +61,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getTurnBlackOnStart() {
-    game.startGame();
+    game.startGame(game.getBoard());
     Assert.assertEquals(DiscColor.BLACK, game.getCurrentTurn());
   }
 
@@ -72,7 +73,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getDiscAtFunctionsCorrectlyOnGameStart() {
-    game.startGame();
+    game.startGame(game.getBoard());
     int boardRadius = 5;
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
@@ -125,8 +126,14 @@ public class ReversiReadTests {
    */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
-    game.startGame();
-    Assert.assertThrows(IllegalStateException.class, () -> game.startGame());
+    game.startGame(game.getBoard());
+    Assert.assertThrows(IllegalStateException.class, () -> game.startGame(game.getBoard()));
+  }
+
+  @Test
+  public void testGetBoardWorks() {
+    game = new MutableReversi(1);
+    Assert.assertEquals(game.getBoard().size(), 7);
   }
 
 }

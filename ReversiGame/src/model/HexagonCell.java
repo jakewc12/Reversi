@@ -44,4 +44,13 @@ public interface HexagonCell {
    *        of the origin.
    */
   int getCoordinateS();
+
+  /**
+   * Gets this neighbors cell in a direction.
+   *
+   * @param direction the direction you want to get the neighbor from. See Direction enum class for
+   *                  descriptions.
+   * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
+   */
+  GameCell getCellNeighbor(GameCell.Direction direction);
 }

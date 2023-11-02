@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import model.GameDisc.DiscColor;
 
 /**
@@ -55,8 +57,15 @@ public interface ReadOnlyReversiModel {
   /**
    * Initializes all values.
    *
+   * @param board is the board that will be used to play the game on.
    * @throws IllegalArgumentException if size is negative.
    * @throws IllegalStateException    if the game has already started.
    */
-  void startGame();
+  void startGame(List<HexagonCell> board);
+
+  /**
+   * Returns a board in a default initial state based on the game's size.
+   * @return List of HexagonCell representing a board at default state.
+   */
+  List<HexagonCell> getBoard();
 }
