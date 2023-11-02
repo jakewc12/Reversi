@@ -18,6 +18,8 @@ public class MutableReversi implements MutableReversiModel {
   //width is how far from the center cell every edge cell is
   private final int size;
   private boolean gameStarted;
+  private int numBlackTiles;
+  private int numWhiteTiles;
   private List<HexagonCell> cells = new ArrayList<>();
 
   /**
@@ -67,15 +69,52 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
+  /**
+   * Size is means the distance from an edge cell to the middle most cell. for example, if a board
+   * has a total height of 7 cells, size would be 3 cells. Also changes numBlackCells and
+   * numWhitesCells whenever a black or white cell is added
+   */
   @Override
   public List<HexagonCell> getBoard() {
-    return createAllCells();
+    List<HexagonCell> localCells = new ArrayList<>();
+    for (int q = -size; q <= size; q++) {
+      for (int r = -size; r <= size; r++) {
+        for (int s = -size; s <= size; s++) {
+          if (q + r + s == 0) {
+            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
+                    && s == 0)) {
+              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
+              localCells.add(newCell);
+              numBlackTiles++;
+            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
+                    && r == 0 && s == 1)) {
+              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
+              localCells.add(newCell);
+              numWhiteTiles++;
+            } else {
+              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
+            }
+          }
+        }
+      }
+    }
+    return localCells;
   }
 
   @Override
   public boolean checkLegalMove(int q, int r, int s) {
-    checkValidCoordinates(q,r,s);
-    return false;
+    checkValidCoordinates(q, r, s);
+    if (this.getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
+      //throw new IllegalStateException("Cannot place a disc on an occupied disc");
+      return false;
+    }
+    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
+    if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
+      this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
+      //throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
+      return false;
+    }
+    return true;
   }
 
   @Override
@@ -85,13 +124,23 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int checkScoreOfPlayer(DiscColor color) {
+    //there should be a better way to update score. maybe everytime a move is made, update it then
+    //instead of doing this.
+    if (color == DiscColor.BLACK) {
+      return numBlackTiles;
+    } else {
+      return numWhiteTiles;
+    }
+    /*
     int count = 0;
-    for(HexagonCell cell : cells) {
-      if(cell.cellContents().getColor() == color ){
+    for (HexagonCell cell : cells) {
+      if (cell.cellContents().getColor() == color) {
         count++;
       }
     }
     return count;
+
+     */
   }
 
   /**
@@ -153,34 +202,6 @@ public class MutableReversi implements MutableReversiModel {
     return true;
   }
 
-  /**
-   * Size is means the distance from an edge cell to the middle most cell. for example, if a board
-   * has a total height of 7 cells, size would be 3 cells. Also changes numBlackCells and
-   * numWhitesCells whenever a black or white cell is added
-   */
-  private List<HexagonCell> createAllCells() {
-    List<HexagonCell> localCells = new ArrayList<>();
-    for (int q = -size; q <= size; q++) {
-      for (int r = -size; r <= size; r++) {
-        for (int s = -size; s <= size; s++) {
-          if (q + r + s == 0) {
-            if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
-                    && s == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.BLACK), q, r, s);
-              localCells.add(newCell);
-            } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
-                    && r == 0 && s == 1)) {
-              GameCell newCell = new GameCell(new GameDisc(GameDisc.DiscColor.WHITE), q, r, s);
-              localCells.add(newCell);
-            } else {
-              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
-            }
-          }
-        }
-      }
-    }
-    return localCells;
-  }
 
   private void createAllCellsRigged() {
     for (int q = -size; q <= size; q++) {
@@ -305,18 +326,20 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public void placeDisc(int q, int r, int s) {
     checkGameStarted();
-    checkValidCoordinates(q, r, s);
-    if (this.getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
-      throw new IllegalStateException("Cannot place a disc on an occupied disc");
-    }
-    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
-    if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
-      this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
+    if (!checkLegalMove(q, r, s)) {
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
     ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s), getCurrentTurn());
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
+    }
+    if (blacksTurn) {
+      numWhiteTiles -= flipDiscs.size();
+      numBlackTiles += flipDiscs.size()+1;
+    } else {
+      System.out.println(flipDiscs.size());
+      numWhiteTiles += flipDiscs.size()+1;
+      numBlackTiles -= flipDiscs.size();
     }
     blacksTurn = !blacksTurn;
   }

@@ -22,4 +22,12 @@ public interface ReversiView {
    * Make the view visible to start the game session.
    */
   void makeVisible();
+
+  /**
+   * Transmit an error message to the view, in case
+   * the command could not be processed correctly
+   *
+   * @param error error transmitted.
+   */
+  void showErrorMessage(String error);
 }
