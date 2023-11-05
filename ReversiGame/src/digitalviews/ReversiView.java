@@ -1,4 +1,6 @@
-package view;
+package digitalviews;
+
+import javax.swing.*;
 
 import controller.ReversiController;
 
