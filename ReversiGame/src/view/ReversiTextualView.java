@@ -56,6 +56,7 @@ public class ReversiTextualView implements TextualView {
       for (int qq = -1 * boardRadius; qq <= boardRadius; qq++) {
         for (int ss = -1 * boardRadius; ss <= boardRadius; ss++) {
 
+
           //valid tile should coordinates should equal zero and be within bounds of abs(radius)
           if (rr + qq + ss != 0) {
             continue;

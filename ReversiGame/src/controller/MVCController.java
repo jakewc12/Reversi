@@ -1,13 +1,13 @@
 package controller;
 
+import digitalviews.DigitalWindow;
 import model.MutableReversiModel;
-import digitalviews.ReversiView;
 
 public class MVCController implements ReversiController{
   private MutableReversiModel model;
-  private ReversiView view;
+  private DigitalWindow view;
 
-  public MVCController(MutableReversiModel model, ReversiView view){
+  public MVCController(MutableReversiModel model, DigitalWindow view){
     this.model = model;
     this.view = view;
   }
