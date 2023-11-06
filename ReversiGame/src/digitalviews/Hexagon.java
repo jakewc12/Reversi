@@ -17,19 +17,25 @@ public class Hexagon {
   private int x;
   private int y;
 
-  public static int hexagonLength = 25;
+  private final int hexagonLength = 25;
+  private int centerCord;
   public final static double THETA = (Math.PI * 2) / 6.0;
 
   /**
    * create a hexagon centered at x,y having color clr
    *
-   * @param x the column
-   * @param y the row
+   * @param q the column
+   * @param r the row
    */
-  public Hexagon(int x, int y, GameDisc.DiscColor clr) {
+  public Hexagon(int q, int r, GameDisc.DiscColor clr, int centerCord) {
     //use Q and R instead of x and y
-    this.x = x;
-    this.y = y;
+    this.centerCord = centerCord;
+    this.q = q;
+    this.r = r;
+    this.x = centerCord + 50 * (r);
+    this.y = centerCord + 44*(q+r);
+    //x is really the y and y is rly x with some calculation
+    //System.out.println(q + ", " + r);
     if (clr == GameDisc.DiscColor.BLACK) {
       discColor = Color.BLACK;
     } else if (clr == GameDisc.DiscColor.WHITE) {
@@ -49,29 +55,37 @@ public class Hexagon {
   /**
    * this would set the color of the tile to cyan or back to light grey.
    * This does NOT change the color of the disc.
+   *
    * @param clr
    */
   public void setColor(Color clr) {
-    if (clr == Color.CYAN) {
-      color = Color.CYAN;
-    } else {
-      color = Color.LIGHT_GRAY;
-    }
-  }
-
-  public Polygon getPolygon() {
-    return poly;
+    color = clr;
   }
 
   public void draw(Graphics g) {
+    drawHex(g);
+    drawDisc(g);
+    /*
+    if(discColor == Color.BLACK) {
+      System.out.println("black at "+ this.getQ() + ", "+ this.getR());
+    }else if(discColor == Color.WHITE){
+      System.out.println("white at "+ this.getQ() + ", "+ this.getR());
+    }
+     */
+
+  }
+
+  private void drawHex(Graphics g) {
     g.setColor(Color.BLACK);
     g.drawPolygon(poly);
     g.setColor(color);
     g.fillPolygon(poly);
+  }
 
+  private void drawDisc(Graphics g) {
     g.setColor(discColor);
-    g.drawOval(x - 5, y - 5, hexagonLength - 10, hexagonLength - 10);
-    g.fillOval(x - 5, y - 5, hexagonLength - 10, hexagonLength - 10);
+    g.drawOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
+    g.fillOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
   }
 
   public int getX() {
@@ -82,7 +96,11 @@ public class Hexagon {
     return y;
   }
 
-  public Color getColor() {
-    return this.color;
+  public int getQ() {
+    return this.q;
+  }
+
+  public int getR() {
+    return this.r;
   }
 }

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -45,9 +46,10 @@ public class HexManager extends JComponent {
       for (int q = -size; q <= size; q++) {
         for (int s = -size; s <= size; s++) {
           if (r + q + s == 0) {
-            int x = centerCord + 50 * r;
-            int y = centerCord + 50 * q;
-            hexagons.add(new Hexagon(x, y, model.getColorAt(q, r, s)));
+            //int x = centerCord + 50 * q;
+            //int y = centerCord + 45 * r;
+            //System.out.println(q + ", " +r);
+            hexagons.add(new Hexagon(q, r, model.getColorAt(q, r, s), centerCord));
           }
         }
       }
@@ -62,10 +64,10 @@ public class HexManager extends JComponent {
    * @param color the color to set
    */
   public void setColor(int row, int col, Color color) {
-    System.out.println(color.toString());
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(hex.getX() - row) <= 10) && (Math.abs(hex.getY() - col) <= 10)) {
+      if ((Math.abs(col - hex.getX()) <= 20) && (Math.abs(row - hex.getY()) <= 20)) {
         hex.setColor(color);
+        System.out.println(hex.getQ() + ", " + hex.getR());
       }
     }
     repaint();
@@ -76,10 +78,11 @@ public class HexManager extends JComponent {
     this.setBackground(Color.DARK_GRAY);
     g.setColor(Color.DARK_GRAY);
     g.fillRect(0, 0, getWidth(), getHeight());
-    for (Hexagon hs : hexagons) {
-      hs.draw(g);
+    for (Hexagon hex : hexagons) {
+      hex.draw(g);
     }
   }
+
 
   private class MouseEventsListener extends MouseInputAdapter {
     @Override
@@ -89,7 +92,6 @@ public class HexManager extends JComponent {
       if (hexClicked) {
         manager.setColor(e.getX(), e.getY(), Color.CYAN);
       } else {
-        //manager.setColor(e.getX(), e.getY(), Color.LIGHT_GRAY);
         for (Hexagon hex : hexagons) {
           manager.setColor(hex.getX(), hex.getY(), Color.LIGHT_GRAY);
         }
