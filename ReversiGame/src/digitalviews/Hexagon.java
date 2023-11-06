@@ -33,9 +33,8 @@ public class Hexagon {
     this.q = q;
     this.r = r;
     this.x = centerCord + 50 * (r);
-    this.y = centerCord + 44*(q+r);
-    //x is really the y and y is rly x with some calculation
-    //System.out.println(q + ", " + r);
+    this.y = centerCord + 44 * (q + r);
+    //need to move the y so that it off centers correctly.
     if (clr == GameDisc.DiscColor.BLACK) {
       discColor = Color.BLACK;
     } else if (clr == GameDisc.DiscColor.WHITE) {
@@ -60,19 +59,14 @@ public class Hexagon {
    */
   public void setColor(Color clr) {
     color = clr;
+    if (color == Color.CYAN) {
+      System.out.println("Hex clicked on was at (" + q + ", " + r + ", " + -1 * (q + r) + ")");
+    }
   }
 
   public void draw(Graphics g) {
     drawHex(g);
     drawDisc(g);
-    /*
-    if(discColor == Color.BLACK) {
-      System.out.println("black at "+ this.getQ() + ", "+ this.getR());
-    }else if(discColor == Color.WHITE){
-      System.out.println("white at "+ this.getQ() + ", "+ this.getR());
-    }
-     */
-
   }
 
   private void drawHex(Graphics g) {
@@ -83,6 +77,9 @@ public class Hexagon {
   }
 
   private void drawDisc(Graphics g) {
+    if(discColor!= Color.WHITE && discColor!=Color.BLACK){
+      discColor = color;
+    }
     g.setColor(discColor);
     g.drawOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
     g.fillOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);

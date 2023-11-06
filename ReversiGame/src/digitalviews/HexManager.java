@@ -65,9 +65,9 @@ public class HexManager extends JComponent {
    */
   public void setColor(int row, int col, Color color) {
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(col - hex.getX()) <= 20) && (Math.abs(row - hex.getY()) <= 20)) {
+      if ((Math.abs(col - hex.getX()) <= 21) && (Math.abs(row - hex.getY()) <= 21)) {
         hex.setColor(color);
-        System.out.println(hex.getQ() + ", " + hex.getR());
+        //System.out.println(hex.getQ() + ", " + hex.getR());
       }
     }
     repaint();
