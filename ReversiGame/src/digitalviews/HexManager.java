@@ -15,6 +15,7 @@ public class HexManager extends JComponent {
   private int size;
   private List<Hexagon> hexagons = new ArrayList<>();
   private int centerCord;
+  private boolean hexClicked = false;
   /**
    * everytime something happens with model, we should reset hexagons.
    * this way, we can redraw the tiles if multiple change at once.
@@ -63,7 +64,7 @@ public class HexManager extends JComponent {
   public void setColor(int row, int col, Color color) {
     System.out.println(color.toString());
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(hex.getX()-row) <=10) && (Math.abs(hex.getY()-col) <=10)) {
+      if ((Math.abs(hex.getX() - row) <= 10) && (Math.abs(hex.getY() - col) <= 10)) {
         hex.setColor(color);
       }
     }
@@ -84,7 +85,15 @@ public class HexManager extends JComponent {
     @Override
     public void mousePressed(MouseEvent e) {
       System.out.println(e.getX() + ", " + e.getY());
-      manager.setColor(e.getX(), e.getY(), Color.CYAN);
+      hexClicked = !hexClicked;
+      if (hexClicked) {
+        manager.setColor(e.getX(), e.getY(), Color.CYAN);
+      } else {
+        //manager.setColor(e.getX(), e.getY(), Color.LIGHT_GRAY);
+        for (Hexagon hex : hexagons) {
+          manager.setColor(hex.getX(), hex.getY(), Color.LIGHT_GRAY);
+        }
+      }
       manager.repaint();
     }
   }

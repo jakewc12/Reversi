@@ -12,6 +12,8 @@ public class Hexagon {
   private Polygon poly;
   private Color color;
   private Color discColor;
+  private int q;
+  private int r;
   private int x;
   private int y;
 
@@ -25,6 +27,7 @@ public class Hexagon {
    * @param y the row
    */
   public Hexagon(int x, int y, GameDisc.DiscColor clr) {
+    //use Q and R instead of x and y
     this.x = x;
     this.y = y;
     if (clr == GameDisc.DiscColor.BLACK) {
