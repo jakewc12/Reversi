@@ -85,6 +85,7 @@ public class Hexagon {
     }
 
     g.setColor(discColor);
+
     g.drawOval(poly.getBounds().x+10, poly.getBounds().y+10, hexagonLength - 5, hexagonLength - 5);
     g.fillOval(poly.getBounds().x+10, poly.getBounds().y+10, hexagonLength - 5, hexagonLength - 5);
   }
