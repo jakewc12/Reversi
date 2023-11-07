@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -12,7 +13,7 @@ import javax.swing.event.MouseInputAdapter;
 import model.GameDisc;
 import model.ReadOnlyReversiModel;
 
-public class HexManager extends JComponent {
+public class HexManager extends JComponent implements DigitalBoard{
   private int size;
   private List<Hexagon> hexagons = new ArrayList<>();
   private int centerCord;
@@ -32,7 +33,6 @@ public class HexManager extends JComponent {
     centerCord = windowSize / 2;
     this.size = size;
     this.model = model;
-
     makeHexagons();
     this.repaint();
   }
@@ -82,7 +82,6 @@ public class HexManager extends JComponent {
       hex.draw(g);
     }
   }
-
 
   private class MouseEventsListener extends MouseInputAdapter {
     @Override

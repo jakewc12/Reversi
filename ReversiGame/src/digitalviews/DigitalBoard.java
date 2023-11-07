@@ -1,9 +1,8 @@
 package digitalviews;
 
-import javax.swing.*;
-
-import model.GameDisc;
+import java.awt.*;
 
 public interface DigitalBoard {
-  void setColor(int row, int col, GameDisc.DiscColor color);
+  void setColor(int row, int col, Color color);
+
 }
