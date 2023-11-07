@@ -67,9 +67,9 @@ public class Hexagon {
 
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    drawDisc(g2d);
+    //discs are being placed at the wrong place.
     drawHex(g2d);
-
+    drawDisc(g2d);
   }
 
   private void drawHex(Graphics2D g) {
@@ -83,9 +83,10 @@ public class Hexagon {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
+
     g.setColor(discColor);
-    g.drawOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
-    g.fillOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
+    g.drawOval(poly.getBounds().x+10, poly.getBounds().y+10, hexagonLength - 5, hexagonLength - 5);
+    g.fillOval(poly.getBounds().x+10, poly.getBounds().y+10, hexagonLength - 5, hexagonLength - 5);
   }
 
   public int getX() {
