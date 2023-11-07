@@ -9,7 +9,7 @@ import view.TextualView;
 
 public final class Reversi {
   public static void main(String[] args) {
-    MutableReversiModel model = new MutableReversi(1);
+    MutableReversiModel model = new MutableReversi(4);
     TextualView tv = new ReversiTextualView(model);
 
     model.startGame(model.getBoard());

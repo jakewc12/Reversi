@@ -11,17 +11,16 @@ import model.GameDisc;
  */
 public class Hexagon {
 
-  private Polygon poly;
+  private final Polygon poly;
   private Color color;
   private Color discColor;
-  private int q;
-  private int r;
-  private int y;
-  private int x;
+  private final int q;
+  private final int r;
+  private final int yCenterCoord;
+  private final int xCenterCoord;
 
   //Length or radius?
   static final int hexagonLength = 25;
-  private int centerCord;
   public final static double THETA = (Math.PI * 2) / 6.0;
 
   /**
@@ -31,13 +30,15 @@ public class Hexagon {
    * @param r the row
    */
   public Hexagon(int q, int r, GameDisc.DiscColor clr, int centerCord) {
+    int xCoordMath;
     //use Q and R instead of x and y
-    this.centerCord = centerCord;
     this.q = q;
     this.r = r;
-    this.y = centerCord + 50 * (r);
-    this.x = centerCord + 44 * (-q - r);
+    this.yCenterCoord = centerCord + 40 * (r);
+    xCoordMath = centerCord + 45 * (-q - r);
+    xCoordMath += r * 23;
     //need to move the y so that it off centers correctly.
+    this.xCenterCoord = xCoordMath;
     if (clr == GameDisc.DiscColor.BLACK) {
       discColor = Color.BLACK;
     } else if (clr == GameDisc.DiscColor.WHITE) {
@@ -48,8 +49,8 @@ public class Hexagon {
     color = Color.LIGHT_GRAY;
     poly = new Polygon();
     for (int i = 0; i < 6; i++) {
-      int x1 = (int) (x + hexagonLength * Math.sin(THETA * i));
-      int y1 = (int) (y + hexagonLength * Math.cos(THETA * i));
+      int x1 = (int) (xCenterCoord + hexagonLength * Math.sin(THETA * i));
+      int y1 = (int) (yCenterCoord + hexagonLength * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
     }
   }
@@ -87,16 +88,16 @@ public class Hexagon {
     g.setColor(discColor);
     //g.drawOval(poly.getBounds.x+10, poly.getBounds.y+10, hexagonLength - 10, hexagonLength - 10);
     //    g.fillOval(poly.getBounds.x+10, poly.getBounds.y+10, hexagonLength - 10, hexagonLength - 10);
-    g.drawOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
-    g.fillOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
+    g.drawOval(poly.getBounds().x + 10, poly.getBounds().y+ 10, hexagonLength - 10, hexagonLength - 10);
+    g.fillOval(poly.getBounds().x + 10, poly.getBounds().y+ 10, hexagonLength - 10, hexagonLength - 10);
   }
 
   public int getY() {
-    return y;
+    return yCenterCoord;
   }
 
   public int getX() {
-    return x;
+    return xCenterCoord;
   }
 
   public int getQ() {

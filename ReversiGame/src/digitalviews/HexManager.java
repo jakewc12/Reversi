@@ -10,7 +10,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import model.ReadOnlyReversiModel;
 
-public class HexManager extends JComponent implements DigitalBoard{
+public class HexManager extends JComponent implements DigitalBoard {
   private int size;
   private List<Hexagon> hexagons = new ArrayList<>();
   private int centerCord;
@@ -56,19 +56,40 @@ public class HexManager extends JComponent implements DigitalBoard{
   /**
    * Set the color for a disc within a hexagon.
    *
-   * @param row   the row position
-   * @param col   the column position
+   * @param x     the x position
+   * @param y     the column position
    * @param color the color to set
    */
-  public void setColor(int row, int col, Color color) {
+  public void setColor(int x, int y, Color color) {
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(col - hex.getY()) <= 21) && (Math.abs(row - hex.getX()) <= 21)) {
+      if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
+        System.out.println("huh");
+      }
+      if ((Math.abs(y - hex.getY()) <= 23) && (Math.abs(x - hex.getX()) <= 23)) {
+        if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
+          System.out.println("made");
+        }
         hex.setColor(color);
-        //System.out.println(hex.getQ() + ", " + hex.getR());
       }
     }
     repaint();
   }
+
+  private void setAllHexesToLightGrey() {
+    for (Hexagon hex : hexagons) {
+      hex.setColor(Color.LIGHT_GRAY);
+    }
+  }
+
+  private boolean checkClickedLocationOnAHex(int x, int y) {
+    for (Hexagon hex : hexagons) {
+      if ((Math.abs(y - hex.getY()) <= 21) && (Math.abs(x - hex.getX()) <= 21)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -87,14 +108,15 @@ public class HexManager extends JComponent implements DigitalBoard{
   private class MouseEventsListener extends MouseInputAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
-      System.out.println(e.getX() + ", " + e.getY());
-      hexClicked = !hexClicked;
+      if (!hexClicked) {
+        hexClicked = checkClickedLocationOnAHex(e.getX(), e.getY());
+      } else {
+        hexClicked = false;
+      }
       if (hexClicked) {
         manager.setColor(e.getX(), e.getY(), Color.CYAN);
       } else {
-        for (Hexagon hex : hexagons) {
-          manager.setColor(hex.getY(), hex.getX(), Color.LIGHT_GRAY);
-        }
+        setAllHexesToLightGrey();
       }
       manager.repaint();
     }
