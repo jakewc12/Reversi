@@ -21,9 +21,7 @@ public class MVCController implements ReversiController {
     while (scan.hasNext()) {
       String in = scan.next();
       if (!model.gameOver()) {
-        System.out.println(in);
         if (in.equalsIgnoreCase("place")) {
-          System.out.println("worked");
           int q = scan.nextInt();
           int r = scan.nextInt();
           int s = scan.nextInt();
@@ -38,6 +36,14 @@ public class MVCController implements ReversiController {
             output.append("Invalid move. Illegal move played");
             System.out.println("Invalid move. Illegal move played");
           }
+        }else if(in.equals("skip")) {
+          try{
+            model.skipCurrentTurn();
+          }catch(Exception e){
+            output.append("Connection with model failed");
+          }
+        }else{
+          output.append("Invalid command given");
         }
       }
     }
