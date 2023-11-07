@@ -17,7 +17,8 @@ public class Hexagon {
   private int x;
   private int y;
 
-  private final int hexagonLength = 25;
+  //Length or radius?
+  static final int hexagonLength = 25;
   private int centerCord;
   public final static double THETA = (Math.PI * 2) / 6.0;
 

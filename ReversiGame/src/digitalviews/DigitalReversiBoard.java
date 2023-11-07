@@ -1,18 +1,11 @@
 package digitalviews;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.util.function.Consumer;
-
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.MouseInputAdapter;
-
 import controller.MVCController;
-import model.GameDisc;
+import javax.swing.JPanel;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiBoard extends JPanel {
+
   private int radius;
   private ReadOnlyReversiModel model;
 
@@ -42,13 +35,11 @@ public class DigitalReversiBoard extends JPanel {
 
   private void init() {
     radius = model.getBoardRadius();
-    manager = new HexManager(radius, 500, model);
+    System.out.println();
+    manager = new HexManager(radius, (radius * 2 + 1) * Hexagon.hexagonLength * 2, model);
     this.setBorder(null);
     this.add(manager);
   }
-
-
-
 
 
 }
