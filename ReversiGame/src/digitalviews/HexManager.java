@@ -72,6 +72,10 @@ public class HexManager extends JComponent implements DigitalBoard{
 
   @Override
   protected void paintComponent(Graphics g) {
+    //Graphics2D g2d = (Graphics2D)g;
+    //g2d.scale(1, 1);
+    //Rectangle bounds = this.getBounds();
+    //g2d.translate(0, bounds.height);
     this.setBackground(Color.DARK_GRAY);
     g.setColor(Color.DARK_GRAY);
     g.fillRect(0, 0, getWidth(), getHeight());
