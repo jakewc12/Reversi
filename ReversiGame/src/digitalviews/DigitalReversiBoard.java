@@ -11,7 +11,10 @@ import model.ReadOnlyReversiModel;
 public class DigitalReversiBoard extends JPanel {
   private int radius;
   private ReadOnlyReversiModel model;
+
   private HexManager manager;
+  private JTextField input;
+  private JButton excuteButton;
 
   public DigitalReversiBoard(ReadOnlyReversiModel model) {
     if (model == null) {
@@ -20,8 +23,16 @@ public class DigitalReversiBoard extends JPanel {
     this.model = model;
     radius = model.getBoardRadius();
     manager = new HexManager(radius, 500, model);
+
+    input = new JTextField(15);
+    excuteButton = new JButton("Execute");
+    this.add(input);
+    this.add(excuteButton);
     this.add(manager);
+
+
   }
+
 
 
 }

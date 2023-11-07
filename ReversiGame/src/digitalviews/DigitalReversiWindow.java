@@ -1,17 +1,15 @@
 package digitalviews;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
-import model.GameDisc;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
   private DigitalReversiBoard board;
+
 
   public DigitalReversiWindow(ReadOnlyReversiModel model) {
     super();
@@ -29,6 +27,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setSize(500, 500);
     this.refresh();
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
   }
 
   @Override
