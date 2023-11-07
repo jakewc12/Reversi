@@ -65,18 +65,20 @@ public class Hexagon {
   }
 
   public void draw(Graphics g) {
-    drawHex(g);
-    drawDisc(g);
+    Graphics2D g2d = (Graphics2D) g;
+    drawDisc(g2d);
+    drawHex(g2d);
+
   }
 
-  private void drawHex(Graphics g) {
+  private void drawHex(Graphics2D g) {
     g.setColor(Color.BLACK);
     g.drawPolygon(poly);
     g.setColor(color);
     g.fillPolygon(poly);
   }
 
-  private void drawDisc(Graphics g) {
+  private void drawDisc(Graphics2D g) {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }

@@ -53,6 +53,7 @@ public class MVCController implements ReversiController {
   @Override
   public void go() {
     this.view.setCommandCallback(this::accept);
+    this.view.refresh();
     this.view.makeVisible();
   }
 

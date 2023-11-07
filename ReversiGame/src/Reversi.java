@@ -17,6 +17,6 @@ public final class Reversi {
     DigitalWindow view = new DigitalReversiWindow(model);
     ReversiController controller = new MVCController(model, view);
     controller.go();
-    view.makeVisible();
+    //view.makeVisible();
   }
 }
