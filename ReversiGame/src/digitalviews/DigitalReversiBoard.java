@@ -36,7 +36,8 @@ public class DigitalReversiBoard extends JPanel {
   private void init() {
     radius = model.getBoardRadius();
     System.out.println();
-    manager = new HexManager(radius, (radius * 2 + 1) * Hexagon.hexagonLength * 2, model);
+    int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
+    manager = new HexManager(radius, windowSize, model);
     this.setBorder(null);
     this.add(manager);
   }

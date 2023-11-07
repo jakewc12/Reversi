@@ -1,7 +1,9 @@
 package digitalviews;
 
-import java.awt.*;
-
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 import model.GameDisc;
 
 /**
@@ -14,8 +16,8 @@ public class Hexagon {
   private Color discColor;
   private int q;
   private int r;
-  private int x;
   private int y;
+  private int x;
 
   //Length or radius?
   static final int hexagonLength = 25;
@@ -33,8 +35,8 @@ public class Hexagon {
     this.centerCord = centerCord;
     this.q = q;
     this.r = r;
-    this.x = centerCord + 50 * (r);
-    this.y = centerCord + 44 * (-q - r);
+    this.y = centerCord + 50 * (r);
+    this.x = centerCord + 44 * (-q - r);
     //need to move the y so that it off centers correctly.
     if (clr == GameDisc.DiscColor.BLACK) {
       discColor = Color.BLACK;
@@ -46,15 +48,15 @@ public class Hexagon {
     color = Color.LIGHT_GRAY;
     poly = new Polygon();
     for (int i = 0; i < 6; i++) {
-      int x1 = (int) (y + hexagonLength * Math.sin(THETA * i));
-      int y1 = (int) (x + hexagonLength * Math.cos(THETA * i));
+      int x1 = (int) (x + hexagonLength * Math.sin(THETA * i));
+      int y1 = (int) (y + hexagonLength * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
     }
   }
 
   /**
-   * this would set the color of the tile to cyan or back to light grey.
-   * This does NOT change the color of the disc.
+   * this would set the color of the tile to cyan or back to light grey. This does NOT change the
+   * color of the disc.
    *
    * @param clr
    */
@@ -67,9 +69,8 @@ public class Hexagon {
 
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    drawDisc(g2d);
     drawHex(g2d);
-
+    drawDisc(g2d);
   }
 
   private void drawHex(Graphics2D g) {
@@ -83,17 +84,17 @@ public class Hexagon {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    g.setColor(discColor);
+    g.setColor(color);
     g.drawOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
     g.fillOval(x - 10, y - 10, hexagonLength - 10, hexagonLength - 10);
   }
 
-  public int getX() {
-    return x;
-  }
-
   public int getY() {
     return y;
+  }
+
+  public int getX() {
+    return x;
   }
 
   public int getQ() {

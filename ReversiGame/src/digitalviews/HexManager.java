@@ -4,13 +4,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
-import model.GameDisc;
 import model.ReadOnlyReversiModel;
 
 public class HexManager extends JComponent implements DigitalBoard{
@@ -65,7 +62,7 @@ public class HexManager extends JComponent implements DigitalBoard{
    */
   public void setColor(int row, int col, Color color) {
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(col - hex.getX()) <= 21) && (Math.abs(row - hex.getY()) <= 21)) {
+      if ((Math.abs(col - hex.getY()) <= 21) && (Math.abs(row - hex.getX()) <= 21)) {
         hex.setColor(color);
         //System.out.println(hex.getQ() + ", " + hex.getR());
       }
@@ -92,7 +89,7 @@ public class HexManager extends JComponent implements DigitalBoard{
         manager.setColor(e.getX(), e.getY(), Color.CYAN);
       } else {
         for (Hexagon hex : hexagons) {
-          manager.setColor(hex.getX(), hex.getY(), Color.LIGHT_GRAY);
+          manager.setColor(hex.getY(), hex.getX(), Color.LIGHT_GRAY);
         }
       }
       manager.repaint();
