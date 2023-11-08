@@ -6,6 +6,7 @@ import java.util.Objects;
  * This class represents a position system of (Q,R,S)
  */
 public class Position {
+
   private final int q;
   private final int r;
   private final int s;
@@ -46,8 +47,9 @@ public class Position {
     }
 
     return ((Math.abs(this.q - that.q) < 0.01) && (Math.abs(this.r - that.r) < 0.01) &&
-            Math.abs(this.s - that.s) < 0.01);
+        Math.abs(this.s - that.s) < 0.01);
   }
+
   @Override
   public int hashCode() {
     return Objects.hash(this.q, this.r, this.s);

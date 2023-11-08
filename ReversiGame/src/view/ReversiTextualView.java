@@ -1,7 +1,6 @@
 package view;
 
 import java.io.IOException;
-
 import model.ReadOnlyReversiModel;
 
 /**
@@ -36,9 +35,9 @@ public class ReversiTextualView implements TextualView {
   }
 
   /**
-   * Renders a text-based model of the model with piles of foundation, draw, and cascade.
-   * Grey discs are represented with _, White discs are represented with O, and Black discs are.
-   * represented with X.
+   * Renders a text-based model of the model with piles of foundation, draw, and cascade. Grey discs
+   * are represented with _, White discs are represented with O, and Black discs are. represented
+   * with X.
    *
    * @return the formatted model of the game.
    */
@@ -55,7 +54,6 @@ public class ReversiTextualView implements TextualView {
       }
       for (int qq = -1 * boardRadius; qq <= boardRadius; qq++) {
         for (int ss = -1 * boardRadius; ss <= boardRadius; ss++) {
-
 
           //valid tile should coordinates should equal zero and be within bounds of abs(radius)
           if (rr + qq + ss != 0) {

@@ -7,7 +7,7 @@ import model.ReadOnlyReversiModel;
 public class DigitalReversiBoard extends JPanel {
 
   private int radius;
-  private ReadOnlyReversiModel model;
+  private final ReadOnlyReversiModel model;
 
   private HexManager manager;
   private MVCController controller;

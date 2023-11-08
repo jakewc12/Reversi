@@ -9,7 +9,6 @@ public interface TextualView {
 
   /**
    * Renders a model in some manner (e.g. as text, or as graphics, etc.).
-   *
    */
   void render() throws IOException;
 }

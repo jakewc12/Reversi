@@ -79,7 +79,7 @@ public class GameCell implements HexagonCell {
    * Gets the Q coordinate of this cell.
    *
    * @return an integer that decrease when going left of the origin and increases when going right
-   *          of the origin.
+   *     of the origin.
    */
   @Override
   public int getCoordinateQ() {
@@ -90,7 +90,7 @@ public class GameCell implements HexagonCell {
    * Gets the R coordinate of this cell.
    *
    * @return an integer decreases when going up a row from the origin and increases when going down
-   *        a row.
+   *     a row.
    */
   @Override
   public int getCoordinateR() {
@@ -101,7 +101,7 @@ public class GameCell implements HexagonCell {
    * Gets the S coordinate of this cell.
    *
    * @return an integer that decrease when going right of the origin and increases when going left
-   *        of the origin.
+   *      of the origin.
    */
   @Override
   public int getCoordinateS() {
@@ -110,6 +110,7 @@ public class GameCell implements HexagonCell {
 
   /**
    * returns a String rendering of the GameCell's coordinates.
+   *
    * @return a String formatted as a coordinate from Q to R to S.
    */
   @Override
@@ -120,21 +121,21 @@ public class GameCell implements HexagonCell {
   /**
    * Meant to simulate directions in relation to a hexagon cell. Directions are:
    *
-   * <p>TOPLEFT for positive s direction static q direction.
+   * <p>TOP_LEFT for positive s direction static q direction.
    *
-   * <p>BOTTOMRIGHT for negative s direction static q direction.
+   * <p>BOTTOM_RIGHT for negative s direction static q direction.
    *
-   * <p>TOPRIGHT for positive q direction static s direction.
+   * <p>TOP_RIGHT for positive q direction static s direction.
    *
-   * <p>BOTTOMLEFT for negative q direction static s direction.
+   * <p>BOTTOM_LEFT for negative q direction static s direction.
    *
-   * <p>DEADLEFT for negative q direction static r direction.
+   * <p>DEAD_LEFT for negative q direction static r direction.
    *
-   * <p>DEADRIGHT for positive q direction static r direction.
+   * <p>DEAD_RIGHT for positive q direction static r direction.
    */
   public enum Direction {
     DEAD_LEFT(0), DEAD_RIGHT(1), TOP_LEFT(2), TOP_RIGHT(3), BOTTOM_LEFT(4), BOTTOM_RIGHT(5);
-    protected int directionNum;
+    private int directionNum;
 
     Direction(int i) {
       directionNum = i;

@@ -1,6 +1,7 @@
 package controller;
 
 public interface ReversiController {
+
   /**
    * Process a given string command and return status or error as a string
    *
