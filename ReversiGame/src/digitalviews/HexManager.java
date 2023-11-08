@@ -65,7 +65,7 @@ public class HexManager extends JComponent implements DigitalBoard {
       if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
         System.out.println("huh");
       }
-      if ((Math.abs(y - hex.getY()) <= 23) && (Math.abs(x - hex.getX()) <= 23)) {
+      if ((Math.abs(y - hex.getY()) <= 18) && (Math.abs(x - hex.getX()) <= 18)) {
         if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
           System.out.println("made");
         }
