@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import model.ReadOnlyReversiModel;
 
-public class DigitalReversiBoard extends JPanel {
+public class DigitalReversiBoard extends JPanel{
 
   private int radius;
   private final ReadOnlyReversiModel model;

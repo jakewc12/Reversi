@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import model.GameDisc.DiscColor;
 
 /**
  * Anything observable about a reversi game should be included here.

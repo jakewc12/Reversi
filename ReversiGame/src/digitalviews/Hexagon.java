@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import model.DiscColor;
 import model.GameDisc;
 
 /**
- * A Single hexagon tile in the game board
+ * A single digital hexagon tile on the game board.
  */
 public class Hexagon {
 
@@ -23,27 +24,28 @@ public class Hexagon {
   private Color discColor;
 
   /**
-   * create a hexagon centered at x,y having color clr
-   *
-   * @param q the column
-   * @param r the row
+   *  Creates a new hexagon that has the game coordinates q and r, a color of clr.
+   * @param q the q coordinate which is the same as the one described in model.HexagonCell.
+   * @param r the r coordinate which is the same as the one described in model.HexagonCell.
+   * @param discColor the disc color of the hexagon cell.
+   * @param boardCenterCoord the dead center or origin of the board in pixel coordinates.
    */
-  public Hexagon(int q, int r, GameDisc.DiscColor clr, int centerCord) {
+  public Hexagon(int q, int r, DiscColor discColor, int boardCenterCoord) {
     int xCoordMath;
     //use Q and R instead of x and y
     this.q = q;
     this.r = r;
-    this.yCenterCoord = centerCord + 40 * (r);
-    xCoordMath = centerCord + 45 * (-q - r);
+    this.yCenterCoord = boardCenterCoord + 40 * (r);
+    xCoordMath = boardCenterCoord + 45 * (-q - r);
     xCoordMath += r * 23;
     //need to move the y so that it off centers correctly.
     this.xCenterCoord = xCoordMath;
-    if (clr == GameDisc.DiscColor.BLACK) {
-      discColor = Color.BLACK;
-    } else if (clr == GameDisc.DiscColor.WHITE) {
-      discColor = Color.WHITE;
+    if (discColor == DiscColor.BLACK) {
+      this.discColor = Color.BLACK;
+    } else if (discColor == DiscColor.WHITE) {
+      this.discColor = Color.WHITE;
     } else {
-      discColor = Color.LIGHT_GRAY;
+      this.discColor = Color.LIGHT_GRAY;
     }
     color = Color.LIGHT_GRAY;
     poly = new Polygon();
@@ -55,10 +57,10 @@ public class Hexagon {
   }
 
   /**
-   * this would set the color of the tile to cyan or back to light grey. This does NOT change the
-   * color of the disc.
+   * This would set the background color of the tile to cyan or back to light grey. This does NOT
+   * change the color of the disc.
    *
-   * @param clr
+   * @param clr the color you want the disc set to.
    */
   public void setColor(Color clr) {
     color = clr;
