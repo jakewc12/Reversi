@@ -1,9 +1,8 @@
 package basictests;
 
+import model.DiscColor;
 import model.GameCell;
 import model.GameDisc;
-import model.GameDisc.DiscColor;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class GameComponentTests {
    */
   @Test
   public void testGreyDiscCannotBeFlipped() {
-    disc = new GameDisc(GameDisc.DiscColor.GREY);
+    disc = new GameDisc(DiscColor.GREY);
     Assert.assertThrows(IllegalArgumentException.class, () -> disc.flipDisc());
   }
 
@@ -29,11 +28,11 @@ public class GameComponentTests {
    */
   @Test
   public void testToStringWorks() {
-    disc = new GameDisc(GameDisc.DiscColor.WHITE);
+    disc = new GameDisc(DiscColor.WHITE);
     Assert.assertEquals("WHITE", disc.toString());
-    disc = new GameDisc(GameDisc.DiscColor.BLACK);
+    disc = new GameDisc(DiscColor.BLACK);
     Assert.assertEquals("BLACK", disc.toString());
-    disc = new GameDisc(GameDisc.DiscColor.GREY);
+    disc = new GameDisc(DiscColor.GREY);
     Assert.assertEquals("GREY", disc.toString());
   }
 
@@ -57,7 +56,7 @@ public class GameComponentTests {
   @Test
   public void testGameCellThrowsErrorOnEmptyContents() {
     Assert.assertThrows(IllegalArgumentException.class
-            , () -> new GameCell(disc, 0, 0, 0));
+        , () -> new GameCell(disc, 0, 0, 0));
   }
 
   /**

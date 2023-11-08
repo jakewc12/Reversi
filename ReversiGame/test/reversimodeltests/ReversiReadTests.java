@@ -1,10 +1,8 @@
 package reversimodeltests;
 
-import model.GameDisc.DiscColor;
-import model.HexagonCell;
+import model.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -92,9 +90,9 @@ public class ReversiReadTests {
             }
           } catch (Exception e) {
             throw new AssertionError(
-                    "An error occurred when getting a disc at (Q,R,S): ("
-                            + q + ", " + r + ", " + s
-                            + ")\nException was: " + e);
+                "An error occurred when getting a disc at (Q,R,S): ("
+                    + q + ", " + r + ", " + s
+                    + ")\nException was: " + e);
           }
         }
       }
@@ -103,9 +101,9 @@ public class ReversiReadTests {
       Assert.assertEquals(DiscColor.GREY, game.getColorAt(0, 0, 0));
     } catch (Exception e) {
       throw new AssertionError(
-              "An error occurred when getting a disc at q: " + 0 + " r: "
-                      + 0 + "s: " + 0
-                      + "\nException was: " + e);
+          "An error occurred when getting a disc at q: " + 0 + " r: "
+              + 0 + "s: " + 0
+              + "\nException was: " + e);
     }
   }
 

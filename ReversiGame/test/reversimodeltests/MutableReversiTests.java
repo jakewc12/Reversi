@@ -1,16 +1,12 @@
 package reversimodeltests;
 
-import model.GameDisc.DiscColor;
+import java.lang.reflect.Constructor;
+import model.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.lang.reflect.Constructor;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -67,7 +63,7 @@ public class MutableReversiTests {
           int finalR = r;
           int finalS = s;
           Assert.assertThrows(IllegalStateException.class, () ->
-                  game.placeDisc(finalQ, finalR, finalS));
+              game.placeDisc(finalQ, finalR, finalS));
         }
       }
     }
@@ -221,7 +217,7 @@ public class MutableReversiTests {
   public void testGameOverWhenAllSpotsFilled() {
     try {
       Constructor<MutableReversi> pcc =
-              MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
+          MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
       pcc.setAccessible(true);
       game = pcc.newInstance(1, true);
     } catch (Exception e) {
@@ -231,7 +227,8 @@ public class MutableReversiTests {
   }
 
   /**
-   * tests that when legal moves exists, game over is false and when legal moves dont, gameovertrue.
+   * tests that when legal moves exists, game over is false and when legal moves dont,
+   * gameovertrue.
    */
   @Test
   public void testGameOverWhenGamePlaying() {
@@ -287,12 +284,12 @@ public class MutableReversiTests {
     game = new MutableReversi(3);
     game.startGame(game.getBoard());
     Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
-    game.placeDisc(2,-1,-1);
+    game.placeDisc(2, -1, -1);
     Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
     game.skipCurrentTurn();
-    game.placeDisc(-2,1,1);
+    game.placeDisc(-2, 1, 1);
     game.skipCurrentTurn();
-    game.placeDisc(1,1,-2);
+    game.placeDisc(1, 1, -2);
     Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
   }
 
@@ -302,29 +299,29 @@ public class MutableReversiTests {
     game.startGame(game.getBoard());
     Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.WHITE));
     Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.BLACK));
-    game.placeDisc(2,-1,-1);
+    game.placeDisc(2, -1, -1);
     Assert.assertEquals(5, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.WHITE));
-    game.placeDisc(1,-2,1);
+    game.placeDisc(1, -2, 1);
     Assert.assertEquals(4, game.checkScoreOfPlayer(DiscColor.WHITE));
     game.skipCurrentTurn();
     Assert.assertEquals(4, game.checkScoreOfPlayer(DiscColor.WHITE));
     Assert.assertEquals(4, game.checkScoreOfPlayer(DiscColor.BLACK));
-    game.placeDisc(1,1,-2);
+    game.placeDisc(1, 1, -2);
     Assert.assertEquals(7, game.checkScoreOfPlayer(DiscColor.WHITE));
     Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.BLACK));
     game.skipCurrentTurn();
     game.skipCurrentTurn();
-    game.placeDisc(2,1,-3);
+    game.placeDisc(2, 1, -3);
     Assert.assertEquals(5, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(5, game.checkScoreOfPlayer(DiscColor.WHITE));
     game.skipCurrentTurn();
-    game.placeDisc(1,-3,2);
+    game.placeDisc(1, -3, 2);
     Assert.assertEquals(9, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.WHITE));
     game.skipCurrentTurn();
-    game.placeDisc(-2,1,1);
+    game.placeDisc(-2, 1, 1);
     Assert.assertEquals(12, game.checkScoreOfPlayer(DiscColor.BLACK));
-    Assert.assertEquals(0,game.checkScoreOfPlayer(DiscColor.WHITE));
+    Assert.assertEquals(0, game.checkScoreOfPlayer(DiscColor.WHITE));
   }
 }
