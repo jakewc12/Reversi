@@ -32,6 +32,7 @@ public class MVCController implements ReversiController {
             System.out.println("Placed at (" + q + ", " + r + ", " + s + ")");
           } catch (IllegalArgumentException e) {
             output.append("Invalid move. Illegal numbers given for q,r,s");
+            System.out.println("Invalid move. Illegal numbers given for q,r,s");
           } catch (IllegalStateException e) {
             output.append("Invalid move. Illegal move played");
             System.out.println("Invalid move. Illegal move played");
