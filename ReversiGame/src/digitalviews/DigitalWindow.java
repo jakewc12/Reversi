@@ -5,12 +5,12 @@ import java.util.function.Consumer;
 public interface DigitalWindow {
 
   /**
-   * Make the view visible. This is usually called after the view is constructed
+   * Make the view visible. This is usually called after the view is constructed.
    */
   void makeVisible();
 
   /**
-   * Signal the view to draw itself
+   * Signals the view to draw or redraw itself.
    */
   void refresh();
 
@@ -22,9 +22,9 @@ public interface DigitalWindow {
   void setCommandCallback(Consumer<String> callback);
 
   /**
-   * Transmit an error message to the view, in case the command could not be processed correctly
+   * Transmit an error message to the view, in case the command could not be processed correctly.
    *
-   * @param error
+   * @param error The error message that should be transmitted.
    */
   void showErrorMessage(String error);
 }

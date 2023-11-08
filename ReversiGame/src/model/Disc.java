@@ -1,7 +1,5 @@
 package model;
 
-import model.GameDisc.DiscColor;
-
 /**
  * An Interface meant to represent either a black or white token in a reversi game.
  */
