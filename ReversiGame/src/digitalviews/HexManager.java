@@ -1,26 +1,27 @@
 package digitalviews;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.*;
+import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
-
 import model.ReadOnlyReversiModel;
 
 public class HexManager extends JComponent implements DigitalBoard {
-  private int size;
-  private List<Hexagon> hexagons = new ArrayList<>();
-  private int centerCord;
+
+  private final int size;
+  private final List<Hexagon> hexagons = new ArrayList<>();
+  private final int centerCord;
   private boolean hexClicked = false;
   /**
-   * everytime something happens with model, we should reset hexagons.
-   * this way, we can redraw the tiles if multiple change at once.
+   * everytime something happens with model, we should reset hexagons. this way, we can redraw the
+   * tiles if multiple change at once.
    */
-  private ReadOnlyReversiModel model;
-  private HexManager manager = this;
+  private final ReadOnlyReversiModel model;
+  private final HexManager manager = this;
 
   public HexManager(int size, int windowSize, ReadOnlyReversiModel model) {
     this.setPreferredSize(new Dimension(windowSize, windowSize));
@@ -35,8 +36,8 @@ public class HexManager extends JComponent implements DigitalBoard {
   }
 
   /**
-   * looks at model and creates the hexagon accordingly. We should call this everytime
-   * a move is made.
+   * looks at model and creates the hexagon accordingly. We should call this everytime a move is
+   * made.
    */
   private void makeHexagons() {
     for (int r = -size; r <= size; r++) {
@@ -62,13 +63,7 @@ public class HexManager extends JComponent implements DigitalBoard {
    */
   public void setColor(int x, int y, Color color) {
     for (Hexagon hex : hexagons) {
-      if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
-        System.out.println("huh");
-      }
       if ((Math.abs(y - hex.getY()) <= 18) && (Math.abs(x - hex.getX()) <= 18)) {
-        if (hex.getQ() == 0 && hex.getR() == 4 && (hex.getQ() - hex.getR()) == -4) {
-          System.out.println("made");
-        }
         hex.setColor(color);
       }
     }
@@ -106,6 +101,7 @@ public class HexManager extends JComponent implements DigitalBoard {
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
+
     @Override
     public void mousePressed(MouseEvent e) {
       if (!hexClicked) {

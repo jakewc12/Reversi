@@ -11,17 +11,16 @@ import model.GameDisc;
  */
 public class Hexagon {
 
+  public final static double THETA = (Math.PI * 2) / 6.0;
+  //Length or radius?
+  static final int hexagonLength = 25;
   private final Polygon poly;
-  private Color color;
-  private Color discColor;
   private final int q;
   private final int r;
   private final int yCenterCoord;
   private final int xCenterCoord;
-
-  //Length or radius?
-  static final int hexagonLength = 25;
-  public final static double THETA = (Math.PI * 2) / 6.0;
+  private Color color;
+  private Color discColor;
 
   /**
    * create a hexagon centered at x,y having color clr
@@ -63,9 +62,6 @@ public class Hexagon {
    */
   public void setColor(Color clr) {
     color = clr;
-    if (color == Color.CYAN) {
-      System.out.println("Hex clicked on was at (" + q + ", " + r + ", " + (-q - r) + ")");
-    }
   }
 
   public void draw(Graphics g) {

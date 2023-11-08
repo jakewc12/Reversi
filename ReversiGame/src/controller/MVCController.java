@@ -1,13 +1,13 @@
 package controller;
 
-import java.util.Scanner;
-
 import digitalviews.DigitalWindow;
+import java.util.Scanner;
 import model.MutableReversiModel;
 
 public class MVCController implements ReversiController {
-  private MutableReversiModel model;
-  private DigitalWindow view;
+
+  private final MutableReversiModel model;
+  private final DigitalWindow view;
 
   public MVCController(MutableReversiModel model, DigitalWindow view) {
     this.model = model;
@@ -28,7 +28,7 @@ public class MVCController implements ReversiController {
           try {
             model.placeDisc(q, r, s);
             output.append("Placed at (").append(q)
-                    .append(", ").append(r).append(", ").append(s).append(")");
+                .append(", ").append(r).append(", ").append(s).append(")");
             System.out.println("Placed at (" + q + ", " + r + ", " + s + ")");
           } catch (IllegalArgumentException e) {
             output.append("Invalid move. Illegal numbers given for q,r,s");
@@ -37,13 +37,13 @@ public class MVCController implements ReversiController {
             output.append("Invalid move. Illegal move played");
             System.out.println("Invalid move. Illegal move played");
           }
-        }else if(in.equals("skip")) {
-          try{
+        } else if (in.equals("skip")) {
+          try {
             model.skipCurrentTurn();
-          }catch(Exception e){
+          } catch (Exception e) {
             output.append("Connection with model failed");
           }
-        }else{
+        } else {
           output.append("Invalid command given");
         }
       }
