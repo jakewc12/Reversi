@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import model.DiscColor;
-import model.GameDisc;
 
 /**
  * A single digital hexagon tile on the game board.
@@ -24,10 +23,13 @@ public class Hexagon {
   private Color discColor;
 
   /**
-   *  Creates a new hexagon that has the game coordinates q and r, a color of clr.
-   * @param q the q coordinate which is the same as the one described in model.HexagonCell.
-   * @param r the r coordinate which is the same as the one described in model.HexagonCell.
-   * @param discColor the disc color of the hexagon cell.
+   * Creates a new hexagon that has the game coordinates q and r, a color of clr.
+   *
+   * @param q                the q coordinate which is the same as the one described in
+   *                         model.HexagonCell.
+   * @param r                the r coordinate which is the same as the one described in
+   *                         model.HexagonCell.
+   * @param discColor        the disc color of the hexagon cell.
    * @param boardCenterCoord the dead center or origin of the board in pixel coordinates.
    */
   public Hexagon(int q, int r, DiscColor discColor, int boardCenterCoord) {
@@ -63,6 +65,9 @@ public class Hexagon {
    * @param clr the color you want the disc set to.
    */
   public void setColor(Color clr) {
+    if (clr == Color.CYAN) {
+      System.out.println("Coordinate clicked is: " + q + ", " + r + ", " + (-q - r));
+    }
     color = clr;
   }
 
