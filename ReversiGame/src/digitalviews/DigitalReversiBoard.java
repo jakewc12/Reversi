@@ -1,6 +1,5 @@
 package digitalviews;
 
-import controller.MVCController;
 
 import javax.swing.JPanel;
 
@@ -24,7 +23,6 @@ public class DigitalReversiBoard extends JPanel {
 
   private void init() {
     radius = model.getBoardRadius();
-    System.out.println();
     int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
     manager = new HexManager(radius, windowSize, model);
     this.setBorder(null);

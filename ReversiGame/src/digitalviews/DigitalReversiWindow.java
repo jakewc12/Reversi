@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import javax.swing.*;
 
-import controller.ReversiController;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
