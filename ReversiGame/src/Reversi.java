@@ -14,8 +14,8 @@ public final class Reversi {
     model.startGame(model.getBoard());
     System.out.println(tv);
     DigitalWindow view = new DigitalReversiWindow(model);
-    ReversiController controller = new MVCController(model, view);
-    controller.go();
+    //ReversiController controller = new MVCController(model, view);
+    //controller.go();
     //view.makeVisible();
   }
 }

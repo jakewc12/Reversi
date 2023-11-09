@@ -5,5 +5,5 @@ import model.Position;
 
 public interface ReversiStrategy {
 
-  Position chooseMove(MutableReversiModel model, PlayerInterface who);
+  Position chooseMove(MutableReversiModel model, Player who);
 }
