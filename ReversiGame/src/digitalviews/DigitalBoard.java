@@ -2,6 +2,8 @@ package digitalviews;
 
 import java.awt.Color;
 
+import javax.swing.*;
+
 public interface DigitalBoard {
 
   /**

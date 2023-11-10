@@ -11,12 +11,12 @@ import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
-  private DigitalReversiBoard board;
   private JTextField input;
+  private HexManager manager;
+  private JPanel board;
   private JButton excuteButton;
   private JPanel buttonPanel;
 
-  private ReversiController controller;
   Consumer<String> commandCallback;
 
   public DigitalReversiWindow(ReadOnlyReversiModel model) {
@@ -25,30 +25,25 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       throw new IllegalArgumentException("Model cannot be null");
     }
     this.model = model;
-    board = new DigitalReversiBoard(model);
-
+    int radius = model.getBoardRadius();
+    int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
+    manager = new HexManager(radius, windowSize, model);
+    board = new JPanel();
     init();
 
   }
-  public DigitalReversiWindow(ReadOnlyReversiModel model, ReversiController controller) {
-    super();
-    if (model == null) {
-      throw new IllegalArgumentException("Model cannot be null");
-    }
-    if(controller ==null){
-      throw new IllegalArgumentException("Controller cannot be null");
-    }
-    this.model = model;
-    this.controller = controller;
-    init();
-  }
+
   private void init() {
-    board = new DigitalReversiBoard(model);
-
     this.setTitle("Reversi");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setBackground(Color.DARK_GRAY);
     this.setLayout(new BorderLayout());
+
+
+    board.setBorder(null);
+    board.add(manager);
+
+
     this.add(board);
     this.getContentPane().setBackground(Color.DARK_GRAY);
     this.setSize(500, 800);
@@ -59,12 +54,15 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.add(buttonPanel, BorderLayout.SOUTH);
 
     input = new JTextField(15);
-    excuteButton = new JButton("Execute");
+    excuteButton = new JButton("Play Move");
     excuteButton.addActionListener((ActionEvent e) ->
     {
-      if (commandCallback != null) { //if there is a command callback
-        commandCallback.accept(input.getText()); //send command to be processed
-        input.setText(""); //clear the input text field
+      if (commandCallback != null) {
+        commandCallback.accept(input.getText());
+        input.setText("");
+        if(model.gameOver()) {
+          input.setText("Game Over!");
+        }
       }
     });
     buttonPanel.add(input);
@@ -74,6 +72,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.refresh();
     this.pack();
   }
+
   public void setCommandCallback(Consumer<String> callback) {
     commandCallback = callback;
   }
@@ -85,7 +84,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   @Override
   public void refresh() {
-    board.refresh();
+    manager.refresh();
     this.repaint();
   }
 

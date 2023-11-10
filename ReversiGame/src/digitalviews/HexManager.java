@@ -13,7 +13,7 @@ import model.ReadOnlyReversiModel;
 public class HexManager extends JComponent implements DigitalBoard {
 
   private final int size;
-  private final List<Hexagon> hexagons = new ArrayList<>();
+  private List<Hexagon> hexagons = new ArrayList<>();
   private final int centerCord;
   private boolean hexClicked = false;
   /**
@@ -40,6 +40,7 @@ public class HexManager extends JComponent implements DigitalBoard {
    * made.
    */
   public void makeHexagons() {
+    hexagons = new ArrayList<>();
     for (int r = -size; r <= size; r++) {
       for (int q = -size; q <= size; q++) {
         for (int s = -size; s <= size; s++) {
@@ -88,10 +89,6 @@ public class HexManager extends JComponent implements DigitalBoard {
 
   @Override
   protected void paintComponent(Graphics g) {
-    //Graphics2D g2d = (Graphics2D)g;
-    //g2d.scale(1, 1);
-    //Rectangle bounds = this.getBounds();
-    //g2d.translate(0, bounds.height);
     this.setBackground(Color.DARK_GRAY);
     g.setColor(Color.DARK_GRAY);
     g.fillRect(0, 0, getWidth(), getHeight());
@@ -123,5 +120,4 @@ public class HexManager extends JComponent implements DigitalBoard {
       manager.repaint();
     }
   }
-
 }
