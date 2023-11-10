@@ -2,7 +2,6 @@ package model.player;
 
 import model.DiscColor;
 import model.MutableReversiModel;
-import model.Position;
 
 public interface Player {
 

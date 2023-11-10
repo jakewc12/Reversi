@@ -1,13 +1,12 @@
 package model.player;
 
 import java.util.Optional;
-import model.MutableReversiModel;
-import model.Position;
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 public class CaptureMostTilesStrategy implements ReversiStrategy{
   @Override
-  public Optional<Position> chooseMove(ReadOnlyReversiModel model, Player player) {
+  public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
     if(model.getCurrentTurn()!= player.getColor() ){
       throw new IllegalStateException("Not players turn");
     }

@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * This class represents a position system of (Q,R,S)
  */
-public class Position {
+public class Coordinate {
 
   private final int q;
   private final int r;
@@ -14,7 +14,7 @@ public class Position {
   /**
    * Initialize this object to the specified position
    */
-  public Position(int q, int r, int s) {
+  public Coordinate(int q, int r, int s) {
     this.q = q;
     this.r = r;
     this.s = s;
@@ -42,7 +42,7 @@ public class Position {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof Position that)) {
+    if (!(a instanceof Coordinate that)) {
       return false;
     }
 

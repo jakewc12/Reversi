@@ -1,8 +1,7 @@
 package model.player;
 
 import java.util.Optional;
-import model.MutableReversiModel;
-import model.Position;
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 public interface ReversiStrategy {
@@ -14,5 +13,5 @@ public interface ReversiStrategy {
    * @param who the player who is using the strategy.
    * @return a move if one is found by the strategy, the strategy may be empty if none is found.
    */
-  Optional<Position> chooseMove(ReadOnlyReversiModel model, Player who);
+  Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who);
 }

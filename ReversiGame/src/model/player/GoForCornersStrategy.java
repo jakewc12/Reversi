@@ -1,14 +1,13 @@
 package model.player;
 
 import java.util.Optional;
-import model.MutableReversiModel;
-import model.Position;
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 public class GoForCornersStrategy implements ReversiStrategy {
 
   @Override
-  public Optional<Position> chooseMove(ReadOnlyReversiModel model, Player who) {
+  public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
     for (int q = -model.getBoardRadius(); q <= model.getBoardRadius(); q++) {
       for (int r = -model.getBoardRadius(); r <= model.getBoardRadius(); r++) {
         for (int s = -model.getBoardRadius(); s <= model.getBoardRadius(); s++) {
@@ -20,7 +19,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
             continue;
           }
           if (model.checkLegalMove(q, r, s)) {
-            return Optional.of(new Position(q, r, s));
+            return Optional.of(new Coordinate(q, r, s));
           }
         }
       }
@@ -32,5 +31,8 @@ public class GoForCornersStrategy implements ReversiStrategy {
     return ((q == 0) || (q == radius) || (q == -radius)) && ((r == 0) || (r == radius) || (r
         == -radius)) && (r >= 0 || r <= radius)
         && ((s == 0) || (s == radius) || (s == -radius));
+  }
+  private boolean checkEdgeCoordinate(Coordinate cord,  int radius) {
+    return checkEdgeCoordinate(cord.getQ(),cord.getR(), cord.getS(), radius);
   }
 }
