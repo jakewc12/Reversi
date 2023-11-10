@@ -1,3 +1,5 @@
+import controller.MVCController;
+import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.MutableReversi;
