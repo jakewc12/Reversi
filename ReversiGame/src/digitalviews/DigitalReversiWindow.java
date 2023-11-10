@@ -63,7 +63,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     excuteButton.addActionListener((ActionEvent e) ->
     {
       if (commandCallback != null) { //if there is a command callback
-        System.out.println("presssed");
         commandCallback.accept(input.getText()); //send command to be processed
         input.setText(""); //clear the input text field
       }
@@ -86,6 +85,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   @Override
   public void refresh() {
+    board.refresh();
     this.repaint();
   }
 

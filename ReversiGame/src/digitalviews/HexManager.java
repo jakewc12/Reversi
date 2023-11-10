@@ -39,7 +39,7 @@ public class HexManager extends JComponent implements DigitalBoard {
    * looks at model and creates the hexagon accordingly. We should call this everytime a move is
    * made.
    */
-  private void makeHexagons() {
+  public void makeHexagons() {
     for (int r = -size; r <= size; r++) {
       for (int q = -size; q <= size; q++) {
         for (int s = -size; s <= size; s++) {
@@ -78,7 +78,7 @@ public class HexManager extends JComponent implements DigitalBoard {
 
   private boolean checkClickedLocationOnAHex(int x, int y) {
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(y - hex.getY()) <= 21) && (Math.abs(x - hex.getX()) <= 21)) {
+      if ((Math.abs(y - hex.getY()) <= 22.5) && (Math.abs(x - hex.getX()) <= 22.5)) {
         return true;
       }
     }
@@ -98,6 +98,12 @@ public class HexManager extends JComponent implements DigitalBoard {
     for (Hexagon hex : hexagons) {
       hex.draw(g);
     }
+  }
+
+  @Override
+  public void refresh() {
+    this.makeHexagons();
+    this.repaint();
   }
 
   private class MouseEventsListener extends MouseInputAdapter {

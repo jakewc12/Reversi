@@ -47,6 +47,8 @@ public class MVCController implements ReversiController {
           output.append("Invalid command given");
         }
       }
+      view.refresh();
+      view.makeVisible();
     }
     return output.toString();
   }

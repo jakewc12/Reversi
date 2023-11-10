@@ -28,4 +28,7 @@ public class DigitalReversiBoard extends JPanel{
     this.setBorder(null);
     this.add(manager);
   }
+  public void refresh() {
+    manager.refresh();
+  }
 }
