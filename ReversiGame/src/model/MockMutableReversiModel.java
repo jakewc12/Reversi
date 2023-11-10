@@ -15,8 +15,8 @@ public class MockMutableReversiModel implements MutableReversiModel {
   }
 
   @Override
-  public void placeDisc(int q, int r, int s) {
-    cells.add(new GameCell(new GameDisc(DiscColor.GREY),q,r,s));
+  public void placeDisc(Coordinate coordinate) {
+    cells.add(new GameCell(new GameDisc(DiscColor.GREY),coordinate));
   }
 
   @Override
@@ -29,9 +29,10 @@ public class MockMutableReversiModel implements MutableReversiModel {
   }
 
   @Override
-  public DiscColor getColorAt(int q, int r, int s) {
+  public DiscColor getColorAt(Coordinate coordinate) {
+
     for (HexagonCell cell : cells) {
-      if (cell.getCoordinateQ() == q && cell.getCoordinateR() == r && cell.getCoordinateS() == s) {
+      if (coordinate == cell.getCoordinate()) {
         return cell.cellContents().getColor();
       }
     }
@@ -69,12 +70,12 @@ public class MockMutableReversiModel implements MutableReversiModel {
   }
 
   @Override
-  public boolean checkLegalMove(int q, int r, int s) {
-    if(getColorAt(q,r,s)!=null){
+  public boolean checkLegalMove(Coordinate coordinate) {
+    if(getColorAt(coordinate)!=null){
       return false;
     }
     try {
-      out.append("Place disc called at (" + q + ", " + r + ", " + s + ")");
+      out.append("Place disc called at ").append(coordinate.toString());
     } catch (Exception e) {
       System.out.println("connection with appendable failed.");
     }

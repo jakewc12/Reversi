@@ -6,9 +6,8 @@ package model;
 public class GameCell implements HexagonCell {
 
   private final Disc contents;
-  private final int coordinateQ;
-  private final int coordinateR;
-  private final int coordinateS;
+
+  private Coordinate coordinate;
   private final int[][] cellDirectionVectors = {{-1, 0, 1}, //DEADLEFT(0)
       {1, 0, -1}, //DEAD-RIGHT(1)
       {0, -1, 1}, //TOP-LEFT(2)
@@ -20,29 +19,21 @@ public class GameCell implements HexagonCell {
   /**
    * Creates a new Game Cell which can hold Discs.
    *
-   * @param contents    the contents of the cell which can be null or a class from the disc
-   *                    interface.
-   * @param coordinateQ an integer that decrease when going left of the origin and increases when
-   *                    going right of the origin.
-   * @param coordinateR an integer decreases when going up a row from the origin and increases when
-   *                    going down a row.
-   * @param coordinateS the coordinate that decrease when going right of the origin and increases *
-   *                    when going left of the origin.
+   * @param contents   the contents of the cell which can be null or a class from the disc
+   *                   interface.
+   * @param coordinate the game cells coordinate.
    */
-  public GameCell(Disc contents, int coordinateQ, int coordinateR, int coordinateS) {
+
+  public GameCell(Disc contents, Coordinate coordinate) {
     if (contents == null) {
       throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
     }
     this.contents = contents;
-    this.coordinateQ = coordinateQ;
-    this.coordinateR = coordinateR;
-    this.coordinateS = coordinateS;
+    this.coordinate = coordinate;
   }
 
   private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
-    this.coordinateQ = coordinateQ;
-    this.coordinateR = coordinateR;
-    this.coordinateS = coordinateS;
+    coordinate = new Coordinate(coordinateQ, coordinateR, coordinateS);
     contents = null;
   }
 
@@ -61,8 +52,12 @@ public class GameCell implements HexagonCell {
     //need to check that neighbor is not off board
 
     int[] addCell = cellDirection(direction);
-    return new GameCell(coordinateQ + addCell[0], coordinateR + addCell[1],
-        coordinateS + addCell[2]);
+    return new GameCell(coordinate.getQ() + addCell[0], coordinate.getR() + addCell[1],
+        coordinate.getS() + addCell[2]);
+  }
+
+  public Coordinate getCoordinate() {
+    return coordinate;
   }
 
   /**
@@ -79,33 +74,33 @@ public class GameCell implements HexagonCell {
    * Gets the Q coordinate of this cell.
    *
    * @return an integer that decrease when going left of the origin and increases when going right
-   *     of the origin.
+   * of the origin.
    */
   @Override
   public int getCoordinateQ() {
-    return coordinateQ;
+    return coordinate.getQ();
   }
 
   /**
    * Gets the R coordinate of this cell.
    *
    * @return an integer decreases when going up a row from the origin and increases when going down
-   *     a row.
+   * a row.
    */
   @Override
   public int getCoordinateR() {
-    return coordinateR;
+    return coordinate.getR();
   }
 
   /**
    * Gets the S coordinate of this cell.
    *
    * @return an integer that decrease when going right of the origin and increases when going left
-   *      of the origin.
+   * of the origin.
    */
   @Override
   public int getCoordinateS() {
-    return coordinateS;
+    return coordinate.getS();
   }
 
   /**
@@ -115,7 +110,7 @@ public class GameCell implements HexagonCell {
    */
   @Override
   public String toString() {
-    return "(" + coordinateQ + ", " + coordinateR + ", " + coordinateS + ")";
+    return coordinate.toString();
   }
 
   /**

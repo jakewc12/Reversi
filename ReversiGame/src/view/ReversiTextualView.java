@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 /**
@@ -60,7 +61,7 @@ public class ReversiTextualView implements TextualView {
             continue;
           }
           //If its black place an X, if white place an O, otherwise do underscore.
-          switch (model.getColorAt(qq, rr, ss)) {
+          switch (model.getColorAt(new Coordinate(qq,rr,ss))) {
             case BLACK:
               returnString.append("X");
               break;

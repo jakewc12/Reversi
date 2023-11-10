@@ -10,14 +10,12 @@ public interface ReadOnlyReversiModel {
   /**
    * returns the disc color at the specified coordinate.
    *
-   * @param q q radius in relation to the center.
-   * @param r r radius in relation to the center.
-   * @param s s radius in relation to the center.
+   * @param coordinate the coordinates for what color you want to get.
    * @return disc at specified location.
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  DiscColor getColorAt(int q, int r, int s);
+  public DiscColor getColorAt(Coordinate coordinate);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.
@@ -71,15 +69,13 @@ public interface ReadOnlyReversiModel {
   /**
    * Checks if a move placed at (q,r,s) is legal and returns that.
    *
-   * @param q the q coordinate of the location.
-   * @param r the r coordinate of the location.
-   * @param s the s coordinate of the location.
+   * @param coordinate the coordinate of the move.
    * @return if the given move is legal or not.
    * @throws IllegalArgumentException if the coordinates are invalid.
    * @throws IllegalStateException    if the game hasn't started yet.
    */
 
-  boolean checkLegalMove(int q, int r, int s);
+  boolean checkLegalMove(Coordinate coordinate);
 
   /**
    * Checks if the current player has any legal moves and returns that.

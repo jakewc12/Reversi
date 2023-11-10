@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 public class HexManager extends JComponent implements DigitalBoard {
@@ -48,7 +49,7 @@ public class HexManager extends JComponent implements DigitalBoard {
             //int x = centerCord + 50 * q;
             //int y = centerCord + 45 * r;
             //System.out.println(q + ", " +r);
-            hexagons.add(new Hexagon(q, r, model.getColorAt(q, r, s), centerCord));
+            hexagons.add(new Hexagon(q, r, model.getColorAt(new Coordinate(q, r, s)), centerCord));
           }
         }
       }

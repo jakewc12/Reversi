@@ -11,14 +11,15 @@ public class GoForCornersStrategy implements ReversiStrategy {
     for (int q = -model.getBoardRadius(); q <= model.getBoardRadius(); q++) {
       for (int r = -model.getBoardRadius(); r <= model.getBoardRadius(); r++) {
         for (int s = -model.getBoardRadius(); s <= model.getBoardRadius(); s++) {
+          Coordinate cord = new Coordinate(q,r,s);
           if ((q + r + s) != 0) {
             continue;
           }
-          if (!checkEdgeCoordinate(q, r, s, model.getBoardRadius()) || (q == 0 && r == 0
+          if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (q == 0 && r == 0
               && s == 0)) {
             continue;
           }
-          if (model.checkLegalMove(q, r, s)) {
+          if (model.checkLegalMove(cord)) {
             return Optional.of(new Coordinate(q, r, s));
           }
         }

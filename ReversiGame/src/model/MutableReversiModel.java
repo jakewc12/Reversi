@@ -1,19 +1,20 @@
 package model;
 
-import java.io.IOException;
-
 /**
  * Any actions performed on a reversi board should be included here.
  */
 public interface MutableReversiModel extends ReadOnlyReversiModel {
 
   /**
-   * Places a disc of the users current turn on the board in a GameCell at coordinates q,r,S.
+   * Checks to see if the move is valid. if it is, it flips all discs inbetween the placed disc and
+   * the disc on its plane of the same color. When this happens, numBlackCells and numWhiteCells
+   * should change accordingly
    *
-   * @throws IllegalStateException    if game isn't started.
-   * @throws IllegalArgumentException if any of the inputs are invalid.
+   * @param coordinate the coordinate of the hex you are checking.
+   * @throws IllegalArgumentException if coordinates are invalid
+   * @throws IllegalStateException    if the move is illegal.
    */
-  void placeDisc(int q, int r, int s);
+  void placeDisc(Coordinate coordinate);
 
   /**
    * Skip the turn of the current player.

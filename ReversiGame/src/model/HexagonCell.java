@@ -22,6 +22,13 @@ public interface HexagonCell {
   Disc cellContents();
 
   /**
+   * Gets the coordinate of this cell.
+   *
+   * @return a coordinate that contains q,r,s.
+   */
+  Coordinate getCoordinate();
+
+  /**
    * Gets the Q coordinate of this cell.
    *
    * @return an integer that decrease when going left of the origin and increases when going right

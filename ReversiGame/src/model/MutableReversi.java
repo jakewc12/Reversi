@@ -81,16 +81,18 @@ public class MutableReversi implements MutableReversiModel {
           if (q + r + s == 0) {
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), q, r, s);
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK),
+                  new Coordinate(q, r, s));
               localCells.add(newCell);
               numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                 && r == 0 && s == 1)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE), q, r, s);
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE),
+                  new Coordinate(q, r, s));
               localCells.add(newCell);
               numWhiteTiles++;
             } else {
-              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
+              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), new Coordinate(q, r, s)));
             }
           }
         }
@@ -100,7 +102,11 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public boolean checkLegalMove(int q, int r, int s) {
+  public boolean checkLegalMove(Coordinate coordinate) {
+    return checkLegalMove(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+  }
+
+  private boolean checkLegalMove(int q, int r, int s) {
     checkValidCoordinates(q, r, s);
     if (this.getDiscAt(q, r, s).getColor() != DiscColor.GREY) {
       //throw new IllegalStateException("Cannot place a disc on an occupied disc");
@@ -205,18 +211,19 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
+            Coordinate currentCoord = new Coordinate(q,r,s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), q, r, s);
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), currentCoord);
               cells.add(newCell);
               numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                 && r == 0 && s == 1) || (q == 0 && s == 0 && r == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE), q, r, s);
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE), currentCoord);
               cells.add(newCell);
               numWhiteTiles++;
             } else {
-              cells.add(new GameCell(new GameDisc(DiscColor.GREY), q, r, s));
+              cells.add(new GameCell(new GameDisc(DiscColor.GREY), currentCoord));
             }
           }
         }
@@ -310,20 +317,14 @@ public class MutableReversi implements MutableReversiModel {
     return returnList;
   }
 
-  /**
-   * Checks to see if the move is valid. if it is, it flips all discs inbetween the placed disc and
-   * the disc on its plane of the same color. When this happens, numBlackCells and numWhiteCells
-   * should change accordingly
-   *
-   * @param q coordinate q
-   * @param r coordinate r
-   * @param s coordinate s
-   * @throws IllegalArgumentException if coordinates are invalid
-   * @throws IllegalStateException    if the move is illegal.
-   */
+
   @Override
-  public void placeDisc(int q, int r, int s) {
+  public void placeDisc(Coordinate coord) {
     checkGameStarted();
+    int q = coord.getQ();
+    int r = coord.getR();
+    int s = coord.getS();
+
     if (!checkLegalMove(q, r, s)) {
       throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
     }
@@ -387,15 +388,17 @@ public class MutableReversi implements MutableReversiModel {
   /**
    * returns the disc color at the specified coordinate.
    *
-   * @param q q radius in relation to the center.
-   * @param r r radius in relation to the center.
-   * @param s s radius in relation to the center.
+   * @param coordinate the coordinates for what color you want to get.
    * @return disc at specified location.
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
   @Override
-  public DiscColor getColorAt(int q, int r, int s) {
+  public DiscColor getColorAt(Coordinate coordinate) {
+    int q = coordinate.getQ();
+    int r = coordinate.getR();
+    int s = coordinate.getS();
+
     checkGameStarted();
     checkValidCoordinates(q, r, s);
     return getDiscAt(q, r, s).getColor();
