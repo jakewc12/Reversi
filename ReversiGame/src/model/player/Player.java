@@ -15,7 +15,6 @@ public interface Player {
   /**
    * Finds the coordinate that aligns best with a specific ReversiStrategy.
    * @param model the Reversi game that is being played on.
-   * @return Position of the best placed disc based on a strategy.
    */
-  Position play(MutableReversiModel model);
+  void playMove(MutableReversiModel model);
 }
