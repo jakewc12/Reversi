@@ -79,20 +79,19 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
+            Coordinate currentCoord = new Coordinate(q, r, s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK),
-                  new Coordinate(q, r, s));
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), currentCoord);
               localCells.add(newCell);
               numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                 && r == 0 && s == 1)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE),
-                  new Coordinate(q, r, s));
+              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE), currentCoord);
               localCells.add(newCell);
               numWhiteTiles++;
             } else {
-              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), new Coordinate(q, r, s)));
+              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), currentCoord));
             }
           }
         }
@@ -135,16 +134,7 @@ public class MutableReversi implements MutableReversiModel {
     } else {
       return numWhiteTiles;
     }
-    /*
-    int count = 0;
-    for (HexagonCell cell : cells) {
-      if (cell.cellContents().getColor() == color) {
-        count++;
-      }
-    }
-    return count;
 
-     */
   }
 
   /**
@@ -211,7 +201,7 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
-            Coordinate currentCoord = new Coordinate(q,r,s);
+            Coordinate currentCoord = new Coordinate(q, r, s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
               GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), currentCoord);
@@ -294,6 +284,15 @@ public class MutableReversi implements MutableReversiModel {
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
         currentColor));
     return toFlip;
+  }
+
+  @Override
+  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+    // currently may not work as intended because disc is not place at coordinates. if this does
+    // not work then edit the getAll flips function to place disc at desired location then remove
+    // it when its done getting the flips
+    HexagonCell targetCell = getHexAt(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+    return getAllFlips(targetCell, playerColor).size();
   }
 
   private List<HexagonCell> getAllHexInDirection(HexagonCell targetCell, Direction direction) {

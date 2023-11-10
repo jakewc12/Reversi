@@ -95,5 +95,13 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalArgumentException if player is invalid.
    */
   int checkScoreOfPlayer(DiscColor color);
+
+  /**
+   * Gets the number of flips on a player move.
+   * @param coordinate The coordinate you want to place a Disc on.
+   * @param playerColor The color of the player who is placing the disc
+   * @return the number of discs flipped if the player makes that move.
+   */
+   int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor);
 }
 

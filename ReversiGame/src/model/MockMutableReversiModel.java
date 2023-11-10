@@ -1,10 +1,10 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MockMutableReversiModel implements MutableReversiModel {
+
   private Appendable out;
   private int size;
   private List<HexagonCell> cells = new ArrayList<>();
@@ -16,7 +16,7 @@ public class MockMutableReversiModel implements MutableReversiModel {
 
   @Override
   public void placeDisc(Coordinate coordinate) {
-    cells.add(new GameCell(new GameDisc(DiscColor.GREY),coordinate));
+    cells.add(new GameCell(new GameDisc(DiscColor.GREY), coordinate));
   }
 
   @Override
@@ -37,6 +37,11 @@ public class MockMutableReversiModel implements MutableReversiModel {
       }
     }
     return null;
+  }
+
+  @Override
+  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+    return 0;
   }
 
   @Override
@@ -71,7 +76,7 @@ public class MockMutableReversiModel implements MutableReversiModel {
 
   @Override
   public boolean checkLegalMove(Coordinate coordinate) {
-    if(getColorAt(coordinate)!=null){
+    if (getColorAt(coordinate) != null) {
       return false;
     }
     try {
