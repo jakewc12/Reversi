@@ -13,7 +13,7 @@ import model.ReadOnlyReversiModel;
 public class HexManager extends JComponent implements DigitalBoard {
 
   private final int size;
-  private final List<Hexagon> hexagons = new ArrayList<>();
+  private List<Hexagon> hexagons = new ArrayList<>();
   private final int centerCord;
   private boolean hexClicked = false;
   /**
@@ -39,7 +39,8 @@ public class HexManager extends JComponent implements DigitalBoard {
    * looks at model and creates the hexagon accordingly. We should call this everytime a move is
    * made.
    */
-  private void makeHexagons() {
+  public void makeHexagons() {
+    hexagons = new ArrayList<>();
     for (int r = -size; r <= size; r++) {
       for (int q = -size; q <= size; q++) {
         for (int s = -size; s <= size; s++) {
@@ -78,7 +79,7 @@ public class HexManager extends JComponent implements DigitalBoard {
 
   private boolean checkClickedLocationOnAHex(int x, int y) {
     for (Hexagon hex : hexagons) {
-      if ((Math.abs(y - hex.getY()) <= 21) && (Math.abs(x - hex.getX()) <= 21)) {
+      if ((Math.abs(y - hex.getY()) <= 22.5) && (Math.abs(x - hex.getX()) <= 22.5)) {
         return true;
       }
     }
@@ -88,16 +89,18 @@ public class HexManager extends JComponent implements DigitalBoard {
 
   @Override
   protected void paintComponent(Graphics g) {
-    //Graphics2D g2d = (Graphics2D)g;
-    //g2d.scale(1, 1);
-    //Rectangle bounds = this.getBounds();
-    //g2d.translate(0, bounds.height);
     this.setBackground(Color.DARK_GRAY);
     g.setColor(Color.DARK_GRAY);
     g.fillRect(0, 0, getWidth(), getHeight());
     for (Hexagon hex : hexagons) {
       hex.draw(g);
     }
+  }
+
+  @Override
+  public void refresh() {
+    this.makeHexagons();
+    this.repaint();
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
@@ -117,5 +120,4 @@ public class HexManager extends JComponent implements DigitalBoard {
       manager.repaint();
     }
   }
-
 }

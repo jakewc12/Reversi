@@ -1,5 +1,7 @@
 package model;
 
+import java.io.IOException;
+
 /**
  * Any actions performed on a reversi board should be included here.
  */
