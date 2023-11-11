@@ -1,5 +1,6 @@
 package reversimodeltests;
 
+import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
@@ -82,11 +83,11 @@ public class ReversiReadTests {
           }
           try {
             if (q == 0 && r == 0 && s == 0) {
-              Assert.assertEquals(DiscColor.GREY, game.getColorAt(q, r, s));
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
             } else if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
-              Assert.assertNotEquals(DiscColor.GREY, game.getColorAt(q, r, s));
+              Assert.assertNotEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
             } else {
-              Assert.assertEquals(DiscColor.GREY, game.getColorAt(q, r, s));
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
             }
           } catch (Exception e) {
             throw new AssertionError(
@@ -98,7 +99,7 @@ public class ReversiReadTests {
       }
     }
     try {
-      Assert.assertEquals(DiscColor.GREY, game.getColorAt(0, 0, 0));
+      Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(0, 0, 0)));
     } catch (Exception e) {
       throw new AssertionError(
           "An error occurred when getting a disc at q: " + 0 + " r: "
@@ -112,7 +113,7 @@ public class ReversiReadTests {
    */
   @Test
   public void nothingInReadFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(0, 0, 0));
+    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(new Coordinate(0, 0, 0)));
     Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
     Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());

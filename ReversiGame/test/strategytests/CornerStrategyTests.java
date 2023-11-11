@@ -1,20 +1,21 @@
 package strategytests;
 
-import java.util.Optional;
-import model.Coordinate;
-import model.DiscColor;
-import model.MockMutableReversiModel;
-import model.MutableReversiModel;
-import model.player.AIPlayer;
-import model.player.GoForCornersStrategy;
-import model.player.Player;
-import model.player.ReversiStrategy;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CornerStrategyTests {
+import java.util.Optional;
 
+import model.Coordinate;
+import model.DiscColor;
+import model.MockMutableReversiModel;
+import model.MutableReversiModel;
+import model.player.GoForCornersStrategy;
+import model.player.AIPlayer;
+import model.player.Player;
+import model.player.ReversiStrategy;
+
+public class CornerStrategyTests {
   private MutableReversiModel model;
   private Player player;
   private ReversiStrategy strategy;
@@ -49,7 +50,6 @@ public class CornerStrategyTests {
 
   @Test
   public void testNoCornersEmptyThrowIllegalState() {
-
     model.placeDisc(new Coordinate(-3, 0, 3));
     model.placeDisc(new Coordinate(-3, 3, 0));
     model.placeDisc(new Coordinate(3, -3, 0));

@@ -2,9 +2,7 @@ package digitalviews;
 
 import java.awt.Color;
 
-import javax.swing.*;
-
-public interface DigitalBoard {
+public interface DigitalBoardManager {
 
   /**
    * Tells the DigitalBoard to set the color of a hex at specified row,col.
@@ -18,5 +16,4 @@ public interface DigitalBoard {
    * Signals the view to draw or redraw itself.
    */
   void refresh();
-
 }

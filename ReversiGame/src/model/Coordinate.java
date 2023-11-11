@@ -34,7 +34,7 @@ public class Coordinate {
 
   @Override
   public String toString() {
-    return String.format("(%x, %x, %x)", this.q, this.r, this.s);
+    return "(" + q + ", " + r + ", " + s +")";
   }
 
   @Override
@@ -47,7 +47,7 @@ public class Coordinate {
     }
 
     return ((Math.abs(this.q - that.q) < 0.01) && (Math.abs(this.r - that.r) < 0.01) &&
-        Math.abs(this.s - that.s) < 0.01);
+            Math.abs(this.s - that.s) < 0.01);
   }
 
   @Override

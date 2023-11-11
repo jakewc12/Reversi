@@ -4,19 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+
+import model.Coordinate;
 import model.DiscColor;
 
 /**
  * A single digital hexagon tile on the game board.
  */
-public class Hexagon {
+public class Hexagon implements HexagonInterface {
 
   public final static double THETA = (Math.PI * 2) / 6.0;
   //Length or radius?
   static final int hexagonLength = 25;
   private final Polygon poly;
-  private final int q;
-  private final int r;
+  private Coordinate coordinate;
   private final int yCenterCoord;
   private final int xCenterCoord;
   private Color color;
@@ -25,22 +26,17 @@ public class Hexagon {
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param q                the q coordinate which is the same as the one described in
-   *                         model.HexagonCell.
-   * @param r                the r coordinate which is the same as the one described in
-   *                         model.HexagonCell.
+   * @param coordinate       the coordintae of the hexagon in relation to the entire grid.
    * @param discColor        the disc color of the hexagon cell.
    * @param boardCenterCoord the dead center or origin of the board in pixel coordinates.
    */
-  public Hexagon(int q, int r, DiscColor discColor, int boardCenterCoord) {
+  public Hexagon(Coordinate coordinate, DiscColor discColor, int boardCenterCoord) {
     int xCoordMath;
     //use Q and R instead of x and y
-    this.q = q;
-    this.r = r;
-    this.yCenterCoord = boardCenterCoord + 40 * (r);
-    xCoordMath = boardCenterCoord + 45 * (-q - r);
-    xCoordMath += r * 23;
-    //need to move the y so that it off centers correctly.
+    this.coordinate = coordinate;
+    this.yCenterCoord = boardCenterCoord + 40 * (coordinate.getR());
+    xCoordMath = boardCenterCoord + 45 * (coordinate.getS());
+    xCoordMath += coordinate.getR() * 23;
     this.xCenterCoord = xCoordMath;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
@@ -66,7 +62,7 @@ public class Hexagon {
    */
   public void setColor(Color clr) {
     if (clr == Color.CYAN) {
-      System.out.println("Coordinate clicked is: " + q + ", " + r + ", " + (-q - r));
+      System.out.println("Coordinate clicked is: " + coordinate.toString());
     }
     color = clr;
   }
@@ -89,8 +85,6 @@ public class Hexagon {
       discColor = color;
     }
     g.setColor(discColor);
-    //g.drawOval(poly.getBounds.x+10, poly.getBounds.y+10, hexagonLength - 10, hexagonLength - 10);
-    //    g.fillOval(poly.getBounds.x+10, poly.getBounds.y+10, hexagonLength - 10, hexagonLength - 10);
     g.drawOval(poly.getBounds().x + 9, poly.getBounds().y + 12, hexagonLength, hexagonLength);
     g.fillOval(poly.getBounds().x + 9, poly.getBounds().y + 12, hexagonLength, hexagonLength);
   }
@@ -103,11 +97,7 @@ public class Hexagon {
     return xCenterCoord;
   }
 
-  public int getQ() {
-    return this.q;
-  }
-
-  public int getR() {
-    return this.r;
+  public Coordinate getCoordinate() {
+    return this.coordinate;
   }
 }

@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import javax.swing.*;
 
-import controller.ReversiController;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
@@ -40,6 +39,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setLayout(new BorderLayout());
 
 
+    int radius = model.getBoardRadius();
+    int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
+    manager = new HexManager(radius, windowSize, model);
     board.setBorder(null);
     board.add(manager);
 
