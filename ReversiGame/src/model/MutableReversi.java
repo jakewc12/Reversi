@@ -101,7 +101,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public boolean checkLegalMove(Coordinate coordinate) {
+  public boolean isLegalMove(Coordinate coordinate) {
     return checkLegalMove(coordinate.getQ(), coordinate.getR(), coordinate.getS());
   }
 
@@ -288,11 +288,22 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+    checkGameStarted();
     // currently may not work as intended because disc is not place at coordinates. if this does
     // not work then edit the getAll flips function to place disc at desired location then remove
     // it when its done getting the flips
     HexagonCell targetCell = getHexAt(coordinate.getQ(), coordinate.getR(), coordinate.getS());
     return getAllFlips(targetCell, playerColor).size();
+  }
+
+  @Override
+  public List<Coordinate> getAllCoordinates() {
+    checkGameStarted();
+    List<Coordinate> returnList = new ArrayList<>();
+    for (HexagonCell cell: cells) {
+      returnList.add(cell.getCoordinate());
+    }
+    return returnList;
   }
 
   private List<HexagonCell> getAllHexInDirection(HexagonCell targetCell, Direction direction) {

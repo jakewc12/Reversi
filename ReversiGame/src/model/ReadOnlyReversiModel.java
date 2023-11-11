@@ -75,7 +75,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if the game hasn't started yet.
    */
 
-  boolean checkLegalMove(Coordinate coordinate);
+  boolean isLegalMove(Coordinate coordinate);
 
   /**
    * Checks if the current player has any legal moves and returns that.
@@ -103,5 +103,11 @@ public interface ReadOnlyReversiModel {
    * @return the number of discs flipped if the player makes that move.
    */
    int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor);
+
+  /**
+   * Gets all the coordinates for the current board.
+   * @return all the possible coordinates.
+   */
+  List<Coordinate> getAllCoordinates();
 }
 

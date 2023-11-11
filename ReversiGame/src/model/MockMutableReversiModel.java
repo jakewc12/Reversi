@@ -45,6 +45,11 @@ public class MockMutableReversiModel implements MutableReversiModel {
   }
 
   @Override
+  public List<Coordinate> getAllCoordinates() {
+    return null;
+  }
+
+  @Override
   public DiscColor getCurrentTurn() {
     return null;
   }
@@ -75,7 +80,7 @@ public class MockMutableReversiModel implements MutableReversiModel {
   }
 
   @Override
-  public boolean checkLegalMove(Coordinate coordinate) {
+  public boolean isLegalMove(Coordinate coordinate) {
     if (getColorAt(coordinate) != null) {
       return false;
     }
