@@ -266,6 +266,9 @@ public class MutableReversi implements MutableReversiModel {
    */
   private ArrayList<Disc> getAllFlips(HexagonCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
+    DiscColor originalColor = targetCell.cellContents().getColor();
+    targetCell.cellContents().changeColorTo(currentColor);
+
     //Check Horizontal
     toFlip.addAll(
         getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT), currentColor));
@@ -283,6 +286,8 @@ public class MutableReversi implements MutableReversiModel {
         currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
         currentColor));
+
+    targetCell.cellContents().changeColorTo(originalColor);
     return toFlip;
   }
 
