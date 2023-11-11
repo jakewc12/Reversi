@@ -1,5 +1,6 @@
 package reversimodeltests;
 
+import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversi;
@@ -113,7 +114,8 @@ public class ReversiReadTests {
    */
   @Test
   public void nothingInReadFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(new Coordinate(0, 0, 0)));
+    Assert.assertThrows(IllegalStateException.class,
+        () -> game.getColorAt(new Coordinate(0, 0, 0)));
     Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
     Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
     Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());
@@ -135,5 +137,31 @@ public class ReversiReadTests {
     Assert.assertEquals(game.getBoard().size(), 7);
   }
 
+  @Test
+  public void getAllCoordinatesWorks() {
+    game.startGame(game.getBoard());
+    int boardRadius = 5;
+    List<Coordinate> givenCoords = game.getAllCoordinates();
+    for (int q = -boardRadius; q < boardRadius; q++) {
+      for (int r = -boardRadius; r < boardRadius; r++) {
+        for (int s = -boardRadius; s < boardRadius; s++) {
+          //valid tile should coordinates should equal zero and be within bounds of abs(radius)
+          if (q + r + s != 0) {
+            continue;
+          }
+          Coordinate currentCoord = new Coordinate(q,r,s);
+          Assert.assertTrue(givenCoords.contains(currentCoord));
+        }
+      }
+    }
+  }
+  @Test
+  public void getNumFlipsOnMoveWorks() {
+    game.startGame(game.getBoard());
+    int numFlips = game.getNumFlipsOnMove(new Coordinate(1,-2,1), DiscColor.BLACK);
+    Assert.assertEquals(1,numFlips);
+
+  }
 
 }
+
