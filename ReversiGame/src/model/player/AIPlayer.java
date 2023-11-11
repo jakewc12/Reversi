@@ -1,5 +1,7 @@
 package model.player;
 
+import java.util.Optional;
+import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversiModel;
 
@@ -20,7 +22,12 @@ public class AIPlayer implements Player {
 
   @Override
   public void playMove(MutableReversiModel model) {
-  //TODO: implement play move using strategies.
-    model.skipCurrentTurn();
+    Optional<Coordinate> idealMove = strategy.chooseMove(model, this);
+    if (idealMove.isEmpty()) {
+      model.skipCurrentTurn();
+      return;
+    }
+    model.placeDisc(idealMove.get());
+
   }
 }
