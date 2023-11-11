@@ -1,5 +1,6 @@
 package model.player;
 
+import java.util.List;
 import java.util.Optional;
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
@@ -7,10 +8,16 @@ import model.ReadOnlyReversiModel;
 public class CaptureMostTilesStrategy implements ReversiStrategy{
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
+    List<Coordinate> allCoords = model.getAllCoordinates();
+    Optional<Coordinate> currentBestMove = Optional.empty();
+    int highestFlips = 0;
 
-    //DO NOT RETURN NULL THIS IS PLACEHOLDER
-    //If there are multiple moves that claim the same, highest number of tiles, return top left
-    //of those tiles
-    return Optional.empty();
+    for (Coordinate currentCoord: allCoords){
+      int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getColor());
+      if(highestFlips < currentNumFlips){
+        currentBestMove = Optional.ofNullable(currentCoord);
+      }
+    }
+    return currentBestMove;
   }
 }

@@ -19,7 +19,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
               && s == 0)) {
             continue;
           }
-          if (model.checkLegalMove(cord)) {
+          if (model.isLegalMove(cord)) {
             return Optional.of(new Coordinate(q, r, s));
           }
         }

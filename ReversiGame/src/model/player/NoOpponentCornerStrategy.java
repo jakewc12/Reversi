@@ -8,7 +8,7 @@ public class NoOpponentCornerStrategy implements ReversiStrategy{
 
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
-    model.checkLegalMove(new Coordinate(1,1,1));
+    model.isLegalMove(new Coordinate(1,1,1));
     return Optional.empty();
   }
 }
