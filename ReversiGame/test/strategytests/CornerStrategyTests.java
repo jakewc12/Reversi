@@ -1,19 +1,20 @@
 package strategytests;
 
+import java.util.Optional;
 import model.Coordinate;
+import model.DiscColor;
+import model.MockMutableReversiModel;
+import model.MutableReversiModel;
+import model.player.AIPlayer;
+import model.player.GoForCornersStrategy;
+import model.player.Player;
+import model.player.ReversiStrategy;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.DiscColor;
-import model.MockMutableReversiModel;
-import model.MutableReversiModel;
-import model.player.GoForCornersStrategy;
-import model.player.AIPlayer;
-import model.player.Player;
-import model.player.ReversiStrategy;
-
 public class CornerStrategyTests {
+
   private MutableReversiModel model;
   private Player player;
   private ReversiStrategy strategy;
@@ -39,7 +40,7 @@ public class CornerStrategyTests {
 
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    model.placeDisc(new Coordinate(-3, 0, 3) );
+    model.placeDisc(new Coordinate(-3, 0, 3));
     strategy.chooseMove(model, player);
     Assert.assertNotEquals(logString, log.toString());
     Assert.assertFalse(log.toString().contains("1"));
@@ -53,9 +54,8 @@ public class CornerStrategyTests {
     model.placeDisc(new Coordinate(-3, 3, 0));
     model.placeDisc(new Coordinate(3, -3, 0));
     model.placeDisc(new Coordinate(0, -3, 3));
-    model.placeDisc(new Coordinate(0, 3, -3) );
-    model.placeDisc(new Coordinate(3, 0, -3) );
-    Assert.assertThrows("Illegal state thrown"
-            , IllegalStateException.class, () -> strategy.chooseMove(model, player));
+    model.placeDisc(new Coordinate(0, 3, -3));
+    model.placeDisc(new Coordinate(3, 0, -3));
+    Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
   }
 }
