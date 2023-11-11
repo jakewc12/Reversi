@@ -6,15 +6,17 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
+
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
-public class HexManager extends JComponent implements DigitalBoard {
+public class HexManager extends JComponent implements DigitalBoardManager {
 
   private final int size;
-  private List<Hexagon> hexagons = new ArrayList<>();
+  private List<HexagonInterface> hexagons = new ArrayList<>();
   private final int centerCord;
   private boolean hexClicked = false;
   /**
@@ -40,16 +42,14 @@ public class HexManager extends JComponent implements DigitalBoard {
    * looks at model and creates the hexagon accordingly. We should call this everytime a move is
    * made.
    */
-  public void makeHexagons() {
+  private void makeHexagons() {
     hexagons = new ArrayList<>();
     for (int r = -size; r <= size; r++) {
       for (int q = -size; q <= size; q++) {
         for (int s = -size; s <= size; s++) {
           if (r + q + s == 0) {
-            //int x = centerCord + 50 * q;
-            //int y = centerCord + 45 * r;
-            //System.out.println(q + ", " +r);
-            hexagons.add(new Hexagon(q, r, model.getColorAt(new Coordinate(q, r, s)), centerCord));
+            Coordinate coordinate = new Coordinate(q, r, s);
+            hexagons.add(new Hexagon(coordinate, model.getColorAt(coordinate), centerCord));
           }
         }
       }
@@ -64,7 +64,7 @@ public class HexManager extends JComponent implements DigitalBoard {
    * @param color the color to set
    */
   public void setColor(int x, int y, Color color) {
-    for (Hexagon hex : hexagons) {
+    for (HexagonInterface hex : hexagons) {
       if ((Math.abs(y - hex.getY()) <= 18) && (Math.abs(x - hex.getX()) <= 18)) {
         hex.setColor(color);
       }
@@ -73,13 +73,13 @@ public class HexManager extends JComponent implements DigitalBoard {
   }
 
   private void setAllHexesToLightGrey() {
-    for (Hexagon hex : hexagons) {
+    for (HexagonInterface hex : hexagons) {
       hex.setColor(Color.LIGHT_GRAY);
     }
   }
 
   private boolean checkClickedLocationOnAHex(int x, int y) {
-    for (Hexagon hex : hexagons) {
+    for (HexagonInterface hex : hexagons) {
       if ((Math.abs(y - hex.getY()) <= 22.5) && (Math.abs(x - hex.getX()) <= 22.5)) {
         return true;
       }
@@ -93,7 +93,7 @@ public class HexManager extends JComponent implements DigitalBoard {
     this.setBackground(Color.DARK_GRAY);
     g.setColor(Color.DARK_GRAY);
     g.fillRect(0, 0, getWidth(), getHeight());
-    for (Hexagon hex : hexagons) {
+    for (HexagonInterface hex : hexagons) {
       hex.draw(g);
     }
   }

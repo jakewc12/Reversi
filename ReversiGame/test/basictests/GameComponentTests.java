@@ -1,5 +1,6 @@
 package basictests;
 
+import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
 import model.GameDisc;
@@ -42,11 +43,11 @@ public class GameComponentTests {
   @Test
   public void testGameCellToStringWorks() {
     disc = new GameDisc(DiscColor.GREY);
-    cell = new GameCell(disc, 1, 1, 10);
+    cell = new GameCell(disc, new Coordinate(1, 1, 10));
     Assert.assertEquals("(1, 1, 10)", cell.toString());
-    cell = new GameCell(disc, -1, 0, 0);
+    cell = new GameCell(disc, new Coordinate(-1, 0, 0));
     Assert.assertEquals("(-1, 0, 0)", cell.toString());
-    cell = new GameCell(disc, 1, 0, 0);
+    cell = new GameCell(disc, new Coordinate(1, 0, 0));
     Assert.assertEquals("(1, 0, 0)", cell.toString());
   }
 
@@ -56,7 +57,7 @@ public class GameComponentTests {
   @Test
   public void testGameCellThrowsErrorOnEmptyContents() {
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new GameCell(disc, 0, 0, 0));
+        , () -> new GameCell(disc, new Coordinate(0, 0, 0)));
   }
 
   /**
@@ -68,7 +69,7 @@ public class GameComponentTests {
     int r = 2;
     int s = 3;
     disc = new GameDisc(DiscColor.GREY);
-    cell = new GameCell(disc, q, r, s);
+    cell = new GameCell(disc, new Coordinate(q, r, s));
     Assert.assertEquals(q, cell.getCoordinateQ());
     Assert.assertEquals(r, cell.getCoordinateR());
     Assert.assertEquals(s, cell.getCoordinateS());

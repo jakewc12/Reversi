@@ -2,6 +2,7 @@ package textviewtests;
 
 import java.io.IOException;
 
+import model.Coordinate;
 import model.MutableReversi;
 import model.MutableReversiModel;
 
@@ -80,7 +81,7 @@ public class ViewTests {
   @Test
   public void testTextViewUpdates() {
     game.startGame(game.getBoard());
-    game.placeDisc(1, -2, 1);
+    game.placeDisc(new Coordinate(1, -2, 1));
     tv = new ReversiTextualView(game, gameLog);
     try {
       tv.render();
