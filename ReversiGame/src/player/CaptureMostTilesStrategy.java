@@ -5,19 +5,31 @@ import java.util.Optional;
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
-public class CaptureMostTilesStrategy implements ReversiStrategy{
+public class CaptureMostTilesStrategy implements ReversiStrategy {
+
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
+
     List<Coordinate> allCoords = model.getAllCoordinates();
-    Optional<Coordinate> currentBestMove = Optional.empty();
+    Coordinate currentBestMove = allCoords.get(0);
     int highestFlips = 0;
-    System.out.println();
-    for (Coordinate currentCoord: allCoords){
+
+    for (Coordinate currentCoord : allCoords) {
       int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getColor());
-      if(highestFlips < currentNumFlips){
-        currentBestMove = Optional.ofNullable(currentCoord);
+      if (highestFlips < currentNumFlips) {
+        currentBestMove = currentCoord;
       }
+      if (highestFlips == currentNumFlips && currentCoord.getR() < currentBestMove.getR()) {
+        if (currentCoord.getS() + currentCoord.getR()
+            <= currentBestMove.getS() + currentBestMove.getR()) {
+          currentBestMove = currentCoord;
+        }
+      }
+      highestFlips = Math.max(highestFlips, currentNumFlips);
     }
-    return currentBestMove;
+    if (highestFlips == 0) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(currentBestMove);
   }
 }

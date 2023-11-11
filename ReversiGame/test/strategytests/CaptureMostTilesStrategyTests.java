@@ -1,22 +1,21 @@
 package strategytests;
 
+import java.util.Optional;
+import model.Coordinate;
 import model.DiscColor;
 import model.MockMutableReversiModel;
-import model.MutableReversi;
-import model.MutableReversiModel;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import player.AIPlayer;
 import player.CaptureMostTilesStrategy;
 import player.Player;
 import player.ReversiStrategy;
-import org.junit.Before;
-import org.junit.Test;
-import view.ReversiTextualView;
-import view.TextualView;
 
 public class CaptureMostTilesStrategyTests {
-  private MutableReversiModel mockModel;
 
-  private MutableReversiModel model;
+  private MockMutableReversiModel model;
+
   private Player player;
   private ReversiStrategy strategy;
   private Appendable log;
@@ -24,18 +23,19 @@ public class CaptureMostTilesStrategyTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    mockModel = new MockMutableReversiModel(3, log);
-    model = new MutableReversi(3);
+    model = new MockMutableReversiModel(3, log);
     strategy = new CaptureMostTilesStrategy();
     player = new AIPlayer(DiscColor.BLACK, strategy);
-    model.startGame(model.getBoard());
   }
 
   @Test
-  public void testIdentifiesBestMove(){
-    TextualView tv = new ReversiTextualView(model);
-    System.out.println(tv);
-    player.playMove(model);
-    System.out.println(tv);
+  public void testGoesForUpperLeftMostCoordOnTie() {
+    model.startGame(model.getBoard());
+    Coordinate expected = new Coordinate(1, -2, 1);
+    Optional<Coordinate> moveChosen = strategy.chooseMove(model, player);
+
+    Assert.assertTrue(moveChosen.isPresent());
+    Assert.assertTrue(model.isLegalMove(moveChosen.get()));
+    Assert.assertEquals(expected, moveChosen.get());
   }
 }
