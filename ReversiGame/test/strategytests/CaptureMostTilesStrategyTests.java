@@ -16,7 +16,7 @@ import view.TextualView;
 public class CaptureMostTilesStrategyTests {
   private MutableReversiModel mockModel;
 
-  private MutableReversi model;
+  private MutableReversiModel model;
   private Player player;
   private ReversiStrategy strategy;
   private Appendable log;
@@ -34,6 +34,7 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void testIdentifiesBestMove(){
     TextualView tv = new ReversiTextualView(model);
+    System.out.println(tv);
     player.playMove(model);
     System.out.println(tv);
   }
