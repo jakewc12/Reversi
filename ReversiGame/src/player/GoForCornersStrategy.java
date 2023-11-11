@@ -15,7 +15,6 @@ public class GoForCornersStrategy implements ReversiStrategy {
       int q = cord.getQ();
       int r = cord.getR();
       int s = cord.getS();
-
           if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (q == 0 && r == 0
               && s == 0)) {
             continue;
