@@ -1,4 +1,4 @@
-package model.player;
+package player;
 
 import java.util.Optional;
 import model.Coordinate;

@@ -1,4 +1,4 @@
-package model.player;
+package player;
 
 import model.DiscColor;
 import model.MutableReversiModel;

@@ -1,4 +1,4 @@
-package model.player;
+package player;
 
 import java.util.List;
 import java.util.Optional;

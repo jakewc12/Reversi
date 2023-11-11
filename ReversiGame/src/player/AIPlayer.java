@@ -1,4 +1,4 @@
-package model.player;
+package player;
 
 import java.util.Optional;
 import model.Coordinate;
@@ -22,7 +22,9 @@ public class AIPlayer implements Player {
 
   @Override
   public void playMove(MutableReversiModel model) {
+
     Optional<Coordinate> idealMove = strategy.chooseMove(model, this);
+
     if (idealMove.isEmpty()) {
       model.skipCurrentTurn();
       return;

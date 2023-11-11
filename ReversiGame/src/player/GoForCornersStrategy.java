@@ -1,5 +1,6 @@
-package model.player;
+package player;
 
+import java.util.List;
 import java.util.Optional;
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
@@ -8,22 +9,21 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
-    for (int q = -model.getBoardRadius(); q <= model.getBoardRadius(); q++) {
-      for (int r = -model.getBoardRadius(); r <= model.getBoardRadius(); r++) {
-        for (int s = -model.getBoardRadius(); s <= model.getBoardRadius(); s++) {
-          Coordinate cord = new Coordinate(q,r,s);
-          if ((q + r + s) != 0) {
-            continue;
-          }
+    List<Coordinate> allCoords = model.getAllCoordinates();
+
+    for (Coordinate cord: allCoords) {
+      int q = cord.getQ();
+      int r = cord.getR();
+      int s = cord.getS();
+
           if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (q == 0 && r == 0
               && s == 0)) {
             continue;
           }
-          if (model.isLegalMove(cord)) {
+          try{
+          model.isLegalMove(cord);
             return Optional.of(new Coordinate(q, r, s));
-          }
-        }
-      }
+          }catch (IllegalStateException ignored){}
     }
     return Optional.empty();
   }

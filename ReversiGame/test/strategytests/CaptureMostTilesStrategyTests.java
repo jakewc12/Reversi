@@ -2,16 +2,21 @@ package strategytests;
 
 import model.DiscColor;
 import model.MockMutableReversiModel;
+import model.MutableReversi;
 import model.MutableReversiModel;
-import model.player.AIPlayer;
-import model.player.GoForCornersStrategy;
-import model.player.Player;
-import model.player.ReversiStrategy;
+import player.AIPlayer;
+import player.CaptureMostTilesStrategy;
+import player.Player;
+import player.ReversiStrategy;
 import org.junit.Before;
 import org.junit.Test;
+import view.ReversiTextualView;
+import view.TextualView;
 
 public class CaptureMostTilesStrategyTests {
-  private MutableReversiModel model;
+  private MutableReversiModel mockModel;
+
+  private MutableReversi model;
   private Player player;
   private ReversiStrategy strategy;
   private Appendable log;
@@ -19,13 +24,17 @@ public class CaptureMostTilesStrategyTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
-    player = new AIPlayer(DiscColor.BLACK, new GoForCornersStrategy());
-    strategy = new GoForCornersStrategy();
+    mockModel = new MockMutableReversiModel(3, log);
+    model = new MutableReversi(3);
+    strategy = new CaptureMostTilesStrategy();
+    player = new AIPlayer(DiscColor.BLACK, strategy);
+    model.startGame(model.getBoard());
   }
 
   @Test
   public void testIdentifiesBestMove(){
-
+    TextualView tv = new ReversiTextualView(model);
+    player.playMove(model);
+    System.out.println(tv);
   }
 }
