@@ -1,23 +1,26 @@
 package digitalviews;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
-public class HexManager extends JComponent implements DigitalBoardManager {
+public class HexManager extends JPanel implements DigitalBoardManager {
 
   private final int size;
   private List<HexagonInterface> hexagons = new ArrayList<>();
-  private final int centerCord;
+  private int centerCordX;
+  private int centerCordY;
+  private Coordinate highlightedCord;
+  ;
   private boolean hexClicked = false;
   /**
    * everytime something happens with model, we should reset hexagons. this way, we can redraw the
@@ -26,16 +29,22 @@ public class HexManager extends JComponent implements DigitalBoardManager {
   private final ReadOnlyReversiModel model;
   private final HexManager manager = this;
 
-  public HexManager(int size, int windowSize, ReadOnlyReversiModel model) {
-    this.setPreferredSize(new Dimension(windowSize, windowSize));
+  public HexManager(int size, int windowWidth, int windowHeight, ReadOnlyReversiModel model) {
+    this.setPreferredSize(new Dimension(windowWidth, windowHeight));
     this.setOpaque(false);
     this.addMouseListener(new MouseEventsListener());
     this.setBackground(Color.DARK_GRAY);
-    centerCord = windowSize / 2;
+    centerCordX = windowWidth / 2;
+    centerCordY = windowHeight / 2;
     this.size = size;
     this.model = model;
     makeHexagons();
+    highlightedCord = new Coordinate(
+            model.getBoardRadius() + 1
+            , model.getBoardRadius() + 1, model.getBoardRadius() + 1);
     this.repaint();
+
+
   }
 
   /**
@@ -49,32 +58,16 @@ public class HexManager extends JComponent implements DigitalBoardManager {
         for (int s = -size; s <= size; s++) {
           if (r + q + s == 0) {
             Coordinate coordinate = new Coordinate(q, r, s);
-            hexagons.add(new Hexagon(coordinate, model.getColorAt(coordinate), centerCord));
+            if (coordinate.equals(highlightedCord)) {
+              hexagons.add(new Hexagon(coordinate
+                      , model.getColorAt(coordinate), centerCordX, centerCordY, Color.CYAN));
+            }else{
+              hexagons.add(new Hexagon(coordinate
+                      , model.getColorAt(coordinate), centerCordX, centerCordY, Color.LIGHT_GRAY));
+            }
           }
         }
       }
-    }
-  }
-
-  /**
-   * Set the color for a disc within a hexagon.
-   *
-   * @param x     the x position
-   * @param y     the column position
-   * @param color the color to set
-   */
-  public void setColor(int x, int y, Color color) {
-    for (HexagonInterface hex : hexagons) {
-      if ((Math.abs(y - hex.getY()) <= 18) && (Math.abs(x - hex.getX()) <= 18)) {
-        hex.setColor(color);
-      }
-    }
-    repaint();
-  }
-
-  private void setAllHexesToLightGrey() {
-    for (HexagonInterface hex : hexagons) {
-      hex.setColor(Color.LIGHT_GRAY);
     }
   }
 
@@ -87,36 +80,61 @@ public class HexManager extends JComponent implements DigitalBoardManager {
     return false;
   }
 
+  protected void setCenterCordX(int centerCordX) {
+    this.centerCordX = centerCordX;
+  }
+
+  protected void setCenterCordY(int centerCordY) {
+    this.centerCordY = centerCordY;
+  }
 
   @Override
   protected void paintComponent(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+
+    makeHexagons();
+    this.setCenterCordY(getHeight() / 2);
+    this.setCenterCordX(getWidth() / 2);
+    g2d.scale(1, 1);
     this.setBackground(Color.DARK_GRAY);
-    g.setColor(Color.DARK_GRAY);
-    g.fillRect(0, 0, getWidth(), getHeight());
+    g2d.setColor(Color.DARK_GRAY);
+    g2d.fillRect(0, 0, getWidth(), getHeight());
+
+    System.out.println("\n\n");
     for (HexagonInterface hex : hexagons) {
-      hex.draw(g);
+      System.out.println(hex.getCoordinate().toString());
+      hex.draw(g2d);
+      if(hex.getCoordinate().equals(highlightedCord)){
+        System.out.println(hex.getBackgroundColor());
+      }
     }
   }
 
   @Override
   public void refresh() {
-    this.makeHexagons();
     this.repaint();
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
-
     @Override
     public void mousePressed(MouseEvent e) {
+      highlightedCord = new Coordinate(
+              model.getBoardRadius() + 1
+              , model.getBoardRadius() + 1, model.getBoardRadius() + 1);
       if (!hexClicked) {
         hexClicked = checkClickedLocationOnAHex(e.getX(), e.getY());
       } else {
         hexClicked = false;
+        highlightedCord = new Coordinate(
+                model.getBoardRadius() + 1
+                , model.getBoardRadius() + 1, model.getBoardRadius() + 1);
       }
       if (hexClicked) {
-        manager.setColor(e.getX(), e.getY(), Color.CYAN);
-      } else {
-        setAllHexesToLightGrey();
+        for (HexagonInterface hex : hexagons) {
+          if ((Math.abs(e.getY() - hex.getY()) <= 18) && (Math.abs(e.getX() - hex.getX()) <= 18)) {
+            highlightedCord = hex.getCoordinate();
+          }
+        }
       }
       manager.repaint();
     }

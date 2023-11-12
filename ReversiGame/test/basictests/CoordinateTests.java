@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import digitalviews.Hexagon;
 import model.Coordinate;
+import model.DiscColor;
 
 public class CoordinateTests {
   Coordinate pos1;

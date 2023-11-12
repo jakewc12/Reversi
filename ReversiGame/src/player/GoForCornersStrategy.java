@@ -9,6 +9,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
+
     List<Coordinate> allCoords = model.getAllCoordinates();
 
     for (Coordinate cord: allCoords) {
@@ -20,8 +21,10 @@ public class GoForCornersStrategy implements ReversiStrategy {
             continue;
           }
           try{
-          model.isLegalMove(cord);
+          int flipped = model.getNumFlipsOnMove(new Coordinate(q,r,s), who.getColor());
+          if(flipped>0){
             return Optional.of(new Coordinate(q, r, s));
+          }
           }catch (IllegalStateException ignored){}
     }
     return Optional.empty();

@@ -25,9 +25,10 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     }
     this.model = model;
     int radius = model.getBoardRadius();
+
     int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
-    manager = new HexManager(radius, windowSize, model);
-    board = new JPanel();
+    this.setSize(new Dimension(windowSize, windowSize));
+    manager = new HexManager(radius, windowSize, windowSize, model);
     init();
 
   }
@@ -41,12 +42,10 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     int radius = model.getBoardRadius();
     int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
-    manager = new HexManager(radius, windowSize, model);
-    board.setBorder(null);
-    board.add(manager);
+    manager = new HexManager(radius, windowSize, windowSize, model);
+    this.add(manager);
 
 
-    this.add(board);
     this.getContentPane().setBackground(Color.DARK_GRAY);
     this.setSize(500, 800);
 
@@ -62,7 +61,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (commandCallback != null) {
         commandCallback.accept(input.getText());
         input.setText("");
-        if(model.gameOver()) {
+        if (model.gameOver()) {
           input.setText("Game Over!");
         }
       }
@@ -71,6 +70,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     buttonPanel.add(excuteButton);
 
     commandCallback = null;
+
+
     this.refresh();
     this.pack();
   }

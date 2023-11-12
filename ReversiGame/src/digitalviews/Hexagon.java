@@ -16,31 +16,27 @@ public class Hexagon implements HexagonInterface {
   public final static double THETA = (Math.PI * 2) / 6.0;
   //Length or radius?
   static final int hexagonLength = 25;
-  private final Polygon poly;
+  private Polygon poly;
   private Coordinate coordinate;
   private final int yCenterCoord;
   private final int xCenterCoord;
-  private Color color;
+  private final Color color;
   private Color discColor;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param coordinate       the coordinate of the hexagon in relation to the entire grid.
-   * @param discColor        the disc color of the hexagon cell.
-   * @param boardCenterCoord the dead center or origin of the board in pixel coordinates.
+   * @param coordinate        the coordintae of the hexagon in relation to the entire grid.
+   * @param discColor         the disc color of the hexagon cell.
+   * @param boardCenterCoordx the dead center or origin of the board in pixel coordinates.
+   * @param boardCenterCoordy the dead center or origin of the board in pixel coordinates.
    */
-  public Hexagon(Coordinate coordinate, DiscColor discColor, int boardCenterCoord) {
+  public Hexagon(Coordinate coordinate, DiscColor discColor, int boardCenterCoordx, int boardCenterCoordy, Color hexColor) {
     int xCoordMath;
     //use Q and R instead of x and y
     this.coordinate = coordinate;
-    this.yCenterCoord = boardCenterCoord + 40 * (coordinate.getR());
-
-    //
-    //Correct coordinate placement of hexagons
-    xCoordMath = boardCenterCoord + 45 * (-coordinate.getS());
-
-    //Offset so hexagons dont overlap
+    this.yCenterCoord = boardCenterCoordy + 40 * (coordinate.getR());
+    xCoordMath = boardCenterCoordx + 45 * (-coordinate.getS());
     xCoordMath -= coordinate.getR() * 23;
     this.xCenterCoord = xCoordMath;
     if (discColor == DiscColor.BLACK) {
@@ -50,7 +46,11 @@ public class Hexagon implements HexagonInterface {
     } else {
       this.discColor = Color.LIGHT_GRAY;
     }
-    color = Color.LIGHT_GRAY;
+    this.color = hexColor;
+    resetPolygon();
+  }
+
+  private void resetPolygon() {
     poly = new Polygon();
     for (int i = 0; i < 6; i++) {
       int x1 = (int) (xCenterCoord + hexagonLength * Math.sin(THETA * i));
@@ -58,18 +58,8 @@ public class Hexagon implements HexagonInterface {
       poly.addPoint(x1, y1);
     }
   }
-
-  /**
-   * This would set the background color of the tile to cyan or back to light grey. This does NOT
-   * change the color of the disc.
-   *
-   * @param clr the color you want the disc set to.
-   */
-  public void setColor(Color clr) {
-    if (clr == Color.CYAN) {
-      System.out.println("Coordinate clicked is: " + coordinate.toString());
-    }
-    color = clr;
+  public Color getBackgroundColor() {
+    return this.color;
   }
 
   public void draw(Graphics g) {

@@ -11,13 +11,6 @@ public interface HexagonInterface {
    */
   void draw(Graphics g);
 
-  /**
-   * This would set the background color of the tile to cyan or back to light grey. This does NOT
-   * change the color of the disc.
-   *
-   * @param clr the color you want the disc set to.
-   */
-  void setColor(Color clr);
 
   /**
    * the Y position of the center of the hexagon in relation to the panel it is drawn on.
@@ -33,7 +26,9 @@ public interface HexagonInterface {
 
   /**
    * The coordinate in (Q,R,S) form of the hexagon.
-   * @return
+   * @return the coordinates of the hex.
    */
   Coordinate getCoordinate();
+
+  Color getBackgroundColor();
 }

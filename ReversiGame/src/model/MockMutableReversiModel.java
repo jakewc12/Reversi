@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import player.Player;
+
 public class MockMutableReversiModel extends MutableReversi {
 
   private Appendable out;
@@ -36,20 +38,31 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
-      if(cell.getCoordinate().equals(coordinate) && cell.cellContents().getColor()!= DiscColor.GREY){
+      if (cell.getCoordinate().equals(coordinate)
+              && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException(" move not legal ");
       }
+
     }
     return true;
   }
 
   @Override
   public void placeDisc(Coordinate coordinate) {
-    append("Place disc called at " + coordinate);
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)) {
         cell.cellContents().changeColorTo(DiscColor.BLACK);
       }
     }
+  }
+
+  @Override
+  public int getNumFlipsOnMove(Coordinate cord, DiscColor player) {
+    if(isLegalMove(cord)){
+      append("move was allowed at " + cord.toString());
+    }else{
+      append("move was not allowed at " + cord.toString());
+    }
+    return super.getNumFlipsOnMove(cord, player);
   }
 }
