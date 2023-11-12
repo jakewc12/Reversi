@@ -7,10 +7,13 @@ import model.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Text;
 import player.AIPlayer;
 import player.CaptureMostTilesStrategy;
 import player.Player;
 import player.ReversiStrategy;
+import view.ReversiTextualView;
+import view.TextualView;
 
 public class CaptureMostTilesStrategyTests {
 
@@ -31,11 +34,18 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void testGoesForUpperLeftMostCoordOnTie() {
     model.startGame(model.getBoard());
-    Coordinate expected = new Coordinate(1, -2, 1);
-    Optional<Coordinate> moveChosen = strategy.chooseMove(model, player);
-
-    Assert.assertTrue(moveChosen.isPresent());
-    Assert.assertTrue(model.isLegalMove(moveChosen.get()));
-    Assert.assertEquals(expected, moveChosen.get());
+    player.playMove(model);
+    Assert.assertEquals("Place disc called at (1, -2, 1)", log.toString());
+  }
+  @Test
+  public void GoesForMostTiles() {
+    TextualView tv = new ReversiTextualView(model);
+    model.startGame(model.getBoard());
+    System.out.println(tv);
+    player.playMove(model);
+    System.out.println(tv);
+    player.playMove(model);
+    System.out.println(tv);
+    Assert.assertEquals("Place disc called at (1, -2, 1)", log.toString());
   }
 }
