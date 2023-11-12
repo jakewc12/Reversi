@@ -26,7 +26,7 @@ public class Hexagon implements HexagonInterface {
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param coordinate       the coordintae of the hexagon in relation to the entire grid.
+   * @param coordinate       the coordinate of the hexagon in relation to the entire grid.
    * @param discColor        the disc color of the hexagon cell.
    * @param boardCenterCoord the dead center or origin of the board in pixel coordinates.
    */
@@ -35,8 +35,13 @@ public class Hexagon implements HexagonInterface {
     //use Q and R instead of x and y
     this.coordinate = coordinate;
     this.yCenterCoord = boardCenterCoord + 40 * (coordinate.getR());
-    xCoordMath = boardCenterCoord + 45 * (coordinate.getS());
-    xCoordMath += coordinate.getR() * 23;
+
+    //
+    //Correct coordinate placement of hexagons
+    xCoordMath = boardCenterCoord + 45 * (-coordinate.getS());
+
+    //Offset so hexagons dont overlap
+    xCoordMath -= coordinate.getR() * 23;
     this.xCenterCoord = xCoordMath;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;

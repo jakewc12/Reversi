@@ -32,11 +32,6 @@ public class MockMutableReversiModel extends MutableReversi {
     append("Turn skipped");
   }
 
-  @Override
-  public void placeDisc(Coordinate coordinate) {
-    append("placed disc at: " + coordinate);
-  }
-
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
