@@ -21,7 +21,7 @@ public class MockMutableReversiModel extends MutableReversi {
 
   private void append(String thing) {
     try {
-      out.append(thing);
+      out.append(thing).append("\n");
     } catch (Exception e) {
       System.out.println("connection with appendable failed.");
     }

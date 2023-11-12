@@ -148,16 +148,12 @@ public class MutableReversi implements MutableReversiModel {
     for (HexagonCell cell : cells) {
       if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
         if (blacksTurn) {
-          cell.cellContents().changeColorTo(DiscColor.BLACK);
           if (!getAllFlips(cell, DiscColor.BLACK).isEmpty()) {
-            cell.cellContents().changeColorTo(DiscColor.GREY);
             return true;
           }
 
         } else {
-          cell.cellContents().changeColorTo(DiscColor.WHITE);
           if (!getAllFlips(cell, DiscColor.WHITE).isEmpty()) {
-            cell.cellContents().changeColorTo(DiscColor.GREY);
             return true;
           }
         }
@@ -234,24 +230,19 @@ public class MutableReversi implements MutableReversiModel {
     //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
-    int count = 0;
-    for (HexagonCell cell : line) {
-      Disc disc = cell.cellContents();
-      if (count == 0 && disc.getColor() == currentColor) {
-        count = 1;
-      }
-      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY && count >= 1) {
-        count++;
+
+    for (int i = 1; i < line.size(); i++) {
+      Disc disc = line.get(i).cellContents();
+      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY) {
         current.add(disc);
       }
       if (disc.getColor() == DiscColor.GREY) {
-        count = 0;
         current.clear();
+
       }
-      if (count > 1 && disc.getColor() == currentColor) {
+      if (disc.getColor() == currentColor) {
         toFlip.addAll(current);
-        count = 1;
-        current.clear();
+        return toFlip;
       }
     }
     return toFlip;
@@ -288,6 +279,7 @@ public class MutableReversi implements MutableReversiModel {
         currentColor));
 
     targetCell.cellContents().changeColorTo(originalColor);
+
     return toFlip;
   }
 
@@ -305,7 +297,7 @@ public class MutableReversi implements MutableReversiModel {
   public List<Coordinate> getAllCoordinates() {
     checkGameStarted();
     List<Coordinate> returnList = new ArrayList<>();
-    for (HexagonCell cell: cells) {
+    for (HexagonCell cell : cells) {
       returnList.add(cell.getCoordinate());
     }
     return returnList;
