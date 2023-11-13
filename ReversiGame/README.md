@@ -90,8 +90,8 @@ Screenshots:
 
     When Hex is selected:
 
-![img_1.png](Highlighted hex.png)
+![img.png](Highlighted Hex.png)
 
     When the game is over:
 
-![img.png](Game Over.png)
+![img.png](End Game.png)

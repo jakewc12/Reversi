@@ -97,6 +97,10 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     }
   }
 
+  public Coordinate getHighlightedCord() {
+    return highlightedCord;
+  }
+
   @Override
   public void refresh() {
     this.repaint();
