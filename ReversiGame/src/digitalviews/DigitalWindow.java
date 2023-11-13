@@ -2,10 +2,15 @@ package digitalviews;
 
 import java.util.function.Consumer;
 
+/**
+ * The DigitalWindow interface defines the common behavior for digital views in a Reversi game.
+ * Implementations of this interface represent graphical user interfaces or other digital displays
+ * that allow users to interact with the game and receive information about the game state.
+ */
 public interface DigitalWindow {
 
   /**
-   * Make the view visible. This is usually called after the view is constructed.
+   * Makes the view visible. This is usually called after the view is constructed.
    */
   void makeVisible();
 
@@ -15,14 +20,14 @@ public interface DigitalWindow {
   void refresh();
 
   /**
-   * Provide the view with a callback option to process a command.
+   * Provides the view with a callback option to process a command.
    *
-   * @param callback object
+   * @param callback The Consumer object that will handle the command.
    */
   void setCommandCallback(Consumer<String> callback);
 
   /**
-   * Transmit an error message to the view, in case the command could not be processed correctly.
+   * Transmits an error message to the view in case the command could not be processed correctly.
    *
    * @param error The error message that should be transmitted.
    */
