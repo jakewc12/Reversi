@@ -3,38 +3,38 @@ package model;
 import java.util.Objects;
 
 /**
- * This class represents a position system of (Q,R,S)
+ * This class represents a position system of (Q,R,S).
  */
 public class Coordinate {
 
-  private final int q;
-  private final int r;
-  private final int s;
+  private final int intQ;
+  private final int intR;
+  private final int intS;
 
   /**
-   * Initialize this object to the specified position
+   * Creates a cube coordinate of position q,r,s.
    */
   public Coordinate(int q, int r, int s) {
-    this.q = q;
-    this.r = r;
-    this.s = s;
+    this.intQ = q;
+    this.intR = r;
+    this.intS = s;
   }
 
-  public int getQ() {
-    return q;
+  public int getIntQ() {
+    return intQ;
   }
 
-  public int getR() {
-    return r;
+  public int getIntR() {
+    return intR;
   }
 
-  public int getS() {
-    return s;
+  public int getIntS() {
+    return intS;
   }
 
   @Override
   public String toString() {
-    return "(" + q + ", " + r + ", " + s +")";
+    return "(" + intQ + ", " + intR + ", " + intS + ")";
   }
 
   @Override
@@ -46,12 +46,12 @@ public class Coordinate {
       return false;
     }
 
-    return ((Math.abs(this.q - that.q) < 0.01) && (Math.abs(this.r - that.r) < 0.01) &&
-            Math.abs(this.s - that.s) < 0.01);
+    return ((Math.abs(this.intQ - that.intQ) < 0.01) && (Math.abs(this.intR - that.intR) < 0.01)
+        && Math.abs(this.intS - that.intS) < 0.01);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(this.q, this.r, this.s);
+    return Objects.hash(this.intQ, this.intR, this.intS);
   }
 }

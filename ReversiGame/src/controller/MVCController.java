@@ -5,7 +5,7 @@ import java.util.Scanner;
 import model.Coordinate;
 import model.MutableReversiModel;
 
-public class MVCController implements ReversiController, Features{
+public class MVCController implements ReversiControllerInterface {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
@@ -13,7 +13,6 @@ public class MVCController implements ReversiController, Features{
   public MVCController(MutableReversiModel model, DigitalWindow view) {
     this.model = model;
     this.view = view;
-    view.addFeaturesListener(this);
   }
 
   @Override
@@ -69,15 +68,5 @@ public class MVCController implements ReversiController, Features{
     } catch (Exception ex) {
       view.showErrorMessage(ex.getMessage());
     }
-  }
-
-  @Override
-  public void placeDisc(Coordinate coordinate) {
-    model.placeDisc(coordinate);
-  }
-
-  @Override
-  public void skipTurn() {
-    model.skipCurrentTurn();
   }
 }

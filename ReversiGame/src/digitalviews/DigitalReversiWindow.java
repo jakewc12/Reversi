@@ -2,19 +2,15 @@ package digitalviews;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.function.Consumer;
 
 import javax.swing.*;
 
-import controller.Features;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
   private JTextField input;
-  private final DigitalReversiWindow window = this;
   private HexManager manager;
 
   Consumer<String> commandCallback;
@@ -27,9 +23,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.model = model;
     int radius = model.getBoardRadius();
 
-    int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
+    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonLength * 2;
     this.setSize(new Dimension(windowSize, windowSize));
-    manager = new HexManager(radius, windowSize, windowSize, model);
+    manager = new HexManager(windowSize, windowSize, model);
     init();
 
   }
@@ -42,8 +38,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
 
     int radius = model.getBoardRadius();
-    int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
-    manager = new HexManager(radius, windowSize, windowSize, model);
+    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonLength * 2;
+    manager = new HexManager(windowSize, windowSize, model);
     this.add(manager);
 
 
@@ -53,7 +49,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
-    //this.add(buttonPanel, BorderLayout.SOUTH);
+   // this.add(buttonPanel, BorderLayout.SOUTH);
 
     input = new JTextField(15);
     JButton excuteButton = new JButton("Play Move");
@@ -97,34 +93,5 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   @Override
   public void makeVisible() {
     this.setVisible(true);
-  }
-
-  @Override
-  public void addFeaturesListener(Features feature) {
-    this.addKeyListener(new KeyListener() {
-      @Override
-      public void keyTyped(KeyEvent e) {
-        System.out.println(e.getKeyChar());
-        if (e.getKeyChar() == 'p') {
-          try {
-            feature.placeDisc(manager.getHighlightedCord());
-          } catch (Exception ignore) {
-          }
-        } else if (e.getKeyChar() == 's') {
-          feature.skipTurn();
-        }
-        window.refresh();
-      }
-
-      @Override
-      public void keyPressed(KeyEvent e) {
-
-      }
-
-      @Override
-      public void keyReleased(KeyEvent e) {
-
-      }
-    });
   }
 }

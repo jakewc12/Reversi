@@ -29,26 +29,26 @@ public interface HexagonCell {
   Coordinate getCoordinate();
 
   /**
-   * Gets the Q coordinate of this cell.
+   * Gets the Q coordinate of this cell. The Q Coordinate decreases when going left of the origin
+   * and increases when going right of the origin.
    *
-   * @return an integer that decrease when going left of the origin and increases when going right
-   * of the origin.
+   * @return an integer which follows the above pattern.
    */
   int getCoordinateQ();
 
   /**
-   * Gets the R coordinate of this cell.
+   * Gets the R coordinate of this cell. The R Coordinate decreases when going up a row from the
+   * origin and increases when going down * a row.
    *
-   * @return an integer decreases when going up a row from the origin and increases when going down
-   * a row.
+   * @return an integer which follows the above pattern.
    */
   int getCoordinateR();
 
   /**
-   * Gets the S coordinate of this cell.
+   * Gets the S coordinate of this cell. The S Coordinate decreases when going right of the origin
+   * and increases when going left of the origin.
    *
-   * @return an integer that decrease when going right of the origin and increases when going left
-   * of the origin.
+   * @return an integer which follows the above pattern.
    */
   int getCoordinateS();
 

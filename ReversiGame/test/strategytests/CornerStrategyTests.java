@@ -1,6 +1,5 @@
 package strategytests;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ import model.Coordinate;
 import model.DiscColor;
 import model.MockMutableReversiModel;
 import player.GoForCornersStrategy;
-import player.AIPlayer;
+import player.ComputerPlayer;
 import player.Player;
 import player.ReversiStrategy;
 
@@ -32,7 +31,7 @@ public class CornerStrategyTests {
   public void init() {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    player = new AIPlayer(DiscColor.BLACK, new GoForCornersStrategy());
+    player = new ComputerPlayer(DiscColor.BLACK, new GoForCornersStrategy());
     strategy = new GoForCornersStrategy();
   }
 
@@ -44,7 +43,7 @@ public class CornerStrategyTests {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     model.startGame(model.getBoard());
-    model.placeDisc(new Coordinate(-3, 0, 3));
+    model.forcePlaceDisc(new Coordinate(-3, 0, 3));
     Optional<Coordinate> cord2 = strategy.chooseMove(model, player);
     System.out.println(oldLog);
     System.out.println(log.toString());

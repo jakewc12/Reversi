@@ -102,7 +102,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
-    return checkLegalMove(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+    return checkLegalMove(coordinate.getIntQ(), coordinate.getIntR(), coordinate.getIntS());
   }
 
   private boolean checkLegalMove(int q, int r, int s) {
@@ -114,7 +114,6 @@ public class MutableReversi implements MutableReversiModel {
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
       this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
-      //throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
       return false;
     }
     return true;
@@ -148,16 +147,12 @@ public class MutableReversi implements MutableReversiModel {
     for (HexagonCell cell : cells) {
       if (cell.cellContents().getColor().equals(DiscColor.GREY)) {
         if (blacksTurn) {
-          cell.cellContents().changeColorTo(DiscColor.BLACK);
           if (!getAllFlips(cell, DiscColor.BLACK).isEmpty()) {
-            cell.cellContents().changeColorTo(DiscColor.GREY);
             return true;
           }
 
         } else {
-          cell.cellContents().changeColorTo(DiscColor.WHITE);
           if (!getAllFlips(cell, DiscColor.WHITE).isEmpty()) {
-            cell.cellContents().changeColorTo(DiscColor.GREY);
             return true;
           }
         }
@@ -234,24 +229,19 @@ public class MutableReversi implements MutableReversiModel {
     //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
-    int count = 0;
-    for (HexagonCell cell : line) {
-      Disc disc = cell.cellContents();
-      if (count == 0 && disc.getColor() == currentColor) {
-        count = 1;
-      }
-      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY && count >= 1) {
-        count++;
+
+    for (int i = 1; i < line.size(); i++) {
+      Disc disc = line.get(i).cellContents();
+      if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY) {
         current.add(disc);
       }
       if (disc.getColor() == DiscColor.GREY) {
-        count = 0;
         current.clear();
+
       }
-      if (count > 1 && disc.getColor() == currentColor) {
+      if (disc.getColor() == currentColor) {
         toFlip.addAll(current);
-        count = 1;
-        current.clear();
+        return toFlip;
       }
     }
     return toFlip;
@@ -266,7 +256,7 @@ public class MutableReversi implements MutableReversiModel {
    */
   private ArrayList<Disc> getAllFlips(HexagonCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
-    DiscColor originalColor = targetCell.cellContents().getColor();
+    final DiscColor originalColor = targetCell.cellContents().getColor();
     targetCell.cellContents().changeColorTo(currentColor);
 
     //Check Horizontal
@@ -288,6 +278,7 @@ public class MutableReversi implements MutableReversiModel {
         currentColor));
 
     targetCell.cellContents().changeColorTo(originalColor);
+
     return toFlip;
   }
 
@@ -297,7 +288,8 @@ public class MutableReversi implements MutableReversiModel {
     // currently may not work as intended because disc is not place at coordinates. if this does
     // not work then edit the getAll flips function to place disc at desired location then remove
     // it when its done getting the flips
-    HexagonCell targetCell = getHexAt(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+    HexagonCell targetCell = getHexAt(coordinate.getIntQ(), coordinate.getIntR(),
+        coordinate.getIntS());
     return getAllFlips(targetCell, playerColor).size();
   }
 
@@ -305,7 +297,7 @@ public class MutableReversi implements MutableReversiModel {
   public List<Coordinate> getAllCoordinates() {
     checkGameStarted();
     List<Coordinate> returnList = new ArrayList<>();
-    for (HexagonCell cell: cells) {
+    for (HexagonCell cell : cells) {
       returnList.add(cell.getCoordinate());
     }
     return returnList;
@@ -336,12 +328,12 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public void placeDisc(Coordinate coord) {
     checkGameStarted();
-    int q = coord.getQ();
-    int r = coord.getR();
-    int s = coord.getS();
+    int q = coord.getIntQ();
+    int r = coord.getIntR();
+    int s = coord.getIntS();
 
     if (!checkLegalMove(q, r, s)) {
-      throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
+      throw new IllegalStateException("Illegal move when inputting " + coord);
     }
     ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s), getCurrentTurn());
     for (Disc disc : flipDiscs) {
@@ -410,9 +402,9 @@ public class MutableReversi implements MutableReversiModel {
    */
   @Override
   public DiscColor getColorAt(Coordinate coordinate) {
-    int q = coordinate.getQ();
-    int r = coordinate.getR();
-    int s = coordinate.getS();
+    int q = coordinate.getIntQ();
+    int r = coordinate.getIntR();
+    int s = coordinate.getIntS();
 
     checkGameStarted();
     checkValidCoordinates(q, r, s);

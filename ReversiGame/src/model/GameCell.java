@@ -52,8 +52,8 @@ public class GameCell implements HexagonCell {
     //need to check that neighbor is not off board
 
     int[] addCell = cellDirection(direction);
-    return new GameCell(coordinate.getQ() + addCell[0], coordinate.getR() + addCell[1],
-        coordinate.getS() + addCell[2]);
+    return new GameCell(coordinate.getIntQ() + addCell[0], coordinate.getIntR() + addCell[1],
+        coordinate.getIntS() + addCell[2]);
   }
 
   public Coordinate getCoordinate() {
@@ -74,33 +74,33 @@ public class GameCell implements HexagonCell {
    * Gets the Q coordinate of this cell.
    *
    * @return an integer that decrease when going left of the origin and increases when going right
-   * of the origin.
+   *     of the origin.
    */
   @Override
   public int getCoordinateQ() {
-    return coordinate.getQ();
+    return coordinate.getIntQ();
   }
 
   /**
    * Gets the R coordinate of this cell.
    *
    * @return an integer decreases when going up a row from the origin and increases when going down
-   * a row.
+   *      a row.
    */
   @Override
   public int getCoordinateR() {
-    return coordinate.getR();
+    return coordinate.getIntR();
   }
 
   /**
    * Gets the S coordinate of this cell.
    *
    * @return an integer that decrease when going right of the origin and increases when going left
-   * of the origin.
+   *     of the origin.
    */
   @Override
   public int getCoordinateS() {
-    return coordinate.getS();
+    return coordinate.getIntS();
   }
 
   /**
