@@ -59,4 +59,18 @@ public class MockMutableReversiModel extends MutableReversi {
       }
     }
   }
+
+  public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
+    append("Force place disc called at " + coordinate);
+    for (HexagonCell cell : cells) {
+      if (cell.getCoordinate().equals(coordinate)) {
+        cell.cellContents().changeColorTo(color);
+      }
+    }
+  }
+  public void changeTurnTo(DiscColor color) {
+    if(getCurrentTurn() != color) {
+      super.skipCurrentTurn();
+    }
+  }
 }
