@@ -30,13 +30,15 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void skipCurrentTurn() {
     append("Turn skipped");
+    super.skipCurrentTurn();
   }
 
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
-      if(cell.getCoordinate().equals(coordinate) && cell.cellContents().getColor()!= DiscColor.GREY){
+      if (cell.getCoordinate().equals(coordinate)
+          && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException(" move not legal ");
       }
     }
@@ -46,6 +48,11 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void placeDisc(Coordinate coordinate) {
     append("Place disc called at " + coordinate);
+    super.placeDisc(coordinate);
+  }
+
+  public void forcePlaceDisc(Coordinate coordinate) {
+    append("Force place disc called at " + coordinate);
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)) {
         cell.cellContents().changeColorTo(DiscColor.BLACK);

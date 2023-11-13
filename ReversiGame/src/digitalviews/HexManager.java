@@ -6,10 +6,8 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
-
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
@@ -44,24 +42,18 @@ public class HexManager extends JComponent implements DigitalBoardManager {
    */
   private void makeHexagons() {
     hexagons = new ArrayList<>();
-    for (int r = -size; r <= size; r++) {
-      for (int q = -size; q <= size; q++) {
-        for (int s = -size; s <= size; s++) {
-          if (r + q + s == 0) {
-            Coordinate coordinate = new Coordinate(q, r, s);
-            hexagons.add(new Hexagon(coordinate, model.getColorAt(coordinate), centerCord));
-          }
-        }
-      }
+    List<Coordinate> coordinates = model.getAllCoordinates();
+    for (Coordinate coordinate : coordinates) {
+      hexagons.add(new Hexagon(coordinate, model.getColorAt(coordinate), centerCord));
     }
   }
 
   /**
-   * Set the color for a disc within a hexagon.
+   * Set the color for a disc within a hexagon using the views x and y coordinates.
    *
-   * @param x     the x position
-   * @param y     the column position
-   * @param color the color to set
+   * @param x     the x position in the view.
+   * @param y     the y position in the view.
+   * @param color the color you want the disc to be set too.
    */
   public void setColor(int x, int y, Color color) {
     for (HexagonInterface hex : hexagons) {

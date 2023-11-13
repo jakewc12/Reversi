@@ -3,6 +3,7 @@ package player;
 import java.util.List;
 import java.util.Optional;
 import model.Coordinate;
+import model.DiscColor;
 import model.ReadOnlyReversiModel;
 
 public class CaptureMostTilesStrategy implements ReversiStrategy {
@@ -15,6 +16,9 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
     int highestFlips = 0;
 
     for (Coordinate currentCoord : allCoords) {
+      if(model.getColorAt(currentCoord)!= DiscColor.GREY){
+        continue;
+      }
       int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getColor());
       if (highestFlips > currentNumFlips || currentNumFlips == 0) {
         continue;
@@ -25,7 +29,7 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
       if (highestFlips == currentNumFlips && currentCoord.getR() < currentBestMove.getR()) {
         currentBestMove = currentCoord;
       }
-      highestFlips = Math.max(highestFlips, currentNumFlips);
+      highestFlips = currentNumFlips;
     }
     if (highestFlips == 0) {
       return Optional.empty();

@@ -114,7 +114,6 @@ public class MutableReversi implements MutableReversiModel {
     this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
       this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
-      //throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
       return false;
     }
     return true;
@@ -333,7 +332,7 @@ public class MutableReversi implements MutableReversiModel {
     int s = coord.getS();
 
     if (!checkLegalMove(q, r, s)) {
-      throw new IllegalStateException("Illegal move when inputting " + q + ", " + r + ", " + s);
+      throw new IllegalStateException("Illegal move when inputting " + coord);
     }
     ArrayList<Disc> flipDiscs = getAllFlips(getHexAt(q, r, s), getCurrentTurn());
     for (Disc disc : flipDiscs) {
