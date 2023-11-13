@@ -12,9 +12,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
   private JTextField input;
   private HexManager manager;
-  private JPanel board;
-  private JButton excuteButton;
-  private JPanel buttonPanel;
 
   Consumer<String> commandCallback;
 
@@ -50,12 +47,12 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setSize(500, 800);
 
 
-    buttonPanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
     buttonPanel.setLayout(new FlowLayout());
     this.add(buttonPanel, BorderLayout.SOUTH);
 
     input = new JTextField(15);
-    excuteButton = new JButton("Play Move");
+    JButton excuteButton = new JButton("Play Move");
     excuteButton.addActionListener((ActionEvent e) ->
     {
       if (commandCallback != null) {
@@ -82,7 +79,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   @Override
   public void showErrorMessage(String error) {
-
+    JOptionPane.showMessageDialog(this, error, "Error Happened"
+            , JOptionPane.ERROR_MESSAGE);
   }
 
   @Override

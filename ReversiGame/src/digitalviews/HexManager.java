@@ -20,7 +20,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
   private int centerCordX;
   private int centerCordY;
   private Coordinate highlightedCord;
-  ;
+  int hexLength;
   private boolean hexClicked = false;
   /**
    * everytime something happens with model, we should reset hexagons. this way, we can redraw the
@@ -43,8 +43,6 @@ public class HexManager extends JPanel implements DigitalBoardManager {
             model.getBoardRadius() + 1
             , model.getBoardRadius() + 1, model.getBoardRadius() + 1);
     this.repaint();
-
-
   }
 
   /**
@@ -58,12 +56,15 @@ public class HexManager extends JPanel implements DigitalBoardManager {
         for (int s = -size; s <= size; s++) {
           if (r + q + s == 0) {
             Coordinate coordinate = new Coordinate(q, r, s);
+            int hexLength = (Math.min(centerCordX, centerCordY)) / (2 * model.getBoardRadius() + 1);
             if (coordinate.equals(highlightedCord)) {
               hexagons.add(new Hexagon(coordinate
-                      , model.getColorAt(coordinate), centerCordX, centerCordY, Color.CYAN));
-            }else{
+                      , model.getColorAt(coordinate)
+                      , centerCordX, centerCordY, Color.CYAN, hexLength));
+            } else {
               hexagons.add(new Hexagon(coordinate
-                      , model.getColorAt(coordinate), centerCordX, centerCordY, Color.LIGHT_GRAY));
+                      , model.getColorAt(coordinate)
+                      , centerCordX, centerCordY, Color.LIGHT_GRAY, hexLength));
             }
           }
         }
@@ -80,33 +81,19 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     return false;
   }
 
-  protected void setCenterCordX(int centerCordX) {
-    this.centerCordX = centerCordX;
-  }
-
-  protected void setCenterCordY(int centerCordY) {
-    this.centerCordY = centerCordY;
-  }
-
   @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
 
+    this.centerCordY = getHeight() / 2;
+    this.centerCordX = getWidth() / 2;
     makeHexagons();
-    this.setCenterCordY(getHeight() / 2);
-    this.setCenterCordX(getWidth() / 2);
     g2d.scale(1, 1);
     this.setBackground(Color.DARK_GRAY);
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, getWidth(), getHeight());
-
-    System.out.println("\n\n");
     for (HexagonInterface hex : hexagons) {
-      System.out.println(hex.getCoordinate().toString());
       hex.draw(g2d);
-      if(hex.getCoordinate().equals(highlightedCord)){
-        System.out.println(hex.getBackgroundColor());
-      }
     }
   }
 
@@ -135,6 +122,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
             highlightedCord = hex.getCoordinate();
           }
         }
+        System.out.println("Highlighted cell at " + highlightedCord.toString());
       }
       manager.repaint();
     }

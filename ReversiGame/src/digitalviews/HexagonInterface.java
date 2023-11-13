@@ -16,19 +16,17 @@ public interface HexagonInterface {
    * the Y position of the center of the hexagon in relation to the panel it is drawn on.
    * @return the Y position of the hexagon.
    */
-  int getY();
+  double getY();
 
   /**
    * the X position of the center of the hexagon in relation to the panel it is drawn on.
    * @return the X position of the hexagon.
    */
-  int getX();
+  double getX();
 
   /**
    * The coordinate in (Q,R,S) form of the hexagon.
    * @return the coordinates of the hex.
    */
   Coordinate getCoordinate();
-
-  Color getBackgroundColor();
 }
