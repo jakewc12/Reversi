@@ -84,7 +84,9 @@ ReadOnlyReversiModel.
 
 To make moves, the commands are 'p' to place a disc at the highlighted disc location and 
 's' to skip turn. If the move is not legal, it will not change the rendering of the board and will
-not make any moves.
+not make any moves. Currently, if a hexagon is clicked, then a System.out occurs that prints out
+its coordinate locations in (Q,R,S) form. ex (0,0,0). A hexagon can be un-highlighted by clicking
+on anywhere on the screen, including the same hexagon.
 
 
 

@@ -118,8 +118,8 @@ public class HexManager extends JPanel implements DigitalBoardManager {
         hexClicked = clickLandsOnHex(e.getX(), e.getY());
       } else {
         hexClicked = false;
-        highlightedCord = new Coordinate(model.getBoardRadius() + 1, model.getBoardRadius() + 1,
-            model.getBoardRadius() + 1);
+        highlightedCord = new Coordinate(model.getBoardRadius() + 1, model.getBoardRadius()
+                + 1, model.getBoardRadius() + 1);
       }
       if (hexClicked) {
         for (DrawnHexagonInterface hex : hexagons) {
