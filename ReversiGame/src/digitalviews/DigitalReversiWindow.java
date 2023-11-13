@@ -73,6 +73,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.pack();
   }
 
+  @Override
   public void setCommandCallback(Consumer<String> callback) {
     commandCallback = callback;
   }
