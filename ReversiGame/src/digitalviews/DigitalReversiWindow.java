@@ -25,7 +25,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
     this.setSize(new Dimension(windowSize, windowSize));
-    manager = new HexManager(radius, windowSize, windowSize, model);
+    manager = new HexManager(radius, windowSize, model);
     init();
 
   }
@@ -39,7 +39,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     int radius = model.getBoardRadius();
     int windowSize = (radius * 2 + 1) * Hexagon.hexagonLength * 2;
-    manager = new HexManager(radius, windowSize, windowSize, model);
+    manager = new HexManager(radius, windowSize, model);
     this.add(manager);
 
 
