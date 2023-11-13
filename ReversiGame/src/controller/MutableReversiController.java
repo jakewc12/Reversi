@@ -5,11 +5,24 @@ import java.util.Scanner;
 import model.Coordinate;
 import model.MutableReversiModel;
 
+/**
+ * The MutableReversiController class implements the ReversiControllerInterface and serves as the
+ * controller for a mutable Reversi game. It processes commands from the user through a
+ * DigitalWindow view and updates the MutableReversiModel accordingly. This class handles commands
+ * such as placing discs and skipping turns, providing feedback through the view. The controller
+ * interacts with a mutable model, allowing for changes in the game state.
+ */
 public class MutableReversiController implements ReversiControllerInterface {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
 
+  /**
+   * Constructs a MutableReversiController with the specified model and view.
+   *
+   * @param model The MutableReversiModel representing the game state.
+   * @param view  The DigitalWindow view for user interaction.
+   */
   public MutableReversiController(MutableReversiModel model, DigitalWindow view) {
     this.model = model;
     this.view = view;
@@ -33,8 +46,8 @@ public class MutableReversiController implements ReversiControllerInterface {
                 .append(")");
             System.out.println("Placed at (" + q + ", " + r + ", " + s + ")");
           } catch (IllegalArgumentException e) {
-            output.append("Invalid move. Illegal numbers given for q,r,s");
-            System.out.println("Invalid move. Illegal numbers given for q,r,s");
+            output.append("Invalid move. Illegal numbers given for q, r, s");
+            System.out.println("Invalid move. Illegal numbers given for q, r, s");
           } catch (IllegalStateException e) {
             output.append("Invalid move. Illegal move played");
             System.out.println("Invalid move. Illegal move played");
@@ -62,6 +75,11 @@ public class MutableReversiController implements ReversiControllerInterface {
     this.view.makeVisible();
   }
 
+  /**
+   * Accepts a command from the view and processes it.
+   *
+   * @param command The command to be processed.
+   */
   public void accept(String command) {
     try {
       processCommand(command);

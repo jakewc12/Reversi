@@ -4,14 +4,20 @@ import java.util.Optional;
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
+/**
+ * The ReversiStrategy interface defines the common behavior for strategies in a Reversi game.
+ * Implementations of this interface determine the best move for a player based on the current game
+ * state and the player's information.
+ */
 public interface ReversiStrategy {
 
   /**
-   *  When given a model and player the strategy will choose the best move that player can make
-   *  according to the strategy.
-   * @param model the board the player is playing on.
-   * @param who the player who is using the strategy.
-   * @return a move if one is found by the strategy, the strategy may be empty if none is found.
+   * Chooses the best move for a player based on the current game state and player information.
+   *
+   * @param model The ReadOnlyReversiModel representing the current game state.
+   * @param who   The Player object representing the player using the strategy.
+   * @return An Optional containing the chosen move if found by the strategy or an empty optional.
    */
   Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who);
 }
+
