@@ -2,18 +2,19 @@ package digitalviews;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.function.Consumer;
 
 import javax.swing.*;
 
+import controller.Features;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
-  private JTextField input;
   private HexManager manager;
-
-  Consumer<String> commandCallback;
+  private DigitalWindow window = this;
 
   public DigitalReversiWindow(ReadOnlyReversiModel model) {
     super();
@@ -47,51 +48,46 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setSize(500, 800);
 
 
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new FlowLayout());
-   // this.add(buttonPanel, BorderLayout.SOUTH);
-
-    input = new JTextField(15);
-    JButton excuteButton = new JButton("Play Move");
-    excuteButton.addActionListener((ActionEvent e) ->
-    {
-      if (commandCallback != null) {
-        commandCallback.accept(input.getText());
-        input.setText("");
-        if (model.gameOver()) {
-          input.setText("Game Over!");
-        }
-      }
-    });
-    buttonPanel.add(input);
-    buttonPanel.add(excuteButton);
-
-    commandCallback = null;
-
-
     this.refresh();
     this.pack();
   }
 
   @Override
-  public void setCommandCallback(Consumer<String> callback) {
-    commandCallback = callback;
-  }
-
-  @Override
-  public void showErrorMessage(String error) {
-    JOptionPane.showMessageDialog(this, error, "Error Happened"
-            , JOptionPane.ERROR_MESSAGE);
-  }
-
-  @Override
   public void refresh() {
     manager.refresh();
+    if(model.gameOver()){
+      this.setTitle("Game Over!");
+    }
     this.repaint();
   }
 
   @Override
   public void makeVisible() {
     this.setVisible(true);
+  }
+
+  @Override
+  public void addFeaturesListener(Features features){
+    this.addKeyListener(new KeyListener() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+        if(e.getKeyChar()=='p'){
+          features.placeDisc(manager.getHighlightedCord());
+        }else if(e.getKeyChar()=='s'){
+          features.skipTurn();
+        }
+        window.refresh();
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+
+      }
+    });
   }
 }
