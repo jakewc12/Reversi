@@ -72,7 +72,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       @Override
       public void keyTyped(KeyEvent e) {
         if(e.getKeyChar()=='p'){
-          features.placeDisc(manager.getHighlightedCord());
+          if(manager.getHighlightedCord().isPresent()){
+            features.placeDisc(manager.getHighlightedCord().get());
+          }
         }else if(e.getKeyChar()=='s'){
           features.skipTurn();
         }

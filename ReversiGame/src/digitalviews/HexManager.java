@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 import model.Coordinate;
@@ -23,7 +25,10 @@ public class HexManager extends JPanel implements DigitalBoardManager {
   private List<DrawnHexagonInterface> hexagons = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
-  private Coordinate highlightedCord;
+  /**
+   * if no cell is highlighted, then highLightedCord will be a coordinate not on the board.
+   */
+  private Optional<Coordinate> highlightedCord;
   private boolean hexClicked = false;
   /**
    * everytime something happens with model, we should reset hexagons. this way, we can redraw the
@@ -47,9 +52,9 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     centerCordX = windowWidth / 2;
     centerCordY = windowHeight / 2;
     this.model = model;
+    highlightedCord = Optional.empty();
     makeHexagons();
-    highlightedCord = new Coordinate(model.getBoardRadius() + 1, model.getBoardRadius() + 1,
-        model.getBoardRadius() + 1);
+
     this.repaint();
   }
 
@@ -62,11 +67,19 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     List<Coordinate> allCoordinates = model.getAllCoordinates();
     for (Coordinate logicalCoord : allCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (2 * model.getBoardRadius() + 1);
-      if (logicalCoord.equals(highlightedCord)) {
-        hexagons.add(
-            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                Color.CYAN, hexLength));
-      } else {
+      if(highlightedCord.isPresent()) {
+        if (logicalCoord.equals(highlightedCord.get())) {
+          hexagons.add(
+                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                          Color.CYAN, hexLength));
+        }
+        else {
+          hexagons.add(
+                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                          Color.LIGHT_GRAY, hexLength));
+        }
+      }
+       else {
         hexagons.add(
             new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
                 Color.LIGHT_GRAY, hexLength));
@@ -99,7 +112,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     }
   }
 
-  public Coordinate getHighlightedCord() {
+  public Optional<Coordinate> getHighlightedCord() {
     return highlightedCord;
   }
 
@@ -112,22 +125,20 @@ public class HexManager extends JPanel implements DigitalBoardManager {
 
     @Override
     public void mousePressed(MouseEvent e) {
-      highlightedCord = new Coordinate(model.getBoardRadius() + 1, model.getBoardRadius() + 1,
-          model.getBoardRadius() + 1);
+      highlightedCord = Optional.empty();
       if (!hexClicked) {
         hexClicked = clickLandsOnHex(e.getX(), e.getY());
       } else {
         hexClicked = false;
-        highlightedCord = new Coordinate(model.getBoardRadius() + 1, model.getBoardRadius()
-                + 1, model.getBoardRadius() + 1);
       }
       if (hexClicked) {
         for (DrawnHexagonInterface hex : hexagons) {
           if ((Math.abs(e.getY() - hex.getY()) <= 18) && (Math.abs(e.getX() - hex.getX()) <= 18)) {
-            highlightedCord = hex.getHexCoordinate();
+            highlightedCord = Optional.ofNullable(hex.getHexCoordinate());
           }
         }
-        System.out.println("Highlighted cell at " + highlightedCord.toString());
+        highlightedCord.ifPresent(coordinate
+                -> System.out.println("Highlighted cell at " + coordinate.toString()));
       }
       manager.repaint();
     }
