@@ -37,9 +37,9 @@ public class Hexagon implements HexagonInterface {
           , int boardCenterCoordx, int boardCenterCoordy, Color hexColor, int hexagonLength) {
     double xCoordMath;
     this.coordinate = coordinate;
-    this.yCenterCoord = boardCenterCoordy + (hexagonLength * 1.6) * (coordinate.getR());
-    double xOffset = coordinate.getR() * hexagonLength * .9;
-    xCoordMath = boardCenterCoordx + (hexagonLength * 1.8) * (-coordinate.getS());
+    this.yCenterCoord = boardCenterCoordy + (hexagonLength * 1.6) * (coordinate.getIntR());
+    double xOffset = coordinate.getIntR() * hexagonLength * .9;
+    xCoordMath = boardCenterCoordx + (hexagonLength * 1.8) * (-coordinate.getIntS());
     xCoordMath -= xOffset;
     this.xCenterCoord = xCoordMath;
     if (discColor == DiscColor.BLACK) {

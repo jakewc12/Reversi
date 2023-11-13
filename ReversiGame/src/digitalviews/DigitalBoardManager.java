@@ -1,8 +1,10 @@
 package digitalviews;
 
-import java.awt.Color;
-
+/**
+ * A manager that manages all the drawing of hexes and updating of hexes.
+ */
 public interface DigitalBoardManager {
+
   /**
    * Signals the view to draw or redraw itself.
    */

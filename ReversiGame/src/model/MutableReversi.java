@@ -102,7 +102,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
-    return checkLegalMove(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+    return checkLegalMove(coordinate.getIntQ(), coordinate.getIntR(), coordinate.getIntS());
   }
 
   private boolean checkLegalMove(int q, int r, int s) {
@@ -288,7 +288,7 @@ public class MutableReversi implements MutableReversiModel {
     // currently may not work as intended because disc is not place at coordinates. if this does
     // not work then edit the getAll flips function to place disc at desired location then remove
     // it when its done getting the flips
-    HexagonCell targetCell = getHexAt(coordinate.getQ(), coordinate.getR(), coordinate.getS());
+    HexagonCell targetCell = getHexAt(coordinate.getIntQ(), coordinate.getIntR(), coordinate.getIntS());
     return getAllFlips(targetCell, playerColor).size();
   }
 
@@ -327,9 +327,9 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public void placeDisc(Coordinate coord) {
     checkGameStarted();
-    int q = coord.getQ();
-    int r = coord.getR();
-    int s = coord.getS();
+    int q = coord.getIntQ();
+    int r = coord.getIntR();
+    int s = coord.getIntS();
 
     if (!checkLegalMove(q, r, s)) {
       throw new IllegalStateException("Illegal move when inputting " + coord);
@@ -401,9 +401,9 @@ public class MutableReversi implements MutableReversiModel {
    */
   @Override
   public DiscColor getColorAt(Coordinate coordinate) {
-    int q = coordinate.getQ();
-    int r = coordinate.getR();
-    int s = coordinate.getS();
+    int q = coordinate.getIntQ();
+    int r = coordinate.getIntR();
+    int s = coordinate.getIntS();
 
     checkGameStarted();
     checkValidCoordinates(q, r, s);

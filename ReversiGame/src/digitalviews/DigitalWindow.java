@@ -2,6 +2,11 @@ package digitalviews;
 
 import java.util.function.Consumer;
 
+/**
+ * The DigitalWindow interface defines the common contract for digital views in a graphical user
+ * interface. Implementing classes are expected to provide methods for displaying, refreshing,
+ * handling user commands, and showing error messages.
+ */
 public interface DigitalWindow {
 
   /**
@@ -17,7 +22,7 @@ public interface DigitalWindow {
   /**
    * Provide the view with a callback option to process a command.
    *
-   * @param callback object
+   * @param callback The Consumer object that will handle user commands.
    */
   void setCommandCallback(Consumer<String> callback);
 

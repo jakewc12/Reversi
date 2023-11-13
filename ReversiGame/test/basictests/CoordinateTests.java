@@ -4,9 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import digitalviews.Hexagon;
 import model.Coordinate;
-import model.DiscColor;
 
 public class CoordinateTests {
   Coordinate pos1;
@@ -24,8 +22,8 @@ public class CoordinateTests {
 
   @Test
   public void testGettersWorks() {
-    Assert.assertEquals(pos1.getQ(),1);
-    Assert.assertEquals(pos1.getR(),0);
-    Assert.assertEquals(pos1.getS(),-1);
+    Assert.assertEquals(pos1.getIntQ(),1);
+    Assert.assertEquals(pos1.getIntR(),0);
+    Assert.assertEquals(pos1.getIntS(),-1);
   }
 }

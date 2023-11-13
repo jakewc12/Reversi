@@ -13,9 +13,9 @@ public class GoForCornersStrategy implements ReversiStrategy {
     List<Coordinate> allCoords = model.getAllCoordinates();
 
     for (Coordinate cord: allCoords) {
-      int q = cord.getQ();
-      int r = cord.getR();
-      int s = cord.getS();
+      int q = cord.getIntQ();
+      int r = cord.getIntR();
+      int s = cord.getIntS();
           if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (q == 0 && r == 0
               && s == 0)) {
             continue;
@@ -36,6 +36,6 @@ public class GoForCornersStrategy implements ReversiStrategy {
         && ((s == 0) || (s == radius) || (s == -radius));
   }
   private boolean checkEdgeCoordinate(Coordinate cord,  int radius) {
-    return checkEdgeCoordinate(cord.getQ(),cord.getR(), cord.getS(), radius);
+    return checkEdgeCoordinate(cord.getIntQ(),cord.getIntR(), cord.getIntS(), radius);
   }
 }
