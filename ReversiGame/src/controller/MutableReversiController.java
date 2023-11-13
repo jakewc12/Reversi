@@ -5,12 +5,12 @@ import java.util.Scanner;
 import model.Coordinate;
 import model.MutableReversiModel;
 
-public class MVCController implements ReversiController {
+public class MutableReversiController implements ReversiControllerInterface {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
 
-  public MVCController(MutableReversiModel model, DigitalWindow view) {
+  public MutableReversiController(MutableReversiModel model, DigitalWindow view) {
     this.model = model;
     this.view = view;
   }
@@ -26,11 +26,11 @@ public class MVCController implements ReversiController {
           int q = scan.nextInt();
           int r = scan.nextInt();
           int s = scan.nextInt();
-          Coordinate coord = new Coordinate(q,r,s);
+          Coordinate coord = new Coordinate(q, r, s);
           try {
             model.placeDisc(coord);
-            output.append("Placed at (").append(q)
-                .append(", ").append(r).append(", ").append(s).append(")");
+            output.append("Placed at (").append(q).append(", ").append(r).append(", ").append(s)
+                .append(")");
             System.out.println("Placed at (" + q + ", " + r + ", " + s + ")");
           } catch (IllegalArgumentException e) {
             output.append("Invalid move. Illegal numbers given for q,r,s");

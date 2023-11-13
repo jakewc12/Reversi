@@ -1,5 +1,5 @@
-import controller.MVCController;
-import controller.ReversiController;
+import controller.MutableReversiController;
+import controller.ReversiControllerInterface;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.MutableReversi;
@@ -17,7 +17,7 @@ public final class Reversi {
     System.out.println(tv);
     DigitalWindow view = new DigitalReversiWindow(model);
     view.makeVisible();
-    ReversiController controller = new MVCController(model, view);
+    ReversiControllerInterface controller = new MutableReversiController(model, view);
     controller.go();
   }
 }

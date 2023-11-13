@@ -4,44 +4,43 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-
 import model.Coordinate;
 import model.DiscColor;
 
 /**
  * A single digital hexagon tile on the game board.
  */
-public class Hexagon implements HexagonInterface {
+public class DrawnHexagon implements DrawnHexagonInterface {
 
-  public final static double THETA = (Math.PI * 2) / 6.0;
+  public static final double THETA = (Math.PI * 2) / 6.0;
   //Length or radius?
   static int hexagonLength = 25;
   private Polygon poly;
-  private Coordinate coordinate;
-  private final double yCenterCoord;
-  private final double xCenterCoord;
+  private Coordinate hexCoordinate;
+  private final double centerCoordY;
+  private final double centerCoordX;
   private final Color color;
   private Color discColor;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param coordinate        the coordintae of the hexagon in relation to the entire grid.
+   * @param hexCoordinate        the coordintae of the hexagon in relation to the entire grid.
    * @param discColor         the disc color of the hexagon cell.
    * @param boardCenterCoordx the dead center or origin of the board in pixel coordinates.
    * @param boardCenterCoordy the dead center or origin of the board in pixel coordinates.
-   * @param hexColor the color of the background of the hex.
-   * @param hexagonLength the radius of the hexagon.
+   * @param hexColor          the color of the background of the hex.
+   * @param hexagonLength     the radius of the hexagon.
    */
-  public Hexagon(Coordinate coordinate, DiscColor discColor
-          , int boardCenterCoordx, int boardCenterCoordy, Color hexColor, int hexagonLength) {
-    double xCoordMath;
-    this.coordinate = coordinate;
-    this.yCenterCoord = boardCenterCoordy + (hexagonLength * 1.6) * (coordinate.getIntR());
-    double xOffset = coordinate.getIntR() * hexagonLength * .9;
-    xCoordMath = boardCenterCoordx + (hexagonLength * 1.8) * (-coordinate.getIntS());
-    xCoordMath -= xOffset;
-    this.xCenterCoord = xCoordMath;
+  public DrawnHexagon(Coordinate hexCoordinate, DiscColor discColor, int boardCenterCoordx,
+      int boardCenterCoordy, Color hexColor, int hexagonLength) {
+    double setCoordX;
+    this.hexCoordinate = hexCoordinate;
+    this.centerCoordY = boardCenterCoordy + (hexagonLength * 1.6) * (hexCoordinate.getIntR());
+    double offsetX = hexCoordinate.getIntR() * hexagonLength * .9;
+    setCoordX = boardCenterCoordx + (hexagonLength * 1.8) * (-hexCoordinate.getIntS());
+    setCoordX -= offsetX;
+    this.centerCoordX = setCoordX;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
     } else if (discColor == DiscColor.WHITE) {
@@ -57,14 +56,15 @@ public class Hexagon implements HexagonInterface {
   private void resetPolygon() {
     poly = new Polygon();
     for (int i = 0; i < 6; i++) {
-      int x1 = (int) (xCenterCoord + hexagonLength * Math.sin(THETA * i));
-      int y1 = (int) (yCenterCoord + hexagonLength * Math.cos(THETA * i));
+      int x1 = (int) (centerCoordX + hexagonLength * Math.sin(THETA * i));
+      int y1 = (int) (centerCoordY + hexagonLength * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
     }
   }
 
   /**
    * Draws the hexagon on the graphic.
+   *
    * @param g the graphic to be drawn on.
    */
   public void draw(Graphics g) {
@@ -86,33 +86,36 @@ public class Hexagon implements HexagonInterface {
       discColor = color;
     }
     g.setColor(discColor);
-    g.drawOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2
-            , hexagonLength, hexagonLength);
-    g.fillOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2
-            , hexagonLength, hexagonLength);
+    g.drawOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
+        hexagonLength, hexagonLength);
+    g.fillOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
+        hexagonLength, hexagonLength);
   }
 
   /**
    * the Y position of the center of the hexagon in relation to the panel it is drawn on.
+   *
    * @return the Y position of the hexagon.
    */
   public double getY() {
-    return yCenterCoord;
+    return centerCoordY;
   }
 
   /**
    * the X position of the center of the hexagon in relation to the panel it is drawn on.
+   *
    * @return the X position of the hexagon.
    */
   public double getX() {
-    return xCenterCoord;
+    return centerCoordX;
   }
 
   /**
    * The coordinate in (Q,R,S) form of the hexagon.
+   *
    * @return the coordinates of the hex.
    */
-  public Coordinate getCoordinate() {
-    return this.coordinate;
+  public Coordinate getHexCoordinate() {
+    return this.hexCoordinate;
   }
 }

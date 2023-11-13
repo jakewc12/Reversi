@@ -256,7 +256,7 @@ public class MutableReversi implements MutableReversiModel {
    */
   private ArrayList<Disc> getAllFlips(HexagonCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
-    DiscColor originalColor = targetCell.cellContents().getColor();
+    final DiscColor originalColor = targetCell.cellContents().getColor();
     targetCell.cellContents().changeColorTo(currentColor);
 
     //Check Horizontal
@@ -288,7 +288,8 @@ public class MutableReversi implements MutableReversiModel {
     // currently may not work as intended because disc is not place at coordinates. if this does
     // not work then edit the getAll flips function to place disc at desired location then remove
     // it when its done getting the flips
-    HexagonCell targetCell = getHexAt(coordinate.getIntQ(), coordinate.getIntR(), coordinate.getIntS());
+    HexagonCell targetCell = getHexAt(coordinate.getIntQ(), coordinate.getIntR(),
+        coordinate.getIntS());
     return getAllFlips(targetCell, playerColor).size();
   }
 
