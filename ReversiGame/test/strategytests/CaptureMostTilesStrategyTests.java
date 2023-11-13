@@ -6,12 +6,14 @@ import model.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import player.ComputerPlayer;
 import player.CaptureMostTilesStrategy;
+import player.ComputerPlayer;
 import player.Player;
 import player.ReversiStrategy;
 
-
+/**
+ * The CaptureMostTilesStrategyTests class contains JUnit tests for the CaptureMostTilesStrategy.
+ */
 public class CaptureMostTilesStrategyTests {
 
   private MockMutableReversiModel model;
@@ -53,8 +55,7 @@ public class CaptureMostTilesStrategyTests {
     blackAI.playMove(model);
     whiteAI.playMove(model);
     blackAI.playMove(model);
-    Assert.assertEquals("Place disc called at (1, -2, 1)\n"
-        + "Place disc called at (2, -3, 1)\n"
+    Assert.assertEquals("Place disc called at (1, -2, 1)\n" + "Place disc called at (2, -3, 1)\n"
         + "Place disc called at (-1, -1, 2)\n", log.toString());
   }
 
@@ -90,4 +91,3 @@ public class CaptureMostTilesStrategyTests {
     Assert.assertTrue(log.toString().contains("Turn skipped\nTurn skipped\n"));
   }
 }
-
