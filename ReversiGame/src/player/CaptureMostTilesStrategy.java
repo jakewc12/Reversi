@@ -26,9 +26,14 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
       if (highestFlips < currentNumFlips) {
         currentBestMove = currentCoord;
       }
-      if (highestFlips == currentNumFlips && currentCoord.getR() < currentBestMove.getR()) {
-        currentBestMove = currentCoord;
+      if (highestFlips == currentNumFlips && currentCoord.getR() <= currentBestMove.getR()) {
+        if(currentCoord.getR() == currentBestMove.getR() && Math.abs(currentCoord.getQ()) < Math.abs(currentBestMove.getQ())){
+          currentBestMove = currentCoord;
+        } else if (currentCoord.getR() < currentBestMove.getR()) {
+          currentBestMove = currentCoord;
+        }
       }
+
       highestFlips = currentNumFlips;
     }
     if (highestFlips == 0) {
