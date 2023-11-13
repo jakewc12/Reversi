@@ -55,6 +55,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   @Override
   public void refresh() {
     manager.refresh();
+    this.setTitle("Reversi - " + model.getCurrentTurn().toString() +"'s Turn" );
     if(model.gameOver()){
       this.setTitle("Game Over!");
     }
