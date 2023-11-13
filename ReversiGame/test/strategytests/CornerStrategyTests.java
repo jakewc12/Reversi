@@ -44,7 +44,7 @@ public class CornerStrategyTests {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     model.startGame(model.getBoard());
-    model.placeDisc(new Coordinate(-3, 0, 3));
+    model.forcePlaceDisc(new Coordinate(-3, 0, 3));
     Optional<Coordinate> cord2 = strategy.chooseMove(model, player);
     System.out.println(oldLog);
     System.out.println(log.toString());

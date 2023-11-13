@@ -10,6 +10,8 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import view.ReversiTextualView;
+import view.TextualView;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
@@ -237,6 +239,8 @@ public class MutableReversiTests {
   public void testGameOverWhenGamePlaying() {
     game = new MutableReversi(3);
     game.startGame(game.getBoard());
+    TextualView tv = new ReversiTextualView(game);
+
     game.placeDisc(new Coordinate(2, -1, -1));
     Assert.assertFalse(game.gameOver());
     game.placeDisc(new Coordinate(3, -2, -1));
@@ -256,10 +260,12 @@ public class MutableReversiTests {
     Assert.assertFalse(game.gameOver());
     game.placeDisc(new Coordinate(-2, -1, 3));
     Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
     game.placeDisc(new Coordinate(-2, 3, -1));
     Assert.assertFalse(game.gameOver());
     game.placeDisc(new Coordinate(-3, 1, 2));
     Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
     game.placeDisc(new Coordinate(1, 2, -3));
     Assert.assertFalse(game.gameOver());
     game.placeDisc(new Coordinate(3, -3, 0));
@@ -268,8 +274,9 @@ public class MutableReversiTests {
     game.placeDisc(new Coordinate(-3, 3, 0));
     game.placeDisc(new Coordinate(1, -3, 2));
     Assert.assertFalse(game.gameOver());
-    game.skipCurrentTurn();
     game.placeDisc(new Coordinate(2, -3, 1));
+    game.skipCurrentTurn();
+    game.placeDisc(new Coordinate(0, -3, 3));
     Assert.assertTrue(game.gameOver());
   }
 

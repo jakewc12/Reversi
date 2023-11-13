@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import player.Player;
-
 public class MockMutableReversiModel extends MutableReversi {
 
   private Appendable out;
@@ -23,7 +21,7 @@ public class MockMutableReversiModel extends MutableReversi {
 
   private void append(String thing) {
     try {
-      out.append(thing);
+      out.append(thing).append("\n");
     } catch (Exception e) {
       System.out.println("connection with appendable failed.");
     }
@@ -32,6 +30,7 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void skipCurrentTurn() {
     append("Turn skipped");
+    super.skipCurrentTurn();
   }
 
 
@@ -39,16 +38,21 @@ public class MockMutableReversiModel extends MutableReversi {
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
-              && cell.cellContents().getColor() != DiscColor.GREY) {
+          && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException(" move not legal ");
       }
-
     }
     return true;
   }
 
   @Override
   public void placeDisc(Coordinate coordinate) {
+    append("Place disc called at " + coordinate);
+    super.placeDisc(coordinate);
+  }
+
+  public void forcePlaceDisc(Coordinate coordinate) {
+    append("Force place disc called at " + coordinate);
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)) {
         cell.cellContents().changeColorTo(DiscColor.BLACK);
@@ -56,13 +60,17 @@ public class MockMutableReversiModel extends MutableReversi {
     }
   }
 
-  @Override
-  public int getNumFlipsOnMove(Coordinate cord, DiscColor player) {
-    if(isLegalMove(cord)){
-      append("move was allowed at " + cord.toString());
-    }else{
-      append("move was not allowed at " + cord.toString());
+  public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
+    append("Force place disc called at " + coordinate);
+    for (HexagonCell cell : cells) {
+      if (cell.getCoordinate().equals(coordinate)) {
+        cell.cellContents().changeColorTo(color);
+      }
     }
-    return super.getNumFlipsOnMove(cord, player);
+  }
+  public void changeTurnTo(DiscColor color) {
+    if(getCurrentTurn() != color) {
+      super.skipCurrentTurn();
+    }
   }
 }
