@@ -82,6 +82,12 @@ ReadOnlyReversiModel.
     advised we view this as an observation instead of an operation so we added new methods to check
     legality of moves.
 
+To make moves, the commands are 'p' to place a disc at the highlighted disc location and 
+'s' to skip turn. If the move is not legal, it will not change the rendering of the board and will
+not make any moves.
+
+
+
 Screenshots:
 
     Start game status:
