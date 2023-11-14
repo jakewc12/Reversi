@@ -1,12 +1,10 @@
 package reversimodeltests;
 
 import java.lang.reflect.Constructor;
-
 import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,8 +65,8 @@ public class MutableReversiTests {
           int finalQ = q;
           int finalR = r;
           int finalS = s;
-          Assert.assertThrows(IllegalStateException.class, () ->
-                  game.placeDisc(new Coordinate(finalQ, finalR, finalS)));
+          Assert.assertThrows(IllegalStateException.class,
+              () -> game.placeDisc(new Coordinate(finalQ, finalR, finalS)));
         }
       }
     }
@@ -80,13 +78,20 @@ public class MutableReversiTests {
   @Test
   public void cannotPlaceGameDiscOffBoard() {
     game.startGame(game.getBoard());
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(6, 6, 6)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(5, 5, 6)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(0, 0, 6)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(-6, 5, 5)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(-6, 0, 0)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(0, -6, 0)));
-    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(new Coordinate(0, 0, -6)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(6, 6, 6)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(5, 5, 6)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(0, 0, 6)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(-6, 5, 5)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(-6, 0, 0)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(0, -6, 0)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> game.placeDisc(new Coordinate(0, 0, -6)));
   }
 
   /**
@@ -94,7 +99,8 @@ public class MutableReversiTests {
    */
   @Test
   public void nothingFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class, () -> game.getColorAt(new Coordinate(0, 0, 0)));
+    Assert.assertThrows(IllegalStateException.class,
+        () -> game.getColorAt(new Coordinate(0, 0, 0)));
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(0, 0, 0)));
     Assert.assertThrows(IllegalStateException.class, () -> game.skipCurrentTurn());
     Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
@@ -111,10 +117,13 @@ public class MutableReversiTests {
     game.startGame(game.getBoard());
     Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(0, 0, 0)));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(new Coordinate(0, 0, 0)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(4, -2, -2)));
+    Assert.assertThrows(IllegalStateException.class,
+        () -> game.placeDisc(new Coordinate(4, -2, -2)));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(new Coordinate(4, -2, -2)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(-2, 0, 2)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(2, 0, -2)));
+    Assert.assertThrows(IllegalStateException.class,
+        () -> game.placeDisc(new Coordinate(-2, 0, 2)));
+    Assert.assertThrows(IllegalStateException.class,
+        () -> game.placeDisc(new Coordinate(2, 0, -2)));
   }
 
   /**
@@ -221,8 +230,8 @@ public class MutableReversiTests {
   @Test
   public void testGameOverWhenAllSpotsFilled() {
     try {
-      Constructor<MutableReversi> pcc =
-              MutableReversi.class.getDeclaredConstructor(int.class, boolean.class);
+      Constructor<MutableReversi> pcc = MutableReversi.class.getDeclaredConstructor(int.class,
+          boolean.class);
       pcc.setAccessible(true);
       game = pcc.newInstance(1, true);
     } catch (Exception e) {
@@ -249,7 +258,7 @@ public class MutableReversiTests {
     game.placeDisc(new Coordinate(-1, -1, 2));
     game.placeDisc(new Coordinate(-2, 1, 1));
     game.placeDisc(new Coordinate(-1, 2, -1));
-    game.placeDisc( new Coordinate(1, 1, -2));
+    game.placeDisc(new Coordinate(1, 1, -2));
     game.placeDisc(new Coordinate(-3, 2, 1));
     Assert.assertFalse(game.gameOver());
     game.placeDisc(new Coordinate(-1, -2, 3));

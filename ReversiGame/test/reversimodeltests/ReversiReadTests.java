@@ -92,8 +92,7 @@ public class ReversiReadTests {
             }
           } catch (Exception e) {
             throw new AssertionError(
-                "An error occurred when getting a disc at (Q,R,S): ("
-                    + q + ", " + r + ", " + s
+                "An error occurred when getting a disc at (Q,R,S): (" + q + ", " + r + ", " + s
                     + ")\nException was: " + e);
           }
         }
@@ -103,8 +102,7 @@ public class ReversiReadTests {
       Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(0, 0, 0)));
     } catch (Exception e) {
       throw new AssertionError(
-          "An error occurred when getting a disc at q: " + 0 + " r: "
-              + 0 + "s: " + 0
+          "An error occurred when getting a disc at q: " + 0 + " r: " + 0 + "s: " + 0
               + "\nException was: " + e);
     }
   }
@@ -149,17 +147,18 @@ public class ReversiReadTests {
           if (q + r + s != 0) {
             continue;
           }
-          Coordinate currentCoord = new Coordinate(q,r,s);
+          Coordinate currentCoord = new Coordinate(q, r, s);
           Assert.assertTrue(givenCoords.contains(currentCoord));
         }
       }
     }
   }
+
   @Test
   public void getNumFlipsOnMoveWorks() {
     game.startGame(game.getBoard());
-    int numFlips = game.getNumFlipsOnMove(new Coordinate(1,-2,1), DiscColor.BLACK);
-    Assert.assertEquals(1,numFlips);
+    int numFlips = game.getNumFlipsOnMove(new Coordinate(1, -2, 1), DiscColor.BLACK);
+    Assert.assertEquals(1, numFlips);
 
   }
 

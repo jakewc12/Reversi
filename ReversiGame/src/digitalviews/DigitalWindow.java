@@ -2,8 +2,6 @@ package digitalviews;
 
 import java.util.function.Consumer;
 
-import controller.Features;
-
 public interface DigitalWindow {
 
   /**
@@ -15,5 +13,18 @@ public interface DigitalWindow {
    * Signals the view to draw or redraw itself.
    */
   void refresh();
-  void addFeaturesListener(Features features);
+
+  /**
+   * Provide the view with a callback option to process a command.
+   *
+   * @param callback object
+   */
+  void setCommandCallback(Consumer<String> callback);
+
+  /**
+   * Transmit an error message to the view, in case the command could not be processed correctly.
+   *
+   * @param error The error message that should be transmitted.
+   */
+  void showErrorMessage(String error);
 }
