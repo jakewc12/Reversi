@@ -2,10 +2,13 @@ package digitalviews;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.function.Consumer;
 
 import javax.swing.*;
 
+import controller.Features;
 import model.ReadOnlyReversiModel;
 
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
@@ -94,4 +97,25 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   public void makeVisible() {
     this.setVisible(true);
   }
+
+  @Override
+  public void addFeaturesListener(Features features){
+    this.addKeyListener(new KeyListener() {
+      @Override
+      public void keyTyped(KeyEvent e) {
+
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+
+      }
+    });
+  }
+
 }

@@ -2,6 +2,8 @@ package digitalviews;
 
 import java.util.function.Consumer;
 
+import controller.Features;
+
 public interface DigitalWindow {
 
   /**
@@ -27,4 +29,5 @@ public interface DigitalWindow {
    * @param error The error message that should be transmitted.
    */
   void showErrorMessage(String error);
+  void addFeaturesListener(Features features);
 }

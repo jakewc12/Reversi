@@ -5,12 +5,12 @@ import java.util.Scanner;
 import model.Coordinate;
 import model.MutableReversiModel;
 
-public class MVCController implements ReversiControllerInterface {
+public class MutableReversiController implements ReversiControllerInterface, Features {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
 
-  public MVCController(MutableReversiModel model, DigitalWindow view) {
+  public MutableReversiController(MutableReversiModel model, DigitalWindow view) {
     this.model = model;
     this.view = view;
   }
@@ -68,5 +68,26 @@ public class MVCController implements ReversiControllerInterface {
     } catch (Exception ex) {
       view.showErrorMessage(ex.getMessage());
     }
+  }
+
+  /**
+   * Places a disc on the board at the specified coordinate.
+   *
+   * @param coordinate The coordinate where the disc should be placed.
+   */
+  @Override
+  public void placeDisc(Coordinate coordinate) {
+    try{
+      model.placeDisc(coordinate);
+    }catch(Exception ignore){}
+
+  }
+
+  /**
+   * Skips the current turn in the game.
+   */
+  @Override
+  public void skipTurn() {
+    model.skipCurrentTurn();
   }
 }
