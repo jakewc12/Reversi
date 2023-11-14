@@ -24,20 +24,10 @@ public final class Reversi {
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
     MutableReversiModel model = new MutableReversi(3);
-
-    // Initialize the TextualView with the model
-    TextualView tv = new ReversiTextualView(model);
-
-    // Start the game and display the initial game state in the console
     model.startGame(model.getBoard());
-    System.out.println(tv);
 
     // Initialize the DigitalReversiWindow view
     DigitalWindow view = new DigitalReversiWindow(model);
     view.makeVisible();
-
-    // Set up the controller with the model and view, and start user interaction
-    ReversiControllerInterface controller = new MutableReversiController(model, view);
-    controller.go();
   }
 }

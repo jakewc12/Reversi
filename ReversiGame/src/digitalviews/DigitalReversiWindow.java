@@ -1,10 +1,8 @@
 package digitalviews;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.function.Consumer;
 
 import javax.swing.*;
 
@@ -103,12 +101,10 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
       @Override
       public void keyPressed(KeyEvent e) {
-
       }
 
       @Override
       public void keyReleased(KeyEvent e) {
-
       }
     });
   }

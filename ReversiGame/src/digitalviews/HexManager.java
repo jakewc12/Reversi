@@ -46,6 +46,10 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    * @param model        The ReadOnlyReversiModel representing the game state.
    */
   public HexManager(int windowWidth, int windowHeight, ReadOnlyReversiModel model) {
+    if(model==null || windowHeight<1 || windowWidth<1){
+      throw new IllegalArgumentException("Invalid inputs for HexManager");
+
+    }
     this.setPreferredSize(new Dimension(windowWidth, windowHeight));
     this.setOpaque(false);
     this.addMouseListener(new MouseEventsListener());
