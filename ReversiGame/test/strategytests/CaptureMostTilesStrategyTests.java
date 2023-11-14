@@ -11,7 +11,9 @@ import player.CaptureMostTilesStrategy;
 import player.Player;
 import player.ReversiStrategy;
 
-
+/**
+ * tests any issues with CaptureMostTilesStrategy.
+ */
 public class CaptureMostTilesStrategyTests {
 
   private MockMutableReversiModel model;
@@ -20,6 +22,9 @@ public class CaptureMostTilesStrategyTests {
   private ReversiStrategy strategy;
   private Appendable log;
 
+  /**
+   * initalizes log and the different strategies which will be used for testing.
+   */
   @Before
   public void init() {
     log = new StringBuffer();
@@ -29,6 +34,9 @@ public class CaptureMostTilesStrategyTests {
     blackAI = new ComputerPlayer(DiscColor.BLACK, strategy);
   }
 
+  /**
+   * tests that at the start of a game, white choose correct move.
+   */
   @Test
   public void testGoesForUpperLeftMostCoordOnTie() {
     model.startGame(model.getBoard());
@@ -37,6 +45,9 @@ public class CaptureMostTilesStrategyTests {
     //Assert.assertEquals("Place disc called at (1, -2, 1)\n", log.toString());
   }
 
+  /**
+   * tests that throughout the game, the strategy chooses the correct move.
+   */
   @Test
   public void GoesForMostTiles() {
     model.startGame(model.getBoard());
@@ -52,6 +63,9 @@ public class CaptureMostTilesStrategyTests {
         //log.toString());
   }
 
+  /**
+   * tests that the strategy works differently for different players.
+   */
   @Test
   public void worksWithWhiteMove() {
     model.startGame(model.getBoard());
@@ -66,6 +80,9 @@ public class CaptureMostTilesStrategyTests {
        // + "Place disc called at (-1, -1, 2)\n", log.toString());
   }
 
+  /**
+   * tests that the best move doesnt go top left if there is a better move somewhere else.
+   */
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft() {
     model.startGame(model.getBoard());
@@ -77,6 +94,9 @@ public class CaptureMostTilesStrategyTests {
     //Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)\n"));
   }
 
+  /**
+   * tests that the best move doesnt go top left if there is a better move somewhere else.
+   */
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft2() {
     model.startGame(model.getBoard());
@@ -89,6 +109,9 @@ public class CaptureMostTilesStrategyTests {
     //Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)\n"));
   }
 
+  /**
+   * tests that if there are no valid moves, the strategy returns an optional empty.
+   */
   @Test
   public void returnsEmptyOnNoValidMove() {
     model.startGame(model.getBoard());

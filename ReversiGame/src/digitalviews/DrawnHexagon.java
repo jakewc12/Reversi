@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+
 import model.Coordinate;
 import model.DiscColor;
 
@@ -25,7 +26,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param hexCoordinate        the coordintae of the hexagon in relation to the entire grid.
+   * @param hexCoordinate     the coordintae of the hexagon in relation to the entire grid.
    * @param discColor         the disc color of the hexagon cell.
    * @param boardCenterCoordx the dead center or origin of the board in pixel coordinates.
    * @param boardCenterCoordy the dead center or origin of the board in pixel coordinates.
@@ -33,7 +34,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    * @param hexagonLength     the radius of the hexagon.
    */
   public DrawnHexagon(Coordinate hexCoordinate, DiscColor discColor, int boardCenterCoordx,
-      int boardCenterCoordy, Color hexColor, int hexagonLength) {
+                      int boardCenterCoordy, Color hexColor, int hexagonLength) {
     double setCoordX;
     this.hexCoordinate = hexCoordinate;
     this.centerCoordY = boardCenterCoordy + (hexagonLength * 1.6) * (hexCoordinate.getIntR());
@@ -87,9 +88,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     }
     g.setColor(discColor);
     g.drawOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
-        hexagonLength, hexagonLength);
+            hexagonLength, hexagonLength);
     g.fillOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
-        hexagonLength, hexagonLength);
+            hexagonLength, hexagonLength);
   }
 
   /**

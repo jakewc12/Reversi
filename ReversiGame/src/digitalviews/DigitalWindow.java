@@ -15,5 +15,10 @@ public interface DigitalWindow {
    * Signals the view to draw or redraw itself.
    */
   void refresh();
+
+  /**
+   * Adds features to the window to allow for key interaction.
+   * @param features the features to be added to the view.
+   */
   void addFeaturesListener(Features features);
 }

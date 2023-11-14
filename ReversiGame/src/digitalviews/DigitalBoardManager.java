@@ -16,6 +16,7 @@ public interface DigitalBoardManager {
 
   /**
    * Returns the (Q,R,S) coordinate of the current cell that is highlighted.
+   *
    * @return the current highlighted cell on the board.
    */
   Optional<Coordinate> getHighlightedCord();

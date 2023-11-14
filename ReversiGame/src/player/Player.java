@@ -3,6 +3,9 @@ package player;
 import model.DiscColor;
 import model.MutableReversiModel;
 
+/**
+ * Anything related to the players of reversi.
+ */
 public interface Player {
 
   /**

@@ -21,12 +21,18 @@ import player.ComputerPlayer;
 import player.Player;
 import player.ReversiStrategy;
 
+/**
+ * tests any issues relating to GoForCornerStrategy.
+ */
 public class CornerStrategyTests {
   private MockMutableReversiModel model;
   private Player player;
   private ReversiStrategy strategy;
   private Appendable log;
 
+  /**
+   * creates the log and different things that are used for testing.
+   */
   @Before
   public void init() {
     log = new StringBuffer();
@@ -35,6 +41,9 @@ public class CornerStrategyTests {
     strategy = new GoForCornersStrategy();
   }
 
+  /**
+   * tests that if there are legal corner tiles to play at, it returns that.
+   */
   @Test
   public void testCornerTilesFound() {
     model.startGame(model.getBoard());
@@ -50,6 +59,9 @@ public class CornerStrategyTests {
     Assert.assertNotEquals(oldLog, log.toString());
   }
 
+  /**
+   * tests that when there are no corners legal to place, it returns an optional empty.
+   */
   @Test
   public void testNoCornersEmptyReturnsEmptyOptionalMove() {
     List<HexagonCell> filledBoard = new ArrayList<>();
