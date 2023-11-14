@@ -46,7 +46,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    * @param model        The ReadOnlyReversiModel representing the game state.
    */
   public HexManager(int windowWidth, int windowHeight, ReadOnlyReversiModel model) {
-    if(model==null || windowHeight<1 || windowWidth<1){
+    if (model == null || windowHeight < 1 || windowWidth < 1) {
       throw new IllegalArgumentException("Invalid inputs for HexManager");
 
     }
@@ -153,8 +153,8 @@ public class HexManager extends JPanel implements DigitalBoardManager {
             highlightedCord = Optional.ofNullable(hex.getHexCoordinate());
           }
         }
-        highlightedCord.ifPresent(coordinate
-                -> System.out.println("Highlighted cell at " + coordinate.toString()));
+        highlightedCord.ifPresent(coordinate ->
+                System.out.println("Highlighted cell at " + coordinate.toString()));
       }
       manager.repaint();
     }

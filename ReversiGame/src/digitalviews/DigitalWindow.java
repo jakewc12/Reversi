@@ -1,8 +1,11 @@
 package digitalviews;
 
-import java.util.function.Consumer;
 
 import controller.Features;
+
+/**
+ * All the methods for the window.
+ */
 
 public interface DigitalWindow {
 

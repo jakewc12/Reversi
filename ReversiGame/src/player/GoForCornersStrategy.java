@@ -45,7 +45,8 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
   private boolean checkEdgeCoordinate(int q, int r, int s, int radius) {
     return ((q == 0) || (q == radius) || (q == -radius)) && ((r == 0) || (r == radius) || (r
-            == -radius)) && (r >= 0 || r <= radius) && ((s == 0) || (s == radius) || (s == -radius));
+            == -radius)) && (r >= 0
+            || r <= radius) && ((s == 0) || (s == radius) || (s == -radius));
   }
 
   private boolean checkEdgeCoordinate(Coordinate cord, int radius) {

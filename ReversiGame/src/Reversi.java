@@ -1,11 +1,7 @@
-import controller.MutableReversiController;
-import controller.ReversiControllerInterface;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.MutableReversi;
 import model.MutableReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
 
 /**
  * The Reversi class serves as the main entry point for the Reversi game application. It initializes

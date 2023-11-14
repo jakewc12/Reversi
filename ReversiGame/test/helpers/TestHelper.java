@@ -3,6 +3,7 @@ package helpers;
 import model.ReadOnlyReversiModel;
 import view.ReversiTextualView;
 import view.TextualView;
+
 /**
  * The TestHelper class provides helper methods for testing purposes in a Reversi game.
  * It includes a method to print the current state of the game board to the console. Although not

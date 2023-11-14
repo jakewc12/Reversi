@@ -11,6 +11,7 @@ public enum DiscColor {
   DiscColor(String asString) {
     this.asString = asString;
   }
+
   @Override
   public String toString() {
     return this.asString;

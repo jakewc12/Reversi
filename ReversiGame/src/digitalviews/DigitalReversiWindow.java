@@ -1,19 +1,29 @@
 package digitalviews;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import controller.Features;
 import model.ReadOnlyReversiModel;
 
+/**
+ * DigitalReversiWindow represents the GUI rendering of the Reversi.
+ */
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private ReadOnlyReversiModel model;
   private HexManager manager;
   private DigitalWindow window = this;
 
+  /**
+   * creates a new DigitalReversiWindow.
+   *
+   * @param model the Reversi to be used.
+   */
   public DigitalReversiWindow(ReadOnlyReversiModel model) {
     super();
     if (model == null) {
@@ -101,10 +111,12 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
       @Override
       public void keyPressed(KeyEvent e) {
+        //needs to here to implement the interface.
       }
 
       @Override
       public void keyReleased(KeyEvent e) {
+        //needs to here to implement the interface.
       }
     });
   }

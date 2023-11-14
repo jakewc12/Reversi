@@ -19,7 +19,6 @@ public class CaptureMostTilesStrategyTests {
   private MockMutableReversiModel model;
   private Player blackAI;
   private Player whiteAI;
-  private ReversiStrategy strategy;
   private Appendable log;
 
   /**
@@ -29,7 +28,7 @@ public class CaptureMostTilesStrategyTests {
   public void init() {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    strategy = new CaptureMostTilesStrategy();
+    ReversiStrategy strategy = new CaptureMostTilesStrategy();
     whiteAI = new ComputerPlayer(DiscColor.WHITE, strategy);
     blackAI = new ComputerPlayer(DiscColor.BLACK, strategy);
   }
@@ -58,9 +57,6 @@ public class CaptureMostTilesStrategyTests {
     Assert.assertTrue(log.toString().contains("Place disc called at (1, -2, 1)"));
     Assert.assertTrue(log.toString().contains("Turn skipped"));
     Assert.assertTrue(log.toString().contains("disc called at (-1, -1, 2)"));
-    //Assert.assertEquals(
-      //  "Place disc called at (1, -2, 1)\nTurn skipped\nPlace " + "disc called at (-1, -1, 2)\n",
-        //log.toString());
   }
 
   /**
@@ -75,9 +71,6 @@ public class CaptureMostTilesStrategyTests {
     Assert.assertTrue(log.toString().contains("Place disc called at (1, -2, 1)"));
     Assert.assertTrue(log.toString().contains("Place disc called at (2, -3, 1)"));
     Assert.assertTrue(log.toString().contains("Place disc called at (-1, -1, 2)"));
-   // Assert.assertEquals("Place disc called at (1, -2, 1)\n"
-     //   + "Place disc called at (2, -3, 1)\n"
-       // + "Place disc called at (-1, -1, 2)\n", log.toString());
   }
 
   /**
@@ -121,7 +114,6 @@ public class CaptureMostTilesStrategyTests {
     whiteAI.playMove(model);
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Turn skipped"));
-   // Assert.assertTrue(log.toString().contains("Turn skipped\nTurn skipped\n"));
   }
 }
 
