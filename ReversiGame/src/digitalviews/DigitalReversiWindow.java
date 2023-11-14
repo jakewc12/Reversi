@@ -91,9 +91,11 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       public void keyTyped(KeyEvent e) {
         if (e.getKeyChar() == 'p') {
           if (manager.getHighlightedCord().isPresent()) {
+            System.out.println("Placed disc at " + manager.getHighlightedCord().get());
             features.placeDisc(manager.getHighlightedCord().get());
           }
         } else if (e.getKeyChar() == 's') {
+          System.out.println("Skipped turn.");
           features.skipTurn();
         }
         window.refresh();
