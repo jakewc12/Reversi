@@ -97,6 +97,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
 
   /**
    * paints this JPanel onto the graphics.
+   *
    * @param g the <code>Graphics</code> object to protect
    */
   @Override

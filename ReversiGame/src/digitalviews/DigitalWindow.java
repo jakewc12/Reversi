@@ -18,6 +18,7 @@ public interface DigitalWindow {
 
   /**
    * Adds features to the window to allow for key interaction.
+   *
    * @param features the features to be added to the view.
    */
   void addFeaturesListener(Features features);

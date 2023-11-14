@@ -52,31 +52,48 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.pack();
   }
 
+  /**
+   * Signals the view to draw or redraw itself.
+   */
   @Override
   public void refresh() {
     manager.refresh();
-    this.setTitle("Reversi - " + model.getCurrentTurn().toString() +"'s Turn" );
-    if(model.gameOver()){
+    this.setTitle("Reversi - " + model.getCurrentTurn().toString() + "'s Turn");
+    if (model.gameOver()) {
       this.setTitle("Game Over!");
     }
     this.repaint();
   }
 
+  /**
+   * Make the view visible. This is usually called after the view is constructed.
+   */
   @Override
   public void makeVisible() {
     this.setVisible(true);
   }
 
+  /**
+   * Adds features to the window to allow for key interaction.
+   *
+   * @param features the features to be added to the view.
+   */
   @Override
-  public void addFeaturesListener(Features features){
+  public void addFeaturesListener(Features features) {
     this.addKeyListener(new KeyListener() {
+      /**
+       * Allows for key interactions. If 'p' is pressed, it will use features to make a move
+       * on the coordinate of the highlighted hex. If 's' is pressed, it will use features to
+       * skip a turn.
+       * @param e the event to be processed
+       */
       @Override
       public void keyTyped(KeyEvent e) {
-        if(e.getKeyChar()=='p'){
-          if(manager.getHighlightedCord().isPresent()){
+        if (e.getKeyChar() == 'p') {
+          if (manager.getHighlightedCord().isPresent()) {
             features.placeDisc(manager.getHighlightedCord().get());
           }
-        }else if(e.getKeyChar()=='s'){
+        } else if (e.getKeyChar() == 's') {
           features.skipTurn();
         }
         window.refresh();
