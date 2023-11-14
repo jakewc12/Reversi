@@ -50,7 +50,7 @@ public class MockMutableReversiModel extends MutableReversi {
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
-          && cell.cellContents().getColor() != DiscColor.GREY) {
+              && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
     }
@@ -104,4 +104,18 @@ public class MockMutableReversiModel extends MutableReversi {
       super.skipCurrentTurn();
     }
   }
+
+  /**
+   * Gets the number of flips on a player move.
+   *
+   * @param coordinate  The coordinate you want to place a Disc on.
+   * @param playerColor The color of the player who is placing the disc
+   * @return the number of discs flipped if the player makes that move.
+   */
+  @Override
+  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+    append("Checked legal at " + coordinate.toString() + " ");
+    return super.getNumFlipsOnMove(coordinate, playerColor);
+  }
+
 }

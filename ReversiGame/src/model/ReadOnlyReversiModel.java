@@ -98,7 +98,8 @@ public interface ReadOnlyReversiModel {
 
   /**
    * Gets the number of flips on a player move.
-   * @param coordinate The coordinate you want to place a Disc on.
+   *
+   * @param coordinate  The coordinate you want to place a Disc on.
    * @param playerColor The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
