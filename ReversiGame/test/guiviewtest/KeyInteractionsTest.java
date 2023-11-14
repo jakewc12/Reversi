@@ -1,11 +1,10 @@
 package guiviewtest;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -21,14 +20,15 @@ import model.MutableReversiModel;
  */
 public class KeyInteractionsTest {
   private MutableReversiModel model;
+  private Appendable log;
   private DigitalWindow view;
 
   /**
-   * tests that when S is pressed, the model skips a turn.
+   * initializes all objects used for testing.
    */
-  @Test
-  public void testPressSSkips() throws AWTException {
-    Appendable log = new StringBuffer();
+  @Before
+  public void init() {
+    log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     model.startGame(model.getBoard());
     view = new DigitalReversiWindow(model);
@@ -43,15 +43,33 @@ public class KeyInteractionsTest {
         model.skipCurrentTurn();
       }
     });
+  }
+
+  /**
+   * tests that when S is pressed, the model skips a turn.
+   */
+  @Test
+  public void testPressSSkips() {
     KeyListener listener = view.getListener();
-    Robot r = new Robot();
-    r.keyPress(KeyEvent.VK_S);
     listener.keyTyped(new KeyEvent((Component) view, 0, System.currentTimeMillis(),
             0,
             KeyEvent.VK_S,
-            's' ));
+            's'));
 
     Assert.assertTrue(log.toString().contains("Turn skipped"));
 
+  }
+
+
+
+  @Test
+  public void testPressPPlaces() {
+    KeyListener listener = view.getListener();
+    listener.keyTyped(new KeyEvent((Component) view, 0, System.currentTimeMillis(),
+            0,
+            KeyEvent.VK_P,
+            'p'));
+    String thing = System.out.toString();
+    Assert.assertNotEquals("No disc selected to place.", thing);
   }
 }
