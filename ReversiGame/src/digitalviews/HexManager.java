@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
+
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
@@ -67,22 +68,20 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     List<Coordinate> allCoordinates = model.getAllCoordinates();
     for (Coordinate logicalCoord : allCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (2 * model.getBoardRadius() + 1);
-      if(highlightedCord.isPresent()) {
+      if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           hexagons.add(
-                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                          Color.CYAN, hexLength));
-        }
-        else {
+                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
+                          , centerCordY, Color.CYAN, hexLength));
+        } else {
           hexagons.add(
-                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                          Color.LIGHT_GRAY, hexLength));
+                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
+                          , centerCordY, Color.LIGHT_GRAY, hexLength));
         }
-      }
-       else {
+      } else {
         hexagons.add(
-            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                Color.LIGHT_GRAY, hexLength));
+                new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
+                        , centerCordY, Color.LIGHT_GRAY, hexLength));
       }
     }
   }
@@ -96,6 +95,10 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     return false;
   }
 
+  /**
+   * paints this JPanel onto the graphics.
+   * @param g the <code>Graphics</code> object to protect
+   */
   @Override
   protected void paintComponent(Graphics g) {
     final Graphics2D g2d = (Graphics2D) g;
@@ -112,10 +115,18 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     }
   }
 
+  /**
+   * Returns the (Q,R,S) coordinate of the current cell that is highlighted.
+   *
+   * @return the current highlighted cell on the board.
+   */
   public Optional<Coordinate> getHighlightedCord() {
     return highlightedCord;
   }
 
+  /**
+   * Signals the view to draw or redraw itself.
+   */
   @Override
   public void refresh() {
     this.repaint();

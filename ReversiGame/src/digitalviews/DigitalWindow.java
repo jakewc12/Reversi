@@ -17,17 +17,8 @@ public interface DigitalWindow {
   void refresh();
 
   /**
-   * Provide the view with a callback option to process a command.
-   *
-   * @param callback object
+   * Adds features to the window to allow for key interaction.
+   * @param features the features to be added to the view.
    */
-  void setCommandCallback(Consumer<String> callback);
-
-  /**
-   * Transmit an error message to the view, in case the command could not be processed correctly.
-   *
-   * @param error The error message that should be transmitted.
-   */
-  void showErrorMessage(String error);
   void addFeaturesListener(Features features);
 }
