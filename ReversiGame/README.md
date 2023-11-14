@@ -80,13 +80,19 @@ ReadOnlyReversiModel.
     to check if there are any legal moves left for the current player and if a given move is legal.
     In the previous part, we handled this in the placeDisc() method, however, the homework page
     advised we view this as an observation instead of an operation so we added new methods to check
-    legality of moves.
+    legality of moves. Some other changes we made to the project is that we added a Coordinate
+    class, which allowed us to check the coordinates of each hex in a more effective matter. 
+    We also added the Features interface which allows the view to use key actions to make moves.
 
 To make moves, the commands are 'p' to place a disc at the highlighted disc location and 
 's' to skip turn. If the move is not legal, it will not change the rendering of the board and will
 not make any moves. Currently, if a hexagon is clicked, then a System.out occurs that prints out
 its coordinate locations in (Q,R,S) form. ex (0,0,0). A hexagon can be un-highlighted by clicking
 on anywhere on the screen, including the same hexagon.
+
+Breaking a tie for strategy: For our strategy, in the event of a tie, we broke this tie by choosing
+the coordinate with the most negative R coordinate and Q coordinate closest to 0. This would
+represent the top-left most coordintae.
 
 
 

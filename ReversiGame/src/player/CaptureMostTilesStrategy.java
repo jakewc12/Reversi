@@ -38,7 +38,6 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
           currentBestMove = currentCoord;
         }
       }
-
       highestFlips = currentNumFlips;
     }
     if (highestFlips == 0) {

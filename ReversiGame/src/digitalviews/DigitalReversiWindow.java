@@ -70,6 +70,12 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   @Override
   public void addFeaturesListener(Features features){
     this.addKeyListener(new KeyListener() {
+      /**
+       * interacts with features to make a move to the model depending on the key pressed.
+       * If key pressed is 'p', then the model will make a move where ever the highlighted cell is.
+       * If the key is 's', then the model will skip the current turn.
+       * @param e the event to be processed
+       */
       @Override
       public void keyTyped(KeyEvent e) {
         if(e.getKeyChar()=='p'){
