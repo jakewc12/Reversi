@@ -83,6 +83,8 @@ ReadOnlyReversiModel.
     legality of moves. Some other changes we made to the project is that we added a Coordinate
     class, which allowed us to check the coordinates of each hex in a more effective matter. 
     We also added the Features interface which allows the view to use key actions to make moves.
+    Lastly, we added one method to the model to check how many discs would be flipped given 
+    a specified coordinate.
 
 To make moves, the commands are 'p' to place a disc at the highlighted disc location and 
 's' to skip turn. If the move is not legal, it will not change the rendering of the board and will

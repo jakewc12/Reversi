@@ -1,6 +1,8 @@
 package digitalviews;
 
 
+import java.awt.event.KeyListener;
+
 import controller.Features;
 
 /**
@@ -25,4 +27,10 @@ public interface DigitalWindow {
    * @param features the features to be added to the view.
    */
   void addFeaturesListener(Features features);
+
+  /**
+   * returns the key listener of the view.
+   * @return the key listener.
+   */
+  KeyListener getListener();
 }
