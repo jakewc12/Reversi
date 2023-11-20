@@ -1,5 +1,6 @@
 package player;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import model.Coordinate;
@@ -22,6 +23,8 @@ public class ComputerPlayer implements Player {
    * @param strategy The strategy the AI will follow when playing its turn.
    */
   public ComputerPlayer(DiscColor color, ReversiStrategy strategy) {
+    Objects.requireNonNull(color);
+    Objects.requireNonNull(strategy);
     this.color = color;
     this.strategy = strategy;
   }

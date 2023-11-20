@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -59,7 +59,6 @@ public class KeyInteractionsTest {
     Assert.assertTrue(log.toString().contains("Turn skipped"));
 
   }
-
 
 
   @Test

@@ -102,7 +102,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
           if (manager.getHighlightedCord().isPresent()) {
             System.out.println("Placed disc at " + manager.getHighlightedCord().get());
             features.placeDisc(manager.getHighlightedCord().get());
-          }else{
+          } else {
             System.out.println("No disc selected to place.");
           }
         } else if (e.getKeyChar() == 's') {

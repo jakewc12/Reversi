@@ -92,10 +92,14 @@ not make any moves. Currently, if a hexagon is clicked, then a System.out occurs
 its coordinate locations in (Q,R,S) form. ex (0,0,0). A hexagon can be un-highlighted by clicking
 on anywhere on the screen, including the same hexagon.
 
-Breaking a tie for strategy: For our strategy, in the event of a tie, we broke this tie by choosing
-the coordinate with the most negative R coordinate and Q coordinate closest to 0. This would
-represent the top-left most coordintae.
 
+The Strategy that we implemented to capture the most tiles in a turn was implemented in the
+CaptureMostTilesStrategy class. It is designed to go through every legal move for the given player
+and return the coordinate of the title that would capture the highest number of discs in a turn.
+Breaking a tie for strategy: For our strategy
+, in the event of a tie, we broke this tie by choosing
+the coordinate with the most negative R coordinate and Q coordinate closest to 0. This would
+represent the top-left most coordinate.
 
 
 Screenshots:
