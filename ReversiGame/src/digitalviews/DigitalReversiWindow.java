@@ -6,18 +6,19 @@ import java.awt.BorderLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import controller.Features;
 import model.ReadOnlyReversiModel;
+import player.Player;
 
 /**
  * DigitalReversiWindow represents the GUI rendering of the Reversi.
  */
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
-  private ReadOnlyReversiModel model;
+  private final ReadOnlyReversiModel model;
   private HexManager manager;
-  private DigitalWindow window = this;
+  private final DigitalWindow window = this;
   private KeyListener listener;
 
   /**
@@ -128,5 +129,14 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   @Override
   public KeyListener getListener() {
     return this.listener;
+  }
+
+  /**
+   * tells the player the error.
+   */
+  @Override
+  public void showErrorMessage(Player player) {
+    JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getColor());
+
   }
 }

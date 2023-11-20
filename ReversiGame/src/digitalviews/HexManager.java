@@ -14,6 +14,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
+import player.Player;
 
 /**
  * The HexManager class manages the display and interaction of hexagonal tiles on a JPanel for a

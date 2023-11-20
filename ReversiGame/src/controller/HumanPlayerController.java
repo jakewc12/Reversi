@@ -1,18 +1,22 @@
 package controller;
 
+import java.util.Objects;
+
 import digitalviews.DigitalWindow;
 
 
 import model.Coordinate;
 import model.MutableReversiModel;
+import player.Player;
 
 /**
  * allows for the model to be played using the view.
  */
-public class MutableReversiController implements ReversiControllerInterface, Features {
+public class HumanPlayerController implements ReversiControllerInterface, Features {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
+  private final Player player;
 
   /**
    * creates a new MutableReversiController.
@@ -20,10 +24,13 @@ public class MutableReversiController implements ReversiControllerInterface, Fea
    * @param model the model to be played.
    * @param view  the view of the mode..
    */
-  public MutableReversiController(MutableReversiModel model, DigitalWindow view) {
+  public HumanPlayerController(MutableReversiModel model, Player player, DigitalWindow view) {
+    Objects.requireNonNull(model);
     this.model = model;
     this.view = view;
+    this.player = player;
     view.addFeaturesListener(this);
+    System.out.println("view added features");
   }
 
   /**
@@ -42,11 +49,15 @@ public class MutableReversiController implements ReversiControllerInterface, Fea
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    try {
-      model.placeDisc(coordinate);
-    } catch (Exception ignore) {
-      //if the move is illegal.
+    if (this.player.getColor().equals(model.getCurrentTurn())) {
+      try {
+        model.placeDisc(coordinate);
+      } catch (Exception ignore) {
+        //if the move is illegal.
+        view.showErrorMessage(this.player);
+      }
     }
+    this.run();
   }
 
   /**

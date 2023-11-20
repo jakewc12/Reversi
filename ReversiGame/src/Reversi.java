@@ -1,7 +1,15 @@
+import controller.HumanPlayerController;
+import controller.MachinePlayerController;
+import controller.ReversiControllerInterface;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
+import model.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
+import player.CaptureMostTilesStrategy;
+import player.ComputerPlayer;
+import player.HumanPlayer;
+import player.Player;
 
 /**
  * The Reversi class serves as the main entry point for the Reversi game application. It initializes
@@ -22,8 +30,17 @@ public final class Reversi {
     MutableReversiModel model = new MutableReversi(3);
     model.startGame(model.getBoard());
 
+
     // Initialize the DigitalReversiWindow view
-    DigitalWindow view = new DigitalReversiWindow(model);
-    view.makeVisible();
+    DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
+    DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
+    viewPlayer1.makeVisible();
+    viewPlayer2.makeVisible();
+    Player player1 = new HumanPlayer(model, DiscColor.WHITE);
+    Player player2 = new HumanPlayer(model, DiscColor.BLACK);
+    ReversiControllerInterface controller1 = new HumanPlayerController(model, player1, viewPlayer1);
+    ReversiControllerInterface controller2 = new HumanPlayerController(model, player2, viewPlayer2);
+    controller1.run();
+    controller2.run();
   }
 }

@@ -4,6 +4,7 @@ package digitalviews;
 import java.awt.event.KeyListener;
 
 import controller.Features;
+import player.Player;
 
 /**
  * All the methods for the window.
@@ -33,4 +34,9 @@ public interface DigitalWindow {
    * @return the key listener.
    */
   KeyListener getListener();
+
+  /**
+   * tells the player the error.
+   */
+  void showErrorMessage(Player player);
 }
