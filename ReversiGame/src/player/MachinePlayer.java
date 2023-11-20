@@ -10,7 +10,7 @@ import model.MutableReversiModel;
 /**
  * An AI that plays a game of reversi according to the strategy given to it.
  */
-public class ComputerPlayer implements Player {
+public class MachinePlayer implements Player {
 
   private DiscColor color;
   private ReversiStrategy strategy;
@@ -22,7 +22,7 @@ public class ComputerPlayer implements Player {
    *                 recognition.
    * @param strategy The strategy the AI will follow when playing its turn.
    */
-  public ComputerPlayer(DiscColor color, ReversiStrategy strategy) {
+  public MachinePlayer(DiscColor color, ReversiStrategy strategy) {
     Objects.requireNonNull(color);
     Objects.requireNonNull(strategy);
     this.color = color;
