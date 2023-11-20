@@ -3,7 +3,7 @@ package controller;
 /**
  * The controller for reversi.
  */
-public interface ReversiControllerInterface {
+public interface ReversiController {
 
   /**
    * Start the program, i.e. give control to the controller

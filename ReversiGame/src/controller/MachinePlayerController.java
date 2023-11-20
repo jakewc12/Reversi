@@ -8,7 +8,7 @@ import model.ModelFeatures;
 import model.MutableReversiModel;
 import player.Player;
 
-public class MachinePlayerController implements ReversiControllerInterface, Features, ModelFeatures {
+public class MachinePlayerController implements ReversiController, Features, ModelFeatures {
   private final MutableReversiModel model;
   private final Player player;
   private final DigitalWindow view;
@@ -42,7 +42,7 @@ public class MachinePlayerController implements ReversiControllerInterface, Feat
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    player.playMove(model);
+    //machine play moves is handled in the notifyPlayerItsTurn
   }
 
   /**

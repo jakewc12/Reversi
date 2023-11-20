@@ -13,7 +13,7 @@ import player.Player;
 /**
  * allows for the model to be played using the view.
  */
-public class HumanPlayerController implements ReversiControllerInterface, Features, ModelFeatures {
+public class HumanPlayerController implements ReversiController, Features, ModelFeatures {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
