@@ -112,7 +112,6 @@ public class MutableReversi implements MutableReversiModel {
       //throw new IllegalStateException("Cannot place a disc on an occupied disc");
       return false;
     }
-    this.getDiscAt(q, r, s).changeColorTo(getCurrentTurn());
     if (getAllFlips(getHexAt(q, r, s), getCurrentTurn()).isEmpty()) {
       this.getDiscAt(q, r, s).changeColorTo(DiscColor.GREY);
       return false;
@@ -231,7 +230,7 @@ public class MutableReversi implements MutableReversiModel {
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
 
-    for (int i = 1; i < line.size(); i++) {
+    for (int i = 0; i < line.size(); i++) {
       Disc disc = line.get(i).cellContents();
       if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY) {
         current.add(disc);
@@ -257,9 +256,9 @@ public class MutableReversi implements MutableReversiModel {
    */
   private ArrayList<Disc> getAllFlips(HexagonCell targetCell, DiscColor currentColor) {
     ArrayList<Disc> toFlip = new ArrayList<>();
-    final DiscColor originalColor = targetCell.cellContents().getColor();
-    targetCell.cellContents().changeColorTo(currentColor);
-
+  if(targetCell.cellContents().getColor() != DiscColor.GREY){
+    return toFlip;
+  }
     //Check Horizontal
     toFlip.addAll(
         getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT), currentColor));
@@ -278,7 +277,6 @@ public class MutableReversi implements MutableReversiModel {
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
         currentColor));
 
-    targetCell.cellContents().changeColorTo(originalColor);
 
     return toFlip;
   }
@@ -340,6 +338,7 @@ public class MutableReversi implements MutableReversiModel {
     for (Disc disc : flipDiscs) {
       disc.flipDisc();
     }
+    getDiscAt(q,r,s).changeColorTo(getCurrentTurn());
     if (blacksTurn) {
       numWhiteTiles -= flipDiscs.size();
       numBlackTiles += flipDiscs.size() + 1;
