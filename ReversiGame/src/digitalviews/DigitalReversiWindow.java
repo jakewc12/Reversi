@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import javax.swing.*;
 
 import controller.Features;
+import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
 
@@ -70,7 +71,15 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     manager.refresh();
     this.setTitle("Reversi - " + model.getCurrentTurn().toString() + "'s Turn");
     if (model.gameOver()) {
-      this.setTitle("Game Over!");
+      String winner;
+      if(model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)){
+        winner = " Winner is WHITE";
+      }else if(model.checkScoreOfPlayer(DiscColor.BLACK)>model.checkScoreOfPlayer(DiscColor.WHITE)){
+        winner = " Winner is BLACK";
+      }else{
+        winner = " TIE";
+      }
+      this.setTitle("Game Over!" + winner);
     }
     this.repaint();
   }
