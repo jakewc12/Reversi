@@ -23,4 +23,5 @@ public interface MutableReversiModel extends ReadOnlyReversiModel {
    */
   void skipCurrentTurn();
 
+  void addFeaturesInterface(ModelFeatures features);
 }

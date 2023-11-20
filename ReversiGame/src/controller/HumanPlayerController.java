@@ -6,13 +6,14 @@ import digitalviews.DigitalWindow;
 
 
 import model.Coordinate;
+import model.ModelFeatures;
 import model.MutableReversiModel;
 import player.Player;
 
 /**
  * allows for the model to be played using the view.
  */
-public class HumanPlayerController implements ReversiControllerInterface, Features {
+public class HumanPlayerController implements ReversiControllerInterface, Features, ModelFeatures {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
@@ -30,7 +31,7 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
     this.view = view;
     this.player = player;
     view.addFeaturesListener(this);
-    System.out.println("view added features");
+    model.addFeaturesInterface(this);
   }
 
   /**
@@ -66,5 +67,10 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
   @Override
   public void skipTurn() {
     model.skipCurrentTurn();
+  }
+
+  @Override
+  public void notifyPlayerItsTurn() {
+    this.run();
   }
 }

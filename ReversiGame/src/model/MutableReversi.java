@@ -18,6 +18,7 @@ public class MutableReversi implements MutableReversiModel {
   private boolean gameStarted;
   private int numBlackTiles;
   private int numWhiteTiles;
+  private List<ModelFeatures> features = new ArrayList<>();
   private List<HexagonCell> cells = new ArrayList<>();
 
   /**
@@ -347,6 +348,7 @@ public class MutableReversi implements MutableReversiModel {
       numBlackTiles -= flipDiscs.size();
     }
     blacksTurn = !blacksTurn;
+    updateFeaturesInterface();
   }
 
   /**
@@ -358,6 +360,7 @@ public class MutableReversi implements MutableReversiModel {
   public void skipCurrentTurn() {
     checkGameStarted();
     blacksTurn = !blacksTurn;
+    updateFeaturesInterface();
   }
 
   private Disc getDiscAt(int q, int r, int s) {
@@ -469,4 +472,15 @@ public class MutableReversi implements MutableReversiModel {
     return !checkGivenPlayerHasLegalMoveLeft(blacksTurn) && !checkGivenPlayerHasLegalMoveLeft(
         !blacksTurn);
   }
+
+  public void addFeaturesInterface(ModelFeatures features) {
+    //when move is made,
+    this.features.add(features);
+  }
+  private void updateFeaturesInterface(){
+    for(ModelFeatures features : features){
+      features.notifyPlayerItsTurn();
+    }
+  }
+
 }
