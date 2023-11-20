@@ -17,7 +17,7 @@ import model.Coordinate;
 import model.DiscColor;
 import model.MockMutableReversiModel;
 import player.GoForCornersStrategy;
-import player.ComputerPlayer;
+import player.MachinePlayer;
 import player.Player;
 import player.ReversiStrategy;
 
@@ -37,7 +37,7 @@ public class CornerStrategyTests {
   public void init() {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    player = new ComputerPlayer(DiscColor.BLACK, new GoForCornersStrategy());
+    player = new MachinePlayer(DiscColor.BLACK, new GoForCornersStrategy());
     strategy = new GoForCornersStrategy();
   }
 

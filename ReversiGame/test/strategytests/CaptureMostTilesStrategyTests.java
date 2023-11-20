@@ -6,7 +6,7 @@ import model.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import player.ComputerPlayer;
+import player.MachinePlayer;
 import player.CaptureMostTilesStrategy;
 import player.Player;
 import player.ReversiStrategy;
@@ -29,8 +29,8 @@ public class CaptureMostTilesStrategyTests {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     ReversiStrategy strategy = new CaptureMostTilesStrategy();
-    whiteAI = new ComputerPlayer(DiscColor.WHITE, strategy);
-    blackAI = new ComputerPlayer(DiscColor.BLACK, strategy);
+    whiteAI = new MachinePlayer(DiscColor.WHITE, strategy);
+    blackAI = new MachinePlayer(DiscColor.BLACK, strategy);
   }
 
   /**
