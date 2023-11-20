@@ -18,12 +18,14 @@ public class PlayerController implements  ReversiControllerInterface, Features{
     this.model = model;
     this.player = player;
     this.view = view;
+
   }
   /**
    * Start the program, i.e. give control to the controller
    */
   @Override
   public void run() {
+    //if it is a human player, use view to choose moves. if it is a machine player, use player to choose move
     this.view.refresh();
     this.view.makeVisible();
   }
