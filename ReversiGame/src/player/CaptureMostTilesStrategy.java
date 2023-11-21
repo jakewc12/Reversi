@@ -29,9 +29,6 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
     int highestFlips = 0;
 
     for (Coordinate currentCoord : allCoords) {
-      if (model.getColorAt(currentCoord) != DiscColor.GREY) {
-        continue;
-      }
       int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getColor());
       if (highestFlips > currentNumFlips || currentNumFlips == 0) {
         continue;

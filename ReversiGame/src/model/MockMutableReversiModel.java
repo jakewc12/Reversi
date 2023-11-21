@@ -114,7 +114,7 @@ public class MockMutableReversiModel extends MutableReversi {
    */
   @Override
   public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
-    append("Checked legal at " + coordinate.toString() + " ");
+    append("Checked legal at " + coordinate.toString());
     return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 

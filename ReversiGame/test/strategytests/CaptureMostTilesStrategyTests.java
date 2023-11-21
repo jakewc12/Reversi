@@ -1,5 +1,7 @@
 package strategytests;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
 import model.MockMutableReversiModel;
@@ -41,7 +43,6 @@ public class CaptureMostTilesStrategyTests {
     model.startGame(model.getBoard());
     whiteAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (1, -2, 1)"));
-    //Assert.assertEquals("Place disc called at (1, -2, 1)\n", log.toString());
   }
 
   /**
@@ -51,7 +52,6 @@ public class CaptureMostTilesStrategyTests {
   public void GoesForMostTiles() {
     model.startGame(model.getBoard());
     blackAI.playMove(model);
-    System.out.println(log.toString());
     model.skipCurrentTurn();
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (1, -2, 1)"));
@@ -114,6 +114,18 @@ public class CaptureMostTilesStrategyTests {
     whiteAI.playMove(model);
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Turn skipped"));
+  }
+  @Test
+  public void checksAllPossibleMovesOnBoard() {
+    StringBuilder expected = new StringBuilder();
+    model.startGame(model.getBoard());
+    List<Coordinate> allCoords = model.getAllCoordinates();
+    for(Coordinate coordinate: allCoords){
+      expected.append("Checked legal at ").append(coordinate).append("\n");
+    }
+    expected.append("Place disc called at (1, -2, 1)\n");
+    blackAI.playMove(model);
+    Assert.assertEquals(expected.toString(),log.toString());
   }
 }
 
