@@ -59,13 +59,13 @@ public class CornerStrategyTests {
   public void testNoCornersEmptyReturnsEmptyOptionalMove() {
     List<HexagonCell> filledBoard = new ArrayList<>();
     model = new MockMutableReversiModel(1, log);
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(0, 0, 0)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(-1, 1, 0)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(-1, 0, 1)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(1, -1, 0)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(0, -1, 1)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(0, 1, -1)));
-    filledBoard.add(new GameCell(new GameDisc(DiscColor.BLACK), new Coordinate(1, 0, -1)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, 0, 0)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(-1, 1, 0)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(-1, 0, 1)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(1, -1, 0)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, -1, 1)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, 1, -1)));
+    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(1, 0, -1)));
     model.startGame(filledBoard);
     Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
 

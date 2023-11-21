@@ -70,16 +70,16 @@ public class MutableReversi implements MutableReversiModel {
             Coordinate currentCoord = new Coordinate(q, r, s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.BLACK), currentCoord);
+              GameCell newCell = new GameCell(DiscColor.BLACK, currentCoord);
               localCells.add(newCell);
               numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                 && r == 0 && s == 1)) {
-              GameCell newCell = new GameCell(new GameDisc(DiscColor.WHITE), currentCoord);
+              GameCell newCell = new GameCell(DiscColor.WHITE, currentCoord);
               localCells.add(newCell);
               numWhiteTiles++;
             } else {
-              localCells.add(new GameCell(new GameDisc(DiscColor.GREY), currentCoord));
+              localCells.add(new GameCell(DiscColor.GREY, currentCoord));
             }
           }
         }

@@ -24,13 +24,15 @@ public class GameCell implements HexagonCell {
    * @param coordinate the game cells coordinate.
    */
 
-  public GameCell(Disc contents, Coordinate coordinate) {
+  public GameCell(DiscColor contents, Coordinate coordinate) {
     if (contents == null) {
       throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
     }
-    this.contents = contents;
+    this.contents = new GameDisc(contents);
     this.coordinate = coordinate;
   }
+
+
 
   private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
     coordinate = new Coordinate(coordinateQ, coordinateR, coordinateS);

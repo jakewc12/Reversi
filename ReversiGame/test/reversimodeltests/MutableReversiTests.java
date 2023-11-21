@@ -238,8 +238,7 @@ public class MutableReversiTests {
     List<HexagonCell> board = new ArrayList<>();
     List<HexagonCell> preMadeBoard = game.getBoard();
     for (HexagonCell cell: preMadeBoard) {
-      GameDisc disc = new GameDisc(DiscColor.BLACK);
-      board.add(new GameCell(disc,cell.getCoordinate()));
+      board.add(new GameCell(DiscColor.BLACK,cell.getCoordinate()));
     }
     game.startGame(board);
     Assert.assertTrue(game.gameOver());
