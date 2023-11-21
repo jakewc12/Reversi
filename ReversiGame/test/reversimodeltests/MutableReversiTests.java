@@ -1,8 +1,14 @@
 package reversimodeltests;
 
+import com.google.common.collect.Table.Cell;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
+import model.GameCell;
+import model.GameDisc;
+import model.HexagonCell;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
@@ -229,14 +235,13 @@ public class MutableReversiTests {
    */
   @Test
   public void testGameOverWhenAllSpotsFilled() {
-    try {
-      Constructor<MutableReversi> pcc = MutableReversi.class.getDeclaredConstructor(int.class,
-          boolean.class);
-      pcc.setAccessible(true);
-      game = pcc.newInstance(1, true);
-    } catch (Exception e) {
-      throw new RuntimeException("an error occurred when trying to access the private constructor");
+    List<HexagonCell> board = new ArrayList<>();
+    List<HexagonCell> preMadeBoard = game.getBoard();
+    for (HexagonCell cell: preMadeBoard) {
+      GameDisc disc = new GameDisc(DiscColor.BLACK);
+      board.add(new GameCell(disc,cell.getCoordinate()));
     }
+    game.startGame(board);
     Assert.assertTrue(game.gameOver());
   }
 
