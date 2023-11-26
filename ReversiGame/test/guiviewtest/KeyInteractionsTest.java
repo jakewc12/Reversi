@@ -1,24 +1,23 @@
 package guiviewtest;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.awt.Component;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import controller.Features;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
+import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import model.Coordinate;
 import model.MockMutableReversiModel;
 import model.MutableReversiModel;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * tests issues with key interactions of the DigitalWindow.
  */
 public class KeyInteractionsTest {
+
   private MutableReversiModel model;
   private Appendable log;
   private DigitalWindow view;
@@ -51,10 +50,8 @@ public class KeyInteractionsTest {
   @Test
   public void testPressSSkips() {
     KeyListener listener = view.getListener();
-    listener.keyTyped(new KeyEvent((Component) view, 0, System.currentTimeMillis(),
-            0,
-            KeyEvent.VK_S,
-            's'));
+    listener.keyTyped(
+        new KeyEvent((Component) view, 0, System.currentTimeMillis(), 0, KeyEvent.VK_S, 's'));
 
     Assert.assertTrue(log.toString().contains("Turn skipped"));
 
@@ -62,12 +59,10 @@ public class KeyInteractionsTest {
 
 
   @Test
-  public void testPressPPlaces() {
+  public void testKeyPressedPlaces() {
     KeyListener listener = view.getListener();
-    listener.keyTyped(new KeyEvent((Component) view, 0, System.currentTimeMillis(),
-            0,
-            KeyEvent.VK_P,
-            'p'));
+    listener.keyTyped(
+        new KeyEvent((Component) view, 0, System.currentTimeMillis(), 0, KeyEvent.VK_P, 'p'));
     String thing = System.out.toString();
     Assert.assertNotEquals("No disc selected to place.", thing);
   }

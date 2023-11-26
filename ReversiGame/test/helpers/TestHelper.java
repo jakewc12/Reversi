@@ -5,9 +5,9 @@ import textualview.ReversiTextualView;
 import textualview.TextualView;
 
 /**
- * The TestHelper class provides helper methods for testing purposes in a Reversi game.
- * It includes a method to print the current state of the game board to the console. Although not
- * integrated into any tests it sees active use during development.
+ * The TestHelper class provides helper methods for testing purposes in a Reversi game. It includes
+ * a method to print the current state of the game board to the console. Although not integrated
+ * into any tests it sees active use during development.
  */
 public class TestHelper {
 

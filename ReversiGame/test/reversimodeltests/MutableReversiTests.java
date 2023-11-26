@@ -234,8 +234,8 @@ public class MutableReversiTests {
   public void testGameOverWhenAllSpotsFilled() {
     List<HexagonCell> board = new ArrayList<>();
     List<HexagonCell> preMadeBoard = game.getBoard();
-    for (HexagonCell cell: preMadeBoard) {
-      board.add(new GameCell(DiscColor.BLACK,cell.getCoordinate()));
+    for (HexagonCell cell : preMadeBoard) {
+      board.add(new GameCell(DiscColor.BLACK, cell.getCoordinate()));
     }
     game.startGame(board);
     Assert.assertTrue(game.gameOver());

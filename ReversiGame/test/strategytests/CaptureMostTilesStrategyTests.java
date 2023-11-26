@@ -1,6 +1,5 @@
 package strategytests;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
@@ -8,8 +7,8 @@ import model.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import player.MachinePlayer;
 import player.CaptureMostTilesStrategy;
+import player.MachinePlayer;
 import player.Player;
 import player.ReversiStrategy;
 
@@ -115,17 +114,18 @@ public class CaptureMostTilesStrategyTests {
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Turn skipped"));
   }
+
   @Test
   public void checksAllPossibleMovesOnBoard() {
     StringBuilder expected = new StringBuilder();
     model.startGame(model.getBoard());
     List<Coordinate> allCoords = model.getAllCoordinates();
-    for(Coordinate coordinate: allCoords){
+    for (Coordinate coordinate : allCoords) {
       expected.append("Checked legal at ").append(coordinate).append("\n");
     }
     expected.append("Place disc called at (1, -2, 1)\n");
     blackAI.playMove(model);
-    Assert.assertEquals(expected.toString(),log.toString());
+    Assert.assertEquals(expected.toString(), log.toString());
   }
 }
 

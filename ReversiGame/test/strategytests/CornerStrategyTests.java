@@ -6,7 +6,6 @@ import java.util.Optional;
 import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
-import model.GameDisc;
 import model.HexagonCell;
 import model.MockMutableReversiModel;
 import org.junit.Assert;
@@ -48,7 +47,7 @@ public class CornerStrategyTests {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     model.startGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(-3, 0, 3),DiscColor.BLACK);
+    model.forcePlaceDisc(new Coordinate(-3, 0, 3), DiscColor.BLACK);
     Assert.assertNotEquals(oldLog, log.toString());
   }
 

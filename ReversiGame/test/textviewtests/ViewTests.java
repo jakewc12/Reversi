@@ -1,15 +1,12 @@
 package textviewtests;
 
 import java.io.IOException;
-
 import model.Coordinate;
 import model.MutableReversi;
 import model.MutableReversiModel;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import textualview.ReversiTextualView;
 import textualview.TextualView;
 
