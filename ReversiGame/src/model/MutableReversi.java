@@ -16,8 +16,6 @@ public class MutableReversi implements MutableReversiModel {
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
-  private int numBlackTiles;
-  private int numWhiteTiles;
   private List<ModelFeatures> features = new ArrayList<>();
   private List<HexagonCell> cells = new ArrayList<>();
 
@@ -36,12 +34,6 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = false;
   }
 
-  /**
-   * Initializes all values.
-   *
-   * @throws IllegalArgumentException if size is negative.
-   * @throws IllegalStateException    if the game has already started.
-   */
   @Override
   public void startGame(List<HexagonCell> board) {
     if (gameStarted) {
@@ -55,11 +47,7 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
-  /**
-   * Size is means the distance from an edge cell to the middle most cell. for example, if a board
-   * has a total height of 7 cells, size would be 3 cells. Also changes numBlackCells and
-   * numWhitesCells whenever a black or white cell is added
-   */
+
   @Override
   public List<HexagonCell> getBoard() {
     List<HexagonCell> localCells = new ArrayList<>();
@@ -72,12 +60,10 @@ public class MutableReversi implements MutableReversiModel {
                 && s == 0)) {
               GameCell newCell = new GameCell(DiscColor.BLACK, currentCoord);
               localCells.add(newCell);
-              numBlackTiles++;
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
                 && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(DiscColor.WHITE, currentCoord);
               localCells.add(newCell);
-              numWhiteTiles++;
             } else {
               localCells.add(new GameCell(DiscColor.GREY, currentCoord));
             }
@@ -92,7 +78,6 @@ public class MutableReversi implements MutableReversiModel {
   public boolean isLegalMove(Coordinate coordinate) {
     checkValidCoordinates(coordinate);
     if (this.getDiscAt(coordinate).getColor() != DiscColor.GREY) {
-      //throw new IllegalStateException("Cannot place a disc on an occupied disc");
       return false;
     }
     if (getAllFlips(getHexAt(coordinate), getCurrentTurn()).isEmpty()) {
@@ -109,14 +94,13 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int checkScoreOfPlayer(DiscColor color) {
-    //there should be a better way to update score. maybe everytime a move is made, update it then
-    //instead of doing this.
-    if (color == DiscColor.BLACK) {
-      return numBlackTiles;
-    } else {
-      return numWhiteTiles;
+    int count = 0;
+    for (Coordinate coordinate : getAllCoordinates()) {
+      if (getColorAt(coordinate) == color) {
+        count++;
+      }
     }
-
+    return count;
   }
 
   /**
@@ -146,13 +130,12 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private void checkValidCoordinates(Coordinate coord) {
-    int q = coord.getIntQ();
-    int r = coord.getIntR();
-    int s = coord.getIntS();
-    if (Math.abs(q) > size || Math.abs(r) > size || Math.abs(s) > size || ((q + r + s) != 0)) {
+    int total = coord.getIntQ() + coord.getIntS() + coord.getIntR();
+    if (Math.abs(coord.getIntQ()) > size || Math.abs(coord.getIntR()) > size
+        || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
       throw new IllegalArgumentException(
-          "Invalid coordinates given. Max coordinate size is: " + size + "\n coordinates were (" + q
-              + ", " + r + ", " + s + ")");
+          "Invalid coordinates given for size. Max coordinate size is: " + size + "\n coordinates "
+              + "were " + coord);
     }
   }
 
@@ -186,12 +169,11 @@ public class MutableReversi implements MutableReversiModel {
    * @return discs which can be flipped if the move is legal
    */
   private ArrayList<Disc> getInLineFlipsPossible(List<HexagonCell> line, DiscColor currentColor) {
-    //DiscColor currentColor = getCurrentTurn();
     ArrayList<Disc> toFlip = new ArrayList<>();
     ArrayList<Disc> current = new ArrayList<>();
 
-    for (int i = 0; i < line.size(); i++) {
-      Disc disc = line.get(i).cellContents();
+    for (HexagonCell hexagonCell : line) {
+      Disc disc = hexagonCell.cellContents();
       if (disc.getColor() != currentColor && disc.getColor() != DiscColor.GREY) {
         current.add(disc);
       }
@@ -243,9 +225,6 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
     checkGameStarted();
-    // currently may not work as intended because disc is not place at coordinates. if this does
-    // not work then edit the getAll flips function to place disc at desired location then remove
-    // it when its done getting the flips
     HexagonCell targetCell = getHexAt(coordinate);
     return getAllFlips(targetCell, playerColor).size();
   }
@@ -294,22 +273,10 @@ public class MutableReversi implements MutableReversiModel {
       disc.flipDisc();
     }
     getDiscAt(coord).changeColorTo(getCurrentTurn());
-    if (blacksTurn) {
-      numWhiteTiles -= flipDiscs.size();
-      numBlackTiles += flipDiscs.size() + 1;
-    } else {
-      numWhiteTiles += flipDiscs.size() + 1;
-      numBlackTiles -= flipDiscs.size();
-    }
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
   }
 
-  /**
-   * Skip the turn of the current player.
-   *
-   * @throws IllegalStateException if game isn't started.
-   */
   @Override
   public void skipCurrentTurn() {
     checkGameStarted();
@@ -335,26 +302,7 @@ public class MutableReversi implements MutableReversiModel {
     throw new NoSuchElementException("Could not find cell at: " + coord);
   }
 
-  /**
-   * Gets the coordinates of a game cell on the board using a empty game cell that is usually
-   * returned by getCellNeighbor.
-   *
-   * @param cell the cell containing the coordinates you want to find.
-   * @return a GameCell that is in the MutableReversi board.
-   */
-  private HexagonCell getHexAt(HexagonCell cell) {
-    checkValidCoordinates(cell.getCoordinate());
-    return getHexAt(cell.getCoordinate());
-  }
 
-  /**
-   * returns the disc color at the specified coordinate.
-   *
-   * @param coordinate the coordinates for what color you want to get.
-   * @return disc at specified location.
-   * @throws IllegalStateException    if game hasn't started.
-   * @throws IllegalArgumentException coordinates are illegal.
-   */
   @Override
   public DiscColor getColorAt(Coordinate coordinate) {
     checkGameStarted();
@@ -362,12 +310,7 @@ public class MutableReversi implements MutableReversiModel {
     return getDiscAt(coordinate).getColor();
   }
 
-  /**
-   * Returns the color of whos turn it is. This is denoted by DiscColor.
-   *
-   * @return a DiscColor representing who's turn it currently is.
-   * @throws IllegalStateException if game hasn't started.
-   */
+
   @Override
   public DiscColor getCurrentTurn() {
     checkGameStarted();
@@ -378,51 +321,32 @@ public class MutableReversi implements MutableReversiModel {
     }
   }
 
-  /**
-   * Gets the total height of the board.
-   *
-   * @return the total height of the board including empty cells.
-   * @throws IllegalStateException if game hasn't started
-   */
   @Override
   public int getBoardSize() {
     checkGameStarted();
     return getBoardRadius() * 2 + 1;
   }
 
-  /**
-   * Gets the radius of the board from the center cell, not including it.
-   *
-   * @return the total width of the board including empty cells.
-   * @throws IllegalStateException if game hasn't started.
-   */
+
   @Override
   public int getBoardRadius() {
     checkGameStarted();
     return size;
   }
 
-  /**
-   * Checks if the game is over by seeing if all the cells are filled or there are new legal moves
-   * left.
-   *
-   * @return true if the game is over and false there are legal moves to be played.
-   * @throws IllegalStateException if game hasn't started.
-   */
+
   @Override
   public boolean gameOver() {
     checkGameStarted();
     if (checkIfAllCellsFilled()) {
       return true;
     }
-    //if any cell can be made black or white
-    // and have moves then return false and set the color back to grey
+    //if any cell can be made black or white and have moves then return false
     return !checkGivenPlayerHasLegalMoveLeft(blacksTurn) && !checkGivenPlayerHasLegalMoveLeft(
         !blacksTurn);
   }
 
   public void addFeaturesInterface(ModelFeatures features) {
-    //when move is made,
     this.features.add(features);
   }
 
