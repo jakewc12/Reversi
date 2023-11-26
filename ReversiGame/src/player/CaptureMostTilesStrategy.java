@@ -1,10 +1,7 @@
 package player;
 
-import java.util.List;
 import java.util.Optional;
-
 import model.Coordinate;
-import model.DiscColor;
 import model.ReadOnlyReversiModel;
 
 /**
@@ -15,7 +12,8 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
 
   /**
    * When given a model and player the strategy will choose the best move that player can make
-   * according to the strategy.
+   * according to the strategy. This strategy will choose a move based on how many tiles are flipped
+   * to the players color.
    *
    * @param model  the board the player is playing on.
    * @param player the player who is using the strategy.
@@ -23,12 +21,10 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
    */
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
-
-    List<Coordinate> allCoords = model.getAllCoordinates();
-    Coordinate currentBestMove = allCoords.get(0);
+    Coordinate currentBestMove = model.getAllCoordinates().get(0);
     int highestFlips = 0;
 
-    for (Coordinate currentCoord : allCoords) {
+    for (Coordinate currentCoord : model.getAllCoordinates()) {
       int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getColor());
       if (highestFlips > currentNumFlips || currentNumFlips == 0) {
         continue;
@@ -38,7 +34,7 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
       }
       if (highestFlips == currentNumFlips && currentCoord.getIntR() <= currentBestMove.getIntR()) {
         if (currentCoord.getIntR() == currentBestMove.getIntR()
-                && Math.abs(currentCoord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
+            && Math.abs(currentCoord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
           currentBestMove = currentCoord;
         } else if (currentCoord.getIntR() < currentBestMove.getIntR()) {
           currentBestMove = currentCoord;
