@@ -10,8 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import view.ReversiTextualView;
-import view.TextualView;
+import textualview.ReversiTextualView;
+import textualview.TextualView;
 
 
 /**

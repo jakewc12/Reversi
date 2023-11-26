@@ -3,9 +3,9 @@ Board coordinate design is based on https://www.redblobgames.com/grids/hexagons/
     Overview: 
 
 This code is designed to allow the user to play a game of Reversi by interacting with the
-controller, which interacts with the model and view.
+controller, which interacts with the model and textualview.
 Some high level assumptions that can be
-made are that the project is designed on a MVC standard and that the view cannot directly
+made are that the project is designed on a MVC standard and that the textualview cannot directly
 change the model. Also, that only the controller is allowed
 to affect things in the model. Prerequisites for using this code would be understanding all
 of the player move options in the Reversi game.
@@ -25,10 +25,10 @@ its own stored coordinates, in the form of Q,R,S coordinate systems. The model i
 other systems through the skipCurrentTurn() and placeDisc() methods. These methods can be called
 to influence what moves are made and how the board develops and looks like over time.
 
-The view is also controlled by a separate system as it is given a ReadOnly model instead of a
-Mutable model. The view does not influence anything in the model. However, it does drive other
-parts of the system through the Appendable. The Appendable along with the view's render()
-function allow other systems to effectively accept certain things in the view as input.
+The textualview is also controlled by a separate system as it is given a ReadOnly model instead of a
+Mutable model. The textualview does not influence anything in the model. However, it does drive other
+parts of the system through the Appendable. The Appendable along with the textualview's render()
+function allow other systems to effectively accept certain things in the textualview as input.
 
         Key subcomponents: 
 
@@ -50,7 +50,7 @@ GameDisc can be flipped between BLACK and WHITE.
 Invariants in the GameDisc would be that the color will always be either WHITE, BLACK, or GREY
 
 -Within the ReversiTextualView component, there is the ReadOnlyReversiModel. Using the model's
-getColorAt() method, the textual view can build a rendering of the model's board. The view
+getColorAt() method, the textual textualview can build a rendering of the model's board. The textualview
 also had an Appendable which allows it to interact with a controller. It interacts with the
 Appendable through the render function.
 
@@ -70,8 +70,8 @@ folder, you can also find the implementations of the interfaces. The most notabl
 the MutableReversi, which contains the methods to play the game. These would be the startGame(),
 placeDisc(), and skipCurrentTurn() methods along with gameOver().
 
--Things associated with the view can be found in the view folder. This includes the interface for
-the view and ReversiTextualView, which creates a basic textual view based on a
+-Things associated with the textualview can be found in the textualview folder. This includes the interface for
+the textualview and ReversiTextualView, which creates a basic textual textualview based on a
 ReadOnlyReversiModel.
 
     Changes for Part 2: 
@@ -79,10 +79,10 @@ ReadOnlyReversiModel.
     assumed the controller would handle that. We added this to the model. We also added fuctions
     to check if there are any legal moves left for the current player and if a given move is legal.
     In the previous part, we handled this in the placeDisc() method, however, the homework page
-    advised we view this as an observation instead of an operation so we added new methods to check
+    advised we textualview this as an observation instead of an operation so we added new methods to check
     legality of moves. Some other changes we made to the project is that we added a Coordinate
     class, which allowed us to check the coordinates of each hex in a more effective matter. 
-    We also added the Features interface which allows the view to use key actions to make moves.
+    We also added the Features interface which allows the textualview to use key actions to make moves.
     Lastly, we added one method to the model to check how many discs would be flipped given 
     a specified coordinate.
 

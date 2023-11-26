@@ -1,4 +1,4 @@
-package view;
+package textualview;
 
 import java.io.IOException;
 import model.Coordinate;

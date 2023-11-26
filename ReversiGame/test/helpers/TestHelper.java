@@ -1,8 +1,8 @@
 package helpers;
 
 import model.ReadOnlyReversiModel;
-import view.ReversiTextualView;
-import view.TextualView;
+import textualview.ReversiTextualView;
+import textualview.TextualView;
 
 /**
  * The TestHelper class provides helper methods for testing purposes in a Reversi game.

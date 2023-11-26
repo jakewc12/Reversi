@@ -1,21 +1,18 @@
 package reversimodeltests;
 
-import com.google.common.collect.Table.Cell;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
-import model.GameDisc;
 import model.HexagonCell;
 import model.MutableReversi;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import view.ReversiTextualView;
-import view.TextualView;
+import textualview.ReversiTextualView;
+import textualview.TextualView;
 
 /**
  * Test meant for the MutableReversi class. These test should test every method and thrown exception
