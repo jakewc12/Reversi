@@ -22,6 +22,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   private final Color color;
   private Color discColor;
 
+  private final double buffer = 1.85;
+
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
@@ -55,17 +57,25 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   }
 
   /**
-   * Calculates x based on the logical coordinate R and offsets it by the logical coordinate S.
-   * This calculation is also based on the digital center of the board.
+   * Calculates x based on the logical coordinate R and offsets it by the logical coordinate S. This
+   * calculation is also based on the digital center of the board.
+   *
    * @param centerX the center x coordinate of the digital board.
    * @return A double which is the center coordinate of the hex
    */
-  private double calculateX(int centerX){
+  private double calculateX(int centerX) {
     double setCoordX;
+    double offsetX;
+
+    //2 means there will plenty of space between hexes, 1.8 shortens that space
+
+
     //Creates an offset based on the row the hexagon resides in.
-    double offsetX = logicalHexCoord.getIntR() * hexagonRadius * .9;
+    offsetX = logicalHexCoord.getIntR() * hexagonRadius*(buffer/2);
+
     //Calculates the center of the hex using S and the given hexagon radius
-    setCoordX = centerX + (hexagonRadius * 1.8) * (-logicalHexCoord.getIntS());
+    //1.8 is used for smaller space between hexagons
+    setCoordX = centerX + (hexagonRadius * buffer) * (-logicalHexCoord.getIntS());
     setCoordX -= offsetX;
     return setCoordX;
   }
