@@ -14,7 +14,6 @@ import javax.swing.event.MouseInputAdapter;
 
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
-import player.Player;
 
 /**
  * The HexManager class manages the display and interaction of hexagonal tiles on a JPanel for a
@@ -151,7 +150,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       if (hexClicked) {
         for (DrawnHexagonInterface hex : hexagons) {
           if ((Math.abs(e.getY() - hex.getY()) <= 18) && (Math.abs(e.getX() - hex.getX()) <= 18)) {
-            highlightedCord = Optional.ofNullable(hex.getHexCoordinate());
+            highlightedCord = Optional.ofNullable(hex.getLogicalHexCoord());
           }
         }
         highlightedCord.ifPresent(coordinate ->

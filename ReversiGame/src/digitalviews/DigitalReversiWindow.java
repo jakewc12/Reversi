@@ -23,7 +23,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private KeyListener listener;
 
   /**
-   * creates a new DigitalReversiWindow.
+   * Creates a new DigitalReversiWindow that is .
    *
    * @param model the Reversi to be used.
    */
@@ -35,7 +35,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.model = model;
     int radius = model.getBoardRadius();
 
-    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonLength * 2;
+    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonRadius * 2;
     this.setSize(new Dimension(windowSize, windowSize));
     manager = new HexManager(windowSize, windowSize, model);
     init();
@@ -50,7 +50,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
 
     int radius = model.getBoardRadius();
-    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonLength * 2;
+    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonRadius * 2;
     manager = new HexManager(windowSize, windowSize, model);
     this.add(manager);
 

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-
 import model.Coordinate;
 import model.DiscColor;
 
@@ -15,33 +14,31 @@ public class DrawnHexagon implements DrawnHexagonInterface {
 
   public static final double THETA = (Math.PI * 2) / 6.0;
   //Length or radius?
-  static int hexagonLength = 25;
+  static int hexagonRadius = 25;
   private Polygon poly;
-  private Coordinate hexCoordinate;
-  private final double centerCoordY;
-  private final double centerCoordX;
+  private final Coordinate logicalHexCoord;
+  private final double hexCenterCoordY;
+  private final double hexCenterCoordX;
   private final Color color;
   private Color discColor;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
    *
-   * @param hexCoordinate     the coordintae of the hexagon in relation to the entire grid.
-   * @param discColor         the disc color of the hexagon cell.
-   * @param boardCenterCoordx the dead center or origin of the board in pixel coordinates.
-   * @param boardCenterCoordy the dead center or origin of the board in pixel coordinates.
+   * @param logicalHexCoord   the coordinates a ReversiModel will use to find the hex.
+   * @param discColor         the color of the disc inside the hexagon cell.
+   * @param boardCenterCoordx the dead center or origin of the digital board in pixel coordinates.
+   * @param boardCenterCoordy the dead center or origin of the digital board in pixel coordinates.
    * @param hexColor          the color of the background of the hex.
-   * @param hexagonLength     the radius of the hexagon.
+   * @param hexagonRadius     the radius of the hexagon.
    */
-  public DrawnHexagon(Coordinate hexCoordinate, DiscColor discColor, int boardCenterCoordx,
-                      int boardCenterCoordy, Color hexColor, int hexagonLength) {
-    double setCoordX;
-    this.hexCoordinate = hexCoordinate;
-    this.centerCoordY = boardCenterCoordy + (hexagonLength * 1.6) * (hexCoordinate.getIntR());
-    double offsetX = hexCoordinate.getIntR() * hexagonLength * .9;
-    setCoordX = boardCenterCoordx + (hexagonLength * 1.8) * (-hexCoordinate.getIntS());
-    setCoordX -= offsetX;
-    this.centerCoordX = setCoordX;
+  public DrawnHexagon(Coordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
+      int boardCenterCoordy, Color hexColor, int hexagonRadius) {
+
+    this.logicalHexCoord = logicalHexCoord;
+    this.hexCenterCoordY = boardCenterCoordy + (hexagonRadius * 1.6) * (logicalHexCoord.getIntR());
+    this.hexCenterCoordX = calculateX(boardCenterCoordx);
+
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
     } else if (discColor == DiscColor.WHITE) {
@@ -49,16 +46,32 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     } else {
       this.discColor = Color.LIGHT_GRAY;
     }
-    this.hexagonLength = hexagonLength;
+    this.hexagonRadius = hexagonRadius;
     this.color = hexColor;
     resetPolygon();
+  }
+
+  /**
+   * Calculates x based on the logical coordinate R and offsets it by the logical coordinate S.
+   * This calculation is also based on the digital center of the board.
+   * @param centerX the center x coordinate of the digital board.
+   * @return A double which is the center coordinate of the hex
+   */
+  private double calculateX(int centerX){
+    double setCoordX;
+    //Creates an offset based on the row the hexagon resides in.
+    double offsetX = logicalHexCoord.getIntR() * hexagonRadius * .9;
+    //Calculates the center of the hex using S and the given hexagon radius
+    setCoordX = centerX + (hexagonRadius * 1.8) * (-logicalHexCoord.getIntS());
+    setCoordX -= offsetX;
+    return setCoordX;
   }
 
   private void resetPolygon() {
     poly = new Polygon();
     for (int i = 0; i < 6; i++) {
-      int x1 = (int) (centerCoordX + hexagonLength * Math.sin(THETA * i));
-      int y1 = (int) (centerCoordY + hexagonLength * Math.cos(THETA * i));
+      int x1 = (int) (hexCenterCoordX + hexagonRadius * Math.sin(THETA * i));
+      int y1 = (int) (hexCenterCoordY + hexagonRadius * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
     }
   }
@@ -87,36 +100,36 @@ public class DrawnHexagon implements DrawnHexagonInterface {
       discColor = color;
     }
     g.setColor(discColor);
-    g.drawOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
-            hexagonLength, hexagonLength);
-    g.fillOval(poly.getBounds().x + hexagonLength / 2, poly.getBounds().y + hexagonLength / 2,
-            hexagonLength, hexagonLength);
+    g.drawOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
+        hexagonRadius, hexagonRadius);
+    g.fillOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
+        hexagonRadius, hexagonRadius);
   }
 
   /**
-   * the Y position of the center of the hexagon in relation to the panel it is drawn on.
+   * The Y position of the center of the hexagon on the digital board.
    *
    * @return the Y position of the hexagon.
    */
   public double getY() {
-    return centerCoordY;
+    return hexCenterCoordY;
   }
 
   /**
-   * the X position of the center of the hexagon in relation to the panel it is drawn on.
+   * The X position of the center of the hexagon on the digital board.
    *
    * @return the X position of the hexagon.
    */
   public double getX() {
-    return centerCoordX;
+    return hexCenterCoordX;
   }
 
   /**
-   * The coordinate in (Q,R,S) form of the hexagon.
+   * The logical coordinates of the hex which the model will use to make moves.
    *
-   * @return the coordinates of the hex.
+   * @return The (q,r,s) coordinates of the hex.
    */
-  public Coordinate getHexCoordinate() {
-    return this.hexCoordinate;
+  public Coordinate getLogicalHexCoord() {
+    return this.logicalHexCoord;
   }
 }

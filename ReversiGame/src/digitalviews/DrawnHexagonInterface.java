@@ -36,5 +36,5 @@ public interface DrawnHexagonInterface {
    *
    * @return the coordinates of the hex.
    */
-  Coordinate getHexCoordinate();
+  Coordinate getLogicalHexCoord();
 }
