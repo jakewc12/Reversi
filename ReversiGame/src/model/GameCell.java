@@ -33,7 +33,6 @@ public class GameCell implements HexagonCell {
   }
 
 
-
   private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
     coordinate = new Coordinate(coordinateQ, coordinateR, coordinateS);
     contents = null;
@@ -43,73 +42,41 @@ public class GameCell implements HexagonCell {
     return cellDirectionVectors[direction.directionNum];
   }
 
-  /**
-   * Gets this neighbors cell in a direction.
-   *
-   * @param direction the direction you want to get the neighbor from. See Direction enum class for
-   *                  descriptions.
-   * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
-   */
-  public GameCell getCellNeighbor(Direction direction) {
+  @Override
+  public Coordinate getCellNeighbor(Direction direction) {
     //need to check that neighbor is not off board
 
     int[] addCell = cellDirection(direction);
-    return new GameCell(coordinate.getIntQ() + addCell[0], coordinate.getIntR() + addCell[1],
+    return new Coordinate(coordinate.getIntQ() + addCell[0], coordinate.getIntR() + addCell[1],
         coordinate.getIntS() + addCell[2]);
   }
 
+  @Override
   public Coordinate getCoordinate() {
     return coordinate;
   }
 
-  /**
-   * Gets the contents of this Cell.
-   *
-   * @return the disc inside this cell.
-   */
   @Override
   public Disc cellContents() {
     return contents;
   }
 
-  /**
-   * Gets the Q coordinate of this cell.
-   *
-   * @return an integer that decrease when going left of the origin and increases when going right
-   *     of the origin.
-   */
   @Override
   public int getCoordinateQ() {
     return coordinate.getIntQ();
   }
 
-  /**
-   * Gets the R coordinate of this cell.
-   *
-   * @return an integer decreases when going up a row from the origin and increases when going down
-   *      a row.
-   */
   @Override
   public int getCoordinateR() {
     return coordinate.getIntR();
   }
 
-  /**
-   * Gets the S coordinate of this cell.
-   *
-   * @return an integer that decrease when going right of the origin and increases when going left
-   *     of the origin.
-   */
+
   @Override
   public int getCoordinateS() {
     return coordinate.getIntS();
   }
 
-  /**
-   * returns a String rendering of the GameCell's coordinates.
-   *
-   * @return a String formatted as a coordinate from Q to R to S.
-   */
   @Override
   public String toString() {
     return coordinate.toString();
@@ -132,7 +99,7 @@ public class GameCell implements HexagonCell {
    */
   public enum Direction {
     DEAD_LEFT(0), DEAD_RIGHT(1), TOP_LEFT(2), TOP_RIGHT(3), BOTTOM_LEFT(4), BOTTOM_RIGHT(5);
-    private int directionNum;
+    private final int directionNum;
 
     Direction(int i) {
       directionNum = i;

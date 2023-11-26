@@ -1,5 +1,7 @@
 package model;
 
+import model.GameCell.Direction;
+
 /**
  * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
  * the origin which is located halfway down and halfway from the side.
@@ -59,5 +61,5 @@ public interface HexagonCell {
    *                  descriptions.
    * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
    */
-  GameCell getCellNeighbor(GameCell.Direction direction);
+  Coordinate getCellNeighbor(Direction direction);
 }
