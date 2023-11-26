@@ -36,6 +36,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
       int boardCenterCoordy, Color hexColor, int hexagonRadius) {
 
     this.logicalHexCoord = logicalHexCoord;
+
+    //Creates digital coordinates based on the logical coordinates given and the given center of
+    // the digital board
     this.hexCenterCoordY = boardCenterCoordy + (hexagonRadius * 1.6) * (logicalHexCoord.getIntR());
     this.hexCenterCoordX = calculateX(boardCenterCoordx);
 
@@ -77,7 +80,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   }
 
   /**
-   * Draws the hexagon on the graphic.
+   * Draws the hexagon and the disc it contains on the digital board.
    *
    * @param g the graphic to be drawn on.
    */
