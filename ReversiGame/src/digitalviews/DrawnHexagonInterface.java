@@ -39,9 +39,9 @@ public interface DrawnHexagonInterface {
   Coordinate getLogicalHexCoord();
 
   /**
-   * The current radius of the hexagon.
+   * Checks if the hex contains the given digital (x,y) point.
    *
-   * @return the coordinates of the hex.
+   * @return Returns true if the point is inside the hex, false otherwise.
    */
   boolean containsPoint(int x, int y);
 
