@@ -7,7 +7,7 @@ public class GameCell implements HexagonCell {
 
   private final Disc contents;
 
-  private Coordinate coordinate;
+  private final Coordinate coordinate;
   private final int[][] cellDirectionVectors = {{-1, 0, 1}, //DEADLEFT(0)
       {1, 0, -1}, //DEAD-RIGHT(1)
       {0, -1, 1}, //TOP-LEFT(2)
@@ -32,11 +32,6 @@ public class GameCell implements HexagonCell {
     this.coordinate = coordinate;
   }
 
-
-  private GameCell(int coordinateQ, int coordinateR, int coordinateS) {
-    coordinate = new Coordinate(coordinateQ, coordinateR, coordinateS);
-    contents = null;
-  }
 
   private int[] cellDirection(Direction direction) {
     return cellDirectionVectors[direction.directionNum];
