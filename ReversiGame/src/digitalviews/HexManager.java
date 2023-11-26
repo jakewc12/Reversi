@@ -69,7 +69,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     hexagons = new ArrayList<>();
     List<Coordinate> allCoordinates = model.getAllCoordinates();
     for (Coordinate logicalCoord : allCoordinates) {
-      int hexLength = (Math.min(centerCordX, centerCordY)) / (2 * model.getBoardRadius() + 1);
+      int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
