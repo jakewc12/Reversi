@@ -2,7 +2,6 @@ package player;
 
 import java.util.List;
 import java.util.Optional;
-
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
@@ -16,7 +15,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
   /**
    * When given a model and player the strategy will choose the best move that player can make
-   * according to the strategy.
+   * according to the strategy. This strategy will attempt to go for a corner if any are available.
    *
    * @param model the board the player is playing on.
    * @param who   the player who is using the strategy.
@@ -29,7 +28,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
     for (Coordinate cord : allCoords) {
       if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (cord.getIntQ() == 0
-              && cord.getIntR() == 0 && cord.getIntS() == 0)) {
+          && cord.getIntR() == 0 && cord.getIntS() == 0)) {
         continue;
       }
       try {
@@ -45,8 +44,8 @@ public class GoForCornersStrategy implements ReversiStrategy {
 
   private boolean checkEdgeCoordinate(int q, int r, int s, int radius) {
     return ((q == 0) || (q == radius) || (q == -radius)) && ((r == 0) || (r == radius) || (r
-            == -radius)) && (r >= 0
-            || r <= radius) && ((s == 0) || (s == radius) || (s == -radius));
+        == -radius)) && (r >= 0
+        || r <= radius) && ((s == 0) || (s == radius) || (s == -radius));
   }
 
   private boolean checkEdgeCoordinate(Coordinate cord, int radius) {
