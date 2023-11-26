@@ -2,7 +2,6 @@ package player;
 
 import java.util.Objects;
 import java.util.Optional;
-
 import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversiModel;
@@ -18,9 +17,9 @@ public class MachinePlayer implements Player {
   /**
    * Creates an AI that will follow the given strategy.
    *
-   * @param playerColor    The color of the discs the AI will place. This will also determine move
-   *                 recognition.
-   * @param strategy The strategy the AI will follow when playing its turn.
+   * @param playerColor The color of the discs the AI will place. This will also determine move
+   *                    recognition.
+   * @param strategy    The strategy the AI will follow when playing its turn.
    */
   public MachinePlayer(DiscColor playerColor, ReversiStrategy strategy) {
     Objects.requireNonNull(playerColor);

@@ -1,18 +1,30 @@
 package controller;
 
-import java.util.Objects;
-
 import digitalviews.DigitalWindow;
+import java.util.Objects;
 import model.Coordinate;
 import model.ModelFeatures;
 import model.MutableReversiModel;
 import player.Player;
 
-public class MachinePlayerController implements ReversiControllerInterface, Features, ModelFeatures {
+/**
+ * A machine player controller that the input given from a machine player to inform the model a move
+ * is made.
+ */
+public class MachinePlayerController implements ReversiControllerInterface, Features,
+    ModelFeatures {
+
   private final MutableReversiModel model;
   private final Player player;
   private final DigitalWindow view;
 
+  /**
+   * Creates a machine player controller.
+   *
+   * @param model  the model that is being played on.
+   * @param player the machine player which the controller will control.
+   * @param view   the digital view of the game.
+   */
   public MachinePlayerController(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(player);
@@ -29,7 +41,8 @@ public class MachinePlayerController implements ReversiControllerInterface, Feat
    */
   @Override
   public void run() {
-    //if it is a human player, use view to choose moves. if it is a machine player, use player to choose move
+    //if it is a human player, use view to choose moves.
+    // If it is a machine player, use player to choose move
 
     this.view.refresh();
     this.view.makeVisible();

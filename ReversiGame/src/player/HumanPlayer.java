@@ -1,14 +1,24 @@
 package player;
 
 import java.util.Objects;
-
 import model.DiscColor;
 import model.MutableReversiModel;
 
-public class HumanPlayer implements Player{
+/**
+ * A class meant to represent a human player for the game reversi.
+ */
+public class HumanPlayer implements Player {
+
   private final MutableReversiModel model;
   private final DiscColor playerColor;
-  public HumanPlayer(MutableReversiModel model, DiscColor playerColor){
+
+  /**
+   * Creates a human player for ReversiGame.
+   *
+   * @param model       The model the player will play on.
+   * @param playerColor The color of the discs the player will place.
+   */
+  public HumanPlayer(MutableReversiModel model, DiscColor playerColor) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(playerColor);
     this.model = model;

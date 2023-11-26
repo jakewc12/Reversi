@@ -107,6 +107,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move
        * on the coordinate of the highlighted hex. If 's' is pressed, it will use features to
        * skip a turn.
+       *
        * @param e the event to be processed
        */
       @Override

@@ -1,9 +1,8 @@
 package digitalviews;
 
 
-import java.awt.event.KeyListener;
-
 import controller.Features;
+import java.awt.event.KeyListener;
 import player.Player;
 
 /**
@@ -31,6 +30,7 @@ public interface DigitalWindow {
 
   /**
    * returns the key listener of the view.
+   *
    * @return the key listener.
    */
   KeyListener getListener();

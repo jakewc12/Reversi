@@ -22,6 +22,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   private final Color color;
   private Color discColor;
 
+  //2 means there will plenty of space between hexes, 1.8 is the shorter end of that space
   private final double buffer = 1.85;
 
   /**
@@ -67,11 +68,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     double setCoordX;
     double offsetX;
 
-    //2 means there will plenty of space between hexes, 1.8 shortens that space
-
-
     //Creates an offset based on the row the hexagon resides in.
-    offsetX = logicalHexCoord.getIntR() * hexagonRadius*(buffer/2);
+    offsetX = logicalHexCoord.getIntR() * hexagonRadius * (buffer / 2);
 
     //Calculates the center of the hex using S and the given hexagon radius
     //1.8 is used for smaller space between hexagons
@@ -86,7 +84,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
       int x1 = (int) (hexCenterCoordX + hexagonRadius * Math.sin(THETA * i));
       int y1 = (int) (hexCenterCoordY + hexagonRadius * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
-    }}
+    }
+  }
 
   /**
    * Draws the hexagon and the disc it contains on the digital board.
@@ -145,8 +144,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     return this.logicalHexCoord;
   }
 
-  public boolean containsPoint(int x, int y){
-    return poly.contains(x,y);
+  public boolean containsPoint(int x, int y) {
+    return poly.contains(x, y);
   }
 
 }

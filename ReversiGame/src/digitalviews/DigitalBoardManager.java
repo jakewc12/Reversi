@@ -1,7 +1,6 @@
 package digitalviews;
 
 import java.util.Optional;
-
 import model.Coordinate;
 
 /**

@@ -1,10 +1,7 @@
 package controller;
 
-import java.util.Objects;
-
 import digitalviews.DigitalWindow;
-
-
+import java.util.Objects;
 import model.Coordinate;
 import model.ModelFeatures;
 import model.MutableReversiModel;
@@ -23,7 +20,7 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
    * creates a new MutableReversiController.
    *
    * @param model the model to be played.
-   * @param view  the view of the mode..
+   * @param view  the view of the mode.
    */
   public HumanPlayerController(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);
@@ -35,7 +32,7 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
   }
 
   /**
-   * executes this controller.
+   * Executes this controller.
    */
   @Override
   public void run() {
