@@ -48,7 +48,7 @@ public class CornerStrategyTests {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
     model.startGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(-3, 0, 3));
+    model.forcePlaceDisc(new Coordinate(-3, 0, 3),DiscColor.BLACK);
     Assert.assertNotEquals(oldLog, log.toString());
   }
 

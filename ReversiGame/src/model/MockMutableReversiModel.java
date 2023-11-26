@@ -63,19 +63,6 @@ public class MockMutableReversiModel extends MutableReversi {
     super.placeDisc(coordinate);
   }
 
-  /**
-   * Forces the placement of a disc at the specified coordinate, logging the action.
-   *
-   * @param coordinate The coordinate at which the disc is forced to be placed.
-   */
-  public void forcePlaceDisc(Coordinate coordinate) {
-    append("Force place disc called at " + coordinate);
-    for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(coordinate)) {
-        cell.cellContents().changeColorTo(DiscColor.BLACK);
-      }
-    }
-  }
 
   /**
    * Forces the placement of a disc at the specified coordinate with the specified color, logging
