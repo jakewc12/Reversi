@@ -7,12 +7,12 @@ import model.MutableReversiModel;
 
 public class HumanPlayer implements Player{
   private final MutableReversiModel model;
-  private final DiscColor color;
-  public HumanPlayer(MutableReversiModel model, DiscColor color){
+  private final DiscColor playerColor;
+  public HumanPlayer(MutableReversiModel model, DiscColor playerColor){
     Objects.requireNonNull(model);
-    Objects.requireNonNull(color);
+    Objects.requireNonNull(playerColor);
     this.model = model;
-    this.color = color;
+    this.playerColor = playerColor;
   }
 
   /**
@@ -21,8 +21,8 @@ public class HumanPlayer implements Player{
    * @return The disc color (WHITE or BLACK) associated with the player.
    */
   @Override
-  public DiscColor getColor() {
-    return color;
+  public DiscColor getPlayerColor() {
+    return playerColor;
   }
 
   /**

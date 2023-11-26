@@ -32,7 +32,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
         continue;
       }
       try {
-        int flipped = model.getNumFlipsOnMove(cord, who.getColor());
+        int flipped = model.getNumFlipsOnMove(cord, who.getPlayerColor());
         if (flipped > 0) {
           return Optional.of(cord);
         }

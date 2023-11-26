@@ -12,26 +12,26 @@ import model.MutableReversiModel;
  */
 public class MachinePlayer implements Player {
 
-  private DiscColor color;
-  private ReversiStrategy strategy;
+  private final DiscColor playerColor;
+  private final ReversiStrategy strategy;
 
   /**
    * Creates an AI that will follow the given strategy.
    *
-   * @param color    The color of the discs the AI will place. This will also determine move
+   * @param playerColor    The color of the discs the AI will place. This will also determine move
    *                 recognition.
    * @param strategy The strategy the AI will follow when playing its turn.
    */
-  public MachinePlayer(DiscColor color, ReversiStrategy strategy) {
-    Objects.requireNonNull(color);
+  public MachinePlayer(DiscColor playerColor, ReversiStrategy strategy) {
+    Objects.requireNonNull(playerColor);
     Objects.requireNonNull(strategy);
-    this.color = color;
+    this.playerColor = playerColor;
     this.strategy = strategy;
   }
 
   @Override
-  public DiscColor getColor() {
-    return this.color;
+  public DiscColor getPlayerColor() {
+    return this.playerColor;
   }
 
   @Override

@@ -14,7 +14,7 @@ public interface Player {
    *
    * @return The disc color (WHITE or BLACK) associated with the player.
    */
-  DiscColor getColor();
+  DiscColor getPlayerColor();
 
   /**
    * Plays a move on the MutableReversiModel based on the player's input.

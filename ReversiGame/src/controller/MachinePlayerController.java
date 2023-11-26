@@ -57,7 +57,7 @@ public class MachinePlayerController implements ReversiControllerInterface, Feat
   public void notifyPlayerItsTurn() {
     this.run();
     if (!model.gameOver()) {
-      if (model.getCurrentTurn().equals(player.getColor())) {
+      if (model.getCurrentTurn().equals(player.getPlayerColor())) {
         player.playMove(model);
       }
     }

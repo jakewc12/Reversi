@@ -50,7 +50,7 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    if (this.player.getColor().equals(model.getCurrentTurn())) {
+    if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
       try {
         model.placeDisc(coordinate);
       } catch (Exception ignore) {
