@@ -1,14 +1,15 @@
 package digitalviews;
 
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.*;
+import static digitalviews.DrawnHexagon.hexagonRadius;
 
 import controller.Features;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -17,13 +18,14 @@ import player.Player;
  * DigitalReversiWindow represents the GUI rendering of the Reversi.
  */
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
+
   private final ReadOnlyReversiModel model;
   private HexManager manager;
   private final DigitalWindow window = this;
   private KeyListener listener;
 
   /**
-   * Creates a new DigitalReversiWindow that is .
+   * Creates a new DigitalReversiWindow.
    *
    * @param model the Reversi to be used.
    */
@@ -35,29 +37,29 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.model = model;
     int radius = model.getBoardRadius();
 
-    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonRadius * 2;
+    int windowSize = (radius * 2 + 1) * hexagonRadius * 2;
     this.setSize(new Dimension(windowSize, windowSize));
     manager = new HexManager(windowSize, windowSize, model);
     init();
 
   }
 
+  /**
+   * Initializes the reversi window by creating a default window with the size 500x500. It then
+   * creates a manager to manage the hexes placement and size.
+   */
   private void init() {
     this.setTitle("Reversi");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setBackground(Color.DARK_GRAY);
     this.setLayout(new BorderLayout());
 
+    this.getContentPane().setBackground(Color.DARK_GRAY);
+    this.setSize(500, 500);
 
-    int radius = model.getBoardRadius();
-    int windowSize = (radius * 2 + 1) * DrawnHexagon.hexagonRadius * 2;
+    int windowSize = (model.getBoardSize()) * hexagonRadius * 2;
     manager = new HexManager(windowSize, windowSize, model);
     this.add(manager);
-
-
-    this.getContentPane().setBackground(Color.DARK_GRAY);
-    this.setSize(500, 800);
-
 
     this.refresh();
     this.pack();
@@ -72,11 +74,12 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setTitle("Reversi - " + model.getCurrentTurn().toString() + "'s Turn");
     if (model.gameOver()) {
       String winner;
-      if(model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)){
+      if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
-      }else if(model.checkScoreOfPlayer(DiscColor.BLACK)>model.checkScoreOfPlayer(DiscColor.WHITE)){
+      } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
+          DiscColor.WHITE)) {
         winner = " Winner is BLACK";
-      }else{
+      } else {
         winner = " TIE";
       }
       this.setTitle("Game Over!" + winner);
@@ -141,7 +144,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   }
 
   /**
-   * tells the player the error.
+   * Creates a window which informs the player a illegal move has been made.
    */
   @Override
   public void showErrorMessage(Player player) {

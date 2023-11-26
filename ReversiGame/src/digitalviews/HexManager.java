@@ -8,10 +8,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
@@ -74,18 +72,16 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (2 * model.getBoardRadius() + 1);
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
-          hexagons.add(
-                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
-                          , centerCordY, Color.CYAN, hexLength));
+          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+              centerCordY, Color.CYAN, hexLength));
         } else {
-          hexagons.add(
-                  new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
-                          , centerCordY, Color.LIGHT_GRAY, hexLength));
+          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+              centerCordY, Color.LIGHT_GRAY, hexLength));
         }
       } else {
         hexagons.add(
-                new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX
-                        , centerCordY, Color.LIGHT_GRAY, hexLength));
+            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                Color.LIGHT_GRAY, hexLength));
       }
     }
   }
@@ -153,8 +149,8 @@ public class HexManager extends JPanel implements DigitalBoardManager {
             highlightedCord = Optional.ofNullable(hex.getLogicalHexCoord());
           }
         }
-        highlightedCord.ifPresent(coordinate ->
-                System.out.println("Highlighted cell at " + coordinate.toString()));
+        highlightedCord.ifPresent(
+            coordinate -> System.out.println("Highlighted cell at " + coordinate));
       }
       manager.repaint();
     }
