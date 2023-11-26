@@ -6,7 +6,7 @@ package model;
 public interface MutableReversiModel extends ReadOnlyReversiModel {
 
   /**
-   * Checks to see if the move is valid. if it is, it flips all discs inbetween the placed disc and
+   * Checks to see if the move is valid. if it is, it flips all discs between the placed disc and
    * the disc on its plane of the same color. When this happens, numBlackCells and numWhiteCells
    * should change accordingly
    *
