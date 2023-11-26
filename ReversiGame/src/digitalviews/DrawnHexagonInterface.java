@@ -37,4 +37,12 @@ public interface DrawnHexagonInterface {
    * @return the coordinates of the hex.
    */
   Coordinate getLogicalHexCoord();
+
+  /**
+   * The current radius of the hexagon.
+   *
+   * @return the coordinates of the hex.
+   */
+  boolean containsPoint(int x, int y);
+
 }

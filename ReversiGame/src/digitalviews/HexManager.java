@@ -88,7 +88,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
 
   private boolean clickLandsOnHex(int x, int y) {
     for (DrawnHexagonInterface hex : hexagons) {
-      if ((Math.abs(y - hex.getY()) <= 22.5) && (Math.abs(x - hex.getX()) <= 22.5)) {
+      if (hex.containsPoint(x,y)){
         return true;
       }
     }
@@ -145,7 +145,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       }
       if (hexClicked) {
         for (DrawnHexagonInterface hex : hexagons) {
-          if ((Math.abs(e.getY() - hex.getY()) <= 18) && (Math.abs(e.getX() - hex.getX()) <= 18)) {
+          if (hex.containsPoint(e.getX(),e.getY())) {
             highlightedCord = Optional.ofNullable(hex.getLogicalHexCoord());
           }
         }

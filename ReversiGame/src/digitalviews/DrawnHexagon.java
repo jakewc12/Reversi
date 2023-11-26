@@ -13,7 +13,7 @@ import model.DiscColor;
 public class DrawnHexagon implements DrawnHexagonInterface {
 
   public static final double THETA = (Math.PI * 2) / 6.0;
-  //Length or radius?
+  //default hexagon radius
   static int hexagonRadius = 25;
   private Polygon poly;
   private final Coordinate logicalHexCoord;
@@ -86,8 +86,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
       int x1 = (int) (hexCenterCoordX + hexagonRadius * Math.sin(THETA * i));
       int y1 = (int) (hexCenterCoordY + hexagonRadius * Math.cos(THETA * i));
       poly.addPoint(x1, y1);
-    }
-  }
+    }}
 
   /**
    * Draws the hexagon and the disc it contains on the digital board.
@@ -145,4 +144,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   public Coordinate getLogicalHexCoord() {
     return this.logicalHexCoord;
   }
+
+  public boolean containsPoint(int x, int y){
+    return poly.contains(x,y);
+  }
+
 }
