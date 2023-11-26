@@ -6,7 +6,7 @@ import model.DiscColor;
 import model.MutableReversiModel;
 
 public class HumanPlayer implements Player{
-  private MutableReversiModel model;
+  private final MutableReversiModel model;
   private final DiscColor color;
   public HumanPlayer(MutableReversiModel model, DiscColor color){
     Objects.requireNonNull(model);
