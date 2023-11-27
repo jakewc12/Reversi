@@ -6,6 +6,7 @@ import model.Coordinate;
  * The methods for features.
  */
 public interface Features {
+
   /**
    * Places a disc on the Reversi game.
    *
@@ -14,7 +15,7 @@ public interface Features {
   void placeDisc(Coordinate coordinate);
 
   /**
-   * skips the turn of the Reversi game.
+   * Skips the turn of the Reversi game.
    */
   void skipTurn();
 }

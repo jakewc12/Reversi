@@ -42,10 +42,9 @@ public class Coordinate {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof Coordinate)) {
+    if (!(a instanceof Coordinate other)) {
       return false;
     }
-    Coordinate other = (Coordinate) a;
 
     return ((Math.abs(this.intQ - other.intQ) < 0.01) && (Math.abs(this.intR - other.intR) < 0.01)
         && Math.abs(this.intS - other.intS) < 0.01);

@@ -21,6 +21,12 @@ import model.ReadOnlyReversiModel;
  */
 public class HexManager extends JPanel implements DigitalBoardManager {
 
+  /**
+   * everytime something happens with model, we should reset hexagons. this way, we can redraw the
+   * tiles if multiple change at once.
+   */
+  private final ReadOnlyReversiModel model;
+  private final HexManager manager = this;
   private List<DrawnHexagonInterface> hexagons = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
@@ -29,12 +35,6 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    */
   private Optional<Coordinate> highlightedCord;
   private boolean hexClicked = false;
-  /**
-   * everytime something happens with model, we should reset hexagons. this way, we can redraw the
-   * tiles if multiple change at once.
-   */
-  private final ReadOnlyReversiModel model;
-  private final HexManager manager = this;
 
   /**
    * Constructs a HexManager with the specified window dimensions and Reversi game model.

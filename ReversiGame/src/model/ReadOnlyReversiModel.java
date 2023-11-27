@@ -15,7 +15,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  public DiscColor getColorAt(Coordinate coordinate);
+  DiscColor getColorAt(Coordinate coordinate);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.

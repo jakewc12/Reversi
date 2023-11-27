@@ -15,15 +15,14 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   public static final double THETA = (Math.PI * 2) / 6.0;
   //default hexagon radius
   static int hexagonRadius = 25;
-  private Polygon poly;
   private final Coordinate logicalHexCoord;
   private final double hexCenterCoordY;
   private final double hexCenterCoordX;
   private final Color color;
-  private Color discColor;
-
   //2 means there will plenty of space between hexes, 1.8 is the shorter end of that space
   private final double buffer = 1.85;
+  private Polygon poly;
+  private Color discColor;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
@@ -52,7 +51,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     } else {
       this.discColor = Color.LIGHT_GRAY;
     }
-    this.hexagonRadius = hexagonRadius;
+    DrawnHexagon.hexagonRadius = hexagonRadius;
     this.color = hexColor;
     resetPolygon();
   }

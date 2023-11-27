@@ -20,8 +20,8 @@ import player.Player;
 public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   private final ReadOnlyReversiModel model;
-  private HexManager manager;
   private final DigitalWindow window = this;
+  private HexManager manager;
   private KeyListener listener;
 
   /**

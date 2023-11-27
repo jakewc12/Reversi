@@ -13,10 +13,10 @@ public class MutableReversi implements MutableReversiModel {
 
   //width is how far from the center cell every edge cell is
   private final int size;
+  private final List<ModelFeatures> features = new ArrayList<>();
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
-  private List<ModelFeatures> features = new ArrayList<>();
   private List<HexagonCell> cells = new ArrayList<>();
 
   /**

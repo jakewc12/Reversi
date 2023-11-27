@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MockMutableReversiModel extends MutableReversi {
 
-  private Appendable out;
+  private final Appendable out;
   List<HexagonCell> cells = new ArrayList<>();
 
   /**
@@ -50,7 +50,7 @@ public class MockMutableReversiModel extends MutableReversi {
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
-              && cell.cellContents().getColor() != DiscColor.GREY) {
+          && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
     }
