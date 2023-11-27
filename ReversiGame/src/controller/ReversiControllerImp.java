@@ -1,16 +1,22 @@
 package controller;
 
-import digitalviews.DigitalWindow;
 import java.util.Objects;
+
+import digitalviews.DigitalWindow;
+
+
 import model.Coordinate;
 import model.ModelFeatures;
+import model.MutableReversi;
 import model.MutableReversiModel;
+import player.HumanPlayer;
+import player.MachinePlayer;
 import player.Player;
 
 /**
  * allows for the model to be played using the view.
  */
-public class HumanPlayerController implements ReversiControllerInterface, Features, ModelFeatures {
+public class ReversiControllerImp implements ReversiController, Features, ModelFeatures {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
@@ -20,10 +26,12 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
    * creates a new MutableReversiController.
    *
    * @param model the model to be played.
-   * @param view  the view of the mode.
+   * @param view  the view of the mode..
    */
-  public HumanPlayerController(MutableReversiModel model, Player player, DigitalWindow view) {
+  public ReversiControllerImp(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);
+    Objects.requireNonNull(player);
+    Objects.requireNonNull(view);
     this.model = model;
     this.view = view;
     this.player = player;
@@ -32,7 +40,7 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
   }
 
   /**
-   * Executes this controller.
+   * executes this controller.
    */
   @Override
   public void run() {
@@ -47,15 +55,17 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
-      try {
-        model.placeDisc(coordinate);
-      } catch (Exception ignore) {
-        //if the move is illegal.
-        view.showErrorMessage(this.player);
+    if(player instanceof HumanPlayer) {
+      if (this.player.getColor().equals(model.getCurrentTurn())) {
+        try {
+          model.placeDisc(coordinate);
+        } catch (Exception ignore) {
+          //if the move is illegal.
+          view.showErrorMessage(this.player);
+        }
       }
+      this.run();
     }
-    this.run();
   }
 
   /**
@@ -69,5 +79,12 @@ public class HumanPlayerController implements ReversiControllerInterface, Featur
   @Override
   public void notifyPlayerItsTurn() {
     this.run();
+    if(player instanceof MachinePlayer){
+      if (!model.gameOver()) {
+        if (model.getCurrentTurn().equals(player.getColor())) {
+          player.playMove(model);
+        }
+      }
+    }
   }
 }

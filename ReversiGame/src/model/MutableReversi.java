@@ -45,6 +45,9 @@ public class MutableReversi implements MutableReversiModel {
     this.cells = board;
     blacksTurn = true;
     gameStarted = true;
+    System.out.println("game started");
+    System.out.println("first turn is "+ getCurrentTurn());
+    updateFeaturesInterface();
   }
 
 
@@ -231,7 +234,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public List<Coordinate> getAllCoordinates() {
-    checkGameStarted();
+    //checkGameStarted();
     List<Coordinate> returnList = new ArrayList<>();
     for (HexagonCell cell : cells) {
       returnList.add(cell.getCoordinate());
@@ -313,7 +316,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public DiscColor getCurrentTurn() {
-    checkGameStarted();
+    //checkGameStarted();
     if (blacksTurn) {
       return DiscColor.BLACK;
     } else {
@@ -330,14 +333,14 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int getBoardRadius() {
-    checkGameStarted();
+   //checkGameStarted();
     return size;
   }
 
 
   @Override
   public boolean gameOver() {
-    checkGameStarted();
+    //checkGameStarted();
     if (checkIfAllCellsFilled()) {
       return true;
     }
