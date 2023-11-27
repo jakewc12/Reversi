@@ -1,5 +1,5 @@
 import controller.HumanPlayerController;
-import controller.ReversiControllerInterface;
+import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.DiscColor;
@@ -36,9 +36,7 @@ public final class Reversi {
     viewPlayer2.makeVisible();
     Player player1 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Player player2 = new HumanPlayer(model, DiscColor.BLACK);
-    ReversiControllerInterface controller1 = new HumanPlayerController(model, player1, viewPlayer1);
-    ReversiControllerInterface controller2 = new HumanPlayerController(model, player2, viewPlayer2);
-    controller1.run();
-    controller2.run();
+    ReversiController controller1 = new HumanPlayerController(model, player1, viewPlayer1);
+    ReversiController controller2 = new HumanPlayerController(model, player2, viewPlayer2);
   }
 }
