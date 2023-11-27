@@ -1,6 +1,9 @@
-import controller.HumanPlayerController;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import controller.ReversiControllerImp;
 import controller.ReversiController;
-import controller.ReversiControllerCreator;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.DiscColor;
@@ -35,13 +38,30 @@ public final class Reversi {
     DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();
+    //makePlayers(args, model);
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Player player1 = new HumanPlayer(model, DiscColor.BLACK);
-    ReversiController c1 = new ReversiControllerCreator().create(model, player1, viewPlayer1);
-    ReversiController c2 = new ReversiControllerCreator().create(model, player2, viewPlayer2);
 
     // should we do a sleep so that the move isnt made literally automatically
-    //ReversiController controller1 = new HumanPlayerController(model, player1, viewPlayer1);
-    //ReversiController controller2 = new HumanPlayerController(model, player2, viewPlayer2);
+    ReversiController controller1 = new ReversiControllerImp(model, player1, viewPlayer1);
+    ReversiController controller2 = new ReversiControllerImp(model, player2, viewPlayer2);
+  }
+  private static List<Player> makePlayers(String[] args, MutableReversiModel model) {
+    if (args.length < 2) {
+      throw new IllegalArgumentException("Not enough players given");
+    }
+    List<Player> players = new ArrayList<Player>();
+    String player1 = args[0];
+    String player2 = args[1];
+    if ((!Objects.equals(player1, "human") && !Objects.equals(player1, "strategy1"))
+            || (!Objects.equals(player2, "human") && !Objects.equals(player2, "strategy1"))) {
+      throw new IllegalArgumentException("Invalid strategies given");
+    }
+    if(player1.equals("human")){
+      players.add(new HumanPlayer(model, DiscColor.BLACK));
+    }else if(player1.equals("strategy1")){
+      players.add(new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy()));
+    }
+    return players;
   }
 }

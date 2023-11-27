@@ -8,12 +8,14 @@ import digitalviews.DigitalWindow;
 import model.Coordinate;
 import model.ModelFeatures;
 import model.MutableReversiModel;
+import player.HumanPlayer;
+import player.MachinePlayer;
 import player.Player;
 
 /**
  * allows for the model to be played using the view.
  */
-public class HumanPlayerController implements ReversiController, Features, ModelFeatures {
+public class ReversiControllerImp implements ReversiController, Features, ModelFeatures {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
@@ -25,7 +27,7 @@ public class HumanPlayerController implements ReversiController, Features, Model
    * @param model the model to be played.
    * @param view  the view of the mode..
    */
-  public HumanPlayerController(MutableReversiModel model, Player player, DigitalWindow view) {
+  public ReversiControllerImp(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);
     this.model = model;
     this.view = view;
@@ -50,15 +52,17 @@ public class HumanPlayerController implements ReversiController, Features, Model
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    if (this.player.getColor().equals(model.getCurrentTurn())) {
-      try {
-        model.placeDisc(coordinate);
-      } catch (Exception ignore) {
-        //if the move is illegal.
-        view.showErrorMessage(this.player);
+    if(player instanceof HumanPlayer) {
+      if (this.player.getColor().equals(model.getCurrentTurn())) {
+        try {
+          model.placeDisc(coordinate);
+        } catch (Exception ignore) {
+          //if the move is illegal.
+          view.showErrorMessage(this.player);
+        }
       }
+      this.run();
     }
-    this.run();
   }
 
   /**
@@ -72,5 +76,12 @@ public class HumanPlayerController implements ReversiController, Features, Model
   @Override
   public void notifyPlayerItsTurn() {
     this.run();
+    if(player instanceof MachinePlayer){
+      if (!model.gameOver()) {
+        if (model.getCurrentTurn().equals(player.getColor())) {
+          player.playMove(model);
+        }
+      }
+    }
   }
 }
