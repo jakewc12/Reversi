@@ -9,9 +9,12 @@ import controller.ReversiControllerImp;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.DiscColor;
+import model.MockMutableReversiModel;
 import model.MutableReversi;
 import model.MutableReversiModel;
+import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
+import player.MachinePlayer;
 import player.Player;
 
 /**
@@ -31,5 +34,16 @@ public class ReversiControllerTests {
             , () -> new ReversiControllerImp(new MutableReversi(-1)
                     , new HumanPlayer(new MutableReversi(-1)
                     , DiscColor.BLACK), new DigitalReversiWindow(new MutableReversi(-1))));
+  }
+
+  @Test
+  public void testThatControllerInteractsWithModel() {
+    Appendable log = new StringBuffer();
+    model = new MockMutableReversiModel(3,log);
+    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    DigitalWindow view = new DigitalReversiWindow(model);
+    controller = new ReversiControllerImp(model, player, view);
+    controller.run();
+    System.out.println(log.toString());
   }
 }
