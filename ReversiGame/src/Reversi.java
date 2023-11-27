@@ -1,5 +1,6 @@
 import controller.HumanPlayerController;
 import controller.ReversiController;
+import controller.ReversiControllerCreator;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import model.DiscColor;
@@ -34,9 +35,13 @@ public final class Reversi {
     DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();
-    Player player1 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
-    Player player2 = new HumanPlayer(model, DiscColor.BLACK);
-    ReversiController controller1 = new HumanPlayerController(model, player1, viewPlayer1);
-    ReversiController controller2 = new HumanPlayerController(model, player2, viewPlayer2);
+    Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
+    Player player1 = new HumanPlayer(model, DiscColor.BLACK);
+    ReversiController c1 = new ReversiControllerCreator().create(model, player1, viewPlayer1);
+    ReversiController c2 = new ReversiControllerCreator().create(model, player2, viewPlayer2);
+
+    // should we do a sleep so that the move isnt made literally automatically
+    //ReversiController controller1 = new HumanPlayerController(model, player1, viewPlayer1);
+    //ReversiController controller2 = new HumanPlayerController(model, player2, viewPlayer2);
   }
 }
