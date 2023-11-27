@@ -31,21 +31,30 @@ public final class Reversi {
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
     MutableReversiModel model = new MutableReversi(3);
-    model.startGame(model.getBoard());
+
 
     // Initialize the DigitalReversiWindow view
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
     DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
-    viewPlayer1.makeVisible();
-    viewPlayer2.makeVisible();
-    //makePlayers(args, model);
+
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Player player1 = new HumanPlayer(model, DiscColor.BLACK);
 
     // should we do a sleep so that the move isnt made literally automatically
-    ReversiController controller1 = new ReversiControllerImp(model, player1, viewPlayer1);
-    ReversiController controller2 = new ReversiControllerImp(model, player2, viewPlayer2);
+    List<Player> players = makePlayers(args,model);
+    ReversiController controller1 = new ReversiControllerImp(model,players.get(0), viewPlayer1);
+    ReversiController controller2 = new ReversiControllerImp(model, players.get(1), viewPlayer2);
+    model.startGame(model.getBoard());
+    viewPlayer1.makeVisible();
+    viewPlayer2.makeVisible();
   }
+
+  /**
+   * Creates the two players based on the command-line arguments.
+   * @param args the player types given.
+   * @param model the model used to play the game.
+   * @return the desired players based on the given types.
+   */
   private static List<Player> makePlayers(String[] args, MutableReversiModel model) {
     if (args.length < 2) {
       throw new IllegalArgumentException("Not enough players given");
@@ -61,6 +70,11 @@ public final class Reversi {
       players.add(new HumanPlayer(model, DiscColor.BLACK));
     }else if(player1.equals("strategy1")){
       players.add(new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy()));
+    }
+    if(player2.equals("human")){
+      players.add(new HumanPlayer(model, DiscColor.WHITE));
+    }else if(player2.equals("strategy1")){
+      players.add(new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy()));
     }
     return players;
   }

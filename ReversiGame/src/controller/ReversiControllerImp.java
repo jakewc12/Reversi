@@ -7,6 +7,7 @@ import digitalviews.DigitalWindow;
 
 import model.Coordinate;
 import model.ModelFeatures;
+import model.MutableReversi;
 import model.MutableReversiModel;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -29,6 +30,8 @@ public class ReversiControllerImp implements ReversiController, Features, ModelF
    */
   public ReversiControllerImp(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);
+    Objects.requireNonNull(player);
+    Objects.requireNonNull(view);
     this.model = model;
     this.view = view;
     this.player = player;
