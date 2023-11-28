@@ -1,9 +1,5 @@
 package controllertest;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import controller.ReversiController;
 import controller.ReversiControllerImp;
 import digitalviews.DigitalReversiWindow;
@@ -12,6 +8,8 @@ import model.DiscColor;
 import model.MockMutableReversiModel;
 import model.MutableReversi;
 import model.MutableReversiModel;
+import org.junit.Assert;
+import org.junit.Test;
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -21,6 +19,7 @@ import player.Player;
  * Tests potential issues with the controller for Reversi.
  */
 public class ReversiControllerTests {
+
   private ReversiController controller;
   private MutableReversiModel model;
   private Player player;
@@ -29,21 +28,21 @@ public class ReversiControllerTests {
   @Test
   public void testInvalidModel() {
     Assert.assertThrows(NullPointerException.class, () -> new ReversiControllerImp(null
-            , new HumanPlayer(null, DiscColor.BLACK), new DigitalReversiWindow(null)));
+        , new HumanPlayer(null, DiscColor.BLACK), new DigitalReversiWindow(null)));
     Assert.assertThrows(IllegalArgumentException.class
-            , () -> new ReversiControllerImp(new MutableReversi(-1)
-                    , new HumanPlayer(new MutableReversi(-1)
-                    , DiscColor.BLACK), new DigitalReversiWindow(new MutableReversi(-1))));
+        , () -> new ReversiControllerImp(new MutableReversi(-1)
+            , new HumanPlayer(new MutableReversi(-1)
+            , DiscColor.BLACK), new DigitalReversiWindow(new MutableReversi(-1))));
   }
 
   @Test
   public void testThatControllerInteractsWithModel() {
     Appendable log = new StringBuffer();
-    model = new MockMutableReversiModel(3,log);
+    model = new MockMutableReversiModel(3, log);
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     DigitalWindow view = new DigitalReversiWindow(model);
     controller = new ReversiControllerImp(model, player, view);
     controller.run();
-    System.out.println(log.toString());
+    System.out.println(log);
   }
 }

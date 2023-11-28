@@ -46,7 +46,7 @@ public class MutableReversi implements MutableReversiModel {
     blacksTurn = true;
     gameStarted = true;
     System.out.println("game started");
-    System.out.println("first turn is "+ getCurrentTurn());
+    System.out.println("first turn is " + getCurrentTurn());
     updateFeaturesInterface();
   }
 
@@ -333,7 +333,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int getBoardRadius() {
-   //checkGameStarted();
+    //checkGameStarted();
     return size;
   }
 
@@ -355,7 +355,7 @@ public class MutableReversi implements MutableReversiModel {
 
   private void updateFeaturesInterface() {
     for (ModelFeatures features : features) {
-      features.notifyPlayerItsTurn();
+      features.moveWasPlayed();
     }
   }
 

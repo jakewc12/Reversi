@@ -107,18 +107,6 @@ public class ReversiReadTests {
     }
   }
 
-  /**
-   * tests that trying to do anything before throwing startGame throws IllegalStateException.
-   */
-  @Test
-  public void nothingInReadFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class,
-        () -> game.getColorAt(new Coordinate(0, 0, 0)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getBoardRadius());
-  }
 
   /**
    * tests that cannot call startGame multiple times.

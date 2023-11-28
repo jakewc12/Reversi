@@ -3,7 +3,8 @@ package controller;
 import model.Coordinate;
 
 /**
- * The methods for features.
+ * Features you want the controller to have so that the view can tell the controller to do the
+ * features when the time comes.
  */
 public interface Features {
 

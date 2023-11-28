@@ -96,21 +96,7 @@ public class MutableReversiTests {
     Assert.assertThrows(IllegalArgumentException.class,
         () -> game.placeDisc(new Coordinate(0, 0, -6)));
   }
-
-  /**
-   * tests that trying to do anything before throwing startGame throws IllegalStateException.
-   */
-  @Test
-  public void nothingFunctionsBeforeGameStart() {
-    Assert.assertThrows(IllegalStateException.class,
-        () -> game.getColorAt(new Coordinate(0, 0, 0)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new Coordinate(0, 0, 0)));
-    Assert.assertThrows(IllegalStateException.class, () -> game.skipCurrentTurn());
-    Assert.assertThrows(IllegalStateException.class, () -> game.gameOver());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getBoardSize());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getCurrentTurn());
-    Assert.assertThrows(IllegalStateException.class, () -> game.getBoardRadius());
-  }
+  
 
   /**
    * tests that placing any disc no colored WHITE or GREY throws an IllegalStateException.

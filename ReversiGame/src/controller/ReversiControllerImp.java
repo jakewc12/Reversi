@@ -1,13 +1,9 @@
 package controller;
 
-import java.util.Objects;
-
 import digitalviews.DigitalWindow;
-
-
+import java.util.Objects;
 import model.Coordinate;
 import model.ModelFeatures;
-import model.MutableReversi;
 import model.MutableReversiModel;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -55,7 +51,7 @@ public class ReversiControllerImp implements ReversiController, Features, ModelF
    */
   @Override
   public void placeDisc(Coordinate coordinate) {
-    if(player instanceof HumanPlayer) {
+    if (player instanceof HumanPlayer) {
       if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
           model.placeDisc(coordinate);
@@ -77,9 +73,9 @@ public class ReversiControllerImp implements ReversiController, Features, ModelF
   }
 
   @Override
-  public void notifyPlayerItsTurn() {
+  public void moveWasPlayed() {
     this.run();
-    if(player instanceof MachinePlayer){
+    if (player instanceof MachinePlayer) {
       if (!model.gameOver()) {
         if (model.getCurrentTurn().equals(player.getPlayerColor())) {
           player.playMove(model);
