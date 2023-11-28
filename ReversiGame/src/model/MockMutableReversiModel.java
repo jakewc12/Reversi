@@ -27,8 +27,8 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void startGame(List<HexagonCell> board) {
-    super.startGame(board);
+  public void setUpGame(List<HexagonCell> board) {
+    super.setUpGame(board);
     this.cells = board;
   }
 

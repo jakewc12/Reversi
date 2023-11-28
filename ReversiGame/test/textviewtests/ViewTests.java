@@ -46,7 +46,7 @@ public class ViewTests {
    */
   @Test
   public void testTextViewOnStart() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     tv = new ReversiTextualView(game, gameLog);
     try {
       tv.render();
@@ -77,7 +77,7 @@ public class ViewTests {
    */
   @Test
   public void testTextViewUpdates() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     game.placeDisc(new Coordinate(1, -2, 1));
     tv = new ReversiTextualView(game, gameLog);
     try {

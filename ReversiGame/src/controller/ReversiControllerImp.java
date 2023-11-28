@@ -3,7 +3,7 @@ package controller;
 import digitalviews.DigitalWindow;
 import java.util.Objects;
 import model.Coordinate;
-import model.ModelFeatures;
+import model.ModelStatus;
 import model.MutableReversiModel;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -12,7 +12,7 @@ import player.Player;
 /**
  * allows for the model to be played using the view.
  */
-public class ReversiControllerImp implements ReversiController, Features, ModelFeatures {
+public class ReversiControllerImp implements ReversiController, PlayerActions, ModelStatus {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;

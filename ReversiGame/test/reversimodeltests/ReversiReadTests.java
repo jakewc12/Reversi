@@ -40,7 +40,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getRadiusAndGetBoardSizeWorks() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     Assert.assertEquals(11, game.getBoardSize());
     Assert.assertEquals(5, game.getBoardRadius());
   }
@@ -52,7 +52,7 @@ public class ReversiReadTests {
   @Test
   public void gameOverTrueOnOneByOneBoard() {
     game = new MutableReversi(1);
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     Assert.assertTrue(game.gameOver());
   }
 
@@ -61,7 +61,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getTurnBlackOnStart() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     Assert.assertEquals(DiscColor.BLACK, game.getCurrentTurn());
   }
 
@@ -73,7 +73,7 @@ public class ReversiReadTests {
    */
   @Test
   public void getDiscAtFunctionsCorrectlyOnGameStart() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     int boardRadius = 5;
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
@@ -113,8 +113,8 @@ public class ReversiReadTests {
    */
   @Test
   public void cannotStartGameWhenGameIsStarted() {
-    game.startGame(game.getBoard());
-    Assert.assertThrows(IllegalStateException.class, () -> game.startGame(game.getBoard()));
+    game.setUpGame(game.getBoard());
+    Assert.assertThrows(IllegalStateException.class, () -> game.setUpGame(game.getBoard()));
   }
 
   @Test
@@ -125,7 +125,7 @@ public class ReversiReadTests {
 
   @Test
   public void getAllCoordinatesWorks() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     int boardRadius = 5;
     List<Coordinate> givenCoords = game.getAllCoordinates();
     for (int q = -boardRadius; q < boardRadius; q++) {
@@ -144,7 +144,7 @@ public class ReversiReadTests {
 
   @Test
   public void getNumFlipsOnMoveWorks() {
-    game.startGame(game.getBoard());
+    game.setUpGame(game.getBoard());
     int numFlips = game.getNumFlipsOnMove(new Coordinate(1, -2, 1), DiscColor.BLACK);
     Assert.assertEquals(1, numFlips);
 

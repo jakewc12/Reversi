@@ -2,7 +2,7 @@ package digitalviews;
 
 import static digitalviews.DrawnHexagon.hexagonRadius;
 
-import controller.Features;
+import controller.PlayerActions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -101,7 +101,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * @param features the features to be added to the view.
    */
   @Override
-  public void addFeaturesListener(Features features) {
+  public void addFeaturesListener(PlayerActions features) {
     listener = new KeyListener() {
       /**
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move
@@ -149,7 +149,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    */
   @Override
   public void showErrorMessage(Player player) {
-    JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
+    JOptionPane.showMessageDialog(null
+            , "Illegal move for player " + player.getPlayerColor());
 
   }
 }

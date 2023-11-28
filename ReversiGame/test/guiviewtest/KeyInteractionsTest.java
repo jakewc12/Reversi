@@ -1,6 +1,6 @@
 package guiviewtest;
 
-import controller.Features;
+import controller.PlayerActions;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import java.awt.Component;
@@ -29,9 +29,9 @@ public class KeyInteractionsTest {
   public void init() {
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     view = new DigitalReversiWindow(model);
-    view.addFeaturesListener(new Features() {
+    view.addFeaturesListener(new PlayerActions() {
       @Override
       public void placeDisc(Coordinate coordinate) {
         model.placeDisc(coordinate);

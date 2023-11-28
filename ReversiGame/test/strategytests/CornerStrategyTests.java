@@ -42,11 +42,11 @@ public class CornerStrategyTests {
    */
   @Test
   public void testCornerTilesFound() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     String oldLog = log.toString();
     log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     model.forcePlaceDisc(new Coordinate(-3, 0, 3), DiscColor.BLACK);
     Assert.assertNotEquals(oldLog, log.toString());
   }
@@ -65,11 +65,11 @@ public class CornerStrategyTests {
     filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, -1, 1)));
     filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, 1, -1)));
     filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(1, 0, -1)));
-    model.startGame(filledBoard);
+    model.setUpGame(filledBoard);
     Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
 
     model = new MockMutableReversiModel(1, log);
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
   }
 }

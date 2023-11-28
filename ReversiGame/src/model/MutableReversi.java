@@ -13,7 +13,7 @@ public class MutableReversi implements MutableReversiModel {
 
   //width is how far from the center cell every edge cell is
   private final int size;
-  private final List<ModelFeatures> features = new ArrayList<>();
+  private final List<ModelStatus> features = new ArrayList<>();
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
@@ -35,7 +35,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public void startGame(List<HexagonCell> board) {
+  public void setUpGame(List<HexagonCell> board) {
     if (gameStarted) {
       throw new IllegalStateException("Game already started");
     }
@@ -45,11 +45,12 @@ public class MutableReversi implements MutableReversiModel {
     this.cells = board;
     blacksTurn = true;
     gameStarted = true;
-    System.out.println("game started");
-    System.out.println("first turn is " + getCurrentTurn());
-    updateFeaturesInterface();
   }
 
+  @Override
+  public void startGame(){
+    updateFeaturesInterface();
+  }
 
   @Override
   public List<HexagonCell> getBoard() {
@@ -316,7 +317,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public DiscColor getCurrentTurn() {
-    //checkGameStarted();
+    checkGameStarted();
     if (blacksTurn) {
       return DiscColor.BLACK;
     } else {
@@ -326,21 +327,21 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public int getBoardSize() {
-    //checkGameStarted();
+    checkGameStarted();
     return getBoardRadius() * 2 + 1;
   }
 
 
   @Override
   public int getBoardRadius() {
-    //checkGameStarted();
+    checkGameStarted();
     return size;
   }
 
 
   @Override
   public boolean gameOver() {
-    //checkGameStarted();
+    checkGameStarted();
     if (checkIfAllCellsFilled()) {
       return true;
     }
@@ -349,12 +350,12 @@ public class MutableReversi implements MutableReversiModel {
         !blacksTurn);
   }
 
-  public void addFeaturesInterface(ModelFeatures features) {
+  public void addFeaturesInterface(ModelStatus features) {
     this.features.add(features);
   }
 
   private void updateFeaturesInterface() {
-    for (ModelFeatures features : features) {
+    for (ModelStatus features : features) {
       features.moveWasPlayed();
     }
   }

@@ -6,7 +6,7 @@ import model.Coordinate;
  * Features you want the controller to have so that the view can tell the controller to do the
  * features when the time comes.
  */
-public interface Features {
+public interface PlayerActions {
 
   /**
    * Places a disc on the Reversi game.

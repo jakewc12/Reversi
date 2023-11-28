@@ -39,7 +39,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void testGoesForUpperLeftMostCoordOnTie() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     whiteAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (1, -2, 1)"));
   }
@@ -49,7 +49,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void GoesForMostTiles() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     blackAI.playMove(model);
     model.skipCurrentTurn();
     blackAI.playMove(model);
@@ -63,7 +63,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void worksWithWhiteMove() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     blackAI.playMove(model);
     whiteAI.playMove(model);
     blackAI.playMove(model);
@@ -77,7 +77,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     model.forcePlaceDisc(new Coordinate(3, 0, -3), DiscColor.BLACK);
     model.forcePlaceDisc(new Coordinate(2, 1, -3), DiscColor.WHITE);
     model.forcePlaceDisc(new Coordinate(1, 2, -3), DiscColor.WHITE);
@@ -91,7 +91,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft2() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     model.forcePlaceDisc(new Coordinate(3, 0, -3), DiscColor.WHITE);
     model.forcePlaceDisc(new Coordinate(2, 1, -3), DiscColor.BLACK);
     model.forcePlaceDisc(new Coordinate(1, 2, -3), DiscColor.BLACK);
@@ -106,7 +106,7 @@ public class CaptureMostTilesStrategyTests {
    */
   @Test
   public void returnsEmptyOnNoValidMove() {
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     model.forcePlaceDisc(new Coordinate(1, -1, 0), DiscColor.BLACK);
     model.forcePlaceDisc(new Coordinate(-1, 0, 1), DiscColor.BLACK);
     model.forcePlaceDisc(new Coordinate(0, 1, -1), DiscColor.BLACK);
@@ -118,7 +118,7 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void checksAllPossibleMovesOnBoard() {
     StringBuilder expected = new StringBuilder();
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     List<Coordinate> allCoords = model.getAllCoordinates();
     for (Coordinate coordinate : allCoords) {
       expected.append("Checked legal at ").append(coordinate).append("\n");

@@ -115,3 +115,22 @@ Screenshots:
     When the game is over:
 
 ![img.png](End Game.png)
+
+
+    Changes for Part 3: 
+    Changes that we made to the view during this part was that we cleaned up code to make it more
+    readable. For example, in the player class, we changed the method playerColor() to 
+    getPlayerColor(). In the previous part, we made a controller, however, it could not handle 
+    strategy/AI players. In this part, we added that capability. We also added a features interface
+    for the model package. This allowed for the model to tell both controllers when a move is made
+    so that the views can update properly. In the assignment, it says that have "player-action" 
+    listeners and "model-status" listeners. We named our interfaces accordingly. One other change
+    that we made was to have startGame() and setUpGame() methods separated. Before, we had only
+    a startGame() method, but now we have both so that the game can be played correctly.
+
+For the configuration of the game, if there are no command-line inputs, the default players go as 
+follows: player1 or BLACK is a human player while player2 or WHITE is a machine player using
+strategy1. The command-line allows to change the configurations of the game to make player1 machine
+or player2 human, however, if invalid inputs are given to the command-line, then the configurations
+will resort to the default for the invalid inputs. For example, if the args are "strategy111" and
+"human", the configuration will be human and human since the second input was valid.

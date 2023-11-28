@@ -57,7 +57,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalArgumentException if size is negative.
    * @throws IllegalStateException    if the game has already started.
    */
-  void startGame(List<HexagonCell> board);
+  void setUpGame(List<HexagonCell> board);
 
   /**
    * Returns a board in a default initial state based on the game's size.
@@ -111,5 +111,10 @@ public interface ReadOnlyReversiModel {
    * @return all the possible coordinates.
    */
   List<Coordinate> getAllCoordinates();
+
+  /**
+   * Begins the game and allows for moves to be made.
+   */
+  void startGame();
 }
 

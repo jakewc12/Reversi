@@ -44,7 +44,7 @@ public class ReversiControllerTests {
     DigitalWindow view = new DigitalReversiWindow(model);
     controller = new ReversiControllerImp(model, player, view);
     controller.run();
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     Assert.assertTrue(log.toString().contains("Place disc"));
   }
 
@@ -56,7 +56,7 @@ public class ReversiControllerTests {
     DigitalWindow view = new DigitalReversiWindow(model);
     controller = new ReversiControllerImp(model, player, view);
     controller.run();
-    model.startGame(model.getBoard());
+    model.setUpGame(model.getBoard());
     Assert.assertFalse(log.toString().contains("Place disc"));
   }
 }
