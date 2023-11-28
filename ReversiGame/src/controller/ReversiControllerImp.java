@@ -56,7 +56,7 @@ public class ReversiControllerImp implements ReversiController, Features, ModelF
   @Override
   public void placeDisc(Coordinate coordinate) {
     if(player instanceof HumanPlayer) {
-      if (this.player.getColor().equals(model.getCurrentTurn())) {
+      if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
           model.placeDisc(coordinate);
         } catch (Exception ignore) {
@@ -81,7 +81,7 @@ public class ReversiControllerImp implements ReversiController, Features, ModelF
     this.run();
     if(player instanceof MachinePlayer){
       if (!model.gameOver()) {
-        if (model.getCurrentTurn().equals(player.getColor())) {
+        if (model.getCurrentTurn().equals(player.getPlayerColor())) {
           player.playMove(model);
         }
       }
