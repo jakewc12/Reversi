@@ -39,10 +39,24 @@ public class ReversiControllerTests {
   public void testThatControllerInteractsWithModel() {
     Appendable log = new StringBuffer();
     model = new MockMutableReversiModel(3, log);
+
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     DigitalWindow view = new DigitalReversiWindow(model);
     controller = new ReversiControllerImp(model, player, view);
     controller.run();
-    System.out.println(log);
+    model.startGame(model.getBoard());
+    Assert.assertTrue(log.toString().contains("Place disc"));
+  }
+
+  @Test
+  public void testWhenNoMovesAvailableTurnSkipped() {
+    Appendable log = new StringBuffer();
+    model = new MockMutableReversiModel(1, log);
+    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    DigitalWindow view = new DigitalReversiWindow(model);
+    controller = new ReversiControllerImp(model, player, view);
+    controller.run();
+    model.startGame(model.getBoard());
+    Assert.assertFalse(log.toString().contains("Place disc"));
   }
 }
