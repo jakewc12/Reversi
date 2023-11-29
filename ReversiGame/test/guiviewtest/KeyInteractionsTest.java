@@ -7,7 +7,7 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import model.Coordinate;
-import model.MockMutableReversiModel;
+import helpers.MockMutableReversiModel;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;

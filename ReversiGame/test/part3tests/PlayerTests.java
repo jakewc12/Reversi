@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.DiscColor;
-import model.MockMutableReversiModel;
+import helpers.MockMutableReversiModel;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;

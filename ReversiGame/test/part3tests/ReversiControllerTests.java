@@ -1,17 +1,17 @@
 package part3tests;
 
+import controller.Controller;
 import controller.ReversiController;
-import controller.ReversiControllerImp;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
+import helpers.MockDigitalReversiWindow;
+import helpers.MockMutableReversiModel;
 import model.DiscColor;
-import model.MockMutableReversiModel;
 import model.MutableReversi;
 import model.MutableReversiModel;
-
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -22,22 +22,40 @@ import player.Player;
  */
 public class ReversiControllerTests {
 
-  private ReversiController controller;
+  private Controller controller;
   private MutableReversiModel model;
+  Appendable modelLog;
+  Appendable viewLog;
   private Player player;
   private DigitalWindow view;
+
+
+  /**
+   * Sets up variables used for testing.
+   */
+  @Before
+  public void init() {
+    modelLog = new StringBuffer();
+    viewLog = new StringBuffer();
+    model = new MockMutableReversiModel(3, modelLog);
+    model.setUpGame(model.getBoard());
+    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    view = new MockDigitalReversiWindow(model, viewLog);
+    controller = new ReversiController(model, player, view);
+  }
 
   /**
    * Tests that invalid inputs given to controller throws exceptions.
    */
   @Test
   public void testInvalidModel() {
-    Assert.assertThrows(NullPointerException.class, () -> new ReversiControllerImp(null
-            , new HumanPlayer(null, DiscColor.BLACK), new DigitalReversiWindow(null)));
-    Assert.assertThrows(IllegalArgumentException.class
-            , () -> new ReversiControllerImp(new MutableReversi(-1)
-                    , new HumanPlayer(new MutableReversi(-1)
-                    , DiscColor.BLACK), new DigitalReversiWindow(new MutableReversi(-1))));
+    Assert.assertThrows(NullPointerException.class,
+        () -> new ReversiController(null, new HumanPlayer(null, DiscColor.BLACK),
+            new DigitalReversiWindow(null)));
+    Assert.assertThrows(IllegalArgumentException.class,
+        () -> new ReversiController(new MutableReversi(-1),
+            new HumanPlayer(new MutableReversi(-1), DiscColor.BLACK),
+            new DigitalReversiWindow(new MutableReversi(-1))));
   }
 
   /**
@@ -45,15 +63,8 @@ public class ReversiControllerTests {
    */
   @Test
   public void testThatControllerInteractsWithModel() {
-    Appendable log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
-    model.setUpGame(model.getBoard());
-    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
-    DigitalWindow view = new DigitalReversiWindow(model);
-    controller = new ReversiControllerImp(model, player, view);
     model.startGame();
-    System.out.println(log.toString());
-    Assert.assertTrue(log.toString().contains("Place disc"));
+    Assert.assertTrue(modelLog.toString().contains("Place disc"));
   }
 
   /**
@@ -61,14 +72,10 @@ public class ReversiControllerTests {
    */
   @Test
   public void testWhenNoMovesAvailableTurnSkipped() {
-    Appendable log = new StringBuffer();
-    model = new MockMutableReversiModel(1, log);
+    model = new MockMutableReversiModel(1, modelLog);
     model.setUpGame(model.getBoard());
-    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
-    DigitalWindow view = new DigitalReversiWindow(model);
-    controller = new ReversiControllerImp(model, player, view);
     model.startGame();
-    Assert.assertFalse(log.toString().contains("Place disc"));
+    Assert.assertFalse(modelLog.toString().contains("Place disc"));
   }
 
   /**
@@ -76,15 +83,32 @@ public class ReversiControllerTests {
    */
   @Test
   public void testModelCanInteractWithMultipleListeners() {
-    Appendable log = new StringBuffer();
-    model = new MockMutableReversiModel(1, log);
+    model = new MockMutableReversiModel(1, modelLog);
     model.setUpGame(model.getBoard());
-    player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
-    DigitalWindow view = new DigitalReversiWindow(model);
-    controller = new ReversiControllerImp(model, player, view);
-    ReversiController controller2 = new ReversiControllerImp(model, player2, view);
+    Controller controller2 = new ReversiController(model, player2, view);
     model.startGame();
-    Assert.assertTrue(log.toString().contains("added feature"));
+    Assert.assertTrue(modelLog.toString().contains("added feature"));
+  }
+
+  @Test
+  public void controllerAddsItselfAsFeatureOnConstruction() {
+    Controller controller2 = new ReversiController(model, player, view);
+    Controller controller3 = new ReversiController(model, player, view);
+    Assert.assertTrue(modelLog.toString()
+        .contains("added feature to model\nadded feature to model\nadded feature to model\n"));
+  }
+
+  @Test
+  public void controllerInteractsWithViewOnRun() {
+    controller.run();
+    Assert.assertEquals("Feature added to view\n" + "Refreshed window\n" + "Made window visible\n",
+        viewLog.toString());
+  }
+  @Test
+  public void controllerTellsViewToRefreshOnMove() {
+    model.startGame();
+    System.out.println(modelLog);
+    System.out.println(viewLog);
   }
 }

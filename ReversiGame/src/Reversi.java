@@ -1,5 +1,5 @@
+import controller.Controller;
 import controller.ReversiController;
-import controller.ReversiControllerImp;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import java.util.ArrayList;
@@ -40,8 +40,8 @@ public final class Reversi {
 
     // should we do a sleep so that the move isnt made literally automatically
     List<Player> players = makePlayers(args, model);
-    ReversiController controller1 = new ReversiControllerImp(model, players.get(0), viewPlayer1);
-    ReversiController controller2 = new ReversiControllerImp(model, players.get(1), viewPlayer2);
+    Controller controller1 = new ReversiController(model, players.get(0), viewPlayer1);
+    Controller controller2 = new ReversiController(model, players.get(1), viewPlayer2);
     model.startGame();
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();

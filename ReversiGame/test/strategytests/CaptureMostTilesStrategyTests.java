@@ -3,7 +3,7 @@ package strategytests;
 import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
-import model.MockMutableReversiModel;
+import helpers.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

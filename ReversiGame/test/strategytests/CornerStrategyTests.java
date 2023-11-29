@@ -7,7 +7,7 @@ import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
 import model.HexagonCell;
-import model.MockMutableReversiModel;
+import helpers.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,12 @@
-package model;
+package helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Coordinate;
+import model.DiscColor;
+import model.HexagonCell;
+import model.ModelStatus;
+import model.MutableReversi;
 
 /**
  * The MockMutableReversiModel class extends MutableReversi and serves as a mock implementation of a
