@@ -7,7 +7,7 @@ import model.ReadOnlyReversiModel;
 import player.Player;
 
 /**
- * A mock version of ReversiWindow
+ * A mock version of ReversiWindow.
  */
 public class MockDigitalReversiWindow implements DigitalWindow {
 
