@@ -17,6 +17,7 @@ import model.MutableReversi;
  */
 public class MockMutableReversiModel extends MutableReversi {
 
+  private List<String> ban;
   private final Appendable out;
   private List<HexagonCell> cells = new ArrayList<>();
   private final List<ModelStatus> features = new ArrayList<>();
@@ -30,6 +31,11 @@ public class MockMutableReversiModel extends MutableReversi {
   public MockMutableReversiModel(int size, Appendable out) {
     super(size);
     this.out = out;
+    ban = new ArrayList<>();
+  }
+
+  public void addBanItem(String item){
+    this.ban.add(item);
   }
 
   @Override
@@ -54,7 +60,10 @@ public class MockMutableReversiModel extends MutableReversi {
 
   @Override
   public void skipCurrentTurn() {
-    append("Turn skipped");
+    if (!ban.contains("skipCurrentTurn")) {
+      append("Turn skipped");
+    }
+
     super.skipCurrentTurn();
   }
 
@@ -71,7 +80,10 @@ public class MockMutableReversiModel extends MutableReversi {
 
   @Override
   public void placeDisc(Coordinate coordinate) {
-    append("Place disc called at " + coordinate);
+    if (!ban.contains("placeDisc")) {
+      append("Place disc called at " + coordinate);
+    }
+
     super.placeDisc(coordinate);
   }
 
@@ -84,7 +96,9 @@ public class MockMutableReversiModel extends MutableReversi {
    * @param color      The color of the disc to be placed.
    */
   public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
-    append("Force place disc called at " + coordinate);
+    if (!ban.contains("forcePlaceDisc")) {
+      append("Force place disc called at " + coordinate);
+    }
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)) {
         cell.cellContents().changeColorTo(color);
@@ -113,18 +127,28 @@ public class MockMutableReversiModel extends MutableReversi {
    */
   @Override
   public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
-    append("Checked legal at " + coordinate.toString());
+    if (!ban.contains("getNumFlipsOnMove")) {
+      append("Checked legal at " + coordinate.toString());
+    }
+
     return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 
   @Override
   public void addFeaturesInterface(ModelStatus features) {
-    append("added feature to model");
+    if (!ban.contains("addFeaturesInterface")) {
+      append("added feature to model");
+    }
+
     this.features.add(features);
   }
 
   private void notifyFeatures() {
     for (ModelStatus feature : this.features) {
+      if (!ban.contains("notifyFeatures")) {
+        append("Notified " + feature + " that move was played.");
+      }
+
       feature.moveWasPlayed();
     }
   }

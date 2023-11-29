@@ -6,6 +6,9 @@ import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import helpers.MockDigitalReversiWindow;
 import helpers.MockMutableReversiModel;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import model.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;
@@ -23,7 +26,7 @@ import player.Player;
 public class ReversiControllerTests {
 
   private Controller controller;
-  private MutableReversiModel model;
+  private MockMutableReversiModel model;
   Appendable modelLog;
   Appendable viewLog;
   private Player player;
@@ -41,7 +44,6 @@ public class ReversiControllerTests {
     model.setUpGame(model.getBoard());
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     view = new MockDigitalReversiWindow(model, viewLog);
-    controller = new ReversiController(model, player, view);
   }
 
   /**
@@ -63,6 +65,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testThatControllerInteractsWithModel() {
+    controller = new ReversiController(model, player, view);
     model.startGame();
     Assert.assertTrue(modelLog.toString().contains("Place disc"));
   }
@@ -93,6 +96,7 @@ public class ReversiControllerTests {
 
   @Test
   public void controllerAddsItselfAsFeatureOnConstruction() {
+    controller = new ReversiController(model, player, view);
     Controller controller2 = new ReversiController(model, player, view);
     Controller controller3 = new ReversiController(model, player, view);
     Assert.assertTrue(modelLog.toString()
@@ -101,14 +105,28 @@ public class ReversiControllerTests {
 
   @Test
   public void controllerInteractsWithViewOnRun() {
+    controller = new ReversiController(model, player, view);
     controller.run();
     Assert.assertEquals("Feature added to view\n" + "Refreshed window\n" + "Made window visible\n",
         viewLog.toString());
   }
+
+  /**
+   * Creates two controllers and then tests that the other controller gets notified when a disc
+   * gets placed
+   */
   @Test
-  public void controllerTellsViewToRefreshOnMove() {
+  public void allControllersGetNotifiedMoveWasMade() {
+
+    model.addBanItem("getNumFlipsOnMove");
+    view = new MockDigitalReversiWindow(model, modelLog);
+    controller = new ReversiController(model, player, view);
+    Controller controller2 = new ReversiController(model, player, view);
     model.startGame();
-    System.out.println(modelLog);
-    System.out.println(viewLog);
+
+    Assert.assertTrue(modelLog.toString().contains("Place disc called at"));
+
+    String[] split = modelLog.toString().split("Notified controller");
+    Assert.assertEquals(3,split.length);
   }
 }
