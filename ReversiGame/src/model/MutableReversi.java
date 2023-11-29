@@ -138,8 +138,8 @@ public class MutableReversi implements MutableReversiModel {
     if (Math.abs(coord.getIntQ()) > size || Math.abs(coord.getIntR()) > size
         || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
       throw new IllegalArgumentException(
-          "Invalid coordinates given for size. Max coordinate size is: " + size
-              + "\n coordinates " + "were " + coord);
+          "Invalid coordinates given for size. Max coordinate size is: " + size + "\n coordinates "
+              + "were " + coord);
     }
   }
 
@@ -207,8 +207,7 @@ public class MutableReversi implements MutableReversiModel {
     }
     //Check Horizontal
     toFlip.addAll(
-        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT)
-            , currentColor));
+        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT), currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_RIGHT),
         currentColor));
 
