@@ -5,5 +5,8 @@ package model;
  */
 public interface ModelStatus {
 
+  /**
+   * Allows the model to tell controllers that a move was played so the controller can update view.
+   */
   void moveWasPlayed();
 }

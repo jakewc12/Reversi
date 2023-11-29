@@ -355,8 +355,8 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private void updateFeaturesInterface() {
-    for (ModelStatus features : features) {
-      features.moveWasPlayed();
+    for (ModelStatus feature : features) {
+      feature.moveWasPlayed();
     }
   }
 

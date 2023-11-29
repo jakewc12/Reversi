@@ -128,6 +128,11 @@ Screenshots:
     that we made was to have startGame() and setUpGame() methods separated. Before, we had only
     a startGame() method, but now we have both so that the game can be played correctly.
 
+    The outline of the homework says that the model should notify the players when it is its turn.
+    We handle this by saying in the title of the view, the current player's turn. For example,
+    the title may say "Reversi - BLACK's Turn." We also tell the players if the game is over through
+    the title. For example, if the game is over, the title may say "Game Over! Winner is BLACK"
+
 For the configuration of the game, if there are no command-line inputs, the default players go as 
 follows: player1 or BLACK is a human player while player2 or WHITE is a machine player using
 strategy1. The command-line allows to change the configurations of the game to make player1 machine

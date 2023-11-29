@@ -2,6 +2,7 @@ package helpers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.Coordinate;
 import model.DiscColor;
 import model.HexagonCell;
@@ -34,7 +35,7 @@ public class MockMutableReversiModel extends MutableReversi {
     ban = new ArrayList<>();
   }
 
-  public void addBanItem(String item){
+  public void addBanItem(String item) {
     this.ban.add(item);
   }
 
@@ -71,7 +72,7 @@ public class MockMutableReversiModel extends MutableReversi {
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
-          && cell.cellContents().getColor() != DiscColor.GREY) {
+              && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
     }

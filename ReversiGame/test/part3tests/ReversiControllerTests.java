@@ -6,15 +6,14 @@ import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import helpers.MockDigitalReversiWindow;
 import helpers.MockMutableReversiModel;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import model.DiscColor;
 import model.MutableReversi;
-import model.MutableReversiModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
 import player.MachinePlayer;
@@ -52,12 +51,12 @@ public class ReversiControllerTests {
   @Test
   public void testInvalidModel() {
     Assert.assertThrows(NullPointerException.class,
-        () -> new ReversiController(null, new HumanPlayer(null, DiscColor.BLACK),
-            new DigitalReversiWindow(null)));
+            () -> new ReversiController(null, new HumanPlayer(null, DiscColor.BLACK),
+                    new DigitalReversiWindow(null)));
     Assert.assertThrows(IllegalArgumentException.class,
-        () -> new ReversiController(new MutableReversi(-1),
-            new HumanPlayer(new MutableReversi(-1), DiscColor.BLACK),
-            new DigitalReversiWindow(new MutableReversi(-1))));
+            () -> new ReversiController(new MutableReversi(-1),
+                    new HumanPlayer(new MutableReversi(-1), DiscColor.BLACK),
+                    new DigitalReversiWindow(new MutableReversi(-1))));
   }
 
   /**
@@ -94,21 +93,25 @@ public class ReversiControllerTests {
     Assert.assertTrue(modelLog.toString().contains("added feature"));
   }
 
+  /**
+   * Tests that the model contains multiple features if added.
+   */
   @Test
   public void controllerAddsItselfAsFeatureOnConstruction() {
     controller = new ReversiController(model, player, view);
     Controller controller2 = new ReversiController(model, player, view);
     Controller controller3 = new ReversiController(model, player, view);
     Assert.assertTrue(modelLog.toString()
-        .contains("added feature to model\nadded feature to model\nadded feature to model\n"));
+            .contains("added feature to model\nadded feature to model\nadded feature to model\n"));
   }
 
   @Test
   public void controllerInteractsWithViewOnRun() {
     controller = new ReversiController(model, player, view);
     controller.run();
-    Assert.assertEquals("Feature added to view\n" + "Refreshed window\n" + "Made window visible\n",
-        viewLog.toString());
+    Assert.assertEquals("Feature added to view\n"
+                    + "Refreshed window\n" + "Made window visible\n",
+            viewLog.toString());
   }
 
   /**
@@ -127,6 +130,6 @@ public class ReversiControllerTests {
     Assert.assertTrue(modelLog.toString().contains("Place disc called at"));
 
     String[] split = modelLog.toString().split("Notified controller");
-    Assert.assertEquals(3,split.length);
+    Assert.assertEquals(3, split.length);
   }
 }

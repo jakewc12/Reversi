@@ -3,13 +3,16 @@ package digitalviews;
 import static digitalviews.DrawnHexagon.hexagonRadius;
 
 import controller.PlayerActions;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -77,7 +80,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
       } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
-          DiscColor.WHITE)) {
+              DiscColor.WHITE)) {
         winner = " Winner is BLACK";
       } else {
         winner = " TIE";
@@ -151,5 +154,22 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   public void showErrorMessage(Player player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
 
+  }
+
+  /**
+   * Shows a pop-up telling the player that it is its turn.
+   */
+  @Override
+  public void notifyPlayerItsTurn() {
+    JOptionPane.showMessageDialog(null, "It is your turn, "
+            + model.getCurrentTurn());
+  }
+
+  /**
+   * Removes notification telling player its turn if the move is done.
+   */
+  @Override
+  public void turnOffNotificationOnceTurnIsDone() {
+    //remove optionpane
   }
 }

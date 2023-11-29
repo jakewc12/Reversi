@@ -6,6 +6,9 @@ import java.awt.event.KeyListener;
 import model.ReadOnlyReversiModel;
 import player.Player;
 
+/**
+ * A mock version of ReversiWindow
+ */
 public class MockDigitalReversiWindow implements DigitalWindow {
 
   Appendable log;
@@ -50,5 +53,21 @@ public class MockDigitalReversiWindow implements DigitalWindow {
   @Override
   public void showErrorMessage(Player player) {
     append("Error message shown to " + player);
+  }
+
+  /**
+   * Shows a pop-up telling the player that it is its turn.
+   */
+  @Override
+  public void notifyPlayerItsTurn() {
+    //needed to implement the class.
+  }
+
+  /**
+   * Removes notification telling player its turn if the move is done.
+   */
+  @Override
+  public void turnOffNotificationOnceTurnIsDone() {
+    //needed to implement the class.
   }
 }
