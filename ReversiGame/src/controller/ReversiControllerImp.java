@@ -22,7 +22,7 @@ public class ReversiControllerImp implements ReversiController, PlayerActions, M
    * creates a new MutableReversiController.
    *
    * @param model the model to be played.
-   * @param view  the view of the mode..
+   * @param view  the view of the mode.
    */
   public ReversiControllerImp(MutableReversiModel model, Player player, DigitalWindow view) {
     Objects.requireNonNull(model);

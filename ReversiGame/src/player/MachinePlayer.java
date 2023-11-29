@@ -2,7 +2,6 @@ package player;
 
 import java.util.Objects;
 import java.util.Optional;
-
 import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversiModel;
