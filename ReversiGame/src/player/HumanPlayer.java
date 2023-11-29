@@ -9,7 +9,6 @@ import model.MutableReversiModel;
  */
 public class HumanPlayer implements Player {
 
-  private final MutableReversiModel model;
   private final DiscColor playerColor;
 
   /**
@@ -21,7 +20,6 @@ public class HumanPlayer implements Player {
   public HumanPlayer(MutableReversiModel model, DiscColor playerColor) {
     Objects.requireNonNull(model);
     Objects.requireNonNull(playerColor);
-    this.model = model;
     this.playerColor = playerColor;
   }
 
@@ -42,6 +40,6 @@ public class HumanPlayer implements Player {
    */
   @Override
   public void playMove(MutableReversiModel model) {
-
+    //for human players, move is handled in the view. This is needed to implement the interface.
   }
 }

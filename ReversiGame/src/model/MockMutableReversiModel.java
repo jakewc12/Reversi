@@ -13,7 +13,8 @@ import java.util.List;
 public class MockMutableReversiModel extends MutableReversi {
 
   private final Appendable out;
-  List<HexagonCell> cells = new ArrayList<>();
+  private List<HexagonCell> cells = new ArrayList<>();
+  private List<ModelStatus> features = new ArrayList<>();
 
   /**
    * Constructs a MockMutableReversiModel with the specified size and an Appendable for logging.
@@ -30,6 +31,12 @@ public class MockMutableReversiModel extends MutableReversi {
   public void setUpGame(List<HexagonCell> board) {
     super.setUpGame(board);
     this.cells = board;
+  }
+
+  @Override
+  public void startGame() {
+    super.startGame();
+    notifyFeatures();
   }
 
   private void append(String thing) {
@@ -50,7 +57,7 @@ public class MockMutableReversiModel extends MutableReversi {
   public boolean isLegalMove(Coordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
-          && cell.cellContents().getColor() != DiscColor.GREY) {
+              && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
     }
@@ -105,4 +112,15 @@ public class MockMutableReversiModel extends MutableReversi {
     return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 
+  @Override
+  public void addFeaturesInterface(ModelStatus features) {
+    append("added feature to model");
+    this.features.add(features);
+  }
+
+  private void notifyFeatures() {
+    for (ModelStatus feature : this.features) {
+      feature.moveWasPlayed();
+    }
+  }
 }

@@ -3,8 +3,7 @@ package controller;
 import model.Coordinate;
 
 /**
- * Features you want the controller to have so that the view can tell the controller to do the
- * features when the time comes.
+ * Features you want the controller to have so that the player can make moves for skip turn.
  */
 public interface PlayerActions {
 

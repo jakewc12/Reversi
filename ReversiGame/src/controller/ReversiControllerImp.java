@@ -74,6 +74,7 @@ public class ReversiControllerImp implements ReversiController, PlayerActions, M
 
   @Override
   public void moveWasPlayed() {
+    System.out.println("played");
     this.run();
     if (player instanceof MachinePlayer) {
       if (!model.gameOver()) {
