@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import player.CaptureMostTilesStrategy;
-import player.HumanPlayer;
 import player.MachinePlayer;
 import player.Player;
 
@@ -99,14 +98,19 @@ public class ReversiControllerTests {
     controller = new ReversiController(model, player, view);
     Controller controller2 = new ReversiController(model, player, view);
     Controller controller3 = new ReversiController(model, player, view);
-    Assert.assertTrue(modelLog.toString().contains("added feature to model\nadded feature to model\nadded feature to model\n"));
+    Assert.assertTrue(modelLog.toString().contains("added feature to model" +
+            "\nadded feature to model\nadded feature to model\n"));
   }
 
+  /**
+   * Tests that the view works with controller.
+   */
   @Test
   public void controllerInteractsWithViewOnRun() {
     controller = new ReversiController(model, player, view);
     controller.run();
-    Assert.assertEquals("Feature added to view\n" + "Refreshed window\n" + "Made window visible\n", viewLog.toString());
+    Assert.assertEquals("Feature added to view\n" + "Refreshed window\n"
+            + "Made window visible\n", viewLog.toString());
   }
 
   /**

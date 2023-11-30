@@ -48,12 +48,18 @@ public class PlayerTests {
     Assert.assertEquals(player.getPlayerColor(), DiscColor.BLACK);
   }
 
+  /**
+   * Tests that human player doesnt make a move since it's the view that does it.
+   */
   @Test
   public void testHumanPlayerMakeMoveDoesntDoAnything() {
     player = new HumanPlayer(model, DiscColor.BLACK);
     Assert.assertFalse(log.toString().contains("Place"));
   }
 
+  /**
+   * Tests that machine automatically makes moves thru player.
+   */
   @Test
   public void testMachinePlayerPlaces() {
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
