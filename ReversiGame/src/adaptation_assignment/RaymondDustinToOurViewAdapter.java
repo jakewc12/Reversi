@@ -1,5 +1,6 @@
-package digitalviews;
+package adaptation_assignment;
 
+import digitalviews.DigitalWindow;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import controller.PlayerActions;
 import player.Player;
 import DustinRaymondReversi.view.ReversiGUIView;
 
-public final class RaymondDustinToOurViewAdapter implements DigitalWindow{
+public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
   private final ReversiGUIView viewToBeAdapted;
   public RaymondDustinToOurViewAdapter(ReversiGUIView view){
     Objects.requireNonNull(view);
