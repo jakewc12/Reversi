@@ -155,21 +155,4 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
 
   }
-
-  /**
-   * Shows a pop-up telling the player that it is its turn.
-   */
-  @Override
-  public void notifyPlayerItsTurn() {
-    JOptionPane.showMessageDialog(null, "It is your turn, "
-            + model.getCurrentTurn());
-  }
-
-  /**
-   * Removes notification telling player its turn if the move is done.
-   */
-  @Override
-  public void turnOffNotificationOnceTurnIsDone() {
-    //remove optionpane
-  }
 }

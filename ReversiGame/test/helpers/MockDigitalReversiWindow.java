@@ -55,19 +55,4 @@ public class MockDigitalReversiWindow implements DigitalWindow {
     append("Error message shown to " + player);
   }
 
-  /**
-   * Shows a pop-up telling the player that it is its turn.
-   */
-  @Override
-  public void notifyPlayerItsTurn() {
-    //needed to implement the class.
-  }
-
-  /**
-   * Removes notification telling player its turn if the move is done.
-   */
-  @Override
-  public void turnOffNotificationOnceTurnIsDone() {
-    //needed to implement the class.
-  }
 }
