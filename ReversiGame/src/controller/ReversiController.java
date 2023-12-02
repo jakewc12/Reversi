@@ -1,5 +1,7 @@
 package controller;
 
+import DustinRaymondReversi.controller.ReversiPlayerActions;
+import DustinRaymondReversi.model.HexPosn;
 import digitalviews.DigitalWindow;
 import java.util.Objects;
 import model.Coordinate;
@@ -12,7 +14,8 @@ import player.Player;
 /**
  * allows for the model to be played using the view.
  */
-public class ReversiController implements Controller, PlayerActions, ModelStatus {
+public class ReversiController implements Controller, PlayerActions,  ModelStatus,
+    ReversiPlayerActions {
 
   private final MutableReversiModel model;
   private final DigitalWindow view;
@@ -82,5 +85,15 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
         }
       }
     }
+  }
+
+  @Override
+  public void attemptMove(HexPosn pos) {
+    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(),(-pos.getQ()-pos.getR())));
+  }
+
+  @Override
+  public void attemptPass() {
+    model.skipCurrentTurn();
   }
 }
