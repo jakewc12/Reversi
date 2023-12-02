@@ -50,7 +50,7 @@ public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
   public void addFeaturesListener(PlayerActions features) {
     //viewToBeAdapted.addFeaturesListener();
     //add listener to view
-
+    viewToBeAdapted.addFeaturesListener(features);
   }
 
   /**
