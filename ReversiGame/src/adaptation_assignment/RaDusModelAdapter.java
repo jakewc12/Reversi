@@ -4,13 +4,11 @@ import DustinRaymondReversi.controller.ReversiModelFeatures;
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.PlayerPiece;
 import DustinRaymondReversi.model.ReversiModel;
-
-import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import model.Coordinate;
 import model.DiscColor;
 import model.ModelStatus;
@@ -47,7 +45,12 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public List<HexPosn> getAllValidCoordinates() {
-    return null;
+    List<HexPosn> returnList = new ArrayList<>();
+    List<Coordinate> allCoords = super.getAllCoordinates();
+    for (Coordinate coord : allCoords) {
+      returnList.add(new HexPosn(coord.getIntQ(), coord.getIntR()));
+    }
+    return returnList;
   }
 
   @Override
@@ -62,7 +65,7 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public int getSideLength() {
-    return 0;
+    return super.getBoardRadius();
   }
 
   @Override
