@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import model.Coordinate;
 import model.DiscColor;
+import model.ModelStatus;
 import model.MutableReversi;
 
 public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
@@ -51,10 +52,9 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public Optional<PlayerPiece> getPlayerAt(HexPosn c) throws IllegalArgumentException {
-    if(super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.BLACK)){
+    if (super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.BLACK)) {
       return Optional.of(PlayerPiece.PLAYER_ONE);
-    }
-    else if(super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.WHITE)){
+    } else if (super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.WHITE)) {
       return Optional.of(PlayerPiece.PLAYER_TWO);
     }
     return Optional.empty();
@@ -98,6 +98,6 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public void addModelListener(ReversiModelFeatures listener) {
-
+    super.addFeaturesInterface((ModelStatus) listener);
   }
 }
