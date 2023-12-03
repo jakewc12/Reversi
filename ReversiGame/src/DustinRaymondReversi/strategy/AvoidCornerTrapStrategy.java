@@ -26,7 +26,9 @@ public class AvoidCornerTrapStrategy implements ReversiStrategy {
 
     List<HexPosn> allValidMoves = new ArrayList<>();
 
+
     for (HexPosn pos: game.getAllValidCoordinates()) {
+
       if (game.isLegalMoveAt(pos) && !cellsToAvoid.contains(pos)) {
         allValidMoves.add(pos);
       }

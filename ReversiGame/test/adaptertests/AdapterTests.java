@@ -29,7 +29,7 @@ public class AdapterTests {
 
 
   @Before
-  private void init(){
+  public void init() {
     model = new RaDusModelAdapter(3);
     model.setUpGame(model.getBoard());
 
@@ -47,7 +47,20 @@ public class AdapterTests {
   }
 
   @Test
-  public void testRunningDoesntBreakShit(){
+  public void testRunningDoesntBreakShit() {
+    model = new RaDusModelAdapter(3);
+    model.setUpGame(model.getBoard());
 
+    view1 = new DigitalReversiWindow(model);
+    view2 =
+        new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
+
+    player1 = new HumanPlayer(model, DiscColor.BLACK);
+    player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
+
+    controller1 = new ReversiController(model, player1, view1);
+    controller2 = new ReversiController(model, player2, view2);
+
+    model.startGame();
   }
 }
