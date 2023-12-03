@@ -28,7 +28,7 @@ public interface DigitalWindow {
    *
    * @param features the features to be added to the view.
    */
-  void addFeaturesListener(ReversiController features);
+  void addFeaturesListener(PlayerActions features);
 
   /**
    * tells the player the error.

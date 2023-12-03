@@ -1,5 +1,6 @@
 import DustinRaymondReversi.view.BasicReversiGUIView;
 import adaptation_assignment.RaDusModelAdapter;
+import adaptation_assignment.RaDusStrategyAdapter;
 import adaptation_assignment.RaDusToOurViewAdapter;
 import controller.Controller;
 import controller.ReversiController;
@@ -39,13 +40,13 @@ public final class ReversiAdapted {
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
     DigitalWindow viewPlayer2 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
 
-    Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
-    Player player1 = new HumanPlayer(model, DiscColor.BLACK);
+    Player player2 = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    Player player1 = new MachinePlayer(DiscColor.WHITE, new RaDusStrategyAdapter());
 
     // should we do a sleep so that the move isnt made literally automatically
     List<Player> players = makePlayers(args, model);
-    Controller controller1 = new ReversiController(model, players.get(0), viewPlayer1);
-    Controller controller2 = new ReversiController(model, players.get(1), viewPlayer2);
+    Controller controller1 = new ReversiController(model, player1, viewPlayer1);
+    Controller controller2 = new ReversiController(model, player2, viewPlayer2);
     model.startGame();
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();

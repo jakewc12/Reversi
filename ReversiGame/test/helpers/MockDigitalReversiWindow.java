@@ -42,7 +42,7 @@ public class MockDigitalReversiWindow implements DigitalWindow {
   }
 
   @Override
-  public void addFeaturesListener(ReversiController features) {
+  public void addFeaturesListener(PlayerActions features) {
     append("Feature added to view");
   }
 

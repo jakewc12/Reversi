@@ -105,7 +105,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * @param features the features to be added to the view.
    */
   @Override
-  public void addFeaturesListener(ReversiController features) {
+  public void addFeaturesListener(PlayerActions features) {
     listener = new KeyListener() {
       /**
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move

@@ -1,5 +1,6 @@
 package adaptation_assignment;
 
+import DustinRaymondReversi.controller.ReversiPlayerActions;
 import controller.ReversiController;
 import digitalviews.DigitalWindow;
 import java.util.ArrayList;
@@ -49,9 +50,10 @@ public final class RaDusToOurViewAdapter implements DigitalWindow {
    * @param features the features to be added to the view.
    */
   @Override
-  public void addFeaturesListener(ReversiController features) {
+  public void addFeaturesListener(PlayerActions features) {
+    viewToBeAdapted.addFeaturesListener((ReversiPlayerActions) features);
     listeners.add(features);
-    viewToBeAdapted.addFeaturesListener(features);
+   // viewToBeAdapted.addFeaturesListener(features);
   }
 
   /**
