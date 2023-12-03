@@ -4,11 +4,15 @@ import DustinRaymondReversi.controller.ReversiModelFeatures;
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.PlayerPiece;
 import DustinRaymondReversi.model.ReversiModel;
+
+import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import model.Coordinate;
+import model.DiscColor;
 import model.MutableReversi;
 
 public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
@@ -57,12 +61,18 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public Map<PlayerPiece, Integer> getScores() {
-    return null;
+    Map<PlayerPiece, Integer> scores = new HashMap<>();
+    scores.put(PlayerPiece.PLAYER_ONE, super.checkScoreOfPlayer(DiscColor.BLACK));
+    scores.put(PlayerPiece.PLAYER_TWO, super.checkScoreOfPlayer(DiscColor.WHITE));
+    return scores;
   }
 
   @Override
   public PlayerPiece getCurrentPlayer() {
-    return null;
+    if (super.getCurrentTurn() == DiscColor.BLACK) {
+      return PlayerPiece.PLAYER_ONE;
+    }
+    return PlayerPiece.PLAYER_TWO;
   }
 
   @Override

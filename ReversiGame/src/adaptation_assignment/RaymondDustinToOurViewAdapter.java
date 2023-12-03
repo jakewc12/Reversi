@@ -52,8 +52,6 @@ public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
    */
   @Override
   public void addFeaturesListener(ReversiController features) {
-    //viewToBeAdapted.addFeaturesListener();
-    //add listener to view
     listeners.add(features);
     viewToBeAdapted.addFeaturesListener(features);
   }
