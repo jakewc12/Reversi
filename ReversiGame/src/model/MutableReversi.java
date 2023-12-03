@@ -249,7 +249,7 @@ public class MutableReversi implements MutableReversiModel {
     HexagonCell currentCell;
     try {
       currentCell = getHexAt(targetCell.getCellNeighbor(direction));
-    } catch (IllegalArgumentException e) {
+    } catch (Exception e) {
       return returnList;
     }
 
@@ -257,7 +257,7 @@ public class MutableReversi implements MutableReversiModel {
       returnList.add(currentCell);
       try {
         currentCell = getHexAt(currentCell.getCellNeighbor(direction));
-      } catch (IllegalArgumentException e) {
+      } catch (Exception e) {
         break;
       }
     }

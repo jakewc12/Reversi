@@ -8,7 +8,7 @@ import player.Player;
 
 public class RaDusStrategyAdapter implements player.ReversiStrategy {
 
-  private DustinRaymondReversi.strategy.ReversiStrategy raDusStrategy;
+  private final DustinRaymondReversi.strategy.ReversiStrategy raDusStrategy;
 
   public RaDusStrategyAdapter(DustinRaymondReversi.strategy.ReversiStrategy strategy) {
     raDusStrategy = strategy;
@@ -16,7 +16,7 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
 
   @Override
   public Optional<Coordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
-    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize());
+    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize()-1);
     adapter.setUpGame(model);
     List<HexPosn> possibleMoves = raDusStrategy.chooseMoves(adapter);
     if(possibleMoves.isEmpty()){
