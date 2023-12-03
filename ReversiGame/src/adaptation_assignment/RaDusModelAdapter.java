@@ -51,6 +51,12 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public Optional<PlayerPiece> getPlayerAt(HexPosn c) throws IllegalArgumentException {
+    if(super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.BLACK)){
+      return Optional.of(PlayerPiece.PLAYER_ONE);
+    }
+    else if(super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.WHITE)){
+      return Optional.of(PlayerPiece.PLAYER_TWO);
+    }
     return Optional.empty();
   }
 
