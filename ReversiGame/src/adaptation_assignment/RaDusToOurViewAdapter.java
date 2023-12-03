@@ -2,20 +2,18 @@ package adaptation_assignment;
 
 import controller.ReversiController;
 import digitalviews.DigitalWindow;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import DustinRaymondReversi.controller.ReversiPlayerActions;
 import controller.PlayerActions;
 import player.Player;
 import DustinRaymondReversi.view.ReversiGUIView;
 
-public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
+public final class RaDusToOurViewAdapter implements DigitalWindow {
   private final ReversiGUIView viewToBeAdapted;
   private List<PlayerActions> listeners = new ArrayList<>();
-  public RaymondDustinToOurViewAdapter(ReversiGUIView view){
+  public RaDusToOurViewAdapter(ReversiGUIView view){
     Objects.requireNonNull(view);
     this.viewToBeAdapted = view;
   }

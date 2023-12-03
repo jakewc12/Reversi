@@ -2,7 +2,7 @@ package adaptertests;
 
 import DustinRaymondReversi.view.BasicReversiGUIView;
 import adaptation_assignment.RaDusModelAdapter;
-import adaptation_assignment.RaymondDustinToOurViewAdapter;
+import adaptation_assignment.RaDusToOurViewAdapter;
 import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
@@ -19,7 +19,7 @@ public class AdapterTests {
 
   private RaDusModelAdapter model;
   private DigitalWindow view1;
-  private RaymondDustinToOurViewAdapter view2;
+  private RaDusToOurViewAdapter view2;
 
   private Player player1;
   private Player player2;
@@ -35,7 +35,7 @@ public class AdapterTests {
 
     view1 = new DigitalReversiWindow(model);
     view2 =
-        new RaymondDustinToOurViewAdapter(new BasicReversiGUIView(model));
+        new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
 
     player1 = new HumanPlayer(model, DiscColor.BLACK);
     player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());

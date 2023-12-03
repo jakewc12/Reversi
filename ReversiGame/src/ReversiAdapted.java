@@ -1,6 +1,6 @@
 import DustinRaymondReversi.view.BasicReversiGUIView;
 import adaptation_assignment.RaDusModelAdapter;
-import adaptation_assignment.RaymondDustinToOurViewAdapter;
+import adaptation_assignment.RaDusToOurViewAdapter;
 import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.DiscColor;
-import model.MutableReversi;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
@@ -38,7 +37,7 @@ public final class ReversiAdapted {
 
     // Initialize the DigitalReversiWindow view
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
-    DigitalWindow viewPlayer2 = new RaymondDustinToOurViewAdapter(new BasicReversiGUIView(model));
+    DigitalWindow viewPlayer2 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
 
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Player player1 = new HumanPlayer(model, DiscColor.BLACK);
