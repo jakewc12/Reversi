@@ -3,6 +3,8 @@ package digitalviews;
 
 import controller.PlayerActions;
 import java.awt.event.KeyListener;
+
+import controller.ReversiController;
 import player.Player;
 
 /**
@@ -26,14 +28,7 @@ public interface DigitalWindow {
    *
    * @param features the features to be added to the view.
    */
-  void addFeaturesListener(PlayerActions features);
-
-  /**
-   * returns the key listener of the view.
-   *
-   * @return the key listener.
-   */
-  KeyListener getListener();
+  void addFeaturesListener(ReversiController features);
 
   /**
    * tells the player the error.

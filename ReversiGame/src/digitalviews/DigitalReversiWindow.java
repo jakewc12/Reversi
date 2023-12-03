@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import controller.ReversiController;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -104,7 +105,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * @param features the features to be added to the view.
    */
   @Override
-  public void addFeaturesListener(PlayerActions features) {
+  public void addFeaturesListener(ReversiController features) {
     listener = new KeyListener() {
       /**
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move
@@ -140,11 +141,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       }
     };
     this.addKeyListener(listener);
-  }
-
-  @Override
-  public KeyListener getListener() {
-    return this.listener;
   }
 
   /**

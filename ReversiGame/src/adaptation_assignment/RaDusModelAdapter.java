@@ -7,6 +7,8 @@ import DustinRaymondReversi.model.ReversiModel;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import model.Coordinate;
 import model.MutableReversi;
 
 public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
@@ -25,17 +27,17 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public boolean isLegalMoveAt(HexPosn pos) {
-    return false;
+    return super.isLegalMove(new HexPosToCoordinate(pos));
   }
 
   @Override
   public boolean playerHasLegalMove() {
-    return false;
+    return super.checkCurrentPlayerHasLegalMovesLeft();
   }
 
   @Override
   public boolean isGameOver() {
-    return false;
+    return super.gameOver();
   }
 
   @Override
@@ -70,12 +72,12 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public void move(HexPosn c) throws IllegalArgumentException, IllegalStateException {
-
+    super.placeDisc(new HexPosToCoordinate(c));
   }
 
   @Override
   public void passTurn() throws IllegalStateException {
-
+    super.skipCurrentTurn();
   }
 
   @Override

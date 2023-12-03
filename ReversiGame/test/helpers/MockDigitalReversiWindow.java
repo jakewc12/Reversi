@@ -1,6 +1,7 @@
 package helpers;
 
 import controller.PlayerActions;
+import controller.ReversiController;
 import digitalviews.DigitalWindow;
 import java.awt.event.KeyListener;
 import model.ReadOnlyReversiModel;
@@ -41,13 +42,8 @@ public class MockDigitalReversiWindow implements DigitalWindow {
   }
 
   @Override
-  public void addFeaturesListener(PlayerActions features) {
+  public void addFeaturesListener(ReversiController features) {
     append("Feature added to view");
-  }
-
-  @Override
-  public KeyListener getListener() {
-    return null;
   }
 
   @Override

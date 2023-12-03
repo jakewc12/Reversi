@@ -1,7 +1,10 @@
 package adaptation_assignment;
 
+import controller.ReversiController;
 import digitalviews.DigitalWindow;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import DustinRaymondReversi.controller.ReversiPlayerActions;
@@ -11,6 +14,7 @@ import DustinRaymondReversi.view.ReversiGUIView;
 
 public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
   private final ReversiGUIView viewToBeAdapted;
+  private List<PlayerActions> listeners = new ArrayList<>();
   public RaymondDustinToOurViewAdapter(ReversiGUIView view){
     Objects.requireNonNull(view);
     this.viewToBeAdapted = view;
@@ -47,20 +51,11 @@ public final class RaymondDustinToOurViewAdapter implements DigitalWindow {
    * @param features the features to be added to the view.
    */
   @Override
-  public void addFeaturesListener(PlayerActions features) {
+  public void addFeaturesListener(ReversiController features) {
     //viewToBeAdapted.addFeaturesListener();
     //add listener to view
+    listeners.add(features);
     viewToBeAdapted.addFeaturesListener(features);
-  }
-
-  /**
-   * returns the key listener of the view.
-   *
-   * @return the key listener.
-   */
-  @Override
-  public KeyListener getListener() {
-    return null;
   }
 
   /**
