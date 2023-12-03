@@ -11,7 +11,10 @@ import java.util.Map;
 import java.util.Optional;
 import model.Coordinate;
 import model.DiscColor;
+import model.GameCell;
+import model.HexagonCell;
 import model.MutableReversi;
+import model.ReadOnlyReversiModel;
 
 public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
@@ -25,6 +28,15 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
    */
   public RaDusModelAdapter(int size) {
     super(size);
+  }
+
+  public void setUpGame(ReadOnlyReversiModel copyModel) {
+    List<HexagonCell> board = new ArrayList<>();
+
+    for (Coordinate coord : copyModel.getAllCoordinates()) {
+      board.add(new GameCell(copyModel.getColorAt(coord), coord));
+    }
+    super.setUpGame(board);
   }
 
   @Override

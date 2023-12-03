@@ -1,23 +1,28 @@
 package adaptation_assignment;
 
 import DustinRaymondReversi.model.HexPosn;
-import DustinRaymondReversi.model.ReadOnlyReversiModel;
-import DustinRaymondReversi.strategy.ReversiStrategy;
 import java.util.List;
 import java.util.Optional;
 import model.Coordinate;
 import player.Player;
 
-public class RaDusStrategyAdapter implements ReversiStrategy, player.ReversiStrategy {
+public class RaDusStrategyAdapter implements player.ReversiStrategy {
 
+  private DustinRaymondReversi.strategy.ReversiStrategy raDusStrategy;
 
-  @Override
-  public List<HexPosn> chooseMoves(ReadOnlyReversiModel game) {
-    return null;
+  public RaDusStrategyAdapter(DustinRaymondReversi.strategy.ReversiStrategy strategy) {
+    raDusStrategy = strategy;
   }
 
   @Override
   public Optional<Coordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
-    return Optional.empty();
+    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize());
+    adapter.setUpGame(model);
+    List<HexPosn> possibleMoves = raDusStrategy.chooseMoves(adapter);
+    if(possibleMoves.isEmpty()){
+      return Optional.empty();
+    }
+
+    return Optional.of(new HexPosToCoordinate(possibleMoves.get(0)));
   }
 }
