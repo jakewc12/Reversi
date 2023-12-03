@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import model.GameCell.Direction;
 
 /**
  * Meant to simulate the logic of a game of reversi. The game of reversi does not start until start

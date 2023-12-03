@@ -1,6 +1,5 @@
 package model;
 
-import model.GameCell.Direction;
 
 /**
  * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
