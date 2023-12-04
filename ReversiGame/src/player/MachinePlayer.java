@@ -45,4 +45,9 @@ public class MachinePlayer implements Player {
     model.placeDisc(idealMove.get());
 
   }
+
+  @Override
+  public Optional<ReversiStrategy> getStrategy() {
+    return Optional.of(this.strategy);
+  }
 }
