@@ -39,7 +39,7 @@ public interface HexagonCell {
 
   /**
    * Gets the R coordinate of this cell. The R Coordinate decreases when going up a row from the
-   * origin and increases when going down * a row.
+   * origin and increases when going down a row.
    *
    * @return an integer which follows the above pattern.
    */
