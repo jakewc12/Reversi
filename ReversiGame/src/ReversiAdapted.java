@@ -1,3 +1,11 @@
+import DustinRaymondReversi.strategy.AvoidCornerTrapStrategy;
+import DustinRaymondReversi.strategy.ChooseCornerStrategy;
+import DustinRaymondReversi.strategy.FallbackStrategyCombinator;
+import DustinRaymondReversi.strategy.GreedilyCaptureStrategy;
+import DustinRaymondReversi.view.BasicReversiGUIView;
+import adaptation_assignment.RaDusModelAdapter;
+import adaptation_assignment.RaDusStrategyAdapter;
+import adaptation_assignment.RaDusToOurViewAdapter;
 import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
@@ -7,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.DiscColor;
-import model.MutableReversi;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
@@ -21,7 +28,7 @@ import player.Player;
  * DigitalReversiWindow. It then starts the game, displays the initial game state, and sets up the
  * controller for user interaction.
  */
-public final class Reversi {
+public final class ReversiAdapted {
 
   /**
    * The main method for starting the Reversi game.
@@ -30,20 +37,22 @@ public final class Reversi {
    */
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
-    MutableReversiModel model = new MutableReversi(3);
+    RaDusModelAdapter model = new RaDusModelAdapter(3);
     model.setUpGame(model.getBoard());
 
     // Initialize the DigitalReversiWindow view
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
-    DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
+    DigitalWindow viewPlayer2 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
 
-    Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Player player1 = new HumanPlayer(model, DiscColor.BLACK);
+    Player player2 = new MachinePlayer(DiscColor.WHITE
+            , new RaDusStrategyAdapter(new FallbackStrategyCombinator(
+            new AvoidCornerTrapStrategy(), new ChooseCornerStrategy())));
 
     // should we do a sleep so that the move isnt made literally automatically
     List<Player> players = makePlayers(args, model);
-    Controller controller1 = new ReversiController(model, players.get(0), viewPlayer1);
-    Controller controller2 = new ReversiController(model, players.get(1), viewPlayer2);
+    Controller controller1 = new ReversiController(model, player1, viewPlayer1);
+    Controller controller2 = new ReversiController(model, player2, viewPlayer2);
     model.startGame();
     viewPlayer1.makeVisible();
     viewPlayer2.makeVisible();

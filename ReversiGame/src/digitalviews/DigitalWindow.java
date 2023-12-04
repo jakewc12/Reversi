@@ -3,6 +3,8 @@ package digitalviews;
 
 import controller.PlayerActions;
 import java.awt.event.KeyListener;
+
+import controller.ReversiController;
 import player.Player;
 
 /**
@@ -29,24 +31,7 @@ public interface DigitalWindow {
   void addFeaturesListener(PlayerActions features);
 
   /**
-   * returns the key listener of the view.
-   *
-   * @return the key listener.
-   */
-  KeyListener getListener();
-
-  /**
    * tells the player the error.
    */
   void showErrorMessage(Player player);
-
-  /**
-   * Shows a pop-up telling the player that it is its turn.
-   */
-  void notifyPlayerItsTurn();
-
-  /**
-   * Removes notification telling player its turn if the move is done.
-   */
-  void turnOffNotificationOnceTurnIsDone();
 }

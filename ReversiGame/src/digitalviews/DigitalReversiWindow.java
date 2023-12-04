@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import controller.ReversiController;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -142,11 +143,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.addKeyListener(listener);
   }
 
-  @Override
-  public KeyListener getListener() {
-    return this.listener;
-  }
-
   /**
    * Creates a window which informs the player a illegal move has been made.
    */
@@ -154,22 +150,5 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   public void showErrorMessage(Player player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
 
-  }
-
-  /**
-   * Shows a pop-up telling the player that it is its turn.
-   */
-  @Override
-  public void notifyPlayerItsTurn() {
-    JOptionPane.showMessageDialog(null, "It is your turn, "
-            + model.getCurrentTurn());
-  }
-
-  /**
-   * Removes notification telling player its turn if the move is done.
-   */
-  @Override
-  public void turnOffNotificationOnceTurnIsDone() {
-    //remove optionpane
   }
 }

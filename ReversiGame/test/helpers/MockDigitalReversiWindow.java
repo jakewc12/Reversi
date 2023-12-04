@@ -1,6 +1,7 @@
 package helpers;
 
 import controller.PlayerActions;
+import controller.ReversiController;
 import digitalviews.DigitalWindow;
 import java.awt.event.KeyListener;
 import model.ReadOnlyReversiModel;
@@ -46,28 +47,8 @@ public class MockDigitalReversiWindow implements DigitalWindow {
   }
 
   @Override
-  public KeyListener getListener() {
-    return null;
-  }
-
-  @Override
   public void showErrorMessage(Player player) {
     append("Error message shown to " + player);
   }
 
-  /**
-   * Shows a pop-up telling the player that it is its turn.
-   */
-  @Override
-  public void notifyPlayerItsTurn() {
-    //needed to implement the class.
-  }
-
-  /**
-   * Removes notification telling player its turn if the move is done.
-   */
-  @Override
-  public void turnOffNotificationOnceTurnIsDone() {
-    //needed to implement the class.
-  }
 }

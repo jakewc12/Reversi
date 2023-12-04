@@ -49,7 +49,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testInvalidModel() {
-    Assert.assertThrows(NullPointerException.class, () -> new ReversiController(null
+    Assert.assertThrows(IllegalArgumentException.class, () -> new ReversiController(null
             , player, new DigitalReversiWindow(null)));
     Assert.assertThrows(IllegalArgumentException.class
             , () -> new ReversiController(new MutableReversi(-1), player
