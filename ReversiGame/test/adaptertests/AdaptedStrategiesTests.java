@@ -10,6 +10,7 @@ import adaptation_assignment.RaDusStrategyAdapter;
 import controller.ReversiController;
 import helpers.TestHelper;
 import model.Coordinate;
+import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversi;
 import org.junit.Assert;

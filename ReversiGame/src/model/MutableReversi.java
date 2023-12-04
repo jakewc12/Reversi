@@ -61,7 +61,7 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
-            Coordinate currentCoord = new Coordinate(q, r, s);
+            LogicalCoordinate currentCoord = new Coordinate(q, r, s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
                 && s == 0)) {
               GameCell newCell = new GameCell(DiscColor.BLACK, currentCoord);
@@ -81,13 +81,13 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public boolean isLegalMove(Coordinate coordinate) {
-    checkValidCoordinates(coordinate);
-    if (this.getDiscAt(coordinate).getColor() != DiscColor.GREY) {
+  public boolean isLegalMove(LogicalCoordinate logicalCoordinate) {
+    checkValidCoordinates(logicalCoordinate);
+    if (this.getDiscAt(logicalCoordinate).getColor() != DiscColor.GREY) {
       return false;
     }
-    if (getAllFlips(getHexAt(coordinate), getCurrentTurn()).isEmpty()) {
-      this.getDiscAt(coordinate).changeColorTo(DiscColor.GREY);
+    if (getAllFlips(getHexAt(logicalCoordinate), getCurrentTurn()).isEmpty()) {
+      this.getDiscAt(logicalCoordinate).changeColorTo(DiscColor.GREY);
       return false;
     }
     return true;
@@ -101,8 +101,8 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public int checkScoreOfPlayer(DiscColor color) {
     int count = 0;
-    for (Coordinate coordinate : getAllCoordinates()) {
-      if (getColorAt(coordinate) == color) {
+    for (LogicalCoordinate logicalCoordinate : getAllCoordinates()) {
+      if (getColorAt(logicalCoordinate) == color) {
         count++;
       }
     }
@@ -135,7 +135,7 @@ public class MutableReversi implements MutableReversiModel {
     return false;
   }
 
-  private void checkValidCoordinates(Coordinate coord) {
+  private void checkValidCoordinates(LogicalCoordinate coord) {
     int total = coord.getIntQ() + coord.getIntS() + coord.getIntR();
     if (Math.abs(coord.getIntQ()) > size || Math.abs(coord.getIntR()) > size
         || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
@@ -229,16 +229,16 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalCoordinate logicalCoordinate, DiscColor playerColor) {
     checkGameStarted();
-    HexagonCell targetCell = getHexAt(coordinate);
+    HexagonCell targetCell = getHexAt(logicalCoordinate);
     return getAllFlips(targetCell, playerColor).size();
   }
 
   @Override
-  public List<Coordinate> getAllCoordinates() {
+  public List<LogicalCoordinate> getAllCoordinates() {
     //checkGameStarted();
-    List<Coordinate> returnList = new ArrayList<>();
+    List<LogicalCoordinate> returnList = new ArrayList<>();
     for (HexagonCell cell : cells) {
       returnList.add(cell.getCoordinate());
     }
@@ -268,7 +268,7 @@ public class MutableReversi implements MutableReversiModel {
 
 
   @Override
-  public void placeDisc(Coordinate coord) {
+  public void placeDisc(LogicalCoordinate coord) {
     checkGameStarted();
     if (!isLegalMove(coord)) {
       throw new IllegalStateException("Illegal move when inputting " + coord);
@@ -289,13 +289,13 @@ public class MutableReversi implements MutableReversiModel {
     updateFeaturesInterface();
   }
 
-  private Disc getDiscAt(Coordinate coord) {
+  private Disc getDiscAt(LogicalCoordinate coord) {
     checkGameStarted();
     checkValidCoordinates(coord);
     return getHexAt(coord).cellContents();
   }
 
-  private HexagonCell getHexAt(Coordinate coord) {
+  private HexagonCell getHexAt(LogicalCoordinate coord) {
      checkGameStarted();
     checkValidCoordinates(coord);
 
@@ -310,10 +310,10 @@ public class MutableReversi implements MutableReversiModel {
 
 
   @Override
-  public DiscColor getColorAt(Coordinate coordinate) {
+  public DiscColor getColorAt(LogicalCoordinate logicalCoordinate) {
     checkGameStarted();
-    checkValidCoordinates(coordinate);
-    return getDiscAt(coordinate).getColor();
+    checkValidCoordinates(logicalCoordinate);
+    return getDiscAt(logicalCoordinate).getColor();
   }
 
 

@@ -4,11 +4,12 @@ import java.util.Objects;
 
 import DustinRaymondReversi.model.HexPosn;
 import model.Coordinate;
+import model.LogicalCoordinate;
 
-public class HexPosToCoordinate extends Coordinate {
+public class HexPosToLogicalCoordinate extends Coordinate {
   private HexPosn pos;
 
-  public HexPosToCoordinate(HexPosn pos) {
+  public HexPosToLogicalCoordinate(HexPosn pos) {
     super(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR()));
     Objects.requireNonNull(pos);
     this.pos = pos;

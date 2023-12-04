@@ -1,4 +1,4 @@
-Board coordinate design is based on https://www.redblobgames.com/grids/hexagons/
+Board logicalCoordinate design is based on https://www.redblobgames.com/grids/hexagons/
 
     Overview: 
 
@@ -21,7 +21,7 @@ A user may interact with the ReversiTextualView through toString() and render() 
 
 The model contains a list of GameCells, cells, which contains all the cells in the game. Each
 cell contains a GameDisc, which can either be NEUTRAL, WHITE, or BLACK. Each GameCell contains
-its own stored coordinates, in the form of Q,R,S coordinate systems. The model is driven by the
+its own stored coordinates, in the form of Q,R,S logicalCoordinate systems. The model is driven by the
 other systems through the skipCurrentTurn() and placeDisc() methods. These methods can be called
 to influence what moves are made and how the board develops and looks like over time.
 
@@ -84,22 +84,22 @@ ReadOnlyReversiModel.
     class, which allowed us to check the coordinates of each hex in a more effective matter. 
     We also added the Features interface which allows the textualview to use key actions to make moves.
     Lastly, we added one method to the model to check how many discs would be flipped given 
-    a specified coordinate.
+    a specified logicalCoordinate.
 
 To make moves, the commands are 'p' to place a disc at the highlighted disc location and 
 's' to skip turn. If the move is not legal, it will not change the rendering of the board and will
 not make any moves. Currently, if a hexagon is clicked, then a System.out occurs that prints out
-its coordinate locations in (Q,R,S) form. ex (0,0,0). A hexagon can be un-highlighted by clicking
+its logicalCoordinate locations in (Q,R,S) form. ex (0,0,0). A hexagon can be un-highlighted by clicking
 on anywhere on the screen, including the same hexagon.
 
 
 The Strategy that we implemented to capture the most tiles in a turn was implemented in the
 CaptureMostTilesStrategy class. It is designed to go through every legal move for the given player
-and return the coordinate of the title that would capture the highest number of discs in a turn.
+and return the logicalCoordinate of the title that would capture the highest number of discs in a turn.
 Breaking a tie for strategy: For our strategy
 , in the event of a tie, we broke this tie by choosing
-the coordinate with the most negative R coordinate and Q coordinate closest to 0. This would
-represent the top-left most coordinate.
+the logicalCoordinate with the most negative R logicalCoordinate and Q logicalCoordinate closest to 0. This would
+represent the top-left most logicalCoordinate.
 
 
 Screenshots:

@@ -1,6 +1,7 @@
 package basictests;
 
 import model.Coordinate;
+import model.Coordinate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
