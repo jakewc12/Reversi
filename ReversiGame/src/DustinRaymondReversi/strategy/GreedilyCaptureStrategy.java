@@ -70,7 +70,6 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
     if (game.getPlayerAt(pos).isPresent()) {
       return 0;
     }
-    System.out.println(game.getCurrentPlayer());
     List<HexPosn> board = game.getAllValidCoordinates();
     int capturedPieceCount = 0;
 

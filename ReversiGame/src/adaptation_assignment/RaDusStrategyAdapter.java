@@ -16,7 +16,7 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
 
   @Override
   public Optional<LogicalCoordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
-    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize()-1);
+    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardRadius());
     adapter.setUpGame(model);
     List<HexPosn> possibleMoves = raDusStrategy.chooseMoves(adapter);
 
