@@ -30,7 +30,6 @@ public class MutableReversi implements MutableReversiModel {
       throw new IllegalArgumentException("Invalid size given");
     }
     this.size = size;
-    gameStarted = false;
   }
 
   @Override
@@ -46,6 +45,10 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
+  public void resetBoard(List<HexagonCell> board){
+    this.cells = board;
+    gameStarted = true;
+  }
   @Override
   public void startGame() {
     updateFeaturesInterface();
@@ -267,7 +270,6 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public void placeDisc(Coordinate coord) {
     checkGameStarted();
-
     if (!isLegalMove(coord)) {
       throw new IllegalStateException("Illegal move when inputting " + coord);
     }
@@ -278,6 +280,7 @@ public class MutableReversi implements MutableReversiModel {
     getDiscAt(coord).changeColorTo(getCurrentTurn());
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
+
   }
 
   @Override
@@ -294,8 +297,9 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private HexagonCell getHexAt(Coordinate coord) {
-    checkGameStarted();
+     checkGameStarted();
     checkValidCoordinates(coord);
+
     for (HexagonCell cell : cells) {
       if (cell.getCoordinateQ() == coord.getIntQ() && cell.getCoordinateR() == coord.getIntR()
           && cell.getCoordinateS() == coord.getIntS()) {
@@ -316,7 +320,7 @@ public class MutableReversi implements MutableReversiModel {
 
   @Override
   public DiscColor getCurrentTurn() {
-    checkGameStarted();
+    //checkGameStarted();
     if (blacksTurn) {
       return DiscColor.BLACK;
     } else {

@@ -60,9 +60,11 @@ public class ReversiController implements Controller, PlayerActions,  ModelStatu
           model.placeDisc(coordinate);
         } catch (Exception ignore) {
           //if the move is illegal.
+          System.out.println(ignore);
           view.showErrorMessage(this.player);
         }
       }
+
       this.run();
     }
   }

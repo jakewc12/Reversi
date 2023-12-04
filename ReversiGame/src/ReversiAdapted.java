@@ -1,3 +1,7 @@
+import DustinRaymondReversi.strategy.AvoidCornerTrapStrategy;
+import DustinRaymondReversi.strategy.ChooseCornerStrategy;
+import DustinRaymondReversi.strategy.FallbackStrategyCombinator;
+import DustinRaymondReversi.strategy.GreedilyCaptureStrategy;
 import DustinRaymondReversi.view.BasicReversiGUIView;
 import adaptation_assignment.RaDusModelAdapter;
 import adaptation_assignment.RaDusStrategyAdapter;
@@ -40,8 +44,10 @@ public final class ReversiAdapted {
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
     DigitalWindow viewPlayer2 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
 
-    Player player2 = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
-    Player player1 = new MachinePlayer(DiscColor.WHITE, new RaDusStrategyAdapter());
+    Player player1 = new HumanPlayer(model, DiscColor.BLACK);
+    Player player2 = new MachinePlayer(DiscColor.WHITE
+            , new RaDusStrategyAdapter(new FallbackStrategyCombinator(
+            new AvoidCornerTrapStrategy(), new ChooseCornerStrategy())));
 
     // should we do a sleep so that the move isnt made literally automatically
     List<Player> players = makePlayers(args, model);

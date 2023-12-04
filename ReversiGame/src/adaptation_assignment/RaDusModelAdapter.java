@@ -4,11 +4,13 @@ import DustinRaymondReversi.controller.ReversiModelFeatures;
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.PlayerPiece;
 import DustinRaymondReversi.model.ReversiModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
@@ -37,12 +39,13 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
     for (Coordinate coord : copyModel.getAllCoordinates()) {
       board.add(new GameCell(copyModel.getColorAt(coord), coord));
     }
-    super.setUpGame(board);
+    super.resetBoard(board);
   }
 
   @Override
   public boolean isLegalMoveAt(HexPosn pos) {
-    return super.isLegalMove(new HexPosToCoordinate(pos));
+    return super.getNumFlipsOnMove(new HexPosToCoordinate(pos), super.getCurrentTurn()) > 0;
+    //return super.isLegalMove(new HexPosToCoordinate(pos));
   }
 
   @Override
@@ -90,6 +93,7 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public PlayerPiece getCurrentPlayer() {
+    //for some reason this is always player two/black. need to fix
     if (super.getCurrentTurn() == DiscColor.WHITE) {
       return PlayerPiece.PLAYER_ONE;
     }

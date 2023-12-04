@@ -23,7 +23,13 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
     if(possibleMoves.isEmpty()){
       return Optional.empty();
     }
+    //need to check that the move is legal for this player.
 
-    return Optional.of(new HexPosToCoordinate(possibleMoves.get(0)));
+    for(HexPosn coordinate : possibleMoves){
+      if(model.getNumFlipsOnMove(new HexPosToCoordinate(coordinate), who.getPlayerColor())>0){
+        return Optional.of(new HexPosToCoordinate(coordinate));
+      }
+    }
+    return Optional.empty();
   }
 }

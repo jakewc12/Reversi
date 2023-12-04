@@ -29,6 +29,11 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
       if (scoreGained == 0) {
         continue;
       }
+      System.out.println(pos +" "+ game.isLegalMoveAt(pos));
+      //it thinks that it is the wrong player.
+      if(!game.isLegalMoveAt(pos)){
+        continue;
+      }
       if (scoreGained > chosenScoreGained) {
         chosenScoreGained = scoreGained;
 
@@ -46,7 +51,6 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
     // NOTE: if the chosen score is greater than 0, this means that a valid
     // position in the board has been chosen, so chosenPos will not be null
     // in this case
-
     return chosenPosns;
   }
 
@@ -66,7 +70,7 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
     if (game.getPlayerAt(pos).isPresent()) {
       return 0;
     }
-
+    System.out.println(game.getCurrentPlayer());
     List<HexPosn> board = game.getAllValidCoordinates();
     int capturedPieceCount = 0;
 
