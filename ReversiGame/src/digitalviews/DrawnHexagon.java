@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import model.Coordinate;
+import model.LogicalCoordinate;
 import model.DiscColor;
 
 /**
@@ -15,7 +15,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   public static final double THETA = (Math.PI * 2) / 6.0;
   //default hexagon radius
   static int hexagonRadius = 25;
-  private final Coordinate logicalHexCoord;
+  private final LogicalCoordinate logicalHexCoord;
   private final double hexCenterCoordY;
   private final double hexCenterCoordX;
   private final Color color;
@@ -34,7 +34,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    * @param hexColor          the color of the background of the hex.
    * @param hexagonRadius     the radius of the hexagon.
    */
-  public DrawnHexagon(Coordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
+  public DrawnHexagon(LogicalCoordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
       int boardCenterCoordy, Color hexColor, int hexagonRadius) {
 
     this.logicalHexCoord = logicalHexCoord;
@@ -139,7 +139,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    *
    * @return The (q,r,s) coordinates of the hex.
    */
-  public Coordinate getLogicalHexCoord() {
+  public LogicalCoordinate getLogicalHexCoord() {
     return this.logicalHexCoord;
   }
 

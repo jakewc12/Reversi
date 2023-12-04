@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import model.Coordinate;
+import model.LogicalCoordinate;
 import model.DiscColor;
 import model.GameCell;
 import model.HexagonCell;
@@ -36,7 +36,7 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
   public void setUpGame(ReadOnlyReversiModel copyModel) {
     List<HexagonCell> board = new ArrayList<>();
 
-    for (Coordinate coord : copyModel.getAllCoordinates()) {
+    for (LogicalCoordinate coord : copyModel.getAllCoordinates()) {
       board.add(new GameCell(copyModel.getColorAt(coord), coord));
     }
     super.resetBoard(board);
@@ -44,8 +44,8 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public boolean isLegalMoveAt(HexPosn pos) {
-    return super.getNumFlipsOnMove(new HexPosToCoordinate(pos), super.getCurrentTurn()) > 0;
-    //return super.isLegalMove(new HexPosToCoordinate(pos));
+    return super.getNumFlipsOnMove(new HexPosToLogicalCoordinate(pos), super.getCurrentTurn()) > 0;
+    //return super.isLegalMove(new HexPosToLogicalCoordinate(pos));
   }
 
   @Override
@@ -61,8 +61,8 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
   @Override
   public List<HexPosn> getAllValidCoordinates() {
     List<HexPosn> returnList = new ArrayList<>();
-    List<Coordinate> allCoords = super.getAllCoordinates();
-    for (Coordinate coord : allCoords) {
+    List<LogicalCoordinate> allCoords = super.getAllCoordinates();
+    for (LogicalCoordinate coord : allCoords) {
       returnList.add(new HexPosn(coord.getIntQ(), coord.getIntR()));
     }
     return returnList;
@@ -70,9 +70,9 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public Optional<PlayerPiece> getPlayerAt(HexPosn c) throws IllegalArgumentException {
-    if (super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.WHITE)) {
+    if (super.getColorAt(new HexPosToLogicalCoordinate(c)).equals(DiscColor.WHITE)) {
       return Optional.of(PlayerPiece.PLAYER_ONE);
-    } else if (super.getColorAt(new HexPosToCoordinate(c)).equals(DiscColor.BLACK)) {
+    } else if (super.getColorAt(new HexPosToLogicalCoordinate(c)).equals(DiscColor.BLACK)) {
       return Optional.of(PlayerPiece.PLAYER_TWO);
     }
     return Optional.empty();
@@ -107,7 +107,7 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
 
   @Override
   public void move(HexPosn c) throws IllegalArgumentException, IllegalStateException {
-    super.placeDisc(new HexPosToCoordinate(c));
+    super.placeDisc(new HexPosToLogicalCoordinate(c));
   }
 
   @Override

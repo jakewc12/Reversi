@@ -3,6 +3,7 @@ package reversimodeltests;
 import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
+import model.LogicalCoordinate;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
 import org.junit.Assert;
@@ -127,7 +128,7 @@ public class ReversiReadTests {
   public void getAllCoordinatesWorks() {
     game.setUpGame(game.getBoard());
     int boardRadius = 5;
-    List<Coordinate> givenCoords = game.getAllCoordinates();
+    List<LogicalCoordinate> givenCoords = game.getAllCoordinates();
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {

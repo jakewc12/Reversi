@@ -27,10 +27,10 @@ public interface HexagonCell {
    *
    * @return a coordinate that contains q,r,s.
    */
-  Coordinate getCoordinate();
+  LogicalCoordinate getCoordinate();
 
   /**
-   * Gets the Q coordinate of this cell. The Q Coordinate decreases when going left of the origin
+   * Gets the Q coordinate of this cell. The Q LogicalCoordinate decreases when going left of the origin
    * and increases when going right of the origin.
    *
    * @return an integer which follows the above pattern.
@@ -38,7 +38,7 @@ public interface HexagonCell {
   int getCoordinateQ();
 
   /**
-   * Gets the R coordinate of this cell. The R Coordinate decreases when going up a row from the
+   * Gets the R coordinate of this cell. The R LogicalCoordinate decreases when going up a row from the
    * origin and increases when going down a row.
    *
    * @return an integer which follows the above pattern.
@@ -46,7 +46,7 @@ public interface HexagonCell {
   int getCoordinateR();
 
   /**
-   * Gets the S coordinate of this cell. The S Coordinate decreases when going right of the origin
+   * Gets the S coordinate of this cell. The S LogicalCoordinate decreases when going right of the origin
    * and increases when going left of the origin.
    *
    * @return an integer which follows the above pattern.
@@ -60,5 +60,5 @@ public interface HexagonCell {
    *                  descriptions.
    * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
    */
-  Coordinate getCellNeighbor(Direction direction);
+  LogicalCoordinate getCellNeighbor(Direction direction);
 }

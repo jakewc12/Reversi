@@ -6,6 +6,7 @@ import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
 import model.HexagonCell;
+import model.LogicalCoordinate;
 import model.ModelStatus;
 import model.MutableReversi;
 
@@ -69,9 +70,9 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public boolean isLegalMove(Coordinate coordinate) {
+  public boolean isLegalMove(LogicalCoordinate Coordinate) {
     for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(coordinate)
+      if (cell.getCoordinate().equals(Coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
@@ -80,28 +81,28 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void placeDisc(Coordinate coordinate) {
+  public void placeDisc(LogicalCoordinate Coordinate) {
     if (!ban.contains("placeDisc")) {
-      append("Place disc called at " + coordinate);
+      append("Place disc called at " + Coordinate);
     }
 
-    super.placeDisc(coordinate);
+    super.placeDisc(Coordinate);
   }
 
 
   /**
-   * Forces the placement of a disc at the specified coordinate with the specified color, logging
+   * Forces the placement of a disc at the specified Coordinate with the specified color, logging
    * the action.
    *
-   * @param coordinate The coordinate at which the disc is forced to be placed.
+   * @param Coordinate The Coordinate at which the disc is forced to be placed.
    * @param color      The color of the disc to be placed.
    */
-  public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
+  public void forcePlaceDisc(Coordinate Coordinate, DiscColor color) {
     if (!ban.contains("forcePlaceDisc")) {
-      append("Force place disc called at " + coordinate);
+      append("Force place disc called at " + Coordinate);
     }
     for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(coordinate)) {
+      if (cell.getCoordinate().equals(Coordinate)) {
         cell.cellContents().changeColorTo(color);
       }
     }
@@ -122,17 +123,17 @@ public class MockMutableReversiModel extends MutableReversi {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param coordinate  The coordinate you want to place a Disc on.
+   * @param Coordinate  The Coordinate you want to place a Disc on.
    * @param playerColor The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
   @Override
-  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalCoordinate Coordinate, DiscColor playerColor) {
     if (!ban.contains("getNumFlipsOnMove")) {
-      append("Checked legal at " + coordinate.toString());
+      append("Checked legal at " + Coordinate.toString());
     }
 
-    return super.getNumFlipsOnMove(coordinate, playerColor);
+    return super.getNumFlipsOnMove(Coordinate, playerColor);
   }
 
   @Override
