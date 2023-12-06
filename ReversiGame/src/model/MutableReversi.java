@@ -16,6 +16,7 @@ public class MutableReversi implements MutableReversiModel {
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
+  private int numPlayersPassedInARow;
   private List<HexagonCell> cells = new ArrayList<>();
 
   /**
@@ -280,6 +281,7 @@ public class MutableReversi implements MutableReversiModel {
     getDiscAt(coord).changeColorTo(getCurrentTurn());
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
+    numPlayersPassedInARow = 0;
   }
 
   @Override
@@ -287,6 +289,7 @@ public class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
+    numPlayersPassedInARow++;
   }
 
   private Disc getDiscAt(LogicalCoordinate coord) {
@@ -344,6 +347,9 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public boolean gameOver() {
     checkGameStarted();
+    if(numPlayersPassedInARow==4){
+      return true;
+    }
     if (checkIfAllCellsFilled()) {
       return true;
     }

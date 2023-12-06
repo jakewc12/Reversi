@@ -38,7 +38,7 @@ public final class Reversi {
    */
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
-    RaDusModelAdapter model = new RaDusModelAdapter(3);
+    RaDusModelAdapter model = new RaDusModelAdapter(4);
     model.setUpGame(model.getBoard());
 
     List<Player> players = makePlayers(args, model);

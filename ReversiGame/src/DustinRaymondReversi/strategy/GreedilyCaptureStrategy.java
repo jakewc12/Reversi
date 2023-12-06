@@ -29,7 +29,6 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
       if (scoreGained == 0) {
         continue;
       }
-      System.out.println(pos +" "+ game.isLegalMoveAt(pos));
       //it thinks that it is the wrong player.
       if(!game.isLegalMoveAt(pos)){
         continue;
