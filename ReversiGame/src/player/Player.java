@@ -1,5 +1,7 @@
 package player;
 
+import java.util.Optional;
+
 import model.DiscColor;
 import model.MutableReversiModel;
 
@@ -22,4 +24,11 @@ public interface Player {
    * @param model The MutableReversiModel representing the current game state.
    */
   void playMove(MutableReversiModel model);
+
+  /**
+   * Returns the strategy that this player uses.
+   *
+   * @return the strategy that this player uses.
+   */
+  Optional<ReversiStrategy> getStrategy();
 }

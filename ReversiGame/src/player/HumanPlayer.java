@@ -1,6 +1,8 @@
 package player;
 
 import java.util.Objects;
+import java.util.Optional;
+
 import model.DiscColor;
 import model.MutableReversiModel;
 
@@ -41,5 +43,14 @@ public class HumanPlayer implements Player {
   @Override
   public void playMove(MutableReversiModel model) {
     //for human players, move is handled in the view. This is needed to implement the interface.
+  }
+
+  /**
+   * Returns optional empty because there is no strategy.
+   * @return optional empty.
+   */
+  @Override
+  public Optional<ReversiStrategy> getStrategy() {
+    return Optional.empty();
   }
 }

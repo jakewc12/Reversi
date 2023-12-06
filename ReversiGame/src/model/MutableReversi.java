@@ -281,7 +281,6 @@ public class MutableReversi implements MutableReversiModel {
     getDiscAt(coord).changeColorTo(getCurrentTurn());
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
-
   }
 
   @Override
