@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import model.DiscColor;
 import model.LogicalCoordinate;
+import model.DiscColor;
 
 /**
  * A single digital hexagon tile on the game board.

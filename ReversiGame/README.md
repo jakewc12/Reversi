@@ -139,3 +139,7 @@ strategy1. The command-line allows to change the configurations of the game to m
 or player2 human, however, if invalid inputs are given to the command-line, then the configurations
 will resort to the default for the invalid inputs. For example, if the args are "strategy111" and
 "human", the configuration will be human and human since the second input was valid.
+
+Changes For Part 4:
+One change we made for this part of the assignment is that we ended the game if both players passed
+twice each in a row. This allowed for games between AIs to end instead of skipping turn infinitely.
