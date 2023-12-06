@@ -19,8 +19,8 @@ public class GameCell implements HexagonCell {
   /**
    * Creates a new Game Cell which can hold Discs.
    *
-   * @param contents   the contents of the cell which can be null or a class from the disc
-   *                   interface.
+   * @param contents          the contents of the cell which can be null or a class from the disc
+   *                          interface.
    * @param logicalCoordinate the game cells logicalCoordinate.
    */
 

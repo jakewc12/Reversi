@@ -2,9 +2,6 @@ package digitalviews;
 
 
 import controller.PlayerActions;
-import java.awt.event.KeyListener;
-
-import controller.ReversiController;
 import player.Player;
 
 /**

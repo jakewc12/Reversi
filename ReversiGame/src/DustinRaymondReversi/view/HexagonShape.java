@@ -3,8 +3,8 @@ package DustinRaymondReversi.view;
 import java.awt.geom.Path2D;
 
 /**
- * Represents a regular hexagon drawn on a GUI view. The hexagon is oriented so that one
- * of its corners is pointing upward.
+ * Represents a regular hexagon drawn on a GUI view. The hexagon is oriented so that one of its
+ * corners is pointing upward.
  */
 public class HexagonShape extends Path2D.Double {
 

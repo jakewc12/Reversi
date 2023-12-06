@@ -10,10 +10,8 @@ import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import model.DiscColor;
 import model.MutableReversi;
 import model.MutableReversiModel;

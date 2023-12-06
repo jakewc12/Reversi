@@ -5,5 +5,5 @@ package DustinRaymondReversi.model;
  */
 public enum PlayerPiece {
   PLAYER_ONE,
-  PLAYER_TWO;
+  PLAYER_TWO
 }

@@ -1,14 +1,13 @@
 package DustinRaymondReversi.view;
 
+import DustinRaymondReversi.controller.ReversiPlayerActions;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import DustinRaymondReversi.controller.ReversiPlayerActions;
-
 /**
- * Represents a GUI window that displays a basic hexagonal Reversi game using the
- * Swing library. A basic Reversi GUI view is a JFrame and also contains a basic
- * Reversi GUI panel, within which the entire game is displayed.
+ * Represents a GUI window that displays a basic hexagonal Reversi game using the Swing library. A
+ * basic Reversi GUI view is a JFrame and also contains a basic Reversi GUI panel, within which the
+ * entire game is displayed.
  */
 public class BasicReversiGUIView extends JFrame implements ReversiGUIView {
 
@@ -44,7 +43,7 @@ public class BasicReversiGUIView extends JFrame implements ReversiGUIView {
   @Override
   public void showError(String message) {
     JOptionPane.showMessageDialog(this, message, "Stop! You broke the law!",
-            JOptionPane.ERROR_MESSAGE);
+        JOptionPane.ERROR_MESSAGE);
   }
 
   @Override

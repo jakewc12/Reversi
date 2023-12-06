@@ -1,15 +1,14 @@
 package DustinRaymondReversi.strategy;
 
-import java.util.List;
-
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.ReadOnlyReversiModel;
+import java.util.List;
 
 /**
- * Represents a combination of two Reversi strategies, a primary strategy and a fallback
- * strategy. This strategy first attempts the primary strategy. If the primary strategy
- * finds any moves, then those moves are returned; otherwise, this combinator returns the
- * results of the fallback strategy.
+ * Represents a combination of two Reversi strategies, a primary strategy and a fallback strategy.
+ * This strategy first attempts the primary strategy. If the primary strategy finds any moves, then
+ * those moves are returned; otherwise, this combinator returns the results of the fallback
+ * strategy.
  */
 public class FallbackStrategyCombinator implements ReversiStrategy {
 
@@ -17,10 +16,9 @@ public class FallbackStrategyCombinator implements ReversiStrategy {
   private final ReversiStrategy fallbackStrat;
 
   /**
-   * Constructs a new fallback strategy combinator using the given primary and fallback
-   * strategies.
+   * Constructs a new fallback strategy combinator using the given primary and fallback strategies.
    *
-   * @param primary the primary strategy
+   * @param primary  the primary strategy
    * @param fallback the fallback strategy
    * @throws IllegalArgumentException if the inputs are null
    */

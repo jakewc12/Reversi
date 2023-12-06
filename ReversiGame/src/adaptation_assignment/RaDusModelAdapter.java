@@ -4,17 +4,15 @@ import DustinRaymondReversi.controller.ReversiModelFeatures;
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.PlayerPiece;
 import DustinRaymondReversi.model.ReversiModel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import model.LogicalCoordinate;
 import model.DiscColor;
 import model.GameCell;
 import model.HexagonCell;
+import model.LogicalCoordinate;
 import model.ModelStatus;
 import model.MutableReversi;
 import model.ReadOnlyReversiModel;
@@ -45,7 +43,6 @@ public class RaDusModelAdapter extends MutableReversi implements ReversiModel {
   @Override
   public boolean isLegalMoveAt(HexPosn pos) {
     return super.getNumFlipsOnMove(new HexPosToLogicalCoordinate(pos), super.getCurrentTurn()) > 0;
-    //return super.isLegalMove(new HexPosToLogicalCoordinate(pos));
   }
 
   @Override

@@ -1,23 +1,24 @@
 package adaptation_assignment;
 
 import DustinRaymondReversi.controller.ReversiPlayerActions;
-import controller.ReversiController;
+import DustinRaymondReversi.view.ReversiGUIView;
+import controller.PlayerActions;
 import digitalviews.DigitalWindow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import controller.PlayerActions;
 import player.Player;
-import DustinRaymondReversi.view.ReversiGUIView;
 
 public final class RaDusToOurViewAdapter implements DigitalWindow {
+
   private final ReversiGUIView viewToBeAdapted;
-  private List<PlayerActions> listeners = new ArrayList<>();
-  public RaDusToOurViewAdapter(ReversiGUIView view){
+  private final List<PlayerActions> listeners = new ArrayList<>();
+
+  public RaDusToOurViewAdapter(ReversiGUIView view) {
     Objects.requireNonNull(view);
     this.viewToBeAdapted = view;
   }
+
   /**
    * Make the view visible. This is usually called after the view is constructed.
    */
@@ -53,7 +54,7 @@ public final class RaDusToOurViewAdapter implements DigitalWindow {
   public void addFeaturesListener(PlayerActions features) {
     viewToBeAdapted.addFeaturesListener((ReversiPlayerActions) features);
     listeners.add(features);
-   // viewToBeAdapted.addFeaturesListener(features);
+    // viewToBeAdapted.addFeaturesListener(features);
   }
 
   /**
