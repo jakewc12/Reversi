@@ -1,9 +1,7 @@
 package helpers;
 
 import controller.PlayerActions;
-import controller.ReversiController;
 import digitalviews.DigitalWindow;
-import java.awt.event.KeyListener;
 import model.ReadOnlyReversiModel;
 import player.Player;
 

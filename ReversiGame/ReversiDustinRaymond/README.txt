@@ -105,7 +105,7 @@ KEY SUBCOMPONENTS
     - ReversiModel - The model that contains all game data.
 
 - The model relies on two subcomponents: HexPosn and PlayerPiece to carry out its functionality.
-    - HexPosn - An axial coordinate representation of a hexagonal coordinate, used to represent
+    - HexPosn - An axial logicalCoordinate representation of a hexagonal logicalCoordinate, used to represent
         hexagonal coordinates of board.
     - PlayerPiece - An enumerated type used to represent both players as separate entities.
 

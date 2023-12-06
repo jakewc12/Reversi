@@ -8,14 +8,14 @@ import java.util.List;
 public interface ReadOnlyReversiModel {
 
   /**
-   * returns the disc color at the specified coordinate.
+   * returns the disc color at the specified logicalCoordinate.
    *
-   * @param coordinate the coordinates for what color you want to get.
+   * @param logicalCoordinate the coordinates for what color you want to get.
    * @return disc at specified location.
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  DiscColor getColorAt(Coordinate coordinate);
+  DiscColor getColorAt(LogicalCoordinate logicalCoordinate);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.
@@ -69,13 +69,13 @@ public interface ReadOnlyReversiModel {
   /**
    * Checks if a move placed at (q,r,s) is legal and returns that.
    *
-   * @param coordinate the coordinate of the move.
+   * @param logicalCoordinate the logicalCoordinate of the move.
    * @return if the given move is legal or not.
    * @throws IllegalArgumentException if the coordinates are invalid.
    * @throws IllegalStateException    if the game hasn't started yet.
    */
 
-  boolean isLegalMove(Coordinate coordinate);
+  boolean isLegalMove(LogicalCoordinate logicalCoordinate);
 
   /**
    * Checks if the current player has any legal moves and returns that.
@@ -99,18 +99,18 @@ public interface ReadOnlyReversiModel {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param coordinate  The coordinate you want to place a Disc on.
-   * @param playerColor The color of the player who is placing the disc
+   * @param logicalCoordinate The logicalCoordinate you want to place a Disc on.
+   * @param playerColor       The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
-  int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor);
+  int getNumFlipsOnMove(LogicalCoordinate logicalCoordinate, DiscColor playerColor);
 
   /**
    * Gets all the coordinates for the current board.
    *
    * @return all the possible coordinates.
    */
-  List<Coordinate> getAllCoordinates();
+  List<LogicalCoordinate> getAllCoordinates();
 
   /**
    * Begins the game and allows for moves to be made.

@@ -6,6 +6,7 @@ import java.util.List;
 import model.Coordinate;
 import model.DiscColor;
 import model.HexagonCell;
+import model.LogicalCoordinate;
 import model.ModelStatus;
 import model.MutableReversi;
 
@@ -69,7 +70,7 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public boolean isLegalMove(Coordinate coordinate) {
+  public boolean isLegalMove(LogicalCoordinate coordinate) {
     for (HexagonCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
@@ -80,7 +81,7 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void placeDisc(Coordinate coordinate) {
+  public void placeDisc(LogicalCoordinate coordinate) {
     if (!ban.contains("placeDisc")) {
       append("Place disc called at " + coordinate);
     }
@@ -90,10 +91,10 @@ public class MockMutableReversiModel extends MutableReversi {
 
 
   /**
-   * Forces the placement of a disc at the specified coordinate with the specified color, logging
+   * Forces the placement of a disc at the specified Coordinate with the specified color, logging
    * the action.
    *
-   * @param coordinate The coordinate at which the disc is forced to be placed.
+   * @param coordinate The Coordinate at which the disc is forced to be placed.
    * @param color      The color of the disc to be placed.
    */
   public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
@@ -122,12 +123,12 @@ public class MockMutableReversiModel extends MutableReversi {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param coordinate  The coordinate you want to place a Disc on.
+   * @param coordinate  The Coordinate you want to place a Disc on.
    * @param playerColor The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
   @Override
-  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalCoordinate coordinate, DiscColor playerColor) {
     if (!ban.contains("getNumFlipsOnMove")) {
       append("Checked legal at " + coordinate.toString());
     }

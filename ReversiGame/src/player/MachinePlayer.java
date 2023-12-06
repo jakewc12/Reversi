@@ -2,9 +2,8 @@ package player;
 
 import java.util.Objects;
 import java.util.Optional;
-import model.Coordinate;
 import model.DiscColor;
-import model.MutableReversi;
+import model.LogicalCoordinate;
 import model.MutableReversiModel;
 
 /**
@@ -36,7 +35,7 @@ public class MachinePlayer implements Player {
 
   @Override
   public void playMove(MutableReversiModel model) {
-    Optional<Coordinate> idealMove = strategy.chooseMove(model, this);
+    Optional<LogicalCoordinate> idealMove = strategy.chooseMove(model, this);
 
     if (idealMove.isEmpty()) {
       model.skipCurrentTurn();
@@ -44,5 +43,10 @@ public class MachinePlayer implements Player {
     }
     model.placeDisc(idealMove.get());
 
+  }
+
+  @Override
+  public Optional<ReversiStrategy> getStrategy() {
+    return Optional.of(this.strategy);
   }
 }

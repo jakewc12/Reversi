@@ -16,6 +16,7 @@ public class MutableReversi implements MutableReversiModel {
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
+  private int numPlayersPassedInARow;
   private List<HexagonCell> cells = new ArrayList<>();
 
   /**
@@ -45,10 +46,11 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
-  public void resetBoard(List<HexagonCell> board){
+  public void resetBoard(List<HexagonCell> board) {
     this.cells = board;
     gameStarted = true;
   }
+
   @Override
   public void startGame() {
     updateFeaturesInterface();
@@ -61,13 +63,13 @@ public class MutableReversi implements MutableReversiModel {
       for (int r = -size; r <= size; r++) {
         for (int s = -size; s <= size; s++) {
           if (q + r + s == 0) {
-            Coordinate currentCoord = new Coordinate(q, r, s);
+            LogicalCoordinate currentCoord = new Coordinate(q, r, s);
             if ((q == 0 && r == -1 && s == 1) || (q == 1 && r == 0 && s == -1) || (q == -1 && r == 1
-                && s == 0)) {
+                    && s == 0)) {
               GameCell newCell = new GameCell(DiscColor.BLACK, currentCoord);
               localCells.add(newCell);
             } else if ((q == 1 && r == -1 && s == 0) || (q == 0 && r == 1 && s == -1) || (q == -1
-                && r == 0 && s == 1)) {
+                    && r == 0 && s == 1)) {
               GameCell newCell = new GameCell(DiscColor.WHITE, currentCoord);
               localCells.add(newCell);
             } else {
@@ -81,13 +83,13 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   @Override
-  public boolean isLegalMove(Coordinate coordinate) {
-    checkValidCoordinates(coordinate);
-    if (this.getDiscAt(coordinate).getColor() != DiscColor.GREY) {
+  public boolean isLegalMove(LogicalCoordinate logicalCoordinate) {
+    checkValidCoordinates(logicalCoordinate);
+    if (this.getDiscAt(logicalCoordinate).getColor() != DiscColor.GREY) {
       return false;
     }
-    if (getAllFlips(getHexAt(coordinate), getCurrentTurn()).isEmpty()) {
-      this.getDiscAt(coordinate).changeColorTo(DiscColor.GREY);
+    if (getAllFlips(getHexAt(logicalCoordinate), getCurrentTurn()).isEmpty()) {
+      this.getDiscAt(logicalCoordinate).changeColorTo(DiscColor.GREY);
       return false;
     }
     return true;
@@ -101,8 +103,8 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public int checkScoreOfPlayer(DiscColor color) {
     int count = 0;
-    for (Coordinate coordinate : getAllCoordinates()) {
-      if (getColorAt(coordinate) == color) {
+    for (LogicalCoordinate logicalCoordinate : getAllCoordinates()) {
+      if (getColorAt(logicalCoordinate) == color) {
         count++;
       }
     }
@@ -135,13 +137,13 @@ public class MutableReversi implements MutableReversiModel {
     return false;
   }
 
-  private void checkValidCoordinates(Coordinate coord) {
+  private void checkValidCoordinates(LogicalCoordinate coord) {
     int total = coord.getIntQ() + coord.getIntS() + coord.getIntR();
     if (Math.abs(coord.getIntQ()) > size || Math.abs(coord.getIntR()) > size
-        || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
+            || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
       throw new IllegalArgumentException(
-          "Invalid coordinates given for size. Max coordinate size is: " + size + "\n coordinates "
-              + "were " + coord);
+              "Invalid coordinates given for size. Max coordinate size is: " + size
+                      + "\n coordinates " + "were " + coord);
     }
   }
 
@@ -209,36 +211,37 @@ public class MutableReversi implements MutableReversiModel {
     }
     //Check Horizontal
     toFlip.addAll(
-        getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT), currentColor));
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT)
+                    , currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_RIGHT),
-        currentColor));
+            currentColor));
 
     //Check Right diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_LEFT),
-        currentColor));
+            currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_RIGHT),
-        currentColor));
+            currentColor));
 
     //Check Left diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_RIGHT),
-        currentColor));
+            currentColor));
     toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
-        currentColor));
+            currentColor));
 
     return toFlip;
   }
 
   @Override
-  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalCoordinate logicalCoordinate, DiscColor playerColor) {
     checkGameStarted();
-    HexagonCell targetCell = getHexAt(coordinate);
+    HexagonCell targetCell = getHexAt(logicalCoordinate);
     return getAllFlips(targetCell, playerColor).size();
   }
 
   @Override
-  public List<Coordinate> getAllCoordinates() {
+  public List<LogicalCoordinate> getAllCoordinates() {
     //checkGameStarted();
-    List<Coordinate> returnList = new ArrayList<>();
+    List<LogicalCoordinate> returnList = new ArrayList<>();
     for (HexagonCell cell : cells) {
       returnList.add(cell.getCoordinate());
     }
@@ -268,7 +271,7 @@ public class MutableReversi implements MutableReversiModel {
 
 
   @Override
-  public void placeDisc(Coordinate coord) {
+  public void placeDisc(LogicalCoordinate coord) {
     checkGameStarted();
     if (!isLegalMove(coord)) {
       throw new IllegalStateException("Illegal move when inputting " + coord);
@@ -280,7 +283,7 @@ public class MutableReversi implements MutableReversiModel {
     getDiscAt(coord).changeColorTo(getCurrentTurn());
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
-
+    numPlayersPassedInARow = 0;
   }
 
   @Override
@@ -288,21 +291,22 @@ public class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
+    numPlayersPassedInARow++;
   }
 
-  private Disc getDiscAt(Coordinate coord) {
+  private Disc getDiscAt(LogicalCoordinate coord) {
     checkGameStarted();
     checkValidCoordinates(coord);
     return getHexAt(coord).cellContents();
   }
 
-  private HexagonCell getHexAt(Coordinate coord) {
-     checkGameStarted();
+  private HexagonCell getHexAt(LogicalCoordinate coord) {
+    checkGameStarted();
     checkValidCoordinates(coord);
 
     for (HexagonCell cell : cells) {
       if (cell.getCoordinateQ() == coord.getIntQ() && cell.getCoordinateR() == coord.getIntR()
-          && cell.getCoordinateS() == coord.getIntS()) {
+              && cell.getCoordinateS() == coord.getIntS()) {
         return cell;
       }
     }
@@ -311,10 +315,10 @@ public class MutableReversi implements MutableReversiModel {
 
 
   @Override
-  public DiscColor getColorAt(Coordinate coordinate) {
+  public DiscColor getColorAt(LogicalCoordinate logicalCoordinate) {
     checkGameStarted();
-    checkValidCoordinates(coordinate);
-    return getDiscAt(coordinate).getColor();
+    checkValidCoordinates(logicalCoordinate);
+    return getDiscAt(logicalCoordinate).getColor();
   }
 
 
@@ -345,12 +349,15 @@ public class MutableReversi implements MutableReversiModel {
   @Override
   public boolean gameOver() {
     checkGameStarted();
+    if (numPlayersPassedInARow == 4) {
+      return true;
+    }
     if (checkIfAllCellsFilled()) {
       return true;
     }
     //if any cell can be made black or white and have moves then return false
     return !checkGivenPlayerHasLegalMoveLeft(blacksTurn) && !checkGivenPlayerHasLegalMoveLeft(
-        !blacksTurn);
+            !blacksTurn);
   }
 
   public void addFeaturesInterface(ModelStatus features) {

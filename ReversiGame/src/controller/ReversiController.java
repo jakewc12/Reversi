@@ -1,10 +1,11 @@
 package controller;
 
-import DustinRaymondReversi.controller.ReversiPlayerActions;
-import DustinRaymondReversi.model.HexPosn;
+import dustinraymondreversi.controller.ReversiPlayerActions;
+import dustinraymondreversi.model.HexPosn;
 import digitalviews.DigitalWindow;
 import java.util.Objects;
 import model.Coordinate;
+import model.LogicalCoordinate;
 import model.ModelStatus;
 import model.MutableReversiModel;
 import player.HumanPlayer;
@@ -14,7 +15,7 @@ import player.Player;
 /**
  * allows for the model to be played using the view.
  */
-public class ReversiController implements Controller, PlayerActions,  ModelStatus,
+public class ReversiController implements Controller, PlayerActions, ModelStatus,
     ReversiPlayerActions {
 
   private final MutableReversiModel model;
@@ -48,16 +49,16 @@ public class ReversiController implements Controller, PlayerActions,  ModelStatu
   }
 
   /**
-   * Places a disc on the board at the specified coordinate.
+   * Places a disc on the board at the specified logicalCoordinate.
    *
-   * @param coordinate The coordinate where the disc should be placed.
+   * @param logicalCoordinate The logicalCoordinate where the disc should be placed.
    */
   @Override
-  public void placeDisc(Coordinate coordinate) {
+  public void placeDisc(LogicalCoordinate logicalCoordinate) {
     if (player instanceof HumanPlayer) {
       if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
-          model.placeDisc(coordinate);
+          model.placeDisc(logicalCoordinate);
         } catch (Exception ignore) {
           //if the move is illegal.
           System.out.println(ignore);
@@ -91,7 +92,7 @@ public class ReversiController implements Controller, PlayerActions,  ModelStatu
 
   @Override
   public void attemptMove(HexPosn pos) {
-    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(),(-pos.getQ()-pos.getR())));
+    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR())));
   }
 
   @Override

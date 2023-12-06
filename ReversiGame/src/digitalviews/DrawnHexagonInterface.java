@@ -1,7 +1,7 @@
 package digitalviews;
 
 import java.awt.Graphics;
-import model.Coordinate;
+import model.LogicalCoordinate;
 
 /**
  * Meant to represent a drawn digital hexagon which mirrors a logical hexagon in the game of
@@ -36,7 +36,7 @@ public interface DrawnHexagonInterface {
    *
    * @return the coordinates of the hex.
    */
-  Coordinate getLogicalHexCoord();
+  LogicalCoordinate getLogicalHexCoord();
 
   /**
    * Checks if the hex contains the given digital (x,y) point.

@@ -10,11 +10,11 @@ public interface MutableReversiModel extends ReadOnlyReversiModel {
    * the disc on its plane of the same color. When this happens, numBlackCells and numWhiteCells
    * should change accordingly
    *
-   * @param coordinate the coordinate of the hex you are checking.
+   * @param logicalCoordinate the logicalCoordinate of the hex you are checking.
    * @throws IllegalArgumentException if coordinates are invalid
    * @throws IllegalStateException    if the move is illegal.
    */
-  void placeDisc(Coordinate coordinate);
+  void placeDisc(LogicalCoordinate logicalCoordinate);
 
   /**
    * Skip the turn of the current player.

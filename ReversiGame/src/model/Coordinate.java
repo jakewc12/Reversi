@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * This class represents a position system of (Q,R,S).
  */
-public class Coordinate {
+public class Coordinate implements LogicalCoordinate {
 
   private final int intQ;
   private final int intR;
@@ -19,6 +19,7 @@ public class Coordinate {
     this.intR = r;
     this.intS = s;
   }
+
 
   public int getIntQ() {
     return intQ;
@@ -42,12 +43,13 @@ public class Coordinate {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof Coordinate)) {
+    if (!(a instanceof LogicalCoordinate)) {
       return false;
     }
     Coordinate other = (Coordinate) a;
-    return ((Math.abs(this.intQ - other.intQ) < 0.01) && (Math.abs(this.intR - other.intR) < 0.01)
-        && Math.abs(this.intS - other.intS) < 0.01);
+    return ((Math.abs(this.intQ - other.getIntQ()) < 0.01) && (Math.abs(this.intR - other.getIntR())
+        < 0.01)
+        && Math.abs(this.intS - other.getIntS()) < 0.01);
   }
 
   @Override

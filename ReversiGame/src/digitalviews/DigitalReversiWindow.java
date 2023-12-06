@@ -3,17 +3,13 @@ package digitalviews;
 import static digitalviews.DrawnHexagon.hexagonRadius;
 
 import controller.PlayerActions;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import controller.ReversiController;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -26,7 +22,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private final ReadOnlyReversiModel model;
   private final DigitalWindow window = this;
   private HexManager manager;
-  private KeyListener listener;
 
   /**
    * Creates a new DigitalReversiWindow.
@@ -81,7 +76,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
       } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
-              DiscColor.WHITE)) {
+          DiscColor.WHITE)) {
         winner = " Winner is BLACK";
       } else {
         winner = " TIE";
@@ -106,7 +101,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    */
   @Override
   public void addFeaturesListener(PlayerActions features) {
-    listener = new KeyListener() {
+    KeyListener listener = new KeyListener() {
       /**
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move
        * on the coordinate of the highlighted hex. If 's' is pressed, it will use features to

@@ -1,7 +1,7 @@
 package digitalviews;
 
 import java.util.Optional;
-import model.Coordinate;
+import model.LogicalCoordinate;
 
 /**
  * A manager that manages all the drawing of hexes and updating of hexes.
@@ -18,6 +18,6 @@ public interface DigitalBoardManager {
    *
    * @return the current highlighted cell on the board.
    */
-  Optional<Coordinate> getHighlightedCord();
+  Optional<LogicalCoordinate> getHighlightedCord();
 
 }
