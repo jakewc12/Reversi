@@ -22,7 +22,6 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   private final ReadOnlyReversiModel model;
   private final DigitalWindow window = this;
   private HexManager manager;
-  private KeyListener listener;
 
   /**
    * Creates a new DigitalReversiWindow.
@@ -102,7 +101,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    */
   @Override
   public void addFeaturesListener(PlayerActions features) {
-    listener = new KeyListener() {
+    KeyListener listener = new KeyListener() {
       /**
        * Allows for key interactions. If 'p' is pressed, it will use features to make a move
        * on the coordinate of the highlighted hex. If 's' is pressed, it will use features to

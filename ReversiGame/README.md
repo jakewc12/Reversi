@@ -143,3 +143,17 @@ will resort to the default for the invalid inputs. For example, if the args are 
 Changes For Part 4:
 One change we made for this part of the assignment is that we ended the game if both players passed
 twice each in a row. This allowed for games between AIs to end instead of skipping turn infinitely.
+
+ALL OPTIONS FOR CUSTOM PLAYER CONFIGURATIONS:
+"human" "strategy1" "providerStrategy1" "providerStrategy2" "providerStrategy3"
+
+EXAMPLE JAR FILE CONFIGURATION:
+java -jar ReversiGame.jar "strategy1" "providerStrategy1"
+
+What Worked and What Didn't:
+Our providers code was formatted and organized very similarly to ours, making it quite easy for
+us to adapt their code to ours. As such, we were able to get pretty much all features to work with
+our providers code. We were able to have the strategies correctly choose moves based on the given
+strategy. Furthermore, we were able to make their view interact with the user and allow for the 
+view to take in move inputs. Games are able to play when using the providers code. We were also 
+able to finish a game using the providers code.

@@ -1,17 +1,19 @@
-import DustinRaymondReversi.strategy.AvoidCornerTrapStrategy;
-import DustinRaymondReversi.strategy.ChooseCornerStrategy;
-import DustinRaymondReversi.strategy.ChosenByBothStrategyCombinator;
-import DustinRaymondReversi.strategy.GreedilyCaptureStrategy;
-import DustinRaymondReversi.view.BasicReversiGUIView;
-import adaptation_assignment.RaDusModelAdapter;
-import adaptation_assignment.RaDusStrategyAdapter;
-import adaptation_assignment.RaDusToOurViewAdapter;
+import dustinraymondreversi.strategy.AvoidCornerTrapStrategy;
+import dustinraymondreversi.strategy.ChooseCornerStrategy;
+import dustinraymondreversi.strategy.ChosenByBothStrategyCombinator;
+import dustinraymondreversi.strategy.GreedilyCaptureStrategy;
+import dustinraymondreversi.view.BasicReversiGUIView;
+import adaptionassignment.RaDusModelAdapter;
+import adaptionassignment.RaDusStrategyAdapter;
+import adaptionassignment.RaDusToOurViewAdapter;
 import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import model.DiscColor;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
@@ -35,7 +37,7 @@ public final class Reversi {
    */
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
-    RaDusModelAdapter model = new RaDusModelAdapter(4);
+    RaDusModelAdapter model = new RaDusModelAdapter(3);
     model.setUpGame(model.getBoard());
 
     List<Player> players = makePlayers(args, model);
@@ -91,7 +93,8 @@ public final class Reversi {
     }
     return players;
   }
-  private static Player choosePlayer(String input, DiscColor color, MutableReversiModel model){
+
+  private static Player choosePlayer(String input, DiscColor color, MutableReversiModel model) {
     if (input.equalsIgnoreCase("strategy1")) {
       return (new MachinePlayer(color, new CaptureMostTilesStrategy()));
     } else if (input.equalsIgnoreCase("providerStrategy1")) {
@@ -99,9 +102,9 @@ public final class Reversi {
     } else if (input.equalsIgnoreCase("providerStrategy2")) {
       return (new MachinePlayer(color, new RaDusStrategyAdapter(new AvoidCornerTrapStrategy())));
     } else if (input.equalsIgnoreCase("providerStrategy3")) {
-      return (new MachinePlayer(color, new RaDusStrategyAdapter
-              (new ChosenByBothStrategyCombinator(new AvoidCornerTrapStrategy()
-                      , new ChooseCornerStrategy()))));
+      return (new MachinePlayer(color, new RaDusStrategyAdapter(new ChosenByBothStrategyCombinator(
+              new AvoidCornerTrapStrategy()
+              , new ChooseCornerStrategy()))));
     }
     return new HumanPlayer(model, color);
   }

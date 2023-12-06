@@ -1,0 +1,16 @@
+What do you wish you had done differently in your design/implementation?
+Did you learn any lessons from the code given to you, or the updates you had to make for your
+customers?
+
+What was your experience like with your providers?
+
+The only request for change by our clients were to clarify the Directions.java class. I'm pleased
+with how we used Javadoc to explain our code thoroughly and used Interfaces to allow for solid
+code extensibility throughout our implementation. One lesson we learned from providing code was to
+focus on making enum classes and value classes very understandable and explain them thoroughly.
+Even if we understand how the size in our model is calculated, some others may not. I know now to
+make value classes their own and using proper Javadoc to explain their usage and how they are
+calculated.
+Our experience as providers was overall fairly positive. Our clients asked for our code initially
+and asked for some small clarification on one small class, however, we were not asked to create any
+new interfaces or change any major parts of our code.

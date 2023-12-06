@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Represents a hex coordinate representation using the Q,R,S system.
+ */
 public interface LogicalCoordinate {
 
   /**

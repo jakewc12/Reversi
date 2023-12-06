@@ -1,15 +1,14 @@
 package adaptertests;
 
-import DustinRaymondReversi.strategy.AvoidCornerTrapStrategy;
-import DustinRaymondReversi.strategy.ChooseCornerStrategy;
-import DustinRaymondReversi.strategy.ChosenByBothStrategyCombinator;
-import DustinRaymondReversi.strategy.FallbackStrategyCombinator;
-import DustinRaymondReversi.strategy.GreedilyCaptureStrategy;
-import adaptation_assignment.RaDusModelAdapter;
-import adaptation_assignment.RaDusStrategyAdapter;
+import dustinraymondreversi.strategy.AvoidCornerTrapStrategy;
+import dustinraymondreversi.strategy.ChooseCornerStrategy;
+import dustinraymondreversi.strategy.ChosenByBothStrategyCombinator;
+import dustinraymondreversi.strategy.FallbackStrategyCombinator;
+import dustinraymondreversi.strategy.GreedilyCaptureStrategy;
+import adaptionassignment.RaDusModelAdapter;
+import adaptionassignment.RaDusStrategyAdapter;
 import controller.ReversiController;
 import helpers.TestHelper;
-import model.Coordinate;
 import model.Coordinate;
 import model.DiscColor;
 import model.MutableReversi;
@@ -20,6 +19,9 @@ import player.HumanPlayer;
 import player.Player;
 import player.ReversiStrategy;
 
+/**
+ * Tests potential issues with adapting classes to our clients code.
+ */
 public class AdaptedStrategiesTests {
 
   MutableReversi model;

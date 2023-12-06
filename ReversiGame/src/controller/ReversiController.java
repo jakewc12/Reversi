@@ -1,7 +1,7 @@
 package controller;
 
-import DustinRaymondReversi.controller.ReversiPlayerActions;
-import DustinRaymondReversi.model.HexPosn;
+import dustinraymondreversi.controller.ReversiPlayerActions;
+import dustinraymondreversi.model.HexPosn;
 import digitalviews.DigitalWindow;
 import java.util.Objects;
 import model.Coordinate;

@@ -121,8 +121,8 @@ public class CaptureMostTilesStrategyTests {
     StringBuilder expected = new StringBuilder();
     model.setUpGame(model.getBoard());
     List<LogicalCoordinate> allCoords = model.getAllCoordinates();
-    for (LogicalCoordinate Coordinate : allCoords) {
-      expected.append("Checked legal at ").append(Coordinate).append("\n");
+    for (LogicalCoordinate coordinate : allCoords) {
+      expected.append("Checked legal at ").append(coordinate).append("\n");
     }
     expected.append("Place disc called at (1, -2, 1)\n");
     blackAI.playMove(model);

@@ -70,9 +70,9 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public boolean isLegalMove(LogicalCoordinate Coordinate) {
+  public boolean isLegalMove(LogicalCoordinate coordinate) {
     for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(Coordinate)
+      if (cell.getCoordinate().equals(coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
       }
@@ -81,12 +81,12 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void placeDisc(LogicalCoordinate Coordinate) {
+  public void placeDisc(LogicalCoordinate coordinate) {
     if (!ban.contains("placeDisc")) {
-      append("Place disc called at " + Coordinate);
+      append("Place disc called at " + coordinate);
     }
 
-    super.placeDisc(Coordinate);
+    super.placeDisc(coordinate);
   }
 
 
@@ -94,15 +94,15 @@ public class MockMutableReversiModel extends MutableReversi {
    * Forces the placement of a disc at the specified Coordinate with the specified color, logging
    * the action.
    *
-   * @param Coordinate The Coordinate at which the disc is forced to be placed.
+   * @param coordinate The Coordinate at which the disc is forced to be placed.
    * @param color      The color of the disc to be placed.
    */
-  public void forcePlaceDisc(Coordinate Coordinate, DiscColor color) {
+  public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
     if (!ban.contains("forcePlaceDisc")) {
-      append("Force place disc called at " + Coordinate);
+      append("Force place disc called at " + coordinate);
     }
     for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(Coordinate)) {
+      if (cell.getCoordinate().equals(coordinate)) {
         cell.cellContents().changeColorTo(color);
       }
     }
@@ -123,17 +123,17 @@ public class MockMutableReversiModel extends MutableReversi {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param Coordinate  The Coordinate you want to place a Disc on.
+   * @param coordinate  The Coordinate you want to place a Disc on.
    * @param playerColor The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
   @Override
-  public int getNumFlipsOnMove(LogicalCoordinate Coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalCoordinate coordinate, DiscColor playerColor) {
     if (!ban.contains("getNumFlipsOnMove")) {
-      append("Checked legal at " + Coordinate.toString());
+      append("Checked legal at " + coordinate.toString());
     }
 
-    return super.getNumFlipsOnMove(Coordinate, playerColor);
+    return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 
   @Override
