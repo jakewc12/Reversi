@@ -1,21 +1,40 @@
-This is a Peer Review on the code given by Raymond Tsai and Dustin Zhang
+This is a Peer Review of the code given by Raymond Tsai and Dustin Zhang
 
-How flexible are the interfaces you were given?
+Overall, the codebase given by Raymond Tsai and Dustin Zhang was nearly identical in concept to our
+own and extremely well organized and documented. Though this is a peer review I will attempt to be
+as critical as possible for the sake of generating constructive feedback on the given codebase,
+however, the fact that we never had to request a change to their code to progress speaks volumes to
+the level of which this codebase rests.
 
-How capable are the views?
+Design critique:
+As this design is nearly identical to ours I find it is very difficult to critique as I share most
+of the same views. However, I did notice in the strategy package all of the strategies make a move
+using only a model as input and return a list of moves. The interface function is such:
 
-How convenient was it to reuse their code?
+List<HexPosn> chooseMoves(ReadOnlyReversiModel game);
 
-How cleanly written and well-documented was their code?
+The issue with this design for strategies is it does not take into account a player which is in
+this editor's opinion a flaw with the idea of the strategy, as to create a strategy you must know
+who you are playing for. I believe the design intent was to have this handled by an AI player which
+would then cherry-pick the best moves from the list of possible moves, however, the strategy itself
+should simply spit out the best move for that player which is tailored to its idea. Ideally, the
+choseMoves method would take a game and a player allowing the moves to automatically filter to the
+ones that are relevant and which reduces the amount of conceptually incorrect code in AI player
+classes.
 
-If you needed to request changes from them, what were they and why were they needed?
+Implementation critique:
+In terms of interfaces, all of them were perfectly used in class implementations to keep it general
+and extendable were necessary. This open-mindedness allowed us to simply pass in models that
+extended our model and implemented theirs without issue making certain pieces of integrating their
+codebase astoundingly easy. If I had to critique something it would be the lack of interfaces to
+which the view classes are attached. Every class should implement a promise or interface for further
+extendability which we learned in this assignment is key if the code will be shared with clients.
 
-Write a short (3-4 paragraph) review of their code. Your review should have the following sections:
-Design critique, implementation critique, documentation critique, design/code limitations and
-suggestions on how to address them.
-
-Please concentrate on writing a review that is honest, but constructive. The reader should be able
-to understand what was wrong, and how to correct it. Please avoid simply criticizing the code given
-to you with no suggestions on how to make it better. Similarly avoid blanket praise: every
-implementation has flaws or limitations! Most importantly, please be professional in your writing.
-In summary, write a review that you would not mind receiving and acting upon.
+Documentation critique:
+In terms of interfaces, all of them were well documented except for one issue. The issue we
+encountered was attempting to figure out what player mapped to what color. The peer-given codebase
+used an enum class to depict player1 as white and player2 as black. This however was not documented
+in the enum class which caused issues down the line in the view as on one view the player colors
+were swapped but could still make moves and were counted as legal moves. Ideally, the enum i
+nterface would explain what player mapped to what color for clarification as without a concrete
+implementation of the model we were forced to assume black was the first player.
