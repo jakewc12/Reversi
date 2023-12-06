@@ -1,0 +1,21 @@
+This is a Peer Review on the code given by Raymond Tsai and Dustin Zhang
+
+How flexible are the interfaces you were given?
+
+How capable are the views?
+
+How convenient was it to reuse their code?
+
+How cleanly written and well-documented was their code?
+
+If you needed to request changes from them, what were they and why were they needed?
+
+Write a short (3-4 paragraph) review of their code. Your review should have the following sections:
+Design critique, implementation critique, documentation critique, design/code limitations and
+suggestions on how to address them.
+
+Please concentrate on writing a review that is honest, but constructive. The reader should be able
+to understand what was wrong, and how to correct it. Please avoid simply criticizing the code given
+to you with no suggestions on how to make it better. Similarly avoid blanket praise: every
+implementation has flaws or limitations! Most importantly, please be professional in your writing.
+In summary, write a review that you would not mind receiving and acting upon.

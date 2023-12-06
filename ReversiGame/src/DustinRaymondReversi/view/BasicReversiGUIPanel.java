@@ -1,6 +1,16 @@
 package DustinRaymondReversi.view;
 
-import java.awt.*;
+import DustinRaymondReversi.controller.ReversiPlayerActions;
+import DustinRaymondReversi.model.HexPosn;
+import DustinRaymondReversi.model.PlayerPiece;
+import DustinRaymondReversi.model.ReadOnlyReversiModel;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -9,25 +19,17 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import java.util.List;
-
-import DustinRaymondReversi.controller.ReversiPlayerActions;
-import DustinRaymondReversi.model.HexPosn;
-import DustinRaymondReversi.model.PlayerPiece;
-import DustinRaymondReversi.model.ReadOnlyReversiModel;
-
 /**
- * Represents a GUI panel containing a graphical display of a Reversi game.
- * The panel displays a representation of the game board and can also allow a
- * user to interact with the game board through various means, including key
- * and mouse inputs. Whenever the game is updated for any reason, the panel is
- * updated to display the most recent state of the board.
+ * Represents a GUI panel containing a graphical display of a Reversi game. The panel displays a
+ * representation of the game board and can also allow a user to interact with the game board
+ * through various means, including key and mouse inputs. Whenever the game is updated for any
+ * reason, the panel is updated to display the most recent state of the board.
  */
 public class BasicReversiGUIPanel extends JPanel {
 
@@ -36,14 +38,12 @@ public class BasicReversiGUIPanel extends JPanel {
   // contains any feature listeners that need to be notified whenever the user
   // triggers an event
   private final List<ReversiPlayerActions> listeners;
-
-  // stores the current cell clicked. Set to null if no cell is clicked.
-  private HexPosn currentCellClicked;
-
   // fields for the panel
   private final Map<Character, Runnable> keyTyped;
   private final Map<Integer, Runnable> keyPressed;
   private final Map<Integer, Runnable> keyReleased;
+  // stores the current cell clicked. Set to null if no cell is clicked.
+  private HexPosn currentCellClicked;
 
   /**
    * Constructs a new GUI panel with read-only access to the given Reversi model.
@@ -79,6 +79,24 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
+   * Gets the associated color with the given PlayerPiece piece.
+   *
+   * @param piece the given player piece
+   * @return the associated color with the given PlayerPiece piece
+   */
+  private static Color getPlayerPieceColor(PlayerPiece piece) {
+    switch (piece) {
+      case PLAYER_ONE:
+        return Color.WHITE;
+      case PLAYER_TWO:
+        return Color.BLACK;
+      default:
+        // this shouldn't be able to happen
+        throw new IllegalArgumentException("Unknown player piece type.");
+    }
+  }
+
+  /**
    * Configures which keys map to specific key events, such as making a move or passing.
    */
   private void configureKeyBinds() {
@@ -104,10 +122,9 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Adds the given features set to this panel, allowing that features set to
-   * be notified whenever a particular event occurs in the panel (i.e. a player
-   * performs a specific mouse or key action that corresponds to a particular
-   * feature of the Reversi game).
+   * Adds the given features set to this panel, allowing that features set to be notified whenever a
+   * particular event occurs in the panel (i.e. a player performs a specific mouse or key action
+   * that corresponds to a particular feature of the Reversi game).
    *
    * @param features the listener to add
    * @throws IllegalArgumentException if the listener is null
@@ -126,12 +143,11 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Converts a given HexPosn (which uses axial q/r coordinates) to logical x and y
-   * coordinates. In this coordinate system, one unit in either the x or y direction
-   * is equal to the "side length" of a hexagon. The origin is in the middle of the
-   * screen, and (0, 0) in logical x/y coordinates is equivalent to the HexPosn (0, 0).
-   * The x-axis increases horizontally rightward, and the y-axis increases vertically
-   * upward.
+   * Converts a given HexPosn (which uses axial q/r coordinates) to logical x and y coordinates. In
+   * this coordinate system, one unit in either the x or y direction is equal to the "side length"
+   * of a hexagon. The origin is in the middle of the screen, and (0, 0) in logical x/y coordinates
+   * is equivalent to the HexPosn (0, 0). The x-axis increases horizontally rightward, and the
+   * y-axis increases vertically upward.
    *
    * @param posn the HexPosn to convert
    * @return the x/y coordinates that correspond to that HexPosn
@@ -144,8 +160,8 @@ public class BasicReversiGUIPanel extends JPanel {
 
   /**
    * Calculates the amount by which to scale the logical coordinates to match the physical
-   * coordinates, allowing for the board to resize itself to fit the window while remaining
-   * a regular hexagon.
+   * coordinates, allowing for the board to resize itself to fit the window while remaining a
+   * regular hexagon.
    *
    * @return the scale factor
    */
@@ -159,11 +175,11 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Converts between logical x/y coordinates and physical pixel coordinates on the screen.
-   * In this coordinate system, one unit in either the x or y direction is equal to the "side
-   * length" of a hexagon. The origin is in the middle of the screen, and (0, 0) in logical
-   * x/y coordinates is equivalent to the HexPosn (0, 0). The x-axis increases horizontally
-   * rightward, and the y-axis increases vertically upward.
+   * Converts between logical x/y coordinates and physical pixel coordinates on the screen. In this
+   * coordinate system, one unit in either the x or y direction is equal to the "side length" of a
+   * hexagon. The origin is in the middle of the screen, and (0, 0) in logical x/y coordinates is
+   * equivalent to the HexPosn (0, 0). The x-axis increases horizontally rightward, and the y-axis
+   * increases vertically upward.
    *
    * @return the transformation
    */
@@ -180,9 +196,9 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Converts between physical pixel coordinates on the screen and logical x/y coordinates.
-   * The logical x/y coordinate system is detailed in the Javadoc for the
-   * transformLogicalToPhysical method.
+   * Converts between physical pixel coordinates on the screen and logical x/y coordinates. The
+   * logical x/y coordinate system is detailed in the Javadoc for the transformLogicalToPhysical
+   * method.
    *
    * @return the corresponding logical coordinates of the given physical coordinates
    */
@@ -197,22 +213,19 @@ public class BasicReversiGUIPanel extends JPanel {
     return ret;
   }
 
-
-
   /**
-   * Draws a regular hexagon with the given parameters. The hexagon is oriented so that one
-   * of its corners is pointing upward; it is convex and both vertically and horizontally
-   * symmetric.
+   * Draws a regular hexagon with the given parameters. The hexagon is oriented so that one of its
+   * corners is pointing upward; it is convex and both vertically and horizontally symmetric.
    *
-   * @param graphics the graphics object to copy and draw the hexagon on (the copy)
-   * @param center the center coordinates of the hexagon
+   * @param graphics   the graphics object to copy and draw the hexagon on (the copy)
+   * @param center     the center coordinates of the hexagon
    * @param sideLength the side length of the hexagon
-   * @param color the color of the hexagon
-   * @param fill whether the hexagon is filled or not
+   * @param color      the color of the hexagon
+   * @param fill       whether the hexagon is filled or not
    */
   private void drawHexagon(Graphics graphics,
-                           Point2D center, double sideLength,
-                           Color color, boolean fill) {
+      Point2D center, double sideLength,
+      Color color, boolean fill) {
     Graphics2D g2d = (Graphics2D) graphics.create();
 
     g2d.setColor(color);
@@ -229,35 +242,35 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Draws an individual hexagonal Reversi cell at the logical x/y coordinates that
-   * correspond to the given HexPosn. This method does not convert logical x/y
-   * coordinates to physical coordinates (handled in paintComponent method). This
-   * method also does not draw player pieces. Will highlight the reversi cell cyan if it is
-   * the selected cell. Otherwise, it will fill in a gray color.
+   * Draws an individual hexagonal Reversi cell at the logical x/y coordinates that correspond to
+   * the given HexPosn. This method does not convert logical x/y coordinates to physical coordinates
+   * (handled in paintComponent method). This method also does not draw player pieces. Will
+   * highlight the reversi cell cyan if it is the selected cell. Otherwise, it will fill in a gray
+   * color.
    *
    * @param graphics the graphics object to draw on
-   * @param pos the HexPosn to draw at
+   * @param pos      the HexPosn to draw at
    */
   private void drawReversiCell(Graphics graphics, HexPosn pos) {
     if (pos.equals(this.currentCellClicked)) {
       this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-              Color.CYAN, true);
+          Color.CYAN, true);
     } else {
       this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-              Color.LIGHT_GRAY, true);
+          Color.LIGHT_GRAY, true);
     }
     this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-            Color.BLACK, false);
+        Color.BLACK, false);
   }
-
 
   /**
    * Draws the given PlayerPiece piece in the cellat the logical x/y coordinates that correspond
    * with the given HexPosn. Similar to drawReversiCell, this method does not convert to physical
    * coordinates.
+   *
    * @param graphics the graphics object to draw on
-   * @param pos the HexPosn to draw at
-   * @param piece the player piece to draw
+   * @param pos      the HexPosn to draw at
+   * @param piece    the player piece to draw
    */
   private void drawPlayerPiece(Graphics graphics, HexPosn pos, PlayerPiece piece) {
     Graphics2D g2d = (Graphics2D) graphics.create();
@@ -272,31 +285,14 @@ public class BasicReversiGUIPanel extends JPanel {
   }
 
   /**
-   * Gets the associated color with the given PlayerPiece piece.
-   * @param piece the given player piece
-   * @return the associated color with the given PlayerPiece piece
-   */
-  private static Color getPlayerPieceColor(PlayerPiece piece) {
-    switch (piece) {
-      case PLAYER_ONE:
-        return Color.WHITE;
-      case PLAYER_TWO:
-        return Color.BLACK;
-      default:
-        // this shouldn't be able to happen
-        throw new IllegalArgumentException("Unknown player piece type.");
-    }
-  }
-
-  /**
    * Checks if the given position (in logical coordinates) occurs within the edges of the given
    * hexagon at a specific HexPosn. Calculates the center of the given Hexagon in logical
    * coordinates and then checks if the given position is located within all 6 sides.
    *
-   * @param point the position to check if in hexagon, as a Point2D.Double
+   * @param point      the position to check if in hexagon, as a Point2D.Double
    * @param hexToCheck the hexagon to check
-   * @return true if the given position is located within the edges of the given hexagon,
-   *     false if not.
+   * @return true if the given position is located within the edges of the given hexagon, false if
+   * not.
    */
   private boolean pointIsInHexagon(Point2D point, HexPosn hexToCheck) {
     Point2D hexCenter = convertHexPosnToLogical(hexToCheck);
@@ -314,11 +310,12 @@ public class BasicReversiGUIPanel extends JPanel {
 
   /**
    * Gets the HexPosn of the nearest hexagon within the board to the given point (in logical
-   * coordinates). Returns empty if the point is not contained within any of the cells on the board.
+   * coordinates). Returns empty if the point is not contained within any of the cells on the
+   * board.
    *
    * @param point the point in logical coordinates
    * @return the HexPosn of the hexagon in the board that the point lies in. If the point lies
-   *     outside all cells on the board, return Optional.empty()
+   * outside all cells on the board, return Optional.empty()
    */
   private Optional<HexPosn> getNearestHexagonInBounds(Point2D point) {
     for (HexPosn pos : this.model.getAllValidCoordinates()) {

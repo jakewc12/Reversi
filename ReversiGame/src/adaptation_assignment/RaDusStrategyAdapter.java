@@ -16,17 +16,18 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
 
   @Override
   public Optional<LogicalCoordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
-    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize()-1);
+    RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardSize() - 1);
     adapter.setUpGame(model);
     List<HexPosn> possibleMoves = raDusStrategy.chooseMoves(adapter);
 
-    if(possibleMoves.isEmpty()){
+    if (possibleMoves.isEmpty()) {
       return Optional.empty();
     }
     //need to check that the move is legal for this player.
 
-    for(HexPosn coordinate : possibleMoves){
-      if(model.getNumFlipsOnMove(new HexPosToLogicalCoordinate(coordinate), who.getPlayerColor())>0){
+    for (HexPosn coordinate : possibleMoves) {
+      if (model.getNumFlipsOnMove(new HexPosToLogicalCoordinate(coordinate), who.getPlayerColor())
+          > 0) {
         return Optional.of(new HexPosToLogicalCoordinate(coordinate));
       }
     }

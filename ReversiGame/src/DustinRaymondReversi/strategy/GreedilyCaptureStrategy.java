@@ -1,17 +1,17 @@
 package DustinRaymondReversi.strategy;
 
+import DustinRaymondReversi.model.HexPosn;
+import DustinRaymondReversi.model.ReadOnlyReversiModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import DustinRaymondReversi.model.HexPosn;
-import DustinRaymondReversi.model.ReadOnlyReversiModel;
-
 /**
- * Represents a Reversi strategy that chooses the move that captures the greatest number
- * of opponent pieces out of all the possible moves. This strategy does not consider the
- * opponent's possible responses.
+ * Represents a Reversi strategy that chooses the move that captures the greatest number of opponent
+ * pieces out of all the possible moves. This strategy does not consider the opponent's possible
+ * responses.
  */
 public class GreedilyCaptureStrategy implements ReversiStrategy {
+
   @Override
   public List<HexPosn> chooseMoves(ReadOnlyReversiModel game) {
     if (game == null) {
@@ -29,9 +29,9 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
       if (scoreGained == 0) {
         continue;
       }
-      System.out.println(pos +" "+ game.isLegalMoveAt(pos));
+      System.out.println(pos + " " + game.isLegalMoveAt(pos));
       //it thinks that it is the wrong player.
-      if(!game.isLegalMoveAt(pos)){
+      if (!game.isLegalMoveAt(pos)) {
         continue;
       }
       if (scoreGained > chosenScoreGained) {
@@ -55,13 +55,12 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
   }
 
   /**
-   * Returns the number of pieces that would be captured by attempting to play at
-   * the given position in the given game. If the attempted move is illegal, the number
-   * of pieces that would be captured is 0. This method assumes that the given position
-   * belongs to the game board.
+   * Returns the number of pieces that would be captured by attempting to play at the given position
+   * in the given game. If the attempted move is illegal, the number of pieces that would be
+   * captured is 0. This method assumes that the given position belongs to the game board.
    *
    * @param game the game to attempt to play a move in
-   * @param pos the position at which to attempt to play a move
+   * @param pos  the position at which to attempt to play a move
    * @return the number of potential captures
    */
   private int numPiecesCapturedAt(ReadOnlyReversiModel game, HexPosn pos) {
@@ -82,7 +81,7 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
       // while the next piece in that direction is an enemy piece
       boolean hitOwnPiece = false;
       while (board.contains(curPos)
-              && game.getPlayerAt(curPos).isPresent()) {
+          && game.getPlayerAt(curPos).isPresent()) {
         // we break out of the loop if we hit our own piece, because that signifies a
         // valid capture; all the other possible exit conditions result in an invalid
         // capture attempt in that direction

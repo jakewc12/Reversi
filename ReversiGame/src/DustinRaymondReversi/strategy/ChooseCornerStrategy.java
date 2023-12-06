@@ -1,16 +1,16 @@
 package DustinRaymondReversi.strategy;
 
+import DustinRaymondReversi.model.HexPosn;
+import DustinRaymondReversi.model.ReadOnlyReversiModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import DustinRaymondReversi.model.HexPosn;
-import DustinRaymondReversi.model.ReadOnlyReversiModel;
-
 /**
- * Represents a Reversi strategy that exclusively chooses to place pieces in the corners
- * of the board. If no corner is available, this strategy returns no moves.
+ * Represents a Reversi strategy that exclusively chooses to place pieces in the corners of the
+ * board. If no corner is available, this strategy returns no moves.
  */
 public class ChooseCornerStrategy implements ReversiStrategy {
+
   @Override
   public List<HexPosn> chooseMoves(ReadOnlyReversiModel game) {
     if (game == null) {
@@ -30,6 +30,7 @@ public class ChooseCornerStrategy implements ReversiStrategy {
 
   /**
    * Returns all the corners in the board of the given Reversi game.
+   *
    * @param game the given Reversi game to check.
    * @return all 6 corners of the board.
    */

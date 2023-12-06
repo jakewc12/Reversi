@@ -45,10 +45,11 @@ public class MutableReversi implements MutableReversiModel {
     gameStarted = true;
   }
 
-  public void resetBoard(List<HexagonCell> board){
+  public void resetBoard(List<HexagonCell> board) {
     this.cells = board;
     gameStarted = true;
   }
+
   @Override
   public void startGame() {
     updateFeaturesInterface();
@@ -297,7 +298,7 @@ public class MutableReversi implements MutableReversiModel {
   }
 
   private HexagonCell getHexAt(LogicalCoordinate coord) {
-     checkGameStarted();
+    checkGameStarted();
     checkValidCoordinates(coord);
 
     for (HexagonCell cell : cells) {

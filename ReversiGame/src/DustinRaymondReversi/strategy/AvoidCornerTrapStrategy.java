@@ -1,18 +1,16 @@
 package DustinRaymondReversi.strategy;
 
+import DustinRaymondReversi.model.HexPosn;
+import DustinRaymondReversi.model.ReadOnlyReversiModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import DustinRaymondReversi.model.HexPosn;
-import DustinRaymondReversi.model.ReadOnlyReversiModel;
-
 /**
- * Represents a Reversi strategy that chooses any move that does not place the player
- * in a "corner trap". A corner trap occurs when the player places a piece in a cell
- * immediately bordering a corner cell, because this can allow the opponent to place
- * a piece in that corner cell and secure an uncapturable position on the board. This
- * strategy returns any possible move except those adjacent to corner cells, without
- * considering any other factors.
+ * Represents a Reversi strategy that chooses any move that does not place the player in a "corner
+ * trap". A corner trap occurs when the player places a piece in a cell immediately bordering a
+ * corner cell, because this can allow the opponent to place a piece in that corner cell and secure
+ * an uncapturable position on the board. This strategy returns any possible move except those
+ * adjacent to corner cells, without considering any other factors.
  */
 public class AvoidCornerTrapStrategy implements ReversiStrategy {
 
@@ -26,8 +24,7 @@ public class AvoidCornerTrapStrategy implements ReversiStrategy {
 
     List<HexPosn> allValidMoves = new ArrayList<>();
 
-
-    for (HexPosn pos: game.getAllValidCoordinates()) {
+    for (HexPosn pos : game.getAllValidCoordinates()) {
 
       if (game.isLegalMoveAt(pos) && !cellsToAvoid.contains(pos)) {
         allValidMoves.add(pos);
@@ -39,6 +36,7 @@ public class AvoidCornerTrapStrategy implements ReversiStrategy {
 
   /**
    * Gets a List of all cells to avoid, which are cells that are next to corners.
+   *
    * @param game the game to check in.
    * @return all cells that neighbor the 6 corners, even if they are out of bounds.
    */

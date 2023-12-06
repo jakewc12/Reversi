@@ -99,8 +99,8 @@ public interface ReadOnlyReversiModel {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param logicalCoordinate  The logicalCoordinate you want to place a Disc on.
-   * @param playerColor The color of the player who is placing the disc
+   * @param logicalCoordinate The logicalCoordinate you want to place a Disc on.
+   * @param playerColor       The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
   int getNumFlipsOnMove(LogicalCoordinate logicalCoordinate, DiscColor playerColor);

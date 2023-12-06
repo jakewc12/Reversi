@@ -1,13 +1,12 @@
 package adaptation_assignment;
 
-import java.util.Objects;
-
 import DustinRaymondReversi.model.HexPosn;
+import java.util.Objects;
 import model.Coordinate;
-import model.LogicalCoordinate;
 
 public class HexPosToLogicalCoordinate extends Coordinate {
-  private HexPosn pos;
+
+  private final HexPosn pos;
 
   public HexPosToLogicalCoordinate(HexPosn pos) {
     super(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR()));

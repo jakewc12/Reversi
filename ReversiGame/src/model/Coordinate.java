@@ -43,11 +43,11 @@ public class Coordinate implements LogicalCoordinate {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof LogicalCoordinate)) {
+    if (!(a instanceof LogicalCoordinate other)) {
       return false;
     }
-    LogicalCoordinate other = (LogicalCoordinate) a;
-    return ((Math.abs(this.intQ - other.getIntQ()) < 0.01) && (Math.abs(this.intR - other.getIntR()) < 0.01)
+    return ((Math.abs(this.intQ - other.getIntQ()) < 0.01) && (Math.abs(this.intR - other.getIntR())
+        < 0.01)
         && Math.abs(this.intS - other.getIntS()) < 0.01);
   }
 

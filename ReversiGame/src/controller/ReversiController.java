@@ -15,7 +15,7 @@ import player.Player;
 /**
  * allows for the model to be played using the view.
  */
-public class ReversiController implements Controller, PlayerActions,  ModelStatus,
+public class ReversiController implements Controller, PlayerActions, ModelStatus,
     ReversiPlayerActions {
 
   private final MutableReversiModel model;
@@ -92,7 +92,7 @@ public class ReversiController implements Controller, PlayerActions,  ModelStatu
 
   @Override
   public void attemptMove(HexPosn pos) {
-    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(),(-pos.getQ()-pos.getR())));
+    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR())));
   }
 
   @Override

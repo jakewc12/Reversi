@@ -1,13 +1,12 @@
 package DustinRaymondReversi.strategy;
 
-import java.util.List;
-
 import DustinRaymondReversi.model.HexPosn;
 import DustinRaymondReversi.model.ReadOnlyReversiModel;
+import java.util.List;
 
 /**
- * Represents a combination of two Reversi strategies where a move is only considered a
- * valid possibility if both strategies return it.
+ * Represents a combination of two Reversi strategies where a move is only considered a valid
+ * possibility if both strategies return it.
  */
 public class ChosenByBothStrategyCombinator implements ReversiStrategy {
 

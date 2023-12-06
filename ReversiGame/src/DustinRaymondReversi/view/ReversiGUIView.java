@@ -3,16 +3,16 @@ package DustinRaymondReversi.view;
 import DustinRaymondReversi.controller.ReversiPlayerActions;
 
 /**
- * Represents a GUI window used to display a hexagonal Reversi game. Will
- * contain an observer pattern to notify other classes when relevant events
- * such as a mouse click has occurred in the view.
+ * Represents a GUI window used to display a hexagonal Reversi game. Will contain an observer
+ * pattern to notify other classes when relevant events such as a mouse click has occurred in the
+ * view.
  */
 public interface ReversiGUIView {
+
   /**
-   * Adds the given features set to this view, allowing that features set to
-   * be notified whenever a particular event occurs in the view (i.e. a player
-   * performs a specific mouse or key action that corresponds to a particular
-   * feature of the Reversi game).
+   * Adds the given features set to this view, allowing that features set to be notified whenever a
+   * particular event occurs in the view (i.e. a player performs a specific mouse or key action that
+   * corresponds to a particular feature of the Reversi game).
    *
    * @param features the listener to add
    * @throws IllegalArgumentException if the listener is null
