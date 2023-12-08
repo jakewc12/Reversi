@@ -4,20 +4,20 @@ import dustinraymondreversi.controller.ReversiModelFeatures;
 import dustinraymondreversi.model.HexPosn;
 import dustinraymondreversi.model.PlayerPiece;
 import dustinraymondreversi.model.ReversiModel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import model.Coordinate;
 import model.DiscColor;
 import model.GameCell;
-import model.hexreversi.LogicalHexCoordinate;
-import model.hexreversi.HexCell;
 import model.ModelStatus;
-import model.hexreversi.MutableHexReversi;
 import model.ReadOnlyReversiModel;
+import model.hexreversi.HexCell;
+import model.hexreversi.HexCoordinate;
+import model.hexreversi.LogicalHexCoordinate;
+import model.hexreversi.MutableHexReversi;
 
 /**
  * Adapts our client's model interface to our model interface.
@@ -44,15 +44,16 @@ public class RaDusModelAdapter extends MutableHexReversi implements ReversiModel
   public void setUpGame(ReadOnlyReversiModel copyModel) {
     List<GameCell> board = new ArrayList<>();
 
-    for (LogicalHexCoordinate coord : copyModel.getAllCoordinates()) {
-      board.add(new HexCell(copyModel.getColorAt(coord), coord));
+    for (Coordinate coord : copyModel.getAllCoordinates()) {
+      board.add(new HexCell(copyModel.getColorAt(coord), (LogicalHexCoordinate) coord));
     }
     super.resetBoard(board);
   }
 
   @Override
   public boolean isLegalMoveAt(HexPosn pos) {
-    return super.getNumFlipsOnMove(new HexPosToLogicalHexCoordinate(pos), super.getCurrentTurn()) > 0;
+    return super.getNumFlipsOnMove(new HexPosToLogicalHexCoordinate(pos), super.getCurrentTurn())
+        > 0;
   }
 
   @Override
@@ -68,18 +69,21 @@ public class RaDusModelAdapter extends MutableHexReversi implements ReversiModel
   @Override
   public List<HexPosn> getAllValidCoordinates() {
     List<HexPosn> returnList = new ArrayList<>();
-    List<LogicalHexCoordinate> allCoords = super.getAllCoordinates();
-    for (LogicalHexCoordinate coord : allCoords) {
-      returnList.add(new HexPosn(coord.getIntQ(), coord.getIntR()));
+    List<Coordinate> allCoords = super.getAllCoordinates();
+    for (Coordinate coord : allCoords) {
+      HexCoordinate current = (HexCoordinate) coord;
+      returnList.add(new HexPosn(current.getIntQ(), current.getIntR()));
     }
     return returnList;
   }
 
   @Override
   public Optional<PlayerPiece> getPlayerAt(HexPosn c) throws IllegalArgumentException {
-    if (super.getColorAt(new HexPosToLogicalHexCoordinate(c)).equals(DiscColor.WHITE)) {
+    if (super.getColorAt(new HexPosToLogicalHexCoordinate(c))
+        .equals(DiscColor.WHITE)) {
       return Optional.of(PlayerPiece.PLAYER_ONE);
-    } else if (super.getColorAt(new HexPosToLogicalHexCoordinate(c)).equals(DiscColor.BLACK)) {
+    } else if (super.getColorAt(new HexPosToLogicalHexCoordinate(c))
+        .equals(DiscColor.BLACK)) {
       return Optional.of(PlayerPiece.PLAYER_TWO);
     }
     return Optional.empty();

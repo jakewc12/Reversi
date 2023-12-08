@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Coordinate;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -114,7 +115,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
         if (e.getKeyChar() == 'p') {
           if (manager.getHighlightedCord().isPresent()) {
             System.out.println("Placed disc at " + manager.getHighlightedCord().get());
-            features.placeDisc(manager.getHighlightedCord().get());
+            features.placeDisc((Coordinate) manager.getHighlightedCord().get());
           } else {
             System.out.println("No disc selected to place.");
           }

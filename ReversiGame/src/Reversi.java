@@ -24,7 +24,7 @@ import player.Player;
 /**
  * The Reversi class serves as the main entry point for the Reversi game application. It initializes
  * the game model, textual view, and digital view, and sets up the controller. The main method
- * creates an instance of MutableReversiModel, initializes a ReversiTextualView, and a
+ * creates an instance of MutableReversiModel, initializes a HexReversiTextualView, and a
  * DigitalReversiWindow. It then starts the game, displays the initial game state, and sets up the
  * controller for user interaction.
  */

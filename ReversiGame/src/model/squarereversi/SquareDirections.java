@@ -1,5 +1,7 @@
 package model.squarereversi;
 
+import model.Direction;
+
 /**
  * Meant to simulate directions in relation to a Square cell. Directions are:
  *
@@ -19,7 +21,7 @@ package model.squarereversi;
  *
  * <p>BELOW for negative row, neutral col.
  */
-public enum SquareDirections {
+public enum SquareDirections implements Direction {
 
   DEAD_LEFT(new int[]{0,-1}), TOP_LEFT(new int[]{1,-1}), BOTTOM_LEFT(
       new int[]{-1,-1}), DEAD_RIGHT(new int[]{0,1}), TOP_RIGHT(
@@ -28,5 +30,10 @@ public enum SquareDirections {
 
   SquareDirections(int[] i) {
     vector = i;
+  }
+
+  @Override
+  public int[] vector() {
+    return this.vector;
   }
 }

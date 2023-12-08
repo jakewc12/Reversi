@@ -1,4 +1,4 @@
-package model.hexreversi;
+package model;
 
 public interface Coordinate {
 

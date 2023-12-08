@@ -1,5 +1,7 @@
 package model.hexreversi;
 
+import model.Direction;
+
 /**
  * Meant to simulate directions in relation to a hexagon cell. Directions are:
  *
@@ -15,7 +17,7 @@ package model.hexreversi;
  *
  * <p>DEAD_RIGHT for positive q direction static r direction.
  */
-public enum HexDirections {
+public enum HexDirections implements Direction {
   DEAD_LEFT(new int[]{-1, 0, 1}), DEAD_RIGHT(new int[]{1, 0, -1}), TOP_LEFT(
       new int[]{0, -1, 1}), TOP_RIGHT(new int[]{1, -1, 0}), BOTTOM_LEFT(
       new int[]{-1, +1, 0}), BOTTOM_RIGHT(new int[]{0, 1, -1});
@@ -23,5 +25,10 @@ public enum HexDirections {
 
   HexDirections(int[] i) {
     vector = i;
+  }
+
+  @Override
+  public int[] vector() {
+    return this.vector;
   }
 }

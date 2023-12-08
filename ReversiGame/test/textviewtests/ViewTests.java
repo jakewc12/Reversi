@@ -7,7 +7,7 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import textualview.ReversiTextualView;
+import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
 
@@ -47,7 +47,7 @@ public class ViewTests {
   @Test
   public void testTextViewOnStart() {
     game.setUpGame(game.getBoard());
-    tv = new ReversiTextualView(game, gameLog);
+    tv = new HexReversiTextualView(game, gameLog);
     try {
       tv.render();
     } catch (IOException e) {
@@ -79,7 +79,7 @@ public class ViewTests {
   public void testTextViewUpdates() {
     game.setUpGame(game.getBoard());
     game.placeDisc(new HexCoordinate(1, -2, 1));
-    tv = new ReversiTextualView(game, gameLog);
+    tv = new HexReversiTextualView(game, gameLog);
     try {
       tv.render();
     } catch (IOException e) {

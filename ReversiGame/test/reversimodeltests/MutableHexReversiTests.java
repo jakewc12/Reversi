@@ -2,6 +2,7 @@ package reversimodeltests;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.hexreversi.LogicalHexCoordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
@@ -11,7 +12,7 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import textualview.ReversiTextualView;
+import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
 /**
@@ -221,7 +222,7 @@ public class MutableHexReversiTests {
     List<GameCell> board = new ArrayList<>();
     List<GameCell> preMadeBoard = game.getBoard();
     for (GameCell cell : preMadeBoard) {
-      board.add(new HexCell(DiscColor.BLACK, cell.getCoordinate()));
+      board.add(new HexCell(DiscColor.BLACK, (LogicalHexCoordinate) cell.getCoordinate()));
     }
     game.setUpGame(board);
     Assert.assertTrue(game.gameOver());
@@ -235,7 +236,7 @@ public class MutableHexReversiTests {
   public void testGameOverWhenGamePlaying() {
     game = new MutableHexReversi(3);
     game.setUpGame(game.getBoard());
-    TextualView tv = new ReversiTextualView(game);
+    TextualView tv = new HexReversiTextualView(game);
 
     game.placeDisc(new HexCoordinate(2, -1, -1));
     Assert.assertFalse(game.gameOver());

@@ -2,6 +2,7 @@ package player;
 
 import java.util.List;
 import java.util.Optional;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
@@ -22,19 +23,20 @@ public class GoForCornersStrategy implements ReversiStrategy {
    * @return a move if one is found by the strategy, the strategy may be empty if none is found.
    */
   @Override
-  public Optional<LogicalHexCoordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
+  public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who) {
 
-    List<LogicalHexCoordinate> allCoords = model.getAllCoordinates();
+    List<Coordinate> allCoords = model.getAllCoordinates();
 
-    for (LogicalHexCoordinate cord : allCoords) {
+    for (Coordinate current : allCoords) {
+      LogicalHexCoordinate cord = (LogicalHexCoordinate)current;
       if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (cord.getIntQ() == 0
           && cord.getIntR() == 0 && cord.getIntS() == 0)) {
         continue;
       }
       try {
-        int flipped = model.getNumFlipsOnMove(cord, who.getPlayerColor());
+        int flipped = model.getNumFlipsOnMove(current, who.getPlayerColor());
         if (flipped > 0) {
-          return Optional.of(cord);
+          return Optional.of(current);
         }
       } catch (IllegalStateException ignored) {
         continue;
