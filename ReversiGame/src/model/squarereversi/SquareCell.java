@@ -1,19 +1,17 @@
-package model.hexreversi;
+package model.squarereversi;
 
 import model.Disc;
 import model.DiscColor;
-import model.GameCell;
 import model.GameDisc;
 
 /**
  * A class meant to represent a hexagonal cell on a reversi board.
  */
-public class HexCell implements GameCell {
+public class SquareCell {
 
   private final Disc contents;
 
-  private final LogicalHexCoordinate logicalCoordinate;
-
+  private final SquareCoordinate logicalCoordinate;
 
 
   /**
@@ -24,7 +22,7 @@ public class HexCell implements GameCell {
    * @param logicalCoordinate the game cells logicalCoordinate.
    */
 
-  public HexCell(DiscColor contents, LogicalHexCoordinate logicalCoordinate) {
+  public SquareCell(DiscColor contents, SquareCoordinate logicalCoordinate) {
     if (contents == null) {
       throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
     }
@@ -32,43 +30,22 @@ public class HexCell implements GameCell {
     this.logicalCoordinate = logicalCoordinate;
   }
 
-  @Override
-  public LogicalHexCoordinate getCellNeighbor(HexDirections hexDirections) {
+  public SquareCoordinate getCellNeighbor(SquareDirections hexDirections) {
     //need to check that neighbor is not off board
 
     int[] addCell = hexDirections.vector;
-    return new HexCoordinate(
-        logicalCoordinate.getIntQ() + addCell[0], logicalCoordinate.getIntR() + addCell[1],
-        logicalCoordinate.getIntS() + addCell[2]);
+    return new SquareCoordinate(logicalCoordinate.getRow() + addCell[0],
+        logicalCoordinate.getCol() + addCell[1]);
   }
 
-  @Override
-  public LogicalHexCoordinate getCoordinate() {
+  public SquareCoordinate getCoordinate() {
     return logicalCoordinate;
   }
 
-  @Override
   public Disc cellContents() {
     return contents;
   }
 
-  @Override
-  public int getCoordinateQ() {
-    return logicalCoordinate.getIntQ();
-  }
-
-  @Override
-  public int getCoordinateR() {
-    return logicalCoordinate.getIntR();
-  }
-
-
-  @Override
-  public int getCoordinateS() {
-    return logicalCoordinate.getIntS();
-  }
-
-  @Override
   public String toString() {
     return logicalCoordinate.toString();
   }

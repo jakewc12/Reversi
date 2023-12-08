@@ -1,11 +1,12 @@
 package model.squarereversi;
 
 import java.util.Objects;
+import model.hexreversi.Coordinate;
 
 /**
  * This class represents a position system of (Q,R,S).
  */
-public class SquareCoordinate {
+public class SquareCoordinate implements Coordinate {
 
   private final int row;
   private final int col;

@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * This class represents a position system of (Q,R,S).
  */
-public class HexCoordinate implements LogicalHexCoordinate {
+public class HexCoordinate implements LogicalHexCoordinate, Coordinate{
 
   private final int intQ;
   private final int intR;
