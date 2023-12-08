@@ -1,13 +1,13 @@
 package strategytests;
 
+import helpers.MockMutableHexReversiModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import model.Coordinate;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
+import model.hexreversi.HexCell;
 import model.GameCell;
-import model.HexagonCell;
-import helpers.MockMutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import player.ReversiStrategy;
  */
 public class CornerStrategyTests {
 
-  private MockMutableReversiModel model;
+  private MockMutableHexReversiModel model;
   private Player player;
   private ReversiStrategy strategy;
   private Appendable log;
@@ -32,7 +32,7 @@ public class CornerStrategyTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
+    model = new MockMutableHexReversiModel(3, log);
     player = new MachinePlayer(DiscColor.BLACK, new GoForCornersStrategy());
     strategy = new GoForCornersStrategy();
   }
@@ -45,9 +45,9 @@ public class CornerStrategyTests {
     model.setUpGame(model.getBoard());
     String oldLog = log.toString();
     log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
+    model = new MockMutableHexReversiModel(3, log);
     model.setUpGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(-3, 0, 3), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(-3, 0, 3), DiscColor.BLACK);
     Assert.assertNotEquals(oldLog, log.toString());
   }
 
@@ -56,19 +56,19 @@ public class CornerStrategyTests {
    */
   @Test
   public void testNoCornersEmptyReturnsEmptyOptionalMove() {
-    List<HexagonCell> filledBoard = new ArrayList<>();
-    model = new MockMutableReversiModel(1, log);
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, 0, 0)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(-1, 1, 0)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(-1, 0, 1)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(1, -1, 0)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, -1, 1)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(0, 1, -1)));
-    filledBoard.add(new GameCell(DiscColor.BLACK, new Coordinate(1, 0, -1)));
+    List<GameCell> filledBoard = new ArrayList<>();
+    model = new MockMutableHexReversiModel(1, log);
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(0, 0, 0)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(-1, 1, 0)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(-1, 0, 1)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(1, -1, 0)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(0, -1, 1)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(0, 1, -1)));
+    filledBoard.add(new HexCell(DiscColor.BLACK, new HexCoordinate(1, 0, -1)));
     model.setUpGame(filledBoard);
     Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
 
-    model = new MockMutableReversiModel(1, log);
+    model = new MockMutableHexReversiModel(1, log);
     model.setUpGame(model.getBoard());
     Assert.assertEquals(Optional.empty(), strategy.chooseMove(model, player));
   }

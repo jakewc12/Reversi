@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import model.LogicalCoordinate;
+import java.util.Optional;
+
+import model.hexreversi.LogicalHexCoordinate;
 import model.DiscColor;
 
 /**
@@ -15,7 +17,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   public static final double THETA = (Math.PI * 2) / 6.0;
   //default hexagon radius
   static int hexagonRadius = 25;
-  private final LogicalCoordinate logicalHexCoord;
+  private final LogicalHexCoordinate logicalHexCoord;
   private final double hexCenterCoordY;
   private final double hexCenterCoordX;
   private final Color color;
@@ -23,6 +25,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   private final double buffer = 1.85;
   private Polygon poly;
   private Color discColor;
+  private Optional<Integer> numFlipsOnHex;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
@@ -34,8 +37,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    * @param hexColor          the color of the background of the hex.
    * @param hexagonRadius     the radius of the hexagon.
    */
-  public DrawnHexagon(LogicalCoordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
-      int boardCenterCoordy, Color hexColor, int hexagonRadius) {
+  public DrawnHexagon(LogicalHexCoordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
+                      int boardCenterCoordy, Color hexColor, int hexagonRadius, Optional<Integer> numFlips) {
 
     this.logicalHexCoord = logicalHexCoord;
 
@@ -43,7 +46,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     // the digital board
     this.hexCenterCoordY = boardCenterCoordy + (hexagonRadius * 1.6) * (logicalHexCoord.getIntR());
     this.hexCenterCoordX = calculateX(boardCenterCoordx);
-
+    this.numFlipsOnHex = numFlips;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
     } else if (discColor == DiscColor.WHITE) {
@@ -96,6 +99,10 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     Graphics2D g2d = (Graphics2D) g;
     drawHex(g2d);
     drawDisc(g2d);
+    if (numFlipsOnHex.isPresent()) {
+      g.setColor(Color.BLACK);
+      g.drawString(String.valueOf(numFlipsOnHex.get()), poly.getBounds().x + hexagonRadius / 2 + 6, poly.getBounds().y + hexagonRadius / 2 + 12);
+    }
   }
 
   private void drawHex(Graphics2D g) {
@@ -111,9 +118,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     }
     g.setColor(discColor);
     g.drawOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-        hexagonRadius, hexagonRadius);
+            hexagonRadius, hexagonRadius);
     g.fillOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-        hexagonRadius, hexagonRadius);
+            hexagonRadius, hexagonRadius);
   }
 
   /**
@@ -139,7 +146,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    *
    * @return The (q,r,s) coordinates of the hex.
    */
-  public LogicalCoordinate getLogicalHexCoord() {
+  public LogicalHexCoordinate getLogicalHexCoord() {
     return this.logicalHexCoord;
   }
 

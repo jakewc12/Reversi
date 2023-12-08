@@ -1,10 +1,10 @@
 package reversimodeltests;
 
 import java.util.List;
-import model.Coordinate;
+import model.hexreversi.MutableHexReversi;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import model.LogicalCoordinate;
-import model.MutableReversi;
+import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class ReversiReadTests {
    */
   @Before
   public void init() {
-    game = new MutableReversi(5);
+    game = new MutableHexReversi(5);
   }
 
   /**
@@ -31,8 +31,8 @@ public class ReversiReadTests {
    */
   @Test
   public void startGameThrowsOnInvalidSize() {
-    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(-1));
-    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableReversi(0));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableHexReversi(-1));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableHexReversi(0));
   }
 
 
@@ -52,7 +52,7 @@ public class ReversiReadTests {
    */
   @Test
   public void gameOverTrueOnOneByOneBoard() {
-    game = new MutableReversi(1);
+    game = new MutableHexReversi(1);
     game.setUpGame(game.getBoard());
     Assert.assertTrue(game.gameOver());
   }
@@ -85,11 +85,11 @@ public class ReversiReadTests {
           }
           try {
             if (q == 0 && r == 0 && s == 0) {
-              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new HexCoordinate(q, r, s)));
             } else if (q >= -1 && q <= 1 && r >= -1 && r <= 1 && s >= -1 && s <= 1) {
-              Assert.assertNotEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
+              Assert.assertNotEquals(DiscColor.GREY, game.getColorAt(new HexCoordinate(q, r, s)));
             } else {
-              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(q, r, s)));
+              Assert.assertEquals(DiscColor.GREY, game.getColorAt(new HexCoordinate(q, r, s)));
             }
           } catch (Exception e) {
             throw new AssertionError(
@@ -100,7 +100,7 @@ public class ReversiReadTests {
       }
     }
     try {
-      Assert.assertEquals(DiscColor.GREY, game.getColorAt(new Coordinate(0, 0, 0)));
+      Assert.assertEquals(DiscColor.GREY, game.getColorAt(new HexCoordinate(0, 0, 0)));
     } catch (Exception e) {
       throw new AssertionError(
           "An error occurred when getting a disc at q: " + 0 + " r: " + 0 + "s: " + 0
@@ -120,7 +120,7 @@ public class ReversiReadTests {
 
   @Test
   public void testGetBoardWorks() {
-    game = new MutableReversi(1);
+    game = new MutableHexReversi(1);
     Assert.assertEquals(game.getBoard().size(), 7);
   }
 
@@ -128,7 +128,7 @@ public class ReversiReadTests {
   public void getAllCoordinatesWorks() {
     game.setUpGame(game.getBoard());
     int boardRadius = 5;
-    List<LogicalCoordinate> givenCoords = game.getAllCoordinates();
+    List<LogicalHexCoordinate> givenCoords = game.getAllCoordinates();
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {
@@ -136,7 +136,7 @@ public class ReversiReadTests {
           if (q + r + s != 0) {
             continue;
           }
-          Coordinate currentCoord = new Coordinate(q, r, s);
+          HexCoordinate currentCoord = new HexCoordinate(q, r, s);
           Assert.assertTrue(givenCoords.contains(currentCoord));
         }
       }
@@ -146,7 +146,7 @@ public class ReversiReadTests {
   @Test
   public void getNumFlipsOnMoveWorks() {
     game.setUpGame(game.getBoard());
-    int numFlips = game.getNumFlipsOnMove(new Coordinate(1, -2, 1), DiscColor.BLACK);
+    int numFlips = game.getNumFlipsOnMove(new HexCoordinate(1, -2, 1), DiscColor.BLACK);
     Assert.assertEquals(1, numFlips);
 
   }

@@ -3,7 +3,7 @@ package dustinraymondreversi.model;
 import java.util.Objects;
 
 /**
- * Class representation of a Hexagonal coordinate. Using Axial LogicalCoordinate representation (2
+ * Class representation of a Hexagonal coordinate. Using Axial LogicalHexCoordinate representation (2
  * axes).
  */
 public class HexPosn {

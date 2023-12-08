@@ -122,6 +122,10 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
           System.out.println("Skipped turn.");
           features.skipTurn();
         }
+        else if(e.getKeyChar() == 'h'){
+          manager.enableHints();
+          System.out.println("Hints enabled");
+        }
         window.refresh();
       }
 
@@ -142,8 +146,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * Creates a window which informs the player a illegal move has been made.
    */
   @Override
-  public void showErrorMessage(DiscColor player) {
-    JOptionPane.showMessageDialog(null, "Illegal move for player " + player);
+  public void showErrorMessage(Player player) {
+    JOptionPane.showMessageDialog(null, "Illegal move for player "
+            + player.getPlayerColor());
 
   }
 }

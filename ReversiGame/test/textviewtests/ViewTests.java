@@ -1,8 +1,8 @@
 package textviewtests;
 
 import java.io.IOException;
-import model.Coordinate;
-import model.MutableReversi;
+import model.hexreversi.MutableHexReversi;
+import model.hexreversi.HexCoordinate;
 import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +37,7 @@ public class ViewTests {
    */
   @Before
   public void init() {
-    game = new MutableReversi(5);
+    game = new MutableHexReversi(5);
     gameLog = new StringBuilder();
   }
 
@@ -78,7 +78,7 @@ public class ViewTests {
   @Test
   public void testTextViewUpdates() {
     game.setUpGame(game.getBoard());
-    game.placeDisc(new Coordinate(1, -2, 1));
+    game.placeDisc(new HexCoordinate(1, -2, 1));
     tv = new ReversiTextualView(game, gameLog);
     try {
       tv.render();

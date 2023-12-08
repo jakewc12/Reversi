@@ -3,34 +3,34 @@ package helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Coordinate;
+import model.hexreversi.LogicalHexCoordinate;
+import model.hexreversi.MutableHexReversi;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import model.HexagonCell;
-import model.LogicalCoordinate;
+import model.GameCell;
 import model.ModelStatus;
-import model.MutableReversi;
 
 /**
- * The MockMutableReversiModel class extends MutableReversi and serves as a mock implementation of a
+ * The MockMutableHexReversiModel class extends MutableHexReversi and serves as a mock implementation of a
  * mutable Reversi model for testing purposes. It overrides certain methods to log actions and
  * interactions, providing a way to observe and verify the behavior of the game without a graphical
  * interface. This class does not affect most of the actual game logic and is intended solely for
  * testing.
  */
-public class MockMutableReversiModel extends MutableReversi {
+public class MockMutableHexReversiModel extends MutableHexReversi {
 
   private List<String> ban;
   private final Appendable out;
-  private List<HexagonCell> cells = new ArrayList<>();
+  private List<GameCell> cells = new ArrayList<>();
   private final List<ModelStatus> features = new ArrayList<>();
 
   /**
-   * Constructs a MockMutableReversiModel with the specified size and an Appendable for logging.
+   * Constructs a MockMutableHexReversiModel with the specified size and an Appendable for logging.
    *
    * @param size The size of the game board.
    * @param out  The Appendable object for logging game actions.
    */
-  public MockMutableReversiModel(int size, Appendable out) {
+  public MockMutableHexReversiModel(int size, Appendable out) {
     super(size);
     this.out = out;
     ban = new ArrayList<>();
@@ -41,7 +41,7 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void setUpGame(List<HexagonCell> board) {
+  public void setUpGame(List<GameCell> board) {
     super.setUpGame(board);
     this.cells = board;
   }
@@ -70,8 +70,8 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public boolean isLegalMove(LogicalCoordinate coordinate) {
-    for (HexagonCell cell : cells) {
+  public boolean isLegalMove(LogicalHexCoordinate coordinate) {
+    for (GameCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
         throw new IllegalStateException("Move not legal");
@@ -81,7 +81,7 @@ public class MockMutableReversiModel extends MutableReversi {
   }
 
   @Override
-  public void placeDisc(LogicalCoordinate coordinate) {
+  public void placeDisc(LogicalHexCoordinate coordinate) {
     if (!ban.contains("placeDisc")) {
       append("Place disc called at " + coordinate);
     }
@@ -91,18 +91,18 @@ public class MockMutableReversiModel extends MutableReversi {
 
 
   /**
-   * Forces the placement of a disc at the specified Coordinate with the specified color, logging
+   * Forces the placement of a disc at the specified HexCoordinate with the specified color, logging
    * the action.
    *
-   * @param coordinate The Coordinate at which the disc is forced to be placed.
+   * @param hexCoordinate The HexCoordinate at which the disc is forced to be placed.
    * @param color      The color of the disc to be placed.
    */
-  public void forcePlaceDisc(Coordinate coordinate, DiscColor color) {
+  public void forcePlaceDisc(HexCoordinate hexCoordinate, DiscColor color) {
     if (!ban.contains("forcePlaceDisc")) {
-      append("Force place disc called at " + coordinate);
+      append("Force place disc called at " + hexCoordinate);
     }
-    for (HexagonCell cell : cells) {
-      if (cell.getCoordinate().equals(coordinate)) {
+    for (GameCell cell : cells) {
+      if (cell.getCoordinate().equals(hexCoordinate)) {
         cell.cellContents().changeColorTo(color);
       }
     }
@@ -123,12 +123,12 @@ public class MockMutableReversiModel extends MutableReversi {
   /**
    * Gets the number of flips on a player move.
    *
-   * @param coordinate  The Coordinate you want to place a Disc on.
+   * @param coordinate  The HexCoordinate you want to place a Disc on.
    * @param playerColor The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
   @Override
-  public int getNumFlipsOnMove(LogicalCoordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(LogicalHexCoordinate coordinate, DiscColor playerColor) {
     if (!ban.contains("getNumFlipsOnMove")) {
       append("Checked legal at " + coordinate.toString());
     }

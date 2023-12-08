@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.DiscColor;
-import helpers.MockMutableReversiModel;
+import helpers.MockMutableHexReversiModel;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
@@ -26,7 +26,7 @@ public class PlayerTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
+    model = new MockMutableHexReversiModel(3, log);
     model.setUpGame(model.getBoard());
   }
 

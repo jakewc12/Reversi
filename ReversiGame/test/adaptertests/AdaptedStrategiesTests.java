@@ -9,9 +9,9 @@ import adaptionassignment.RaDusModelAdapter;
 import adaptionassignment.RaDusStrategyAdapter;
 import controller.ReversiController;
 import helpers.TestHelper;
-import model.Coordinate;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import model.MutableReversi;
+import model.hexreversi.MutableHexReversi;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import player.ReversiStrategy;
  */
 public class AdaptedStrategiesTests {
 
-  MutableReversi model;
+  MutableHexReversi model;
 
   Player playerBlack;
   Player playerWhite;
@@ -61,7 +61,7 @@ public class AdaptedStrategiesTests {
   public void adapterWorksAsExpected() {
     model.setUpGame(model.getBoard());
     model.startGame();
-    Assert.assertEquals(new Coordinate(-2, 1, 1),
+    Assert.assertEquals(new HexCoordinate(-2, 1, 1),
         strategyCornerTrap.chooseMove(model, playerBlack).get());
     TestHelper.printModelBoard(model);
 
