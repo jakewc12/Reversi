@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import digitalviews.hexreversi.HexManager;
 import model.Coordinate;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;

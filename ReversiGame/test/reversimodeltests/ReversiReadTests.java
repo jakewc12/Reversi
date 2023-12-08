@@ -1,6 +1,7 @@
 package reversimodeltests;
 
 import java.util.List;
+
 import model.Coordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;

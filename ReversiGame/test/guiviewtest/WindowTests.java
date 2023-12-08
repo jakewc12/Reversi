@@ -1,7 +1,7 @@
 package guiviewtest;
 
 import digitalviews.DigitalReversiWindow;
-import digitalviews.HexManager;
+import digitalviews.hexreversi.HexManager;
 import model.hexreversi.MutableHexReversi;
 import org.junit.Assert;
 import org.junit.Test;

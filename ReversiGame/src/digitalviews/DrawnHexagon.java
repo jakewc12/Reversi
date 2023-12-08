@@ -12,7 +12,7 @@ import model.DiscColor;
 /**
  * A single digital hexagon tile on the game board.
  */
-public class DrawnHexagon implements DrawnHexagonInterface {
+public class DrawnHexagon implements DrawnShape {
 
   public static final double THETA = (Math.PI * 2) / 6.0;
   //default hexagon radius
@@ -149,5 +149,4 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   public boolean containsPoint(int x, int y) {
     return poly.contains(x, y);
   }
-
 }
