@@ -3,7 +3,7 @@ package player;
 import java.util.Objects;
 import java.util.Optional;
 import model.DiscColor;
-import model.LogicalCoordinate;
+import model.hexreversi.LogicalHexCoordinate;
 import model.MutableReversiModel;
 
 /**
@@ -35,7 +35,7 @@ public class MachinePlayer implements Player {
 
   @Override
   public void playMove(MutableReversiModel model) {
-    Optional<LogicalCoordinate> idealMove = strategy.chooseMove(model, this);
+    Optional<LogicalHexCoordinate> idealMove = strategy.chooseMove(model, this);
 
     if (idealMove.isEmpty()) {
       model.skipCurrentTurn();

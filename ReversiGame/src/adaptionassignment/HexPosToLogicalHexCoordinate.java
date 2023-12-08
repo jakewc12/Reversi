@@ -2,20 +2,20 @@ package adaptionassignment;
 
 import dustinraymondreversi.model.HexPosn;
 import java.util.Objects;
-import model.Coordinate;
+import model.hexreversi.HexCoordinate;
 
 /**
- * Adapts our client's HexPos class to our Coordinate class.
+ * Adapts our client's HexPos class to our HexCoordinate class.
  */
-public class HexPosToLogicalCoordinate extends Coordinate {
+public class HexPosToLogicalHexCoordinate extends HexCoordinate {
 
   private final HexPosn pos;
 
   /**
-   * Creates a HexPosToLogicalCoordiante, which extends Coordinate.
+   * Creates a HexPosToLogicalCoordiante, which extends HexCoordinate.
    * @param pos the HexPos to be adapted.
    */
-  public HexPosToLogicalCoordinate(HexPosn pos) {
+  public HexPosToLogicalHexCoordinate(HexPosn pos) {
     super(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR()));
     Objects.requireNonNull(pos);
     this.pos = pos;

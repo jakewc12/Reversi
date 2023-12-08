@@ -1,4 +1,4 @@
-package model;
+package model.hexreversi;
 
 /**
  * Meant to simulate directions in relation to a hexagon cell. Directions are:

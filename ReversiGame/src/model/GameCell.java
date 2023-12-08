@@ -1,81 +1,67 @@
 package model;
 
+
+import model.hexreversi.Direction;
+import model.hexreversi.LogicalHexCoordinate;
+
 /**
- * A class meant to represent a hexagonal cell on a reversi board.
+ * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
+ * the origin which is located halfway down and halfway from the side.
+ *
+ * <p>Q decrease when going left of the origin and increases when going right of the origin.
+ *
+ * <p>R decreases when going up a row from the origin and increases when going down a row.
+ *
+ * <p>S decrease when going right of the origin and increases when going left of the origin.
+ *
+ * <p>A more detailed explanation is shown here https://www.redblobgames.com/grids/hexagons/.
  */
-public class GameCell implements HexagonCell {
-
-  private final Disc contents;
-
-  private final LogicalCoordinate logicalCoordinate;
-  private final int[][] cellDirectionVectors = {{-1, 0, 1}, //DEADLEFT(0)
-      {1, 0, -1}, //DEAD-RIGHT(1)
-      {0, -1, 1}, //TOP-LEFT(2)
-      {1, -1, 0}, //TOP-RIGHT(3)
-      {-1, +1, 0}, //BOTTOM-LEFT(4)
-      {0, 1, -1}}; //BOTTOM-RIGHT(5)
-
+public interface GameCell {
 
   /**
-   * Creates a new Game Cell which can hold Discs.
+   * Gets the contents of this Cell.
    *
-   * @param contents          the contents of the cell which can be null or a class from the disc
-   *                          interface.
-   * @param logicalCoordinate the game cells logicalCoordinate.
+   * @return the disc inside this cell.
    */
+  Disc cellContents();
 
-  public GameCell(DiscColor contents, LogicalCoordinate logicalCoordinate) {
-    if (contents == null) {
-      throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
-    }
-    this.contents = new GameDisc(contents);
-    this.logicalCoordinate = logicalCoordinate;
-  }
+  /**
+   * Gets the coordinate of this cell.
+   *
+   * @return a coordinate that contains q,r,s.
+   */
+  LogicalHexCoordinate getCoordinate();
 
+  /**
+   * Gets the Q coordinate of this cell. The Q LogicalHexCoordinate decreases when going left of the
+   * origin and increases when going right of the origin.
+   *
+   * @return an integer which follows the above pattern.
+   */
+  int getCoordinateQ();
 
-  private int[] cellDirection(Direction direction) {
-    return cellDirectionVectors[direction.directionNum];
-  }
+  /**
+   * Gets the R coordinate of this cell. The R LogicalHexCoordinate decreases when going up a row from
+   * the origin and increases when going down a row.
+   *
+   * @return an integer which follows the above pattern.
+   */
+  int getCoordinateR();
 
-  @Override
-  public LogicalCoordinate getCellNeighbor(Direction direction) {
-    //need to check that neighbor is not off board
+  /**
+   * Gets the S coordinate of this cell. The S LogicalHexCoordinate decreases when going right of the
+   * origin and increases when going left of the origin.
+   *
+   * @return an integer which follows the above pattern.
+   */
+  int getCoordinateS();
 
-    int[] addCell = cellDirection(direction);
-    return new Coordinate(
-        logicalCoordinate.getIntQ() + addCell[0], logicalCoordinate.getIntR() + addCell[1],
-        logicalCoordinate.getIntS() + addCell[2]);
-  }
-
-  @Override
-  public LogicalCoordinate getCoordinate() {
-    return logicalCoordinate;
-  }
-
-  @Override
-  public Disc cellContents() {
-    return contents;
-  }
-
-  @Override
-  public int getCoordinateQ() {
-    return logicalCoordinate.getIntQ();
-  }
-
-  @Override
-  public int getCoordinateR() {
-    return logicalCoordinate.getIntR();
-  }
-
-
-  @Override
-  public int getCoordinateS() {
-    return logicalCoordinate.getIntS();
-  }
-
-  @Override
-  public String toString() {
-    return logicalCoordinate.toString();
-  }
-
+  /**
+   * Gets this neighbors cell in a direction.
+   *
+   * @param direction the direction you want to get the neighbor from. See Direction enum class for
+   *                  descriptions.
+   * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
+   */
+  LogicalHexCoordinate getCellNeighbor(Direction direction);
 }

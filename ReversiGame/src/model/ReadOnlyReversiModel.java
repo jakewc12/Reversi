@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Anything observable about a reversi game should be included here.
@@ -15,7 +16,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  DiscColor getColorAt(LogicalCoordinate logicalCoordinate);
+  DiscColor getColorAt(LogicalHexCoordinate logicalCoordinate);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.
@@ -57,14 +58,14 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalArgumentException if size is negative.
    * @throws IllegalStateException    if the game has already started.
    */
-  void setUpGame(List<HexagonCell> board);
+  void setUpGame(List<GameCell> board);
 
   /**
    * Returns a board in a default initial state based on the game's size.
    *
-   * @return List of HexagonCell representing a board at default state.
+   * @return List of GameCell representing a board at default state.
    */
-  List<HexagonCell> getBoard();
+  List<GameCell> getBoard();
 
   /**
    * Checks if a move placed at (q,r,s) is legal and returns that.
@@ -75,7 +76,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if the game hasn't started yet.
    */
 
-  boolean isLegalMove(LogicalCoordinate logicalCoordinate);
+  boolean isLegalMove(LogicalHexCoordinate logicalCoordinate);
 
   /**
    * Checks if the current player has any legal moves and returns that.
@@ -103,14 +104,14 @@ public interface ReadOnlyReversiModel {
    * @param playerColor       The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
-  int getNumFlipsOnMove(LogicalCoordinate logicalCoordinate, DiscColor playerColor);
+  int getNumFlipsOnMove(LogicalHexCoordinate logicalCoordinate, DiscColor playerColor);
 
   /**
    * Gets all the coordinates for the current board.
    *
    * @return all the possible coordinates.
    */
-  List<LogicalCoordinate> getAllCoordinates();
+  List<LogicalHexCoordinate> getAllCoordinates();
 
   /**
    * Begins the game and allows for moves to be made.

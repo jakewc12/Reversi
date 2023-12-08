@@ -1,10 +1,10 @@
 package strategytests;
 
+import helpers.MockMutableHexReversiModel;
 import java.util.List;
-import model.Coordinate;
+import model.hexreversi.LogicalHexCoordinate;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import helpers.MockMutableReversiModel;
-import model.LogicalCoordinate;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import player.ReversiStrategy;
  */
 public class CaptureMostTilesStrategyTests {
 
-  private MockMutableReversiModel model;
+  private MockMutableHexReversiModel model;
   private Player blackAI;
   private Player whiteAI;
   private Appendable log;
@@ -29,7 +29,7 @@ public class CaptureMostTilesStrategyTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    model = new MockMutableReversiModel(3, log);
+    model = new MockMutableHexReversiModel(3, log);
     ReversiStrategy strategy = new CaptureMostTilesStrategy();
     whiteAI = new MachinePlayer(DiscColor.WHITE, strategy);
     blackAI = new MachinePlayer(DiscColor.BLACK, strategy);
@@ -79,9 +79,9 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft() {
     model.setUpGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(3, 0, -3), DiscColor.BLACK);
-    model.forcePlaceDisc(new Coordinate(2, 1, -3), DiscColor.WHITE);
-    model.forcePlaceDisc(new Coordinate(1, 2, -3), DiscColor.WHITE);
+    model.forcePlaceDisc(new HexCoordinate(3, 0, -3), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(2, 1, -3), DiscColor.WHITE);
+    model.forcePlaceDisc(new HexCoordinate(1, 2, -3), DiscColor.WHITE);
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)"));
     //Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)\n"));
@@ -93,9 +93,9 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void findsBestMoveAndDoesntAlwaysGoTopLeft2() {
     model.setUpGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(3, 0, -3), DiscColor.WHITE);
-    model.forcePlaceDisc(new Coordinate(2, 1, -3), DiscColor.BLACK);
-    model.forcePlaceDisc(new Coordinate(1, 2, -3), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(3, 0, -3), DiscColor.WHITE);
+    model.forcePlaceDisc(new HexCoordinate(2, 1, -3), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(1, 2, -3), DiscColor.BLACK);
     model.changeTurnTo(DiscColor.WHITE);
     whiteAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)"));
@@ -108,9 +108,9 @@ public class CaptureMostTilesStrategyTests {
   @Test
   public void returnsEmptyOnNoValidMove() {
     model.setUpGame(model.getBoard());
-    model.forcePlaceDisc(new Coordinate(1, -1, 0), DiscColor.BLACK);
-    model.forcePlaceDisc(new Coordinate(-1, 0, 1), DiscColor.BLACK);
-    model.forcePlaceDisc(new Coordinate(0, 1, -1), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(1, -1, 0), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(-1, 0, 1), DiscColor.BLACK);
+    model.forcePlaceDisc(new HexCoordinate(0, 1, -1), DiscColor.BLACK);
     whiteAI.playMove(model);
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Turn skipped"));
@@ -120,8 +120,8 @@ public class CaptureMostTilesStrategyTests {
   public void checksAllPossibleMovesOnBoard() {
     StringBuilder expected = new StringBuilder();
     model.setUpGame(model.getBoard());
-    List<LogicalCoordinate> allCoords = model.getAllCoordinates();
-    for (LogicalCoordinate coordinate : allCoords) {
+    List<LogicalHexCoordinate> allCoords = model.getAllCoordinates();
+    for (LogicalHexCoordinate coordinate : allCoords) {
       expected.append("Checked legal at ").append(coordinate).append("\n");
     }
     expected.append("Place disc called at (1, -2, 1)\n");

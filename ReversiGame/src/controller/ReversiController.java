@@ -4,8 +4,8 @@ import dustinraymondreversi.controller.ReversiPlayerActions;
 import dustinraymondreversi.model.HexPosn;
 import digitalviews.DigitalWindow;
 import java.util.Objects;
-import model.Coordinate;
-import model.LogicalCoordinate;
+import model.hexreversi.LogicalHexCoordinate;
+import model.hexreversi.HexCoordinate;
 import model.ModelStatus;
 import model.MutableReversiModel;
 import player.HumanPlayer;
@@ -54,7 +54,7 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
    * @param logicalCoordinate The logicalCoordinate where the disc should be placed.
    */
   @Override
-  public void placeDisc(LogicalCoordinate logicalCoordinate) {
+  public void placeDisc(LogicalHexCoordinate logicalCoordinate) {
     if (player instanceof HumanPlayer) {
       if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
@@ -92,7 +92,7 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
 
   @Override
   public void attemptMove(HexPosn pos) {
-    model.placeDisc(new Coordinate(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR())));
+    model.placeDisc(new HexCoordinate(pos.getQ(), pos.getR(), (-pos.getQ() - pos.getR())));
   }
 
   @Override

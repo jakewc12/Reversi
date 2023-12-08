@@ -1,19 +1,19 @@
 package basictests;
 
-import model.Coordinate;
+import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import model.GameCell;
+import model.hexreversi.HexCell;
 import model.GameDisc;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests the basic functionality of GameCell and GameDisc.
+ * Tests the basic functionality of HexCell and GameDisc.
  */
 public class GameComponentTests {
 
   private GameDisc disc;
-  private GameCell cell;
+  private HexCell cell;
 
   /**
    * tests that grey discs cannot be flipped.
@@ -42,21 +42,21 @@ public class GameComponentTests {
    */
   @Test
   public void testGameCellToStringWorks() {
-    cell = new GameCell(DiscColor.GREY, new Coordinate(1, 1, 10));
+    cell = new HexCell(DiscColor.GREY, new HexCoordinate(1, 1, 10));
     Assert.assertEquals("(1, 1, 10)", cell.toString());
-    cell = new GameCell(DiscColor.GREY, new Coordinate(-1, 0, 0));
+    cell = new HexCell(DiscColor.GREY, new HexCoordinate(-1, 0, 0));
     Assert.assertEquals("(-1, 0, 0)", cell.toString());
-    cell = new GameCell(DiscColor.GREY, new Coordinate(1, 0, 0));
+    cell = new HexCell(DiscColor.GREY, new HexCoordinate(1, 0, 0));
     Assert.assertEquals("(1, 0, 0)", cell.toString());
   }
 
   /**
-   * tests that using an invalid disc for GameCell throws an IllegalArgumentException.
+   * tests that using an invalid disc for HexCell throws an IllegalArgumentException.
    */
   @Test
   public void testGameCellThrowsErrorOnEmptyContents() {
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new GameCell(null, new Coordinate(0, 0, 0)));
+        , () -> new HexCell(null, new HexCoordinate(0, 0, 0)));
   }
 
   /**
@@ -67,7 +67,7 @@ public class GameComponentTests {
     int q = 1;
     int r = 2;
     int s = 3;
-    cell = new GameCell(DiscColor.GREY, new Coordinate(q, r, s));
+    cell = new HexCell(DiscColor.GREY, new HexCoordinate(q, r, s));
     Assert.assertEquals(q, cell.getCoordinateQ());
     Assert.assertEquals(r, cell.getCoordinateR());
     Assert.assertEquals(s, cell.getCoordinateS());

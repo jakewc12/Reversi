@@ -5,10 +5,10 @@ import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import helpers.MockDigitalReversiWindow;
-import helpers.MockMutableReversiModel;
+import helpers.MockMutableHexReversiModel;
 
 import model.DiscColor;
-import model.MutableReversi;
+import model.hexreversi.MutableHexReversi;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +24,7 @@ import player.Player;
 public class ReversiControllerTests {
 
   private Controller controller;
-  private MockMutableReversiModel model;
+  private MockMutableHexReversiModel model;
   Appendable modelLog;
   Appendable viewLog;
   private Player player;
@@ -38,7 +38,7 @@ public class ReversiControllerTests {
   public void init() {
     modelLog = new StringBuffer();
     viewLog = new StringBuffer();
-    model = new MockMutableReversiModel(3, modelLog);
+    model = new MockMutableHexReversiModel(3, modelLog);
     model.setUpGame(model.getBoard());
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     view = new MockDigitalReversiWindow(model, viewLog);
@@ -52,8 +52,8 @@ public class ReversiControllerTests {
     Assert.assertThrows(IllegalArgumentException.class, () -> new ReversiController(null
             , player, new DigitalReversiWindow(null)));
     Assert.assertThrows(IllegalArgumentException.class
-            , () -> new ReversiController(new MutableReversi(-1), player
-                    , new DigitalReversiWindow(new MutableReversi(-1))));
+            , () -> new ReversiController(new MutableHexReversi(-1), player
+                    , new DigitalReversiWindow(new MutableHexReversi(-1))));
   }
 
   /**
@@ -71,7 +71,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testWhenNoMovesAvailableTurnSkipped() {
-    model = new MockMutableReversiModel(1, modelLog);
+    model = new MockMutableHexReversiModel(1, modelLog);
     model.setUpGame(model.getBoard());
     model.startGame();
     Assert.assertFalse(modelLog.toString().contains("Place disc"));
@@ -82,7 +82,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testModelCanInteractWithMultipleListeners() {
-    model = new MockMutableReversiModel(1, modelLog);
+    model = new MockMutableHexReversiModel(1, modelLog);
     model.setUpGame(model.getBoard());
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Controller controller2 = new ReversiController(model, player2, view);

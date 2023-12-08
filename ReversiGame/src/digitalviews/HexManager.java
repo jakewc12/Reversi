@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-import model.LogicalCoordinate;
+import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
 /**
@@ -33,7 +33,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
   /**
    * if no cell is highlighted, then highLightedCord will be a coordinate not on the board.
    */
-  private Optional<LogicalCoordinate> highlightedCord;
+  private Optional<LogicalHexCoordinate> highlightedCord;
   private boolean hexClicked = false;
 
   /**
@@ -67,8 +67,8 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    */
   private void makeHexagons() {
     hexagons = new ArrayList<>();
-    List<LogicalCoordinate> allLogicalCoordinates = model.getAllCoordinates();
-    for (LogicalCoordinate logicalCoord : allLogicalCoordinates) {
+    List<LogicalHexCoordinate> allLogicalCoordinates = model.getAllCoordinates();
+    for (LogicalHexCoordinate logicalCoord : allLogicalCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
@@ -121,7 +121,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    *
    * @return the current highlighted cell on the board.
    */
-  public Optional<LogicalCoordinate> getHighlightedCord() {
+  public Optional<LogicalHexCoordinate> getHighlightedCord() {
     return highlightedCord;
   }
 

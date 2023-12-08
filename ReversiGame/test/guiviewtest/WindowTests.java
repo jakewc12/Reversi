@@ -2,7 +2,7 @@ package guiviewtest;
 
 import digitalviews.DigitalReversiWindow;
 import digitalviews.HexManager;
-import model.MutableReversi;
+import model.hexreversi.MutableHexReversi;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,8 +27,8 @@ public class WindowTests {
     Assert.assertThrows(IllegalArgumentException.class
         , () -> new HexManager(10, 1, null));
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new HexManager(0, 1, new MutableReversi(1)));
+        , () -> new HexManager(0, 1, new MutableHexReversi(1)));
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new HexManager(0, 1, new MutableReversi(1)));
+        , () -> new HexManager(0, 1, new MutableHexReversi(1)));
   }
 }
