@@ -89,13 +89,13 @@ public class MutableHexReversi implements MutableReversiModel {
   }
 
   @Override
-  public boolean isLegalMove(LogicalHexCoordinate logicalCoordinate) {
-    checkValidCoordinates(logicalCoordinate);
-    if (this.getDiscAt(logicalCoordinate).getColor() != DiscColor.GREY) {
+  public boolean isLegalMove(Coordinate coord) {
+    checkValidCoordinates(coord);
+    if (this.getDiscAt(coord).getColor() != DiscColor.GREY) {
       return false;
     }
-    if (getAllFlips(getHexAt(logicalCoordinate), getCurrentTurn()).isEmpty()) {
-      this.getDiscAt(logicalCoordinate).changeColorTo(DiscColor.GREY);
+    if (getAllFlips(getHexAt(coord), getCurrentTurn()).isEmpty()) {
+      this.getDiscAt(coord).changeColorTo(DiscColor.GREY);
       return false;
     }
     return true;
@@ -109,7 +109,7 @@ public class MutableHexReversi implements MutableReversiModel {
   @Override
   public int checkScoreOfPlayer(DiscColor color) {
     int count = 0;
-    for (LogicalHexCoordinate logicalCoordinate : getAllCoordinates()) {
+    for (Coordinate logicalCoordinate : getAllCoordinates()) {
       if (getColorAt(logicalCoordinate) == color) {
         count++;
       }
@@ -143,7 +143,8 @@ public class MutableHexReversi implements MutableReversiModel {
     return false;
   }
 
-  private void checkValidCoordinates(LogicalHexCoordinate coord) {
+  private void checkValidCoordinates(Coordinate genericCoord) {
+    LogicalHexCoordinate coord = (LogicalHexCoordinate)genericCoord;
     int total = coord.getIntQ() + coord.getIntS() + coord.getIntR();
     if (Math.abs(coord.getIntQ()) > size || Math.abs(coord.getIntR()) > size
         || Math.abs(coord.getIntS()) > size || ((total) != 0)) {
@@ -239,18 +240,18 @@ public class MutableHexReversi implements MutableReversiModel {
   }
 
   @Override
-  public int getNumFlipsOnMove(LogicalHexCoordinate logicalCoordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(Coordinate logicalCoordinate, DiscColor playerColor) {
     checkGameStarted();
     GameCell targetCell = getHexAt(logicalCoordinate);
     return getAllFlips(targetCell, playerColor).size();
   }
 
   @Override
-  public List<LogicalHexCoordinate> getAllCoordinates() {
+  public List<Coordinate> getAllCoordinates() {
     //checkGameStarted();
-    List<LogicalHexCoordinate> returnList = new ArrayList<>();
+    List<Coordinate> returnList = new ArrayList<>();
     for (GameCell cell : cells) {
-      returnList.add((LogicalHexCoordinate) cell.getCoordinate());
+      returnList.add(cell.getCoordinate());
     }
     return returnList;
   }
@@ -260,7 +261,7 @@ public class MutableHexReversi implements MutableReversiModel {
     returnList.add(targetCell);
     GameCell currentCell;
     try {
-      currentCell = getHexAt((LogicalHexCoordinate) targetCell.getCellNeighbor(hexDirections));
+      currentCell = getHexAt(targetCell.getCellNeighbor(hexDirections));
     } catch (Exception e) {
       return returnList;
     }
@@ -268,7 +269,7 @@ public class MutableHexReversi implements MutableReversiModel {
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {
       returnList.add(currentCell);
       try {
-        currentCell = getHexAt((LogicalHexCoordinate) currentCell.getCellNeighbor(hexDirections));
+        currentCell = getHexAt(currentCell.getCellNeighbor(hexDirections));
       } catch (Exception e) {
         break;
       }
@@ -278,7 +279,7 @@ public class MutableHexReversi implements MutableReversiModel {
 
 
   @Override
-  public void placeDisc(LogicalHexCoordinate coord) {
+  public void placeDisc(Coordinate coord) {
     checkGameStarted();
     if (!isLegalMove(coord)) {
       throw new IllegalStateException("Illegal move when inputting " + coord);
@@ -301,13 +302,13 @@ public class MutableHexReversi implements MutableReversiModel {
     numPlayersPassedInARow++;
   }
 
-  private Disc getDiscAt(LogicalHexCoordinate coord) {
+  private Disc getDiscAt(Coordinate coord) {
     checkGameStarted();
     checkValidCoordinates(coord);
     return getHexAt(coord).cellContents();
   }
 
-  private GameCell getHexAt(LogicalHexCoordinate coord) {
+  private GameCell getHexAt(Coordinate coord) {
     checkGameStarted();
     checkValidCoordinates(coord);
 
@@ -321,7 +322,7 @@ public class MutableHexReversi implements MutableReversiModel {
 
 
   @Override
-  public DiscColor getColorAt(LogicalHexCoordinate logicalCoordinate) {
+  public DiscColor getColorAt(Coordinate logicalCoordinate) {
     checkGameStarted();
     checkValidCoordinates(logicalCoordinate);
     return getDiscAt(logicalCoordinate).getColor();

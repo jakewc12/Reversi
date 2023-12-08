@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
@@ -68,28 +69,28 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    */
   private void makeHexagons() {
     hexagons = new ArrayList<>();
-    List<LogicalHexCoordinate> allLogicalCoordinates = model.getAllCoordinates();
-    for (LogicalHexCoordinate logicalCoord : allLogicalCoordinates) {
+    List<Coordinate> allLogicalCoordinates = model.getAllCoordinates();
+    for (Coordinate logicalCoord : allLogicalCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if(hintsEnabled){
-            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+            hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           }else{
-            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+            hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           }
 
         } else {
-          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+          hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
               centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         hexagons.add(
-            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+            new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
                 Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }

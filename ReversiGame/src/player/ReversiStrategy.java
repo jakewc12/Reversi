@@ -1,6 +1,7 @@
 package player;
 
 import java.util.Optional;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
@@ -18,6 +19,6 @@ public interface ReversiStrategy {
    * @param who   The Player object representing the player using the strategy.
    * @return An Optional containing the chosen move if found by the strategy or an empty optional.
    */
-  Optional<LogicalHexCoordinate> chooseMove(ReadOnlyReversiModel model, Player who);
+  Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player who);
 }
 

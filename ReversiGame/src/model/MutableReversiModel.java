@@ -1,7 +1,5 @@
 package model;
 
-import model.hexreversi.LogicalHexCoordinate;
-
 /**
  * Any actions performed on a reversi board should be included here.
  */
@@ -16,7 +14,7 @@ public interface MutableReversiModel extends ReadOnlyReversiModel {
    * @throws IllegalArgumentException if coordinates are invalid
    * @throws IllegalStateException    if the move is illegal.
    */
-  void placeDisc(LogicalHexCoordinate logicalCoordinate);
+  void placeDisc(Coordinate logicalCoordinate);
 
   /**
    * Skip the turn of the current player.

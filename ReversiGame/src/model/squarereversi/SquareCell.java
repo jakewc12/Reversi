@@ -33,6 +33,14 @@ public class SquareCell implements GameCell {
     this.logicalCoordinate = logicalCoordinate;
   }
 
+  public SquareCell(DiscColor contents, int row, int col) {
+    if (contents == null) {
+      throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
+    }
+    this.contents = new GameDisc(contents);
+    this.logicalCoordinate = new SquareCoordinate(row, col);
+  }
+
   public Coordinate getCellNeighbor(Direction hexDirections) {
     //need to check that neighbor is not off board
 

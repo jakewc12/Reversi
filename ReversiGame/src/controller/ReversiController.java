@@ -1,13 +1,13 @@
 package controller;
 
+import digitalviews.DigitalWindow;
 import dustinraymondreversi.controller.ReversiPlayerActions;
 import dustinraymondreversi.model.HexPosn;
-import digitalviews.DigitalWindow;
 import java.util.Objects;
-import model.hexreversi.LogicalHexCoordinate;
-import model.hexreversi.HexCoordinate;
+import model.Coordinate;
 import model.ModelStatus;
 import model.MutableReversiModel;
+import model.hexreversi.HexCoordinate;
 import player.HumanPlayer;
 import player.MachinePlayer;
 import player.Player;
@@ -54,7 +54,7 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
    * @param logicalCoordinate The logicalCoordinate where the disc should be placed.
    */
   @Override
-  public void placeDisc(LogicalHexCoordinate logicalCoordinate) {
+  public void placeDisc(Coordinate logicalCoordinate) {
     if (player instanceof HumanPlayer) {
       if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
