@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import model.Disc;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -146,9 +148,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * Creates a window which informs the player a illegal move has been made.
    */
   @Override
-  public void showErrorMessage(Player player) {
+  public void showErrorMessage(DiscColor player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player "
-            + player.getPlayerColor());
+            + player);
 
   }
 }
