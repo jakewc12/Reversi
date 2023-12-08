@@ -62,10 +62,9 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
         } catch (Exception ignore) {
           //if the move is illegal.
           System.out.println(ignore);
-          view.showErrorMessage(this.player);
+          view.showErrorMessage(this.player.getPlayerColor());
         }
       }
-
       this.run();
     }
   }

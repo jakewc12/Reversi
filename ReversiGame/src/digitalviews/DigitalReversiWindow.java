@@ -142,8 +142,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * Creates a window which informs the player a illegal move has been made.
    */
   @Override
-  public void showErrorMessage(Player player) {
-    JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
+  public void showErrorMessage(DiscColor player) {
+    JOptionPane.showMessageDialog(null, "Illegal move for player " + player);
 
   }
 }

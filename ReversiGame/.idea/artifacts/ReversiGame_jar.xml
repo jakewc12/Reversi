@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="ReversiGame:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/ReversiGame_jar</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
     <root id="archive" name="ReversiGame.jar">
       <element id="module-output" name="ReversiGame" />
     </root>

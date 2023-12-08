@@ -2,6 +2,7 @@ package helpers;
 
 import controller.PlayerActions;
 import digitalviews.DigitalWindow;
+import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
 
@@ -45,7 +46,7 @@ public class MockDigitalReversiWindow implements DigitalWindow {
   }
 
   @Override
-  public void showErrorMessage(Player player) {
+  public void showErrorMessage(DiscColor player) {
     append("Error message shown to " + player);
   }
 
