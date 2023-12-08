@@ -8,8 +8,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
+
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
@@ -73,24 +75,23 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
-          if(hintsEnabled){
+          if (hintsEnabled) {
             hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
-          }else{
+          } else {
             hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
-                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+                    , Optional.empty()));
           }
-
         } else {
           hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-              centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+                  centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         hexagons.add(
-            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                Color.LIGHT_GRAY, hexLength, Optional.empty()));
+                new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                        Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
@@ -160,13 +161,14 @@ public class HexManager extends JPanel implements DigitalBoardManager {
           }
         }
         highlightedCord.ifPresent(
-            coordinate -> System.out.println("Highlighted cell at " + coordinate));
+                coordinate -> System.out.println("Highlighted cell at " + coordinate));
       }
       manager.repaint();
     }
   }
+
   @Override
   public void enableHints() {
-
+    hintsEnabled = !hintsEnabled;
   }
 }

@@ -99,6 +99,10 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     Graphics2D g2d = (Graphics2D) g;
     drawHex(g2d);
     drawDisc(g2d);
+    if (numFlipsOnHex.isPresent()) {
+      g.setColor(Color.BLACK);
+      g.drawString(String.valueOf(numFlipsOnHex.get()), poly.getBounds().x + hexagonRadius / 2 + 6, poly.getBounds().y + hexagonRadius / 2 + 12);
+    }
   }
 
   private void drawHex(Graphics2D g) {
@@ -114,9 +118,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     }
     g.setColor(discColor);
     g.drawOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-        hexagonRadius, hexagonRadius);
+            hexagonRadius, hexagonRadius);
     g.fillOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-        hexagonRadius, hexagonRadius);
+            hexagonRadius, hexagonRadius);
   }
 
   /**
