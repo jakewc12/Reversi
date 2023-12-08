@@ -12,7 +12,7 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import textualview.ReversiTextualView;
+import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
 /**
@@ -236,7 +236,7 @@ public class MutableHexReversiTests {
   public void testGameOverWhenGamePlaying() {
     game = new MutableHexReversi(3);
     game.setUpGame(game.getBoard());
-    TextualView tv = new ReversiTextualView(game);
+    TextualView tv = new HexReversiTextualView(game);
 
     game.placeDisc(new HexCoordinate(2, -1, -1));
     Assert.assertFalse(game.gameOver());

@@ -347,14 +347,12 @@ public class MutableSquareReversi implements MutableReversiModel {
 
   @Override
   public int getBoardSize() {
-    checkGameStarted();
     return getBoardRadius() * 2 + 1;
   }
 
 
   @Override
   public int getBoardRadius() {
-    checkGameStarted();
     return size;
   }
 
