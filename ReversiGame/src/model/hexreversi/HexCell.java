@@ -50,8 +50,7 @@ public class HexCell implements GameCell {
   @Override
   public Boolean containsCoordinate(Coordinate otherCoord) {
     if (otherCoord instanceof HexCoordinate a) {
-      System.out.println("This works");
-      return a == logicalCoordinate;
+      return logicalCoordinate.equals(a);
     }
     return false;
   }
