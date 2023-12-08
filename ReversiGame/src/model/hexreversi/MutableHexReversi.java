@@ -216,21 +216,21 @@ public class MutableHexReversi implements MutableReversiModel {
     }
     //Check Horizontal
     toFlip.addAll(
-            getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_LEFT)
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.TOP_LEFT)
                     , currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_RIGHT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.BOTTOM_RIGHT),
             currentColor));
 
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_LEFT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.DEAD_LEFT),
             currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.DEAD_RIGHT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.DEAD_RIGHT),
             currentColor));
 
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.TOP_RIGHT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.TOP_RIGHT),
             currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, Direction.BOTTOM_LEFT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.BOTTOM_LEFT),
             currentColor));
 
     return toFlip;
@@ -253,12 +253,12 @@ public class MutableHexReversi implements MutableReversiModel {
     return returnList;
   }
 
-  private List<GameCell> getAllHexInDirection(GameCell targetCell, Direction direction) {
+  private List<GameCell> getAllHexInDirection(GameCell targetCell, HexDirections hexDirections) {
     ArrayList<GameCell> returnList = new ArrayList<>();
     returnList.add(targetCell);
     GameCell currentCell;
     try {
-      currentCell = getHexAt(targetCell.getCellNeighbor(direction));
+      currentCell = getHexAt(targetCell.getCellNeighbor(hexDirections));
     } catch (Exception e) {
       return returnList;
     }
@@ -266,7 +266,7 @@ public class MutableHexReversi implements MutableReversiModel {
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {
       returnList.add(currentCell);
       try {
-        currentCell = getHexAt(currentCell.getCellNeighbor(direction));
+        currentCell = getHexAt(currentCell.getCellNeighbor(hexDirections));
       } catch (Exception e) {
         break;
       }

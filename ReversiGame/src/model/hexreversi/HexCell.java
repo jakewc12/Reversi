@@ -37,16 +37,11 @@ public class HexCell implements GameCell {
     this.logicalCoordinate = logicalCoordinate;
   }
 
-
-  private int[] cellDirection(Direction direction) {
-    return cellDirectionVectors[direction.directionNum];
-  }
-
   @Override
-  public LogicalHexCoordinate getCellNeighbor(Direction direction) {
+  public LogicalHexCoordinate getCellNeighbor(HexDirections hexDirections) {
     //need to check that neighbor is not off board
 
-    int[] addCell = cellDirection(direction);
+    int[] addCell = hexDirections.vector;
     return new HexCoordinate(
         logicalCoordinate.getIntQ() + addCell[0], logicalCoordinate.getIntR() + addCell[1],
         logicalCoordinate.getIntS() + addCell[2]);

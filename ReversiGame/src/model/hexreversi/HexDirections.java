@@ -15,11 +15,13 @@ package model.hexreversi;
  *
  * <p>DEAD_RIGHT for positive q direction static r direction.
  */
-public enum Direction {
-  DEAD_LEFT(0), DEAD_RIGHT(1), TOP_LEFT(2), TOP_RIGHT(3), BOTTOM_LEFT(4), BOTTOM_RIGHT(5);
-  final int directionNum;
+public enum HexDirections {
+  DEAD_LEFT(new int[]{-1, 0, 1}), DEAD_RIGHT(new int[]{1, 0, -1}), TOP_LEFT(
+      new int[]{0, -1, 1}), TOP_RIGHT(new int[]{1, -1, 0}), BOTTOM_LEFT(
+      new int[]{-1, +1, 0}), BOTTOM_RIGHT(new int[]{0, 1, -1});
+  final int[] vector;
 
-  Direction(int i) {
-    directionNum = i;
+  HexDirections(int[] i) {
+    vector = i;
   }
 }

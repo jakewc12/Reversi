@@ -1,7 +1,7 @@
 package model;
 
 
-import model.hexreversi.Direction;
+import model.hexreversi.HexDirections;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
@@ -57,11 +57,11 @@ public interface GameCell {
   int getCoordinateS();
 
   /**
-   * Gets this neighbors cell in a direction.
+   * Gets this neighbors cell in a hexDirections.
    *
-   * @param direction the direction you want to get the neighbor from. See Direction enum class for
+   * @param hexDirections the hexDirections you want to get the neighbor from. See HexDirections enum class for
    *                  descriptions.
-   * @return a Cell without contents that has the coordinates of a neighboring cell in direction.
+   * @return a Cell without contents that has the coordinates of a neighboring cell in hexDirections.
    */
-  LogicalHexCoordinate getCellNeighbor(Direction direction);
+  LogicalHexCoordinate getCellNeighbor(HexDirections hexDirections);
 }
