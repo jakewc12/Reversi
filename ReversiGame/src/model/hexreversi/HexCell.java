@@ -1,19 +1,29 @@
 package model.hexreversi;
 
+import model.Coordinate;
+import model.Direction;
 import model.Disc;
 import model.DiscColor;
 import model.GameCell;
 import model.GameDisc;
 
 /**
- * A class meant to represent a hexagonal cell on a reversi board.
+ * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
+ * the origin which is located halfway down and halfway from the side.
+ *
+ * <p>Q decrease when going left of the origin and increases when going right of the origin.
+ *
+ * <p>R decreases when going up a row from the origin and increases when going down a row.
+ *
+ * <p>S decrease when going right of the origin and increases when going left of the origin.
+ *
+ * <p>A more detailed explanation is shown here https://www.redblobgames.com/grids/hexagons/.
  */
 public class HexCell implements GameCell {
 
   private final Disc contents;
 
   private final LogicalHexCoordinate logicalCoordinate;
-
 
 
   /**
@@ -33,18 +43,24 @@ public class HexCell implements GameCell {
   }
 
   @Override
-  public LogicalHexCoordinate getCellNeighbor(HexDirections hexDirections) {
-    //need to check that neighbor is not off board
-
-    int[] addCell = hexDirections.vector;
-    return new HexCoordinate(
-        logicalCoordinate.getIntQ() + addCell[0], logicalCoordinate.getIntR() + addCell[1],
-        logicalCoordinate.getIntS() + addCell[2]);
+  public Coordinate getCoordinate() {
+    return (Coordinate) logicalCoordinate;
   }
 
   @Override
-  public LogicalHexCoordinate getCoordinate() {
-    return logicalCoordinate;
+  public Boolean containsCoordinate(Coordinate otherCoord) {
+    if (otherCoord instanceof HexCoordinate a) {
+      System.out.println("This works");
+      return a == logicalCoordinate;
+    }
+    return false;
+  }
+
+  @Override
+  public Coordinate getCellNeighbor(Direction hexDirections) {
+    int[] addCell = hexDirections.vector();
+    return new HexCoordinate(logicalCoordinate.getIntQ() + addCell[0],
+        logicalCoordinate.getIntR() + addCell[1], logicalCoordinate.getIntS() + addCell[2]);
   }
 
   @Override
@@ -52,18 +68,32 @@ public class HexCell implements GameCell {
     return contents;
   }
 
-  @Override
+  /**
+   * Gets the Q coordinate of this cell. The Q LogicalHexCoordinate decreases when going left of the
+   * origin and increases when going right of the origin.
+   *
+   * @return an integer which follows the above pattern.
+   */
   public int getCoordinateQ() {
     return logicalCoordinate.getIntQ();
   }
 
-  @Override
+  /**
+   * Gets the R coordinate of this cell. The R LogicalHexCoordinate decreases when going up a row
+   * from the origin and increases when going down a row.
+   *
+   * @return an integer which follows the above pattern.
+   */
   public int getCoordinateR() {
     return logicalCoordinate.getIntR();
   }
 
-
-  @Override
+  /**
+   * Gets the S coordinate of this cell. The S LogicalHexCoordinate decreases when going right of
+   * the origin and increases when going left of the origin.
+   *
+   * @return an integer which follows the above pattern.
+   */
   public int getCoordinateS() {
     return logicalCoordinate.getIntS();
   }

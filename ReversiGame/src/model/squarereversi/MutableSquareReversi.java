@@ -252,7 +252,7 @@ public class MutableSquareReversi implements MutableReversiModel {
     //checkGameStarted();
     List<LogicalHexCoordinate> returnList = new ArrayList<>();
     for (GameCell cell : cells) {
-      returnList.add(cell.getCoordinate());
+      returnList.add((LogicalHexCoordinate) cell.getCoordinate());
     }
     return returnList;
   }
@@ -262,7 +262,7 @@ public class MutableSquareReversi implements MutableReversiModel {
     returnList.add(targetCell);
     GameCell currentCell;
     try {
-      currentCell = getHexAt(targetCell.getCellNeighbor(hexDirections));
+      currentCell = getHexAt((LogicalHexCoordinate) targetCell.getCellNeighbor(hexDirections));
     } catch (Exception e) {
       return returnList;
     }
@@ -270,7 +270,7 @@ public class MutableSquareReversi implements MutableReversiModel {
     while (currentCell.cellContents().getColor() != DiscColor.GREY) {
       returnList.add(currentCell);
       try {
-        currentCell = getHexAt(currentCell.getCellNeighbor(hexDirections));
+        currentCell = getHexAt((LogicalHexCoordinate) currentCell.getCellNeighbor(hexDirections));
       } catch (Exception e) {
         break;
       }
@@ -314,8 +314,7 @@ public class MutableSquareReversi implements MutableReversiModel {
     checkValidCoordinates(coord);
 
     for (GameCell cell : cells) {
-      if (cell.getCoordinateQ() == coord.getIntQ() && cell.getCoordinateR() == coord.getIntR()
-              && cell.getCoordinateS() == coord.getIntS()) {
+      if (cell.getCoordinate() == coord) {
         return cell;
       }
     }

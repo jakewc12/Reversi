@@ -1,7 +1,7 @@
 package model.squarereversi;
 
 import java.util.Objects;
-import model.hexreversi.Coordinate;
+import model.Coordinate;
 
 /**
  * This class represents a position system of (Q,R,S).
