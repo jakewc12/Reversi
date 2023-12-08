@@ -126,7 +126,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
           features.skipTurn();
         }
         else if(e.getKeyChar() == 'h'){
-
+          manager.enableHints();
+          System.out.println("Hints enabled");
         }
         window.refresh();
       }

@@ -1,4 +1,4 @@
-package digitalviews.hexreversi;
+package digitalviews;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,11 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-
-import digitalviews.DigitalBoardManager;
-import digitalviews.DrawnHexagon;
-import digitalviews.DrawnShape;
-import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
@@ -32,7 +27,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    */
   private final ReadOnlyReversiModel model;
   private final HexManager manager = this;
-  private List<DrawnShape> hexagons = new ArrayList<>();
+  private List<DrawnHexagonInterface> hexagons = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
   private boolean hintsEnabled;
@@ -73,35 +68,35 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    */
   private void makeHexagons() {
     hexagons = new ArrayList<>();
-    List<Coordinate> allLogicalCoordinates = model.getAllCoordinates();
-    for (Coordinate logicalCoord : allLogicalCoordinates) {
+    List<LogicalHexCoordinate> allLogicalCoordinates = model.getAllCoordinates();
+    for (LogicalHexCoordinate logicalCoord : allLogicalCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if(hintsEnabled){
-            hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           }else{
-            hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           }
 
         } else {
-          hexagons.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
               centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         hexagons.add(
-            new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
                 Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
 
   private boolean clickLandsOnHex(int x, int y) {
-    for (DrawnShape hex : hexagons) {
+    for (DrawnHexagonInterface hex : hexagons) {
       if (hex.containsPoint(x, y)) {
         return true;
       }
@@ -125,7 +120,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     this.setBackground(Color.DARK_GRAY);
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, getWidth(), getHeight());
-    for (DrawnShape hex : hexagons) {
+    for (DrawnHexagonInterface hex : hexagons) {
       hex.draw(g2d);
     }
   }
@@ -159,13 +154,13 @@ public class HexManager extends JPanel implements DigitalBoardManager {
         hexClicked = false;
       }
       if (hexClicked) {
-        for (DrawnShape hex : hexagons) {
+        for (DrawnHexagonInterface hex : hexagons) {
           if (hex.containsPoint(e.getX(), e.getY())) {
             highlightedCord = Optional.ofNullable(hex.getLogicalHexCoord());
           }
         }
         highlightedCord.ifPresent(
-                coordinate -> System.out.println("Highlighted cell at " + coordinate));
+            coordinate -> System.out.println("Highlighted cell at " + coordinate));
       }
       manager.repaint();
     }
