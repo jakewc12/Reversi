@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.Optional;
+
 import model.hexreversi.LogicalHexCoordinate;
 import model.DiscColor;
 
@@ -23,6 +25,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
   private final double buffer = 1.85;
   private Polygon poly;
   private Color discColor;
+  private Optional<Integer> numFlipsOnHex;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
@@ -35,7 +38,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
    * @param hexagonRadius     the radius of the hexagon.
    */
   public DrawnHexagon(LogicalHexCoordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
-      int boardCenterCoordy, Color hexColor, int hexagonRadius) {
+                      int boardCenterCoordy, Color hexColor, int hexagonRadius, Optional<Integer> numFlips) {
 
     this.logicalHexCoord = logicalHexCoord;
 
@@ -43,7 +46,7 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     // the digital board
     this.hexCenterCoordY = boardCenterCoordy + (hexagonRadius * 1.6) * (logicalHexCoord.getIntR());
     this.hexCenterCoordX = calculateX(boardCenterCoordx);
-
+    this.numFlipsOnHex = numFlips;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
     } else if (discColor == DiscColor.WHITE) {

@@ -122,6 +122,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
           System.out.println("Skipped turn.");
           features.skipTurn();
         }
+        else if(e.getKeyChar() == 'h'){
+
+        }
         window.refresh();
       }
 
@@ -143,7 +146,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    */
   @Override
   public void showErrorMessage(Player player) {
-    JOptionPane.showMessageDialog(null, "Illegal move for player " + player.getPlayerColor());
+    JOptionPane.showMessageDialog(null, "Illegal move for player "
+            + player.getPlayerColor());
 
   }
 }

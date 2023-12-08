@@ -20,4 +20,8 @@ public interface DigitalBoardManager {
    */
   Optional<LogicalHexCoordinate> getHighlightedCord();
 
+  /**
+   * Shows hints of how many flips would happen if the player places on highlighted cord.
+   */
+  void enableHints();
 }

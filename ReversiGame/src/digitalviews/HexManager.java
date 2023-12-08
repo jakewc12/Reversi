@@ -30,6 +30,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
   private List<DrawnHexagonInterface> hexagons = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
+  private boolean hintsEnabled;
   /**
    * if no cell is highlighted, then highLightedCord will be a coordinate not on the board.
    */
@@ -72,16 +73,24 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
-          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-              centerCordY, Color.CYAN, hexLength));
+          if(hintsEnabled){
+            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                    centerCordY, Color.CYAN, hexLength
+                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+          }else{
+            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                    centerCordY, Color.CYAN, hexLength
+                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+          }
+
         } else {
           hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-              centerCordY, Color.LIGHT_GRAY, hexLength));
+              centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         hexagons.add(
             new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                Color.LIGHT_GRAY, hexLength));
+                Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
@@ -115,6 +124,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       hex.draw(g2d);
     }
   }
+
 
   /**
    * Returns the (Q,R,S) coordinate of the current cell that is highlighted.
@@ -154,5 +164,9 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       }
       manager.repaint();
     }
+  }
+  @Override
+  public void enableHints() {
+
   }
 }
