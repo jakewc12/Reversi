@@ -2,6 +2,7 @@ package digitalviews;
 
 
 import controller.PlayerActions;
+import model.DiscColor;
 import player.Player;
 
 /**
@@ -30,5 +31,5 @@ public interface DigitalWindow {
   /**
    * tells the player the error.
    */
-  void showErrorMessage(Player player);
+  void showErrorMessage(DiscColor player);
 }
