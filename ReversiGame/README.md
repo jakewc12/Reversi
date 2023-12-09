@@ -157,3 +157,24 @@ our providers code. We were able to have the strategies correctly choose moves b
 strategy. Furthermore, we were able to make their view interact with the user and allow for the 
 view to take in move inputs. Games are able to play when using the providers code. We were also 
 able to finish a game using the providers code.
+
+
+CHANGES FOR PART 9 EXTRA CREDIT:
+We were able to have all the levels of this assignment.
+For Level 0, the files that were affected were anything associated with view. This includes 
+DigitalReversiWindow.java, ShapeManager.java, and the implementations of DrawnShape.java.
+To enable this functionality, the player can turn on or off the hints by toggling 'h'.
+
+For Level 1, we changed Coordinate.java and Direction.java to make them general. This allowed us to
+make more specific implementations of the two interfaces for when dealing with Hex vs Square Reversi.
+We also changed MutableReversi.java to make it more general. This way, we can deal with Square and Hex
+reversi by simply extending MutableReversi, removing code duplication.
+
+For Level 2, we changed the HexManager.java to be the ShapeManager.java. Doing this allowed us to 
+make a JPanel showing the tiles of the board regardless of the type of game. We also added a DrawnSquare.java
+that extended DrawnShape.java, which is similar to DrawnHexagon.java
+
+For Level 3, we didn't change any code at all.
+
+For Level 4, we changed the chooseMove method to deal with the Coordinate.java interface instead
+of only taking in the Hex coordinate implementation.

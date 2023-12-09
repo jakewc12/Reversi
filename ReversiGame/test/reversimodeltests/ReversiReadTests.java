@@ -150,7 +150,6 @@ public class ReversiReadTests {
     game.setUpGame(game.getBoard());
     int numFlips = game.getNumFlipsOnMove(new HexCoordinate(1, -2, 1), DiscColor.BLACK);
     Assert.assertEquals(1, numFlips);
-
   }
 
 }
