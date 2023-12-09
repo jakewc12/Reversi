@@ -1,4 +1,4 @@
-package digitalviews;
+package digitalviews.hexreversi;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,34 +8,43 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
+
+import digitalviews.DigitalBoardManager;
+import digitalviews.DrawnHexagon;
+import digitalviews.DrawnShape;
+import digitalviews.squarereversi.DrawnSquare;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
+import model.squarereversi.MutableSquareReversi;
+import model.squarereversi.SquareCoordinate;
 
 /**
  * The HexManager class manages the display and interaction of hexagonal tiles on a JPanel for a
  * Reversi game. It extends JPanel and implements the DigitalBoardManager interface. HexManager
- * handles the creation and rendering of hexagons based on the game model, and allows highlighting
- * and interaction with specific hexagons through mouse events.
+ * handles the creation and rendering of tiles based on the game model, and allows highlighting
+ * and interaction with specific tiles through mouse events.
  */
 public class HexManager extends JPanel implements DigitalBoardManager {
 
   /**
-   * everytime something happens with model, we should reset hexagons. this way, we can redraw the
+   * everytime something happens with model, we should reset tiles. this way, we can redraw the
    * tiles if multiple change at once.
    */
   private final ReadOnlyReversiModel model;
   private final HexManager manager = this;
-  private List<DrawnHexagonInterface> hexagons = new ArrayList<>();
+  private List<DrawnShape> tiles = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
   private boolean hintsEnabled;
   /**
    * if no cell is highlighted, then highLightedCord will be a coordinate not on the board.
    */
-  private Optional<LogicalHexCoordinate> highlightedCord;
-  private boolean hexClicked = false;
+  private Optional<Coordinate> highlightedCord;
+  private boolean tileClicked;
 
   /**
    * Constructs a HexManager with the specified window dimensions and Reversi game model.
@@ -57,47 +66,86 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     centerCordY = windowHeight / 2;
     this.model = model;
     highlightedCord = Optional.empty();
-    makeHexagons();
 
+
+    makeShapes();
     this.repaint();
   }
 
+  private void makeShapes() {
+    if (this.model instanceof MutableSquareReversi) {
+      makeSquare();
+    } else {
+      makeHexagons();
+    }
+  }
+
   /**
-   * Looks at the model and creates the hexagons accordingly. This method should be called every
+   * Looks at the model and creates the tiles accordingly. This method should be called every
    * time a move is made.
    */
   private void makeHexagons() {
-    hexagons = new ArrayList<>();
-    List<LogicalHexCoordinate> allLogicalCoordinates = model.getAllCoordinates();
-    for (LogicalHexCoordinate logicalCoord : allLogicalCoordinates) {
+    tiles = new ArrayList<>();
+    List<Coordinate> allLogicalCoordinates = model.getAllCoordinates();
+    for (Coordinate logicalCoord : allLogicalCoordinates) {
       int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
-          if(hintsEnabled){
-            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+          if (hintsEnabled) {
+            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
-          }else{
-            hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+          } else {
+            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
                     centerCordY, Color.CYAN, hexLength
-                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+                    , Optional.empty()));
           }
-
         } else {
-          hexagons.add(new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-              centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+          tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                  centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
-        hexagons.add(
-            new DrawnHexagon(logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                Color.LIGHT_GRAY, hexLength, Optional.empty()));
+        tiles.add(
+                new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                        Color.LIGHT_GRAY, hexLength, Optional.empty()));
+      }
+    }
+  }
+
+  private void makeSquare() {
+    tiles = new ArrayList<>();
+    List<Coordinate> allLogicalCoordinates = model.getAllCoordinates();
+    for (Coordinate logicalCoord : allLogicalCoordinates) {
+      int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
+      if (highlightedCord.isPresent()) {
+        if (logicalCoord.equals(highlightedCord.get())) {
+          if (hintsEnabled) {
+
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                    centerCordY, Color.CYAN, hexLength
+                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+
+
+          } else {
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                    centerCordY, Color.CYAN, hexLength
+                    , Optional.empty()));
+          }
+        } else {
+          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
+                  centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+        }
+      } else {
+        tiles.add(
+                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                        Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
 
   private boolean clickLandsOnHex(int x, int y) {
-    for (DrawnHexagonInterface hex : hexagons) {
-      if (hex.containsPoint(x, y)) {
+    for (DrawnShape shape : tiles) {
+      if (shape.containsPoint(x, y)) {
         return true;
       }
     }
@@ -115,12 +163,12 @@ public class HexManager extends JPanel implements DigitalBoardManager {
 
     this.centerCordY = getHeight() / 2;
     this.centerCordX = getWidth() / 2;
-    makeHexagons();
+    makeShapes();
     g2d.scale(1, 1);
     this.setBackground(Color.DARK_GRAY);
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, getWidth(), getHeight());
-    for (DrawnHexagonInterface hex : hexagons) {
+    for (DrawnShape hex : tiles) {
       hex.draw(g2d);
     }
   }
@@ -131,7 +179,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    *
    * @return the current highlighted cell on the board.
    */
-  public Optional<LogicalHexCoordinate> getHighlightedCord() {
+  public Optional<Coordinate> getHighlightedCord() {
     return highlightedCord;
   }
 
@@ -148,25 +196,37 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     @Override
     public void mousePressed(MouseEvent e) {
       highlightedCord = Optional.empty();
-      if (!hexClicked) {
-        hexClicked = clickLandsOnHex(e.getX(), e.getY());
+      if (!tileClicked) {
+        tileClicked = clickLandsOnHex(e.getX(), e.getY());
       } else {
-        hexClicked = false;
+        tileClicked = false;
       }
-      if (hexClicked) {
-        for (DrawnHexagonInterface hex : hexagons) {
-          if (hex.containsPoint(e.getX(), e.getY())) {
-            highlightedCord = Optional.ofNullable(hex.getLogicalHexCoord());
+      if (tileClicked) {
+        for (DrawnShape shape : tiles) {
+          if (shape.containsPoint(e.getX(), e.getY())) {
+            highlightedCord = Optional.ofNullable(shape.getLogicalCoord());
           }
         }
         highlightedCord.ifPresent(
-            coordinate -> System.out.println("Highlighted cell at " + coordinate));
+                coordinate -> System.out.println("Highlighted cell at " + coordinate));
       }
       manager.repaint();
     }
   }
+
   @Override
   public void enableHints() {
+    hintsEnabled = !hintsEnabled;
+    System.out.println(hintsEnabled);
+  }
 
+  @Override
+  public boolean tileCurrentlyClicked() {
+    return this.tileClicked;
+  }
+
+  @Override
+  public List<DrawnShape> getShapes() {
+    return new ArrayList<>(tiles);
   }
 }

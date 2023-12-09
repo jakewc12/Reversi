@@ -45,8 +45,8 @@ public class SquareCell implements GameCell {
     //need to check that neighbor is not off board
 
     int[] addCell = hexDirections.vector();
-    return new SquareCoordinate(logicalCoordinate.getRow() + addCell[0],
-        logicalCoordinate.getCol() + addCell[1]);
+    return new SquareCoordinate(logicalCoordinate.getIntR() + addCell[0],
+        logicalCoordinate.getIntQ() + addCell[1]);
   }
 
   public SquareCoordinate getCoordinate() {

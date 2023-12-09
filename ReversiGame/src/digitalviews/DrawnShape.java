@@ -1,6 +1,8 @@
 package digitalviews;
 
 import java.awt.Graphics;
+
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
@@ -36,7 +38,7 @@ public interface DrawnShape {
    *
    * @return the coordinates of the hex.
    */
-  LogicalHexCoordinate getLogicalHexCoord();
+  Coordinate getLogicalCoord();
 
   /**
    * Checks if the hex contains the given digital (x,y) point.
