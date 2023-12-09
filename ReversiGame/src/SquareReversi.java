@@ -5,9 +5,7 @@ import digitalviews.DigitalWindow;
 import model.DiscColor;
 import model.MutableReversiModel;
 import model.squarereversi.MutableSquareReversi;
-import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
-import player.MachinePlayer;
 import player.Player;
 
 /**
