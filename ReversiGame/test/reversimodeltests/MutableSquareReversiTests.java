@@ -114,6 +114,9 @@ public class MutableSquareReversiTests {
   public void placeValidDoesNotFlipSurroundingTiles() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
-
+    game.placeDisc(new SquareCoordinate(3,1));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,0)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,2)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(2,0)));
   }
 }
