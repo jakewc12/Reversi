@@ -1,7 +1,6 @@
 package controller;
 
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Features you want the controller to have so that the player can make moves for skip turn.

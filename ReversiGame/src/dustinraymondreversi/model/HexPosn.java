@@ -3,8 +3,8 @@ package dustinraymondreversi.model;
 import java.util.Objects;
 
 /**
- * Class representation of a Hexagonal coordinate. Using Axial LogicalHexCoordinate representation (2
- * axes).
+ * Class representation of a Hexagonal coordinate. Using Axial LogicalHexCoordinate representation
+ * (2 axes).
  */
 public class HexPosn {
 
@@ -37,8 +37,8 @@ public class HexPosn {
    */
   public static double distance(HexPosn h1, HexPosn h2) {
     return (Math.abs(h1.q - h2.q)
-            + Math.abs(h1.q + h1.r - h2.q - h2.r)
-            + Math.abs(h1.r - h2.r)) / 2.;
+        + Math.abs(h1.q + h1.r - h2.q - h2.r)
+        + Math.abs(h1.r - h2.r)) / 2.;
   }
 
   /**
@@ -86,8 +86,7 @@ public class HexPosn {
 
   @Override
   public boolean equals(Object other) {
-    if (other instanceof HexPosn) {
-      HexPosn otherHexPosn = (HexPosn) other;
+    if (other instanceof HexPosn otherHexPosn) {
       return this.r == otherHexPosn.r && this.q == otherHexPosn.q;
     }
     return false;

@@ -223,9 +223,8 @@ public class BasicReversiGUIPanel extends JPanel {
    * @param color      the color of the hexagon
    * @param fill       whether the hexagon is filled or not
    */
-  private void drawHexagon(Graphics graphics,
-      Point2D center, double sideLength,
-      Color color, boolean fill) {
+  private void drawHexagon(Graphics graphics, Point2D center, double sideLength, Color color,
+      boolean fill) {
     Graphics2D g2d = (Graphics2D) graphics.create();
 
     g2d.setColor(color);
@@ -253,14 +252,11 @@ public class BasicReversiGUIPanel extends JPanel {
    */
   private void drawReversiCell(Graphics graphics, HexPosn pos) {
     if (pos.equals(this.currentCellClicked)) {
-      this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-          Color.CYAN, true);
+      this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1, Color.CYAN, true);
     } else {
-      this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-          Color.LIGHT_GRAY, true);
+      this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1, Color.LIGHT_GRAY, true);
     }
-    this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1,
-        Color.BLACK, false);
+    this.drawHexagon(graphics, this.convertHexPosnToLogical(pos), 1, Color.BLACK, false);
   }
 
   /**
@@ -295,8 +291,7 @@ public class BasicReversiGUIPanel extends JPanel {
    */
   private boolean pointIsInHexagon(Point2D point, HexPosn hexToCheck) {
     Point2D hexCenter = convertHexPosnToLogical(hexToCheck);
-    Point2D deltaFromCenter = new Point2D.Double(
-        point.getX() - hexCenter.getX(),
+    Point2D deltaFromCenter = new Point2D.Double(point.getX() - hexCenter.getX(),
         point.getY() - hexCenter.getY());
 
     double sideSlope = 1 / Math.sqrt(3);
@@ -309,7 +304,8 @@ public class BasicReversiGUIPanel extends JPanel {
 
   /**
    * Gets the HexPosn of the nearest hexagon within the board to the given point (in logical
-   * coordinates). Returns empty if the point is not contained within any of the cells on the board.
+   * coordinates). Returns empty if the point is not contained within any of the cells on the
+   * board.
    *
    * @param point the point in logical coordinates
    * @return the HexPosn of the hexagon in the board that the point lies in. If the point lies off.

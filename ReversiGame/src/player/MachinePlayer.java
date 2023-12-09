@@ -4,7 +4,6 @@ import java.util.Objects;
 import java.util.Optional;
 import model.Coordinate;
 import model.DiscColor;
-import model.hexreversi.LogicalHexCoordinate;
 import model.MutableReversiModel;
 
 /**

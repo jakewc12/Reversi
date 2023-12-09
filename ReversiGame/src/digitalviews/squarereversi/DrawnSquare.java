@@ -1,31 +1,44 @@
 package digitalviews.squarereversi;
 
-import java.awt.*;
-import java.util.Optional;
-
-import digitalviews.CommandPatternHelpers.DrawDiscs;
-import digitalviews.CommandPatternHelpers.DrawHints;
 import digitalviews.DrawnShape;
+import digitalviews.commandpatternhelpers.DrawDiscs;
+import digitalviews.commandpatternhelpers.DrawHints;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.util.Optional;
 import model.Coordinate;
 import model.DiscColor;
 import model.squarereversi.SquareCoordinate;
 
-/*
-TODO:: NEED TO mAKE THIS IMPLEMENT DRAWNSHAPE
+/**
+ * The {@code DrawnSquare} class represents a square that can be drawn on a graphics context. It
+ * implements the {@code DrawnShape} interface and provides methods to draw the square and
+ * associated disc.
  */
 public class DrawnSquare implements DrawnShape {
+
   private final SquareCoordinate logicalSquareCord;
   private final double squareCenterCoordX;
   private final double squareCenterCoordY;
   private final Color color;
-  private Color discColor;
-  private Optional<Integer> numFlipsOnHex;
   private final double squareLength;
-
   private final Rectangle rectangle;
+  private Color discColor;
+  private final Optional<Integer> numFlipsOnHex;
 
-  public DrawnSquare(SquareCoordinate logicalSquareCord, DiscColor discColor
-          , Color color, int squareLength, Optional<Integer> numFlipsOnHex) {
+  /**
+   * Constructs a DrawnSquare object with the specified parameters.
+   *
+   * @param logicalSquareCord The logical coordinate of the square.
+   * @param discColor         The color of the disc associated with the square.
+   * @param color             The color of the square.
+   * @param squareLength      The length of the square's side.
+   * @param numFlipsOnHex     The optional number of flips on the square.
+   */
+  public DrawnSquare(SquareCoordinate logicalSquareCord, DiscColor discColor, Color color,
+      int squareLength, Optional<Integer> numFlipsOnHex) {
     this.logicalSquareCord = logicalSquareCord;
     this.squareCenterCoordX = logicalSquareCord.getIntQ() * squareLength;
     this.squareCenterCoordY = logicalSquareCord.getIntR() * squareLength;
@@ -43,9 +56,9 @@ public class DrawnSquare implements DrawnShape {
   }
 
   /**
-   * Draws the hexagon on the graphic.
+   * Draws the square and associated disc on the specified graphics context.
    *
-   * @param g the graphic to be drawn on.
+   * @param g The graphics context on which to draw the square.
    */
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
@@ -54,17 +67,16 @@ public class DrawnSquare implements DrawnShape {
     g2d.setColor(color);
     g2d.fill(rectangle);
     drawDisc(g2d);
-    numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
-            , (int) (getX() + squareLength/2)
-            , (int) ((getY())+ squareLength/2)));
+    numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer),
+        (int) (getX() + squareLength / 2), (int) ((getY()) + squareLength / 2)));
   }
 
   private void drawDisc(Graphics2D g) {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    new DrawDiscs().run(g, (int) (getX() + squareLength / 8)
-            , (int) (getY() + squareLength / 8), (int) (squareLength / 1.5), discColor);
+    new DrawDiscs().run(g, (int) (getX() + squareLength / 8), (int) (getY() + squareLength / 8),
+        (int) (squareLength / 1.5), discColor);
   }
 
   /**
@@ -87,7 +99,7 @@ public class DrawnSquare implements DrawnShape {
 
 
   /**
-   * The coordinate in Row Col form of the square
+   * The coordinate in Row Col form of the square.
    *
    * @return the coordinates of the square.
    */
@@ -99,8 +111,8 @@ public class DrawnSquare implements DrawnShape {
   /**
    * Checks if the hex contains the given digital (x,y) point.
    *
-   * @param x
-   * @param y
+   * @param x the x coordinate you wish to see if its within bounds of the rectangle
+   * @param y the y coordinate you wish to see if its within bounds of the rectangle
    * @return Returns true if the point is inside the hex, false otherwise.
    */
   public boolean containsPoint(int x, int y) {

@@ -2,7 +2,6 @@ package player;
 
 import java.util.Optional;
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
 /**

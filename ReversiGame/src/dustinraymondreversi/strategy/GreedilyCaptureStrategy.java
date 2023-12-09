@@ -39,9 +39,7 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
         //clears the list of best positions and adds this position to the list
         chosenPosns.clear();
         chosenPosns.add(pos);
-      }
-      //tie for the best possible move. add this position to the list of chosen positions.
-      else if (scoreGained == chosenScoreGained) {
+      } else if (scoreGained == chosenScoreGained) {
         //adds this position to the list of chosen positions.
         chosenPosns.add(pos);
       }
@@ -78,8 +76,7 @@ public class GreedilyCaptureStrategy implements ReversiStrategy {
 
       // while the next piece in that direction is an enemy piece
       boolean hitOwnPiece = false;
-      while (board.contains(curPos)
-          && game.getPlayerAt(curPos).isPresent()) {
+      while (board.contains(curPos) && game.getPlayerAt(curPos).isPresent()) {
         // we break out of the loop if we hit our own piece, because that signifies a
         // valid capture; all the other possible exit conditions result in an invalid
         // capture attempt in that direction

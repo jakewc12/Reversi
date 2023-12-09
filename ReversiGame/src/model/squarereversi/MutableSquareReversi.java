@@ -6,7 +6,6 @@ import model.Coordinate;
 import model.Disc;
 import model.DiscColor;
 import model.GameCell;
-import model.ModelStatus;
 import model.MutableReversi;
 
 /**
