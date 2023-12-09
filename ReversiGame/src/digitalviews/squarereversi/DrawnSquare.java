@@ -26,8 +26,8 @@ public class DrawnSquare implements DrawnShape {
           , double squareCenterCoordX, double squareCenterCoordY
           , Color color, int squareLength, Optional<Integer> numFlipsOnHex) {
     this.logicalSquareCord = logicalSquareCord;
-    this.squareCenterCoordX = squareCenterCoordX + logicalSquareCord.getIntQ()* squareLength;
-    this.squareCenterCoordY = squareCenterCoordY + logicalSquareCord.getIntR()* squareLength;
+    this.squareCenterCoordX = squareCenterCoordX + logicalSquareCord.getIntQ() * squareLength;
+    this.squareCenterCoordY = squareCenterCoordY + logicalSquareCord.getIntR() * squareLength;
     this.color = color;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
@@ -49,12 +49,12 @@ public class DrawnSquare implements DrawnShape {
     Graphics2D g2d = (Graphics2D) g;
     //drawSquare(g2d);
     g2d.setColor(Color.BLACK);
-    g2d.drawRect((int)( getX()- squareLength/2), (int) ( getY()- squareLength/2), (int) squareLength, (int) squareLength);
+    g2d.drawRect((int) (getX()), (int) (getY()), (int) squareLength, (int) squareLength);
     g2d.setColor(color);
-    g2d.fillRect((int) ( getX()- squareLength/2), (int) ( getY()- squareLength/2), (int) squareLength, (int) squareLength);
+    g2d.fillRect((int) (getX()), (int) (getY()), (int) squareLength, (int) squareLength);
     drawDisc(g2d);
     numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
-            , (int) (getX()-5)
+            , (int) (getX() - 5)
             , (int) (getY())));
   }
 
@@ -62,8 +62,8 @@ public class DrawnSquare implements DrawnShape {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    new DrawDiscs().run(g, (int) (getX() - squareLength / 3)
-            , (int) (getY() - squareLength / 3), (int) (squareLength/1.5), discColor);
+    new DrawDiscs().run(g, (int) (getX() + squareLength / 8)
+            , (int) (getY() + squareLength / 8), (int) (squareLength / 1.5), discColor);
   }
 
   /**
