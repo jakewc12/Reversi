@@ -57,6 +57,7 @@ public class ReversiSquarePlayerTests {
   @Test
   public void testMachinePlayerPlaces() {
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    //model.setUpGame(model.getBoard());
     player.playMove(model);
     Assert.assertTrue(log.toString().contains("Place"));
   }

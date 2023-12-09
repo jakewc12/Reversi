@@ -60,6 +60,11 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void setUpGame(List<GameCell> board) {
     super.setUpGame(board);
+    if(hex!=null){
+      hex.setUpGame(board);
+    }else{
+      square.setUpGame(board);
+    }
     this.cells = board;
   }
 
@@ -121,7 +126,7 @@ public class MockMutableReversiModel extends MutableReversi {
     }else{
       square.placeDisc(coordinate);
     }
-    super.placeDisc(coordinate);
+    //super.placeDisc(coordinate);
   }
 
 
@@ -168,7 +173,12 @@ public class MockMutableReversiModel extends MutableReversi {
       append("Checked legal at " + coordinate.toString());
     }
 
-    return super.getNumFlipsOnMove(coordinate, playerColor);
+    if(hex!=null){
+      return hex.getNumFlipsOnMove(coordinate, playerColor);
+    }else{
+      return square.getNumFlipsOnMove(coordinate,playerColor);
+    }
+    //return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 
   @Override
