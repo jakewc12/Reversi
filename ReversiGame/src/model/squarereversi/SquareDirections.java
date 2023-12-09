@@ -23,9 +23,10 @@ import model.Direction;
  */
 public enum SquareDirections implements Direction {
 
-  DEAD_LEFT(new int[]{0,-1}), TOP_LEFT(new int[]{1,-1}), BOTTOM_LEFT(
-      new int[]{-1,-1}), DEAD_RIGHT(new int[]{0,1}), TOP_RIGHT(
-      new int[]{1,1}), BOTTOM_RIGHT(new int[]{-1,1}),ABOVE(new int[]{1,0}),BELOW(new int[]{-1,0});
+  DEAD_LEFT(new int[]{0, -1}), TOP_LEFT(new int[]{1, -1}), BOTTOM_LEFT(
+      new int[]{-1, -1}), DEAD_RIGHT(new int[]{0, 1}), TOP_RIGHT(
+      new int[]{1, 1}), BOTTOM_RIGHT(new int[]{-1, 1}), ABOVE(new int[]{1, 0}), BELOW(
+      new int[]{-1, 0});
   final int[] vector;
 
   SquareDirections(int[] i) {

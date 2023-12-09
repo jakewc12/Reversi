@@ -2,7 +2,6 @@ package player;
 
 import java.util.Objects;
 import java.util.Optional;
-
 import model.DiscColor;
 import model.MutableReversiModel;
 
@@ -47,6 +46,7 @@ public class HumanPlayer implements Player {
 
   /**
    * Returns optional empty because there is no strategy.
+   *
    * @return optional empty.
    */
   @Override

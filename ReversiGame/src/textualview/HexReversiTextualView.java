@@ -1,8 +1,8 @@
 package textualview;
 
 import java.io.IOException;
-import model.hexreversi.HexCoordinate;
 import model.ReadOnlyReversiModel;
+import model.hexreversi.HexCoordinate;
 
 /**
  * A simple text-based rendering of the Reversi game. This will render Black as X and white as O.

@@ -1,7 +1,6 @@
 package model.squarereversi;
 
 import java.util.Objects;
-
 import model.Coordinate;
 
 /**
@@ -49,12 +48,11 @@ public class SquareCoordinate implements Coordinate {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof SquareCoordinate)) {
+    if (!(a instanceof SquareCoordinate other)) {
       return false;
     }
-    SquareCoordinate other = (SquareCoordinate) a;
     return ((Math.abs(this.row - other.getIntR()) < 0.01) && (Math.abs(this.col - other.getIntQ())
-            < 0.01));
+        < 0.01));
   }
 
   @Override

@@ -1,15 +1,12 @@
 package adaptionassignment;
 
-import dustinraymondreversi.controller.ReversiPlayerActions;
-import dustinraymondreversi.view.ReversiGUIView;
 import controller.PlayerActions;
 import digitalviews.DigitalWindow;
-
+import dustinraymondreversi.controller.ReversiPlayerActions;
+import dustinraymondreversi.view.ReversiGUIView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import model.DiscColor;
 import player.Player;
 
 /**
@@ -58,7 +55,7 @@ public final class RaDusToOurViewAdapter implements DigitalWindow {
    * @param player the player that caused the error.
    */
   @Override
-  public void showErrorMessage(DiscColor player) {
-    viewToBeAdapted.showError(player.toString());
+  public void showErrorMessage(Player player) {
+    viewToBeAdapted.showError(player.getPlayerColor().toString());
   }
 }

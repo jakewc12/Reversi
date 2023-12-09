@@ -78,8 +78,9 @@ public class MutableHexReversi extends MutableReversi {
     //Check Right diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_LEFT),
         currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_RIGHT),
-        currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_RIGHT),
+            currentColor));
 
     //Check Left diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.TOP_RIGHT),

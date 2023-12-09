@@ -1,6 +1,12 @@
 package model;
 
+
+/**
+ * A Generic Logical game coordinate class that covers the general idea of a coordinate used in a
+ * game of reversi.
+ */
 public interface Coordinate {
+
   /**
    * Gets the Q coordinate. The Q LogicalHexCoordinate decreases when going left of the origin and
    * increases when going right of the origin. For square, represents the column.

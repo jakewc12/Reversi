@@ -2,7 +2,6 @@ package textualview;
 
 import java.io.IOException;
 import model.ReadOnlyReversiModel;
-import model.hexreversi.HexCoordinate;
 import model.squarereversi.SquareCoordinate;
 
 /**
@@ -53,16 +52,16 @@ public class SquareReversiTextualView implements TextualView {
       //Append the start with spaces
       for (int col = 0; col < boardLength; col++) {
         //If its black place an X, if white place an O, otherwise do underscore.
-          switch (model.getColorAt(new SquareCoordinate(col, row))) {
-            case BLACK:
-              returnString.append("X");
-              break;
-            case WHITE:
-              returnString.append("O");
-              break;
-            default:
-              returnString.append("_");
-          }
+        switch (model.getColorAt(new SquareCoordinate(col, row))) {
+          case BLACK:
+            returnString.append("X");
+            break;
+          case WHITE:
+            returnString.append("O");
+            break;
+          default:
+            returnString.append("_");
+        }
       }
       // add a new line at then end of the current line.
       returnString.append("\n");

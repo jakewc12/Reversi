@@ -2,9 +2,7 @@ package digitalviews;
 
 import java.util.List;
 import java.util.Optional;
-
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * A manager that manages all the drawing of hexes and updating of hexes.
@@ -30,12 +28,14 @@ public interface DigitalBoardManager {
 
   /**
    * True if a tile is currently highlighted, false else.
+   *
    * @return if a tile is highlighted.
    */
-  boolean tileCurrentlyClicked() ;
+  boolean tileCurrentlyClicked();
 
   /**
    * Returns all of the shapes in the manager.
+   *
    * @return all of the drawnshapes.
    */
   List<DrawnShape> getShapes();

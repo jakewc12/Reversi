@@ -114,6 +114,66 @@ public class MutableSquareReversiTests {
   public void placeValidDoesNotFlipSurroundingTiles() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
+    game.placeDisc(new SquareCoordinate(3,1));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,0)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,2)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(2,0)));
+  }
 
+  @Test
+  public void testGameOverBlack() {
+    game = new MutableSquareReversi(4);
+    game.setUpGame(game.getBoard());
+    game.placeDisc(new SquareCoordinate(3,1));
+    Assert.assertFalse(game.gameOver());
+    game.skipCurrentTurn();
+    Assert.assertFalse(game.gameOver());
+    game.placeDisc(new SquareCoordinate(1,3));
+    Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void gameOverWhenTilesFiled() {
+    game = new MutableSquareReversi(2);
+    game.setUpGame(game.getBoard());
+    Assert.assertTrue(game.gameOver());
+  }
+
+  @Test
+  public void checkGivenPlayerHasMovesWorks() {
+    game = new MutableSquareReversi(2);
+    game.setUpGame(game.getBoard());
+    Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
+  }
+  @Test
+  public void checkGivenPlayerHasMovesGameOngoing() {
+    game = new MutableSquareReversi(4);
+    game.setUpGame(game.getBoard());
+    game.placeDisc(new SquareCoordinate(3,1));
+    Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
+    game.skipCurrentTurn();
+    Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
+    game.placeDisc(new SquareCoordinate(1,3));
+    Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
+  }
+
+  @Test
+  public void testGetScoreDuringGame() {
+    game = new MutableSquareReversi(4);
+    game.setUpGame(game.getBoard());
+    Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.BLACK));
+    Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.WHITE));
+    game.placeDisc(new SquareCoordinate(3,1));
+    Assert.assertEquals(4, game.checkScoreOfPlayer(DiscColor.BLACK));
+    Assert.assertEquals(1, game.checkScoreOfPlayer(DiscColor.WHITE));
+    game.placeDisc(new SquareCoordinate(1,0));
+    Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.BLACK));
+    Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.WHITE));
+    game.skipCurrentTurn();
+    game.placeDisc(new SquareCoordinate(3,2));
+    game.skipCurrentTurn();
+    game.placeDisc(new SquareCoordinate(3,0));
+    Assert.assertEquals(0, game.checkScoreOfPlayer(DiscColor.BLACK));
+    Assert.assertEquals(8, game.checkScoreOfPlayer(DiscColor.WHITE));
   }
 }

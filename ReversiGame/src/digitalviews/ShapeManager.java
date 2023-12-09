@@ -1,5 +1,7 @@
 package digitalviews;
 
+import digitalviews.hexreversi.DrawnHexagon;
+import digitalviews.squarereversi.DrawnSquare;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,23 +10,19 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
-
-import digitalviews.hexreversi.DrawnHexagon;
-import digitalviews.squarereversi.DrawnSquare;
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
+import model.hexreversi.LogicalHexCoordinate;
 import model.squarereversi.MutableSquareReversi;
 import model.squarereversi.SquareCoordinate;
 
 /**
  * The HexManager class manages the display and interaction of hexagonal tiles on a JPanel for a
  * Reversi game. It extends JPanel and implements the DigitalBoardManager interface. HexManager
- * handles the creation and rendering of tiles based on the game model, and allows highlighting
- * and interaction with specific tiles through mouse events.
+ * handles the creation and rendering of tiles based on the game model, and allows highlighting and
+ * interaction with specific tiles through mouse events.
  */
 public class ShapeManager extends JPanel implements DigitalBoardManager {
 
@@ -65,7 +63,6 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
     this.model = model;
     highlightedCord = Optional.empty();
 
-
     makeShapes();
     this.repaint();
   }
@@ -79,8 +76,8 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
   }
 
   /**
-   * Looks at the model and creates the tiles accordingly. This method should be called every
-   * time a move is made.
+   * Looks at the model and creates the tiles accordingly. This method should be called every time a
+   * move is made.
    */
   private void makeHexagons() {
     tiles = new ArrayList<>();
@@ -90,22 +87,23 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if (hintsEnabled) {
-            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                    centerCordY, Color.CYAN, hexLength
-                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord,
+                model.getColorAt(logicalCoord), centerCordX, centerCordY, Color.CYAN, hexLength,
+                Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           } else {
-            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                    centerCordY, Color.CYAN, hexLength
-                    , Optional.empty()));
+            tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord,
+                model.getColorAt(logicalCoord), centerCordX, centerCordY, Color.CYAN, hexLength,
+                Optional.empty()));
           }
         } else {
-          tiles.add(new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                  centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+          tiles.add(
+              new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+                  centerCordX, centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         tiles.add(
-                new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
-                        Color.LIGHT_GRAY, hexLength, Optional.empty()));
+            new DrawnHexagon((LogicalHexCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+                centerCordX, centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
@@ -118,22 +116,22 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if (hintsEnabled) {
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
-                    Color.CYAN, hexLength
-                    , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
+            tiles.add(
+                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+                    Color.CYAN, hexLength,
+                    Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           } else {
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord)
-                    , Color.CYAN, hexLength
-                    , Optional.empty()));
+            tiles.add(
+                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+                    Color.CYAN, hexLength, Optional.empty()));
           }
         } else {
-          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord)
-                  , Color.LIGHT_GRAY, hexLength, Optional.empty()));
+          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+              Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
-        tiles.add(
-                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
-                        Color.LIGHT_GRAY, hexLength, Optional.empty()));
+        tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+            Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
   }
@@ -186,6 +184,22 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
     this.repaint();
   }
 
+  @Override
+  public void enableHints() {
+    hintsEnabled = !hintsEnabled;
+    System.out.println(hintsEnabled);
+  }
+
+  @Override
+  public boolean tileCurrentlyClicked() {
+    return this.tileClicked;
+  }
+
+  @Override
+  public List<DrawnShape> getShapes() {
+    return new ArrayList<>(tiles);
+  }
+
   private class MouseEventsListener extends MouseInputAdapter {
 
     @Override
@@ -203,25 +217,9 @@ public class ShapeManager extends JPanel implements DigitalBoardManager {
           }
         }
         highlightedCord.ifPresent(
-                coordinate -> System.out.println("Highlighted cell at " + coordinate));
+            coordinate -> System.out.println("Highlighted cell at " + coordinate));
       }
       manager.repaint();
     }
-  }
-
-  @Override
-  public void enableHints() {
-    hintsEnabled = !hintsEnabled;
-    System.out.println(hintsEnabled);
-  }
-
-  @Override
-  public boolean tileCurrentlyClicked() {
-    return this.tileClicked;
-  }
-
-  @Override
-  public List<DrawnShape> getShapes() {
-    return new ArrayList<>(tiles);
   }
 }

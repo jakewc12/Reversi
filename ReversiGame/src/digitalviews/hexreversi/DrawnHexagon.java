@@ -1,17 +1,16 @@
 package digitalviews.hexreversi;
 
+import digitalviews.DrawnShape;
+import digitalviews.commandpatternhelpers.DrawDiscs;
+import digitalviews.commandpatternhelpers.DrawHints;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.Optional;
-
-import digitalviews.CommandPatternHelpers.DrawDiscs;
-import digitalviews.CommandPatternHelpers.DrawHints;
-import digitalviews.DrawnShape;
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.DiscColor;
+import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * A single digital hexagon tile on the game board.
@@ -29,7 +28,7 @@ public class DrawnHexagon implements DrawnShape {
   private final double buffer = 1.85;
   private Polygon poly;
   private Color discColor;
-  private Optional<Integer> numFlipsOnHex;
+  private final Optional<Integer> numFlipsOnHex;
 
   /**
    * Creates a new hexagon that has the game coordinates q and r, a color of clr.
@@ -41,8 +40,9 @@ public class DrawnHexagon implements DrawnShape {
    * @param hexColor          the color of the background of the hex.
    * @param hexagonRadius     the radius of the hexagon.
    */
-  public DrawnHexagon(LogicalHexCoordinate logicalHexCoord, DiscColor discColor, int boardCenterCoordx,
-                      int boardCenterCoordy, Color hexColor, int hexagonRadius, Optional<Integer> numFlips) {
+  public DrawnHexagon(LogicalHexCoordinate logicalHexCoord, DiscColor discColor,
+      int boardCenterCoordx, int boardCenterCoordy, Color hexColor, int hexagonRadius,
+      Optional<Integer> numFlips) {
 
     this.logicalHexCoord = logicalHexCoord;
 
@@ -103,9 +103,8 @@ public class DrawnHexagon implements DrawnShape {
     Graphics2D g2d = (Graphics2D) g;
     drawHex(g2d);
     drawDisc(g2d);
-    numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
-            , poly.getBounds().x + hexagonRadius / 2 + 6
-            , poly.getBounds().y + hexagonRadius / 2 + 12));
+    numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer),
+        poly.getBounds().x + hexagonRadius / 2 + 6, poly.getBounds().y + hexagonRadius / 2 + 12));
   }
 
   private void drawHex(Graphics2D g) {
@@ -119,8 +118,8 @@ public class DrawnHexagon implements DrawnShape {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    new DrawDiscs().run(g, poly.getBounds().x + hexagonRadius / 2
-            , poly.getBounds().y + hexagonRadius / 2, hexagonRadius, discColor);
+    new DrawDiscs().run(g, poly.getBounds().x + hexagonRadius / 2,
+        poly.getBounds().y + hexagonRadius / 2, hexagonRadius, discColor);
   }
 
   /**
