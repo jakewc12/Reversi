@@ -3,8 +3,8 @@ package player;
 import java.util.List;
 import java.util.Optional;
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
+import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * The GoForCornersStrategy class implements the ReversiStrategy interface and represents a strategy
@@ -28,7 +28,7 @@ public class GoForCornersStrategy implements ReversiStrategy {
     List<Coordinate> allCoords = model.getAllCoordinates();
 
     for (Coordinate current : allCoords) {
-      LogicalHexCoordinate cord = (LogicalHexCoordinate)current;
+      LogicalHexCoordinate cord = (LogicalHexCoordinate) current;
       if (!checkEdgeCoordinate(cord, model.getBoardRadius()) || (cord.getIntQ() == 0
           && cord.getIntR() == 0 && cord.getIntS() == 0)) {
         continue;

@@ -8,21 +8,21 @@ import model.GameCell;
 import model.GameDisc;
 
 /**
- * A class meant to represent a hexagonal cell on a reversi board.
+ * The {@code SquareCell} class represents a hexagonal cell on a Reversi board. It holds a Disc
+ * object and has a logical coordinate on the game board.
  */
 public class SquareCell implements GameCell {
 
   private final Disc contents;
-
   private final SquareCoordinate logicalCoordinate;
-
 
   /**
    * Creates a new Game Cell which can hold Discs.
    *
-   * @param contents          the contents of the cell which can be null or a class from the disc
+   * @param contents          the contents of the cell, which can be null or a class from the Disc
    *                          interface.
-   * @param logicalCoordinate the game cells logicalCoordinate.
+   * @param logicalCoordinate the game cell's logical coordinate.
+   * @throws IllegalArgumentException if contents is null.
    */
 
   public SquareCell(DiscColor contents, SquareCoordinate logicalCoordinate) {
@@ -33,6 +33,15 @@ public class SquareCell implements GameCell {
     this.logicalCoordinate = logicalCoordinate;
   }
 
+  /**
+   * Creates a new Game Cell which can hold Discs.
+   *
+   * @param contents the contents of the cell, which can be null or a class from the Disc
+   *                 interface.
+   * @param row      the row coordinate of the game cell.
+   * @param col      the column coordinate of the game cell.
+   * @throws IllegalArgumentException if contents is null.
+   */
   public SquareCell(DiscColor contents, int row, int col) {
     if (contents == null) {
       throw new IllegalArgumentException("Cannot have no disc when creating a game cell");
@@ -41,6 +50,7 @@ public class SquareCell implements GameCell {
     this.logicalCoordinate = new SquareCoordinate(row, col);
   }
 
+  @Override
   public Coordinate getCellNeighbor(Direction hexDirections) {
     //need to check that neighbor is not off board
 

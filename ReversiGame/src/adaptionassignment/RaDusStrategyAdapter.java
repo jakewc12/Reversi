@@ -1,12 +1,9 @@
 package adaptionassignment;
 
 import dustinraymondreversi.model.HexPosn;
-
 import java.util.List;
 import java.util.Optional;
-
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import player.Player;
 
 /**
@@ -37,8 +34,9 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
     //need to check that the move is legal for this player.
 
     for (HexPosn coordinate : possibleMoves) {
-      if (model.getNumFlipsOnMove(new HexPosToLogicalHexCoordinate(coordinate), who.getPlayerColor())
-              > 0) {
+      if (model.getNumFlipsOnMove(new HexPosToLogicalHexCoordinate(coordinate),
+          who.getPlayerColor())
+          > 0) {
         return Optional.of(new HexPosToLogicalHexCoordinate(coordinate));
       }
     }

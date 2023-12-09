@@ -1,4 +1,4 @@
-package part3tests;
+package controllertests;
 
 import controller.Controller;
 import controller.ReversiController;

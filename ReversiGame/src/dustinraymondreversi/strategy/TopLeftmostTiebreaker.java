@@ -13,8 +13,7 @@ import java.util.Optional;
 public class TopLeftmostTiebreaker implements StrategyTiebreaker {
 
   @Override
-  public Optional<HexPosn> chooseOneMove(ReversiStrategy strategy
-      , ReadOnlyReversiModel model) {
+  public Optional<HexPosn> chooseOneMove(ReversiStrategy strategy, ReadOnlyReversiModel model) {
     if (model == null || strategy == null) {
       throw new IllegalArgumentException("Given game or strategy cannot be null.");
     }

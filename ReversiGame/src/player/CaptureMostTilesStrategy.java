@@ -1,7 +1,6 @@
 package player;
 
 import java.util.Optional;
-
 import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
@@ -36,8 +35,8 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
         currentBestMove = coord;
       }
       if (highestFlips == currentNumFlips && coord.getIntR() <= currentBestMove.getIntR()) {
-        if (coord.getIntR() == currentBestMove.getIntR()
-                && Math.abs(coord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
+        if (coord.getIntR() == currentBestMove.getIntR() && Math.abs(coord.getIntQ()) < Math.abs(
+            currentBestMove.getIntQ())) {
           currentBestMove = coord;
         } else if (coord.getIntR() < currentBestMove.getIntR()) {
           currentBestMove = coord;
@@ -48,6 +47,6 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
     if (highestFlips == 0) {
       return Optional.empty();
     }
-    return Optional.ofNullable((Coordinate) currentBestMove);
+    return Optional.ofNullable(currentBestMove);
   }
 }

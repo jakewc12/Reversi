@@ -44,7 +44,7 @@ public class HexCell implements GameCell {
 
   @Override
   public Coordinate getCoordinate() {
-    return (Coordinate) logicalCoordinate;
+    return logicalCoordinate;
   }
 
   @Override

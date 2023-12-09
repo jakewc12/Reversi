@@ -1,9 +1,7 @@
 package digitalviews;
 
 import java.awt.Graphics;
-
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Meant to represent a drawn digital hexagon which mirrors a logical hexagon in the game of

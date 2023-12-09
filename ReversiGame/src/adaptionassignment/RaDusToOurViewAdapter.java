@@ -1,14 +1,12 @@
 package adaptionassignment;
 
-import dustinraymondreversi.controller.ReversiPlayerActions;
-import dustinraymondreversi.view.ReversiGUIView;
 import controller.PlayerActions;
 import digitalviews.DigitalWindow;
-
+import dustinraymondreversi.controller.ReversiPlayerActions;
+import dustinraymondreversi.view.ReversiGUIView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import player.Player;
 
 /**

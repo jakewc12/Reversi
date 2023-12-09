@@ -1,16 +1,13 @@
 package digitalviews;
 
 import controller.PlayerActions;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -22,8 +19,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   private final ReadOnlyReversiModel model;
   private final DigitalWindow window = this;
-  private ShapeManager manager;
   private final int hexagonRadius = 25;
+  private ShapeManager manager;
 
   /**
    * Creates a new DigitalReversiWindow.
@@ -78,7 +75,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
       } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
-              DiscColor.WHITE)) {
+          DiscColor.WHITE)) {
         winner = " Winner is BLACK";
       } else {
         winner = " TIE";
@@ -148,7 +145,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
   @Override
   public void showErrorMessage(Player player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player "
-            + player.getPlayerColor());
+        + player.getPlayerColor());
 
   }
 }

@@ -6,6 +6,11 @@ import java.util.NoSuchElementException;
 import model.hexreversi.HexDirections;
 import model.hexreversi.LogicalHexCoordinate;
 
+/**
+ * The abstract class {@code MutableReversi} serves as the foundation for implementing mutable
+ * Reversi game models. It provides methods for setting up and playing Reversi games, handling
+ * player turns, checking legal moves, and more.
+ */
 public abstract class MutableReversi implements MutableReversiModel {
 
   //width is how far from the center cell every edge cell is
@@ -14,7 +19,7 @@ public abstract class MutableReversi implements MutableReversiModel {
   //true if it's player BLACK's turn, false if it's WHITE's turn
   private boolean blacksTurn;
   private boolean gameStarted;
-  private int numPlayersPassedInARow;
+  private int timesPlayersPassedConsecutively;
   private List<GameCell> cells = new ArrayList<>();
 
   /**
@@ -190,8 +195,9 @@ public abstract class MutableReversi implements MutableReversiModel {
     //Check Right diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_LEFT),
         currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_RIGHT),
-        currentColor));
+    toFlip.addAll(
+        getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.DEAD_RIGHT),
+            currentColor));
 
     //Check Left diagonal
     toFlip.addAll(getInLineFlipsPossible(getAllCellInDirection(targetCell, HexDirections.TOP_RIGHT),
@@ -255,7 +261,7 @@ public abstract class MutableReversi implements MutableReversiModel {
     getDiscAt(coord).changeColorTo(getCurrentTurn());
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
-    numPlayersPassedInARow = 0;
+    timesPlayersPassedConsecutively = 0;
   }
 
   @Override
@@ -263,7 +269,7 @@ public abstract class MutableReversi implements MutableReversiModel {
     checkGameStarted();
     blacksTurn = !blacksTurn;
     updateFeaturesInterface();
-    numPlayersPassedInARow++;
+    timesPlayersPassedConsecutively++;
   }
 
   private Disc getDiscAt(Coordinate coord) {
@@ -318,7 +324,7 @@ public abstract class MutableReversi implements MutableReversiModel {
   @Override
   public boolean gameOver() {
     checkGameStarted();
-    if (numPlayersPassedInARow == 4) {
+    if (timesPlayersPassedConsecutively == 4) {
       return true;
     }
     if (checkIfAllCellsFilled()) {

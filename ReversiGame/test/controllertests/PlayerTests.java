@@ -1,4 +1,4 @@
-package part3tests;
+package controllertests;
 
 import org.junit.Assert;
 import org.junit.Before;

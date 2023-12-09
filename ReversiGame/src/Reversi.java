@@ -1,8 +1,3 @@
-import dustinraymondreversi.strategy.AvoidCornerTrapStrategy;
-import dustinraymondreversi.strategy.ChooseCornerStrategy;
-import dustinraymondreversi.strategy.ChosenByBothStrategyCombinator;
-import dustinraymondreversi.strategy.GreedilyCaptureStrategy;
-import dustinraymondreversi.view.BasicReversiGUIView;
 import adaptionassignment.RaDusModelAdapter;
 import adaptionassignment.RaDusStrategyAdapter;
 import adaptionassignment.RaDusToOurViewAdapter;
@@ -10,10 +5,13 @@ import controller.Controller;
 import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
-
+import dustinraymondreversi.strategy.AvoidCornerTrapStrategy;
+import dustinraymondreversi.strategy.ChooseCornerStrategy;
+import dustinraymondreversi.strategy.ChosenByBothStrategyCombinator;
+import dustinraymondreversi.strategy.GreedilyCaptureStrategy;
+import dustinraymondreversi.view.BasicReversiGUIView;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.DiscColor;
 import model.MutableReversiModel;
 import player.CaptureMostTilesStrategy;
@@ -48,13 +46,13 @@ public final class Reversi {
     DigitalWindow viewPlayer1;
     DigitalWindow viewPlayer2;
     if (player1.getStrategy().isEmpty() || (player1.getStrategy().isPresent()
-            && !(player1.getStrategy().get() instanceof RaDusStrategyAdapter))) {
+        && !(player1.getStrategy().get() instanceof RaDusStrategyAdapter))) {
       viewPlayer1 = new DigitalReversiWindow(model);
     } else {
       viewPlayer1 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
     }
     if (player2.getStrategy().isEmpty() || (player2.getStrategy().isPresent()
-            && !(player2.getStrategy().get() instanceof RaDusStrategyAdapter))) {
+        && !(player2.getStrategy().get() instanceof RaDusStrategyAdapter))) {
       viewPlayer2 = new DigitalReversiWindow(model);
     } else {
       viewPlayer2 = new RaDusToOurViewAdapter(new BasicReversiGUIView(model));
@@ -79,8 +77,8 @@ public final class Reversi {
     //by default, if player1 is human and player2 is AI unless command-line says other
     if (args.length == 0) {
       players.add(new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy()));
-      players.add(new MachinePlayer(DiscColor.WHITE, new RaDusStrategyAdapter(
-              new GreedilyCaptureStrategy())));
+      players.add(new MachinePlayer(DiscColor.WHITE,
+          new RaDusStrategyAdapter(new GreedilyCaptureStrategy())));
     } else if (args.length == 1) {
       //chooses first players strategy
       players.add(choosePlayer(args[0], DiscColor.BLACK, model));
@@ -102,9 +100,9 @@ public final class Reversi {
     } else if (input.equalsIgnoreCase("providerStrategy2")) {
       return (new MachinePlayer(color, new RaDusStrategyAdapter(new AvoidCornerTrapStrategy())));
     } else if (input.equalsIgnoreCase("providerStrategy3")) {
-      return (new MachinePlayer(color, new RaDusStrategyAdapter(new ChosenByBothStrategyCombinator(
-              new AvoidCornerTrapStrategy()
-              , new ChooseCornerStrategy()))));
+      return (new MachinePlayer(color, new RaDusStrategyAdapter(
+          new ChosenByBothStrategyCombinator(new AvoidCornerTrapStrategy(),
+              new ChooseCornerStrategy()))));
     }
     return new HumanPlayer(model, color);
   }

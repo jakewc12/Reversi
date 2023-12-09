@@ -13,6 +13,7 @@ public class HexPosToLogicalHexCoordinate extends HexCoordinate {
 
   /**
    * Creates a HexPosToLogicalCoordiante, which extends HexCoordinate.
+   *
    * @param pos the HexPos to be adapted.
    */
   public HexPosToLogicalHexCoordinate(HexPosn pos) {
