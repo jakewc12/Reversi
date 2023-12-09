@@ -85,6 +85,12 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void startGame() {
     super.startGame();
+    if(hex!=null){
+      hex.startGame();
+    }else{
+      square.startGame();
+    }
+
     notifyFeatures();
   }
 
@@ -101,8 +107,12 @@ public class MockMutableReversiModel extends MutableReversi {
     if (!ban.contains("skipCurrentTurn")) {
       append("Turn skipped");
     }
-
-    super.skipCurrentTurn();
+    if(hex!=null){
+      hex.skipCurrentTurn();
+    }else{
+      square.skipCurrentTurn();
+    }
+   // super.skipCurrentTurn();
   }
 
   @Override
@@ -157,6 +167,11 @@ public class MockMutableReversiModel extends MutableReversi {
   public void changeTurnTo(DiscColor color) {
     if (getCurrentTurn() != color) {
       super.skipCurrentTurn();
+      if(hex!=null){
+        hex.skipCurrentTurn();
+      }else{
+        square.skipCurrentTurn();
+      }
     }
   }
 
