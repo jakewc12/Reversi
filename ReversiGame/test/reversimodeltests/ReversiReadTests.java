@@ -6,7 +6,6 @@ import model.Coordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
-import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 import org.junit.Assert;
 import org.junit.Before;

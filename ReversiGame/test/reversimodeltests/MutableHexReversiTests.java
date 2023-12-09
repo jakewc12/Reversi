@@ -2,6 +2,7 @@ package reversimodeltests;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.hexreversi.LogicalHexCoordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
@@ -9,6 +10,7 @@ import model.DiscColor;
 import model.GameCell;
 import model.hexreversi.HexCell;
 import model.MutableReversiModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +20,7 @@ import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
 /**
- * Test meant for the MutableHexReversi class. These test should test every method and thrown exception
+ * Test meant for the MutableHexReversi class. These test should test every method and thrown excet.
  * inside the class.
  */
 public class MutableHexReversiTests {
@@ -71,8 +73,8 @@ public class MutableHexReversiTests {
           int finalQ = q;
           int finalR = r;
           int finalS = s;
-          Assert.assertThrows(IllegalStateException.class,
-              () -> game.placeDisc(new HexCoordinate(finalQ, finalR, finalS)));
+          Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(
+                  new HexCoordinate(finalQ, finalR, finalS)));
         }
       }
     }
@@ -84,22 +86,22 @@ public class MutableHexReversiTests {
   @Test
   public void cannotPlaceGameDiscOffBoard() {
     game.setUpGame(game.getBoard());
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(6, 6, 6)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(5, 5, 6)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(0, 0, 6)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(-6, 5, 5)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(-6, 0, 0)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(0, -6, 0)));
-    Assert.assertThrows(IllegalArgumentException.class,
-        () -> game.placeDisc(new HexCoordinate(0, 0, -6)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(6, 6, 6)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(5, 5, 6)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(0, 0, 6)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(-6, 5, 5)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(-6, 0, 0)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new HexCoordinate(0, -6, 0)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc
+            (new HexCoordinate(0, 0, -6)));
   }
-  
+
 
   /**
    * tests that placing any disc no colored WHITE or GREY throws an IllegalStateException.
@@ -107,15 +109,16 @@ public class MutableHexReversiTests {
   @Test
   public void cannotPlaceIllegalDiscs() {
     game.setUpGame(game.getBoard());
-    Assert.assertThrows(IllegalStateException.class, () -> game.placeDisc(new HexCoordinate(0, 0, 0)));
+    Assert.assertThrows(IllegalStateException.class
+            , () -> game.placeDisc(new HexCoordinate(0, 0, 0)));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(new HexCoordinate(0, 0, 0)));
     Assert.assertThrows(IllegalStateException.class,
-        () -> game.placeDisc(new HexCoordinate(4, -2, -2)));
+            () -> game.placeDisc(new HexCoordinate(4, -2, -2)));
     Assert.assertSame(DiscColor.GREY, game.getColorAt(new HexCoordinate(4, -2, -2)));
     Assert.assertThrows(IllegalStateException.class,
-        () -> game.placeDisc(new HexCoordinate(-2, 0, 2)));
+            () -> game.placeDisc(new HexCoordinate(-2, 0, 2)));
     Assert.assertThrows(IllegalStateException.class,
-        () -> game.placeDisc(new HexCoordinate(2, 0, -2)));
+            () -> game.placeDisc(new HexCoordinate(2, 0, -2)));
   }
 
   /**
@@ -336,6 +339,6 @@ public class MutableHexReversiTests {
 
   @Test
   public void testIllegalSizeThrows() {
-    Assert.assertThrows(IllegalArgumentException.class, ()-> new MutableSquareReversi(3));
+    Assert.assertThrows(IllegalArgumentException.class, () -> new MutableSquareReversi(3));
   }
 }

@@ -5,7 +5,9 @@ import digitalviews.DigitalWindow;
 import model.DiscColor;
 import model.MutableReversiModel;
 import model.squarereversi.MutableSquareReversi;
+import player.CaptureMostTilesStrategy;
 import player.HumanPlayer;
+import player.MachinePlayer;
 import player.Player;
 
 /**
@@ -29,8 +31,8 @@ public class SquareReversi {
     DigitalWindow viewPlayer1 = new DigitalReversiWindow(model);
     DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
 
-    Player player2 = new HumanPlayer(model, DiscColor.BLACK);
-    Player player1 = new HumanPlayer(model, DiscColor.WHITE);
+    Player player2 = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
+    Player player1 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
 
     // should we do a sleep so that the move isn't made literally automatically
     Controller controller1 = new ReversiController(model, player1, viewPlayer1);

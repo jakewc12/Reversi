@@ -12,6 +12,9 @@ import player.HumanPlayer;
 import player.MachinePlayer;
 import player.Player;
 
+/**
+ * Tests issues with reversisquare players.
+ */
 public class ReversiSquarePlayerTests {
   private Player player;
   private MutableReversiModel model;
@@ -26,6 +29,7 @@ public class ReversiSquarePlayerTests {
     model = new MockMutableReversiModel(4, log, "square");
     model.setUpGame(model.getBoard());
   }
+
   /**
    * Tests that getColor works.
    */
@@ -43,6 +47,7 @@ public class ReversiSquarePlayerTests {
     player = new HumanPlayer(model, DiscColor.BLACK);
     Assert.assertEquals(player.getPlayerColor(), DiscColor.BLACK);
   }
+
   /**
    * Tests that human player doesnt make a move since it's the view that does it.
    */
@@ -51,6 +56,7 @@ public class ReversiSquarePlayerTests {
     player = new HumanPlayer(model, DiscColor.BLACK);
     Assert.assertFalse(log.toString().contains("Place"));
   }
+
   /**
    * Tests that machine automatically makes moves thru player.
    */

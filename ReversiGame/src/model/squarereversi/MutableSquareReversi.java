@@ -7,7 +7,6 @@ import model.Disc;
 import model.DiscColor;
 import model.GameCell;
 import model.MutableReversi;
-import model.hexreversi.MutableHexReversi;
 
 /**
  * Meant to simulate the logic of a game of reversi. The game of reversi does not start until start

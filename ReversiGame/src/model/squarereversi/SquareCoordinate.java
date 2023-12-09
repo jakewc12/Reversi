@@ -48,9 +48,10 @@ public class SquareCoordinate implements Coordinate {
     if (this == a) {
       return true;
     }
-    if (!(a instanceof SquareCoordinate other)) {
+    if (!(a instanceof SquareCoordinate)) {
       return false;
     }
+    SquareCoordinate other = (SquareCoordinate) a;
     return ((Math.abs(this.row - other.getIntR()) < 0.01) && (Math.abs(this.col - other.getIntQ())
         < 0.01));
   }

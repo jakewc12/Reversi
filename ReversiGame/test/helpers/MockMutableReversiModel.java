@@ -13,7 +13,8 @@ import model.ModelStatus;
 import model.squarereversi.MutableSquareReversi;
 
 /**
- * The MockMutableHexReversiModel class extends MutableHexReversi and serves as a mock implementation of a
+ * The MockMutableHexReversiModel class extends MutableHexReversi and serves as a mock implementatio
+ * n of a
  * mutable Reversi model for testing purposes. It overrides certain methods to log actions and
  * interactions, providing a way to observe and verify the behavior of the game without a graphical
  * interface. This class does not affect most of the actual game logic and is intended solely for
@@ -42,11 +43,10 @@ public class MockMutableReversiModel extends MutableReversi {
     this.out = out;
     ban = new ArrayList<>();
     this.type = type;
-    if(type.equals("hex")){
+    if (type.equals("hex")) {
       hex = new MutableHexReversi(size);
       square = null;
-    }
-    else{
+    } else {
       hex = null;
       square = new MutableSquareReversi(size);
     }
@@ -59,9 +59,9 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void setUpGame(List<GameCell> board) {
     super.setUpGame(board);
-    if(hex!=null){
+    if (hex != null) {
       hex.setUpGame(board);
-    }else{
+    } else {
       square.setUpGame(board);
     }
     this.cells = board;
@@ -84,9 +84,9 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public void startGame() {
     super.startGame();
-    if(hex!=null){
+    if (hex != null) {
       hex.startGame();
-    }else{
+    } else {
       square.startGame();
     }
     notifyFeatures();
@@ -105,18 +105,18 @@ public class MockMutableReversiModel extends MutableReversi {
     if (!ban.contains("skipCurrentTurn")) {
       append("Turn skipped");
     }
-    if(hex!=null){
+    if (hex != null) {
       hex.skipCurrentTurn();
-    }else{
+    } else {
       square.skipCurrentTurn();
     }
   }
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
-    if(hex!=null){
+    if (hex != null) {
       return hex.isLegalMove(coordinate);
-    }else{
+    } else {
       return square.isLegalMove(coordinate);
     }
     /*
@@ -135,9 +135,9 @@ public class MockMutableReversiModel extends MutableReversi {
     if (!ban.contains("placeDisc")) {
       append("Place disc called at " + coordinate);
     }
-    if(hex != null){
+    if (hex != null) {
       hex.placeDisc(coordinate);
-    }else{
+    } else {
       square.placeDisc(coordinate);
     }
   }
@@ -169,9 +169,9 @@ public class MockMutableReversiModel extends MutableReversi {
    */
   public void changeTurnTo(DiscColor color) {
     if (getCurrentTurn() != color) {
-      if(hex!=null){
+      if (hex != null) {
         hex.skipCurrentTurn();
-      }else{
+      } else {
         square.skipCurrentTurn();
       }
     }
@@ -190,10 +190,10 @@ public class MockMutableReversiModel extends MutableReversi {
       append("Checked legal at " + coordinate.toString());
     }
 
-    if(hex!=null){
+    if (hex != null) {
       return hex.getNumFlipsOnMove(coordinate, playerColor);
-    }else{
-      return square.getNumFlipsOnMove(coordinate,playerColor);
+    } else {
+      return square.getNumFlipsOnMove(coordinate, playerColor);
     }
   }
 

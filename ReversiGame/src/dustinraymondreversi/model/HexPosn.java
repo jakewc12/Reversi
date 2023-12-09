@@ -86,7 +86,8 @@ public class HexPosn {
 
   @Override
   public boolean equals(Object other) {
-    if (other instanceof HexPosn otherHexPosn) {
+    if (other instanceof HexPosn) {
+      HexPosn otherHexPosn = (HexPosn) other;
       return this.r == otherHexPosn.r && this.q == otherHexPosn.q;
     }
     return false;

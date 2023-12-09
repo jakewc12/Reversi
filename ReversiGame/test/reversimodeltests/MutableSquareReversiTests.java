@@ -2,8 +2,6 @@ package reversimodeltests;
 
 import model.DiscColor;
 import model.MutableReversiModel;
-import model.hexreversi.HexCoordinate;
-import model.hexreversi.MutableHexReversi;
 import model.squarereversi.MutableSquareReversi;
 
 import org.junit.Assert;
@@ -13,13 +11,13 @@ import org.junit.Test;
 import java.util.NoSuchElementException;
 
 import model.squarereversi.SquareCoordinate;
-import textualview.SquareReversiTextualView;
 import textualview.TextualView;
 
+/**
+ * Tests potential issues with square reversi.
+ */
 public class MutableSquareReversiTests {
   private MutableReversiModel game;
-  private TextualView tv;
-  private StringBuilder gameLog;
 
   /**
    * initializes game which will be used for testing.
@@ -29,13 +27,6 @@ public class MutableSquareReversiTests {
     game = new MutableSquareReversi(8);
   }
 
-  @Test
-  public void show() {
-    tv = new SquareReversiTextualView(game);
-    game.setUpGame(game.getBoard());
-    game.startGame();
-    System.out.println(tv);
-  }
 
   /**
    * Ensure the size of the board is not less than 1.
@@ -62,18 +53,18 @@ public class MutableSquareReversiTests {
   @Test
   public void cannotPlaceGameDiscOffBoard() {
     game.setUpGame(game.getBoard());
-    Assert.assertThrows(NoSuchElementException.class,
-            () -> game.placeDisc(new SquareCoordinate(-1, 4)));
-    Assert.assertThrows(IllegalArgumentException.class,
-            () -> game.placeDisc(new SquareCoordinate(0, 9)));
-    Assert.assertThrows(NoSuchElementException.class,
-            () -> game.placeDisc(new SquareCoordinate(-1, -1)));
-    Assert.assertThrows(NoSuchElementException.class,
-            () -> game.placeDisc(new SquareCoordinate(8, 8)));
-    Assert.assertThrows(NoSuchElementException.class,
-            () -> game.placeDisc(new SquareCoordinate(8, 5)));
-    Assert.assertThrows(NoSuchElementException.class,
-            () -> game.placeDisc(new SquareCoordinate(-1, 5)));
+    Assert.assertThrows(NoSuchElementException.class, () -> game.placeDisc(
+            new SquareCoordinate(-1, 4)));
+    Assert.assertThrows(IllegalArgumentException.class, () -> game.placeDisc(
+            new SquareCoordinate(0, 9)));
+    Assert.assertThrows(NoSuchElementException.class, () -> game.placeDisc(
+            new SquareCoordinate(-1, -1)));
+    Assert.assertThrows(NoSuchElementException.class, () -> game.placeDisc(
+            new SquareCoordinate(8, 8)));
+    Assert.assertThrows(NoSuchElementException.class, () -> game.placeDisc(
+            new SquareCoordinate(8, 5)));
+    Assert.assertThrows(NoSuchElementException.class, () -> game.placeDisc(
+            new SquareCoordinate(-1, 5)));
   }
 
   /**
@@ -96,7 +87,7 @@ public class MutableSquareReversiTests {
     game.setUpGame(game.getBoard());
     Assert.assertThrows(IllegalStateException.class
             , () -> game.placeDisc(new SquareCoordinate(3, 3)));
-    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,3)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3, 3)));
     Assert.assertFalse(game.gameOver());
   }
 
@@ -104,31 +95,31 @@ public class MutableSquareReversiTests {
   public void flipTilesActuallyFlips() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
-    game.placeDisc(new SquareCoordinate(3,1));
-    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(3,1)));
-    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(2,1)));
-    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(1,1)));
+    game.placeDisc(new SquareCoordinate(3, 1));
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(3, 1)));
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(2, 1)));
+    Assert.assertEquals(DiscColor.BLACK, game.getColorAt(new SquareCoordinate(1, 1)));
   }
 
   @Test
   public void placeValidDoesNotFlipSurroundingTiles() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
-    game.placeDisc(new SquareCoordinate(3,1));
-    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,0)));
-    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3,2)));
-    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(2,0)));
+    game.placeDisc(new SquareCoordinate(3, 1));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3, 0)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(3, 2)));
+    Assert.assertEquals(DiscColor.GREY, game.getColorAt(new SquareCoordinate(2, 0)));
   }
 
   @Test
   public void testGameOverBlack() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
-    game.placeDisc(new SquareCoordinate(3,1));
+    game.placeDisc(new SquareCoordinate(3, 1));
     Assert.assertFalse(game.gameOver());
     game.skipCurrentTurn();
     Assert.assertFalse(game.gameOver());
-    game.placeDisc(new SquareCoordinate(1,3));
+    game.placeDisc(new SquareCoordinate(1, 3));
     Assert.assertTrue(game.gameOver());
   }
 
@@ -145,15 +136,16 @@ public class MutableSquareReversiTests {
     game.setUpGame(game.getBoard());
     Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
   }
+
   @Test
   public void checkGivenPlayerHasMovesGameOngoing() {
     game = new MutableSquareReversi(4);
     game.setUpGame(game.getBoard());
-    game.placeDisc(new SquareCoordinate(3,1));
+    game.placeDisc(new SquareCoordinate(3, 1));
     Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
     game.skipCurrentTurn();
     Assert.assertTrue(game.checkCurrentPlayerHasLegalMovesLeft());
-    game.placeDisc(new SquareCoordinate(1,3));
+    game.placeDisc(new SquareCoordinate(1, 3));
     Assert.assertFalse(game.checkCurrentPlayerHasLegalMovesLeft());
   }
 
@@ -163,16 +155,16 @@ public class MutableSquareReversiTests {
     game.setUpGame(game.getBoard());
     Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(2, game.checkScoreOfPlayer(DiscColor.WHITE));
-    game.placeDisc(new SquareCoordinate(3,1));
+    game.placeDisc(new SquareCoordinate(3, 1));
     Assert.assertEquals(4, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(1, game.checkScoreOfPlayer(DiscColor.WHITE));
-    game.placeDisc(new SquareCoordinate(1,0));
+    game.placeDisc(new SquareCoordinate(1, 0));
     Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(3, game.checkScoreOfPlayer(DiscColor.WHITE));
     game.skipCurrentTurn();
-    game.placeDisc(new SquareCoordinate(3,2));
+    game.placeDisc(new SquareCoordinate(3, 2));
     game.skipCurrentTurn();
-    game.placeDisc(new SquareCoordinate(3,0));
+    game.placeDisc(new SquareCoordinate(3, 0));
     Assert.assertEquals(0, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(8, game.checkScoreOfPlayer(DiscColor.WHITE));
   }

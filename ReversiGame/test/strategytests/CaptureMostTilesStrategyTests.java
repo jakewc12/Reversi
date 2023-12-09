@@ -3,7 +3,6 @@ package strategytests;
 import helpers.MockMutableReversiModel;
 import java.util.List;
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
 import org.junit.Assert;
