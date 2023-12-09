@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
+import model.MutableReversi;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
 import model.GameCell;
 import model.ModelStatus;
+import model.squarereversi.MutableSquareReversi;
 
 /**
  * The MockMutableHexReversiModel class extends MutableHexReversi and serves as a mock implementation of a
@@ -18,12 +19,13 @@ import model.ModelStatus;
  * interface. This class does not affect most of the actual game logic and is intended solely for
  * testing.
  */
-public class MockMutableHexReversiModel extends MutableHexReversi {
+public class MockMutableReversiModel extends MutableReversi {
 
   private List<String> ban;
   private final Appendable out;
   private List<GameCell> cells = new ArrayList<>();
   private final List<ModelStatus> features = new ArrayList<>();
+  private final String type;
 
   /**
    * Constructs a MockMutableHexReversiModel with the specified size and an Appendable for logging.
@@ -31,10 +33,11 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
    * @param size The size of the game board.
    * @param out  The Appendable object for logging game actions.
    */
-  public MockMutableHexReversiModel(int size, Appendable out) {
+  public MockMutableReversiModel(int size, Appendable out, String type) {
     super(size);
     this.out = out;
     ban = new ArrayList<>();
+    this.type = type;
   }
 
   public void addBanItem(String item) {
@@ -45,6 +48,20 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
   public void setUpGame(List<GameCell> board) {
     super.setUpGame(board);
     this.cells = board;
+  }
+
+  /**
+   * Returns a board in a default initial state based on the game's size.
+   *
+   * @return List of GameCell representing a board at default state.
+   */
+  @Override
+  public List<GameCell> getBoard() {
+    if (type.equals("square")) {
+      return new MutableSquareReversi(getBoardSize()).getBoard();
+    } else {
+      return new MutableHexReversi(getBoardRadius()).getBoard();
+    }
   }
 
   @Override
@@ -96,7 +113,7 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
    * the action.
    *
    * @param hexCoordinate The HexCoordinate at which the disc is forced to be placed.
-   * @param color      The color of the disc to be placed.
+   * @param color         The color of the disc to be placed.
    */
   public void forcePlaceDisc(HexCoordinate hexCoordinate, DiscColor color) {
     if (!ban.contains("forcePlaceDisc")) {
