@@ -12,6 +12,8 @@ import model.MutableReversiModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import model.squarereversi.MutableSquareReversi;
 import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
@@ -330,5 +332,10 @@ public class MutableHexReversiTests {
     game.placeDisc(new HexCoordinate(-2, 1, 1));
     Assert.assertEquals(12, game.checkScoreOfPlayer(DiscColor.BLACK));
     Assert.assertEquals(0, game.checkScoreOfPlayer(DiscColor.WHITE));
+  }
+
+  @Test
+  public void testIllegalSizeThrows() {
+    Assert.assertThrows(IllegalArgumentException.class, ()-> new MutableSquareReversi(3));
   }
 }

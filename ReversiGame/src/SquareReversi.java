@@ -23,7 +23,7 @@ public class SquareReversi {
     DigitalWindow viewPlayer2 = new DigitalReversiWindow(model);
 
     Player player2 = new HumanPlayer(model, DiscColor.BLACK);
-    Player player1 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
+    Player player1 = new HumanPlayer(model, DiscColor.WHITE);
 
     // should we do a sleep so that the move isnt made literally automatically
     Controller controller1 = new ReversiController(model, player1, viewPlayer1);
