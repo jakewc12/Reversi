@@ -37,7 +37,6 @@ public class MockMutableReversiModel extends MutableReversi {
    * @param out  The Appendable object for logging game actions.
    */
   public MockMutableReversiModel(int size, Appendable out, String type) {
-
     super(size);
     this.size = size;
     this.out = out;
