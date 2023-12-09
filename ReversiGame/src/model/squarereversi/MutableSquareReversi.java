@@ -11,7 +11,6 @@ import model.GameCell;
 import model.ModelStatus;
 import model.MutableReversiModel;
 import model.hexreversi.HexDirections;
-import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Meant to simulate the logic of a game of reversi. The game of reversi does not start until start
@@ -222,23 +221,29 @@ public class MutableSquareReversi implements MutableReversiModel {
       return toFlip;
     }
     //Check Horizontal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.TOP_LEFT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.ABOVE),
             currentColor));
     toFlip.addAll(
-            getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.BOTTOM_RIGHT),
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.BELOW),
                     currentColor));
 
     //Check Right diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.DEAD_LEFT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.TOP_LEFT),
             currentColor));
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.DEAD_RIGHT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.DEAD_LEFT),
             currentColor));
 
     //Check Left diagonal
-    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.TOP_RIGHT),
+    toFlip.addAll(getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.BOTTOM_LEFT),
             currentColor));
     toFlip.addAll(
-            getInLineFlipsPossible(getAllHexInDirection(targetCell, HexDirections.BOTTOM_LEFT),
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.TOP_RIGHT),
+                    currentColor));
+    toFlip.addAll(
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.DEAD_RIGHT),
+                    currentColor));
+    toFlip.addAll(
+            getInLineFlipsPossible(getAllHexInDirection(targetCell, SquareDirections.BOTTOM_RIGHT),
                     currentColor));
 
     return toFlip;
@@ -261,7 +266,7 @@ public class MutableSquareReversi implements MutableReversiModel {
     return returnList;
   }
 
-  private List<GameCell> getAllHexInDirection(GameCell targetCell, HexDirections hexDirections) {
+  private List<GameCell> getAllHexInDirection(GameCell targetCell, SquareDirections hexDirections) {
     ArrayList<GameCell> returnList = new ArrayList<>();
     returnList.add(targetCell);
     GameCell currentCell;

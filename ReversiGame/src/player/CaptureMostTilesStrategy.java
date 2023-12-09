@@ -1,8 +1,8 @@
 package player;
 
 import java.util.Optional;
+
 import model.Coordinate;
-import model.hexreversi.LogicalHexCoordinate;
 import model.ReadOnlyReversiModel;
 
 /**
@@ -22,11 +22,11 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
    */
   @Override
   public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
-    LogicalHexCoordinate currentBestMove = (LogicalHexCoordinate) model.getAllCoordinates().get(0);
+    Coordinate currentBestMove = model.getAllCoordinates().get(0);
     int highestFlips = 0;
 
     for (Coordinate currentCord : model.getAllCoordinates()) {
-      LogicalHexCoordinate coord = (LogicalHexCoordinate)currentCord;
+      Coordinate coord = currentCord;
 
       int currentNumFlips = model.getNumFlipsOnMove(currentCord, player.getPlayerColor());
       if (highestFlips > currentNumFlips || currentNumFlips == 0) {
@@ -37,7 +37,7 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
       }
       if (highestFlips == currentNumFlips && coord.getIntR() <= currentBestMove.getIntR()) {
         if (coord.getIntR() == currentBestMove.getIntR()
-            && Math.abs(coord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
+                && Math.abs(coord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
           currentBestMove = coord;
         } else if (coord.getIntR() < currentBestMove.getIntR()) {
           currentBestMove = coord;
