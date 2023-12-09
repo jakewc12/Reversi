@@ -15,7 +15,7 @@ import player.Player;
 public class SquareReversi {
   public static void main(String[] args) {
     // Initialize the MutableReversiModel with a board size of 3
-    MutableReversiModel model = new MutableSquareReversi(8);
+    MutableReversiModel model = new MutableSquareReversi(4);
     model.setUpGame(model.getBoard());
 
     // Initialize the DigitalReversiWindow view
