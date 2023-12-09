@@ -90,7 +90,6 @@ public class MockMutableReversiModel extends MutableReversi {
     }else{
       square.startGame();
     }
-
     notifyFeatures();
   }
 
@@ -112,11 +111,16 @@ public class MockMutableReversiModel extends MutableReversi {
     }else{
       square.skipCurrentTurn();
     }
-   // super.skipCurrentTurn();
   }
 
   @Override
   public boolean isLegalMove(Coordinate coordinate) {
+    if(hex!=null){
+      return hex.isLegalMove(coordinate);
+    }else{
+      return square.isLegalMove(coordinate);
+    }
+    /*
     for (GameCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
@@ -124,6 +128,7 @@ public class MockMutableReversiModel extends MutableReversi {
       }
     }
     return true;
+     */
   }
 
   @Override
@@ -136,7 +141,6 @@ public class MockMutableReversiModel extends MutableReversi {
     }else{
       square.placeDisc(coordinate);
     }
-    //super.placeDisc(coordinate);
   }
 
 
@@ -166,7 +170,6 @@ public class MockMutableReversiModel extends MutableReversi {
    */
   public void changeTurnTo(DiscColor color) {
     if (getCurrentTurn() != color) {
-      super.skipCurrentTurn();
       if(hex!=null){
         hex.skipCurrentTurn();
       }else{
@@ -193,7 +196,6 @@ public class MockMutableReversiModel extends MutableReversi {
     }else{
       return square.getNumFlipsOnMove(coordinate,playerColor);
     }
-    //return super.getNumFlipsOnMove(coordinate, playerColor);
   }
 
   @Override
