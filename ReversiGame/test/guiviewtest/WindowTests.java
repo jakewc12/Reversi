@@ -1,7 +1,7 @@
 package guiviewtest;
 
 import digitalviews.DigitalReversiWindow;
-import digitalviews.hexreversi.HexManager;
+import digitalviews.ShapeManager;
 import model.hexreversi.MutableHexReversi;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,10 +25,10 @@ public class WindowTests {
   @Test
   public void testManagerThrows() {
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new HexManager(10, 1, null));
+        , () -> new ShapeManager(10, 1, null));
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new HexManager(0, 1, new MutableHexReversi(1)));
+        , () -> new ShapeManager(0, 1, new MutableHexReversi(1)));
     Assert.assertThrows(IllegalArgumentException.class
-        , () -> new HexManager(0, 1, new MutableHexReversi(1)));
+        , () -> new ShapeManager(0, 1, new MutableHexReversi(1)));
   }
 }

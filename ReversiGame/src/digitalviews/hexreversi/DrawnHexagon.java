@@ -1,4 +1,4 @@
-package digitalviews;
+package digitalviews.hexreversi;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import digitalviews.CommandPatternHelpers.DrawDiscs;
 import digitalviews.CommandPatternHelpers.DrawHints;
+import digitalviews.DrawnShape;
 import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.DiscColor;

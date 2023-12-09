@@ -1,7 +1,5 @@
 package digitalviews;
 
-import static digitalviews.DrawnHexagon.hexagonRadius;
-
 import controller.PlayerActions;
 
 import java.awt.BorderLayout;
@@ -13,8 +11,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import digitalviews.hexreversi.HexManager;
-import model.Coordinate;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -26,7 +22,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   private final ReadOnlyReversiModel model;
   private final DigitalWindow window = this;
-  private HexManager manager;
+  private ShapeManager manager;
+  private final int hexagonRadius = 25;
 
   /**
    * Creates a new DigitalReversiWindow.
@@ -43,7 +40,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     int windowSize = (radius * 2 + 1) * hexagonRadius * 2;
     this.setSize(new Dimension(windowSize, windowSize));
-    manager = new HexManager(windowSize, windowSize, model);
+    manager = new ShapeManager(windowSize, windowSize, model);
     init();
 
   }
@@ -62,7 +59,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setSize(500, 500);
 
     int windowSize = (model.getBoardSize()) * hexagonRadius * 2;
-    manager = new HexManager(windowSize, windowSize, model);
+    manager = new ShapeManager(windowSize, windowSize, model);
     this.add(manager);
 
     this.refresh();

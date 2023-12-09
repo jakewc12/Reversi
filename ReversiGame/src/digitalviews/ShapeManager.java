@@ -1,4 +1,4 @@
-package digitalviews.hexreversi;
+package digitalviews;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,9 +12,7 @@ import java.util.Optional;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import digitalviews.DigitalBoardManager;
-import digitalviews.DrawnHexagon;
-import digitalviews.DrawnShape;
+import digitalviews.hexreversi.DrawnHexagon;
 import digitalviews.squarereversi.DrawnSquare;
 import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
@@ -28,14 +26,14 @@ import model.squarereversi.SquareCoordinate;
  * handles the creation and rendering of tiles based on the game model, and allows highlighting
  * and interaction with specific tiles through mouse events.
  */
-public class HexManager extends JPanel implements DigitalBoardManager {
+public class ShapeManager extends JPanel implements DigitalBoardManager {
 
   /**
    * everytime something happens with model, we should reset tiles. this way, we can redraw the
    * tiles if multiple change at once.
    */
   private final ReadOnlyReversiModel model;
-  private final HexManager manager = this;
+  private final ShapeManager manager = this;
   private List<DrawnShape> tiles = new ArrayList<>();
   private int centerCordX;
   private int centerCordY;
@@ -53,7 +51,7 @@ public class HexManager extends JPanel implements DigitalBoardManager {
    * @param windowHeight The height of the window.
    * @param model        The ReadOnlyReversiModel representing the game state.
    */
-  public HexManager(int windowWidth, int windowHeight, ReadOnlyReversiModel model) {
+  public ShapeManager(int windowWidth, int windowHeight, ReadOnlyReversiModel model) {
     if (model == null || windowHeight < 1 || windowWidth < 1) {
       throw new IllegalArgumentException("Invalid inputs for HexManager");
 
