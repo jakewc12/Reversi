@@ -26,6 +26,9 @@ public class MockMutableReversiModel extends MutableReversi {
   private List<GameCell> cells = new ArrayList<>();
   private final List<ModelStatus> features = new ArrayList<>();
   private final String type;
+  private final int size;
+  private final MutableSquareReversi square;
+  private final MutableHexReversi hex;
 
   /**
    * Constructs a MockMutableHexReversiModel with the specified size and an Appendable for logging.
@@ -34,10 +37,20 @@ public class MockMutableReversiModel extends MutableReversi {
    * @param out  The Appendable object for logging game actions.
    */
   public MockMutableReversiModel(int size, Appendable out, String type) {
+
     super(size);
+    this.size = size;
     this.out = out;
     ban = new ArrayList<>();
     this.type = type;
+    if(type.equals("hex")){
+      hex = new MutableHexReversi(size);
+      square = null;
+    }
+    else{
+      hex = null;
+      square = new MutableSquareReversi(size);
+    }
   }
 
   public void addBanItem(String item) {
@@ -58,7 +71,7 @@ public class MockMutableReversiModel extends MutableReversi {
   @Override
   public List<GameCell> getBoard() {
     if (type.equals("square")) {
-      return new MutableSquareReversi(getBoardSize()).getBoard();
+      return new MutableSquareReversi(size).getBoard();
     } else {
       return new MutableHexReversi(getBoardRadius()).getBoard();
     }
@@ -103,7 +116,11 @@ public class MockMutableReversiModel extends MutableReversi {
     if (!ban.contains("placeDisc")) {
       append("Place disc called at " + coordinate);
     }
-
+    if(hex != null){
+      hex.placeDisc(coordinate);
+    }else{
+      square.placeDisc(coordinate);
+    }
     super.placeDisc(coordinate);
   }
 

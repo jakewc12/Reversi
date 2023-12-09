@@ -1,6 +1,6 @@
 package strategytests;
 
-import helpers.MockMutableHexReversiModel;
+import helpers.MockMutableReversiModel;
 import java.util.List;
 import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
@@ -19,7 +19,7 @@ import player.ReversiStrategy;
  */
 public class CaptureMostTilesStrategyTests {
 
-  private MockMutableHexReversiModel model;
+  private MockMutableReversiModel model;
   private Player blackAI;
   private Player whiteAI;
   private Appendable log;
@@ -30,7 +30,7 @@ public class CaptureMostTilesStrategyTests {
   @Before
   public void init() {
     log = new StringBuffer();
-    model = new MockMutableHexReversiModel(3, log);
+    model = new MockMutableReversiModel(3, log, "hex");
     ReversiStrategy strategy = new CaptureMostTilesStrategy();
     whiteAI = new MachinePlayer(DiscColor.WHITE, strategy);
     blackAI = new MachinePlayer(DiscColor.BLACK, strategy);
@@ -85,7 +85,6 @@ public class CaptureMostTilesStrategyTests {
     model.forcePlaceDisc(new HexCoordinate(1, 2, -3), DiscColor.WHITE);
     blackAI.playMove(model);
     Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)"));
-    //Assert.assertTrue(log.toString().contains("Place disc called at (0, 3, -3)\n"));
   }
 
   /**

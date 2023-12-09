@@ -7,6 +7,7 @@ import model.Disc;
 import model.DiscColor;
 import model.GameCell;
 import model.MutableReversi;
+import model.hexreversi.MutableHexReversi;
 
 /**
  * Meant to simulate the logic of a game of reversi. The game of reversi does not start until start
@@ -16,6 +17,7 @@ public class MutableSquareReversi extends MutableReversi {
 
   //width is how far from the center cell every edge cell is
   private final int size;
+
 
   /**
    * Creates a MutableHexReversi and sets all game values to zero until startGame is called.

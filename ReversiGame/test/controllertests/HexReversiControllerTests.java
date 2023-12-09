@@ -5,7 +5,7 @@ import controller.ReversiController;
 import digitalviews.DigitalReversiWindow;
 import digitalviews.DigitalWindow;
 import helpers.MockDigitalReversiWindow;
-import helpers.MockMutableHexReversiModel;
+import helpers.MockMutableReversiModel;
 
 import model.DiscColor;
 import model.hexreversi.MutableHexReversi;
@@ -21,10 +21,10 @@ import player.Player;
 /**
  * Tests potential issues with the controller for Reversi.
  */
-public class ReversiControllerTests {
+public class HexReversiControllerTests {
 
   private Controller controller;
-  private MockMutableHexReversiModel model;
+  private MockMutableReversiModel model;
   Appendable modelLog;
   Appendable viewLog;
   private Player player;
@@ -38,7 +38,7 @@ public class ReversiControllerTests {
   public void init() {
     modelLog = new StringBuffer();
     viewLog = new StringBuffer();
-    model = new MockMutableHexReversiModel(3, modelLog);
+    model = new MockMutableReversiModel(3, modelLog, "hex");
     model.setUpGame(model.getBoard());
     player = new MachinePlayer(DiscColor.BLACK, new CaptureMostTilesStrategy());
     view = new MockDigitalReversiWindow(model, viewLog);
@@ -71,7 +71,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testWhenNoMovesAvailableTurnSkipped() {
-    model = new MockMutableHexReversiModel(1, modelLog);
+    model = new MockMutableReversiModel(1, modelLog, "hex");
     model.setUpGame(model.getBoard());
     model.startGame();
     Assert.assertFalse(modelLog.toString().contains("Place disc"));
@@ -82,7 +82,7 @@ public class ReversiControllerTests {
    */
   @Test
   public void testModelCanInteractWithMultipleListeners() {
-    model = new MockMutableHexReversiModel(1, modelLog);
+    model = new MockMutableReversiModel(1, modelLog, "hex");
     model.setUpGame(model.getBoard());
     Player player2 = new MachinePlayer(DiscColor.WHITE, new CaptureMostTilesStrategy());
     Controller controller2 = new ReversiController(model, player2, view);
