@@ -22,12 +22,13 @@ public class DrawnSquare implements DrawnShape {
   private Optional<Integer> numFlipsOnHex;
   private final double squareLength;
 
+  private final Rectangle rectangle;
+
   public DrawnSquare(SquareCoordinate logicalSquareCord, DiscColor discColor
-          , double squareCenterCoordX, double squareCenterCoordY
           , Color color, int squareLength, Optional<Integer> numFlipsOnHex) {
     this.logicalSquareCord = logicalSquareCord;
-    this.squareCenterCoordX = squareCenterCoordX + logicalSquareCord.getIntQ() * squareLength;
-    this.squareCenterCoordY = squareCenterCoordY + logicalSquareCord.getIntR() * squareLength;
+    this.squareCenterCoordX = logicalSquareCord.getIntQ() * squareLength;
+    this.squareCenterCoordY = logicalSquareCord.getIntR() * squareLength;
     this.color = color;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
@@ -38,6 +39,7 @@ public class DrawnSquare implements DrawnShape {
     }
     this.numFlipsOnHex = numFlipsOnHex;
     this.squareLength = squareLength;
+    rectangle = new Rectangle((int) getX(), (int) getY(), squareLength, squareLength);
   }
 
   /**
@@ -47,15 +49,14 @@ public class DrawnSquare implements DrawnShape {
    */
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    //drawSquare(g2d);
     g2d.setColor(Color.BLACK);
-    g2d.drawRect((int) (getX()), (int) (getY()), (int) squareLength, (int) squareLength);
+    g2d.draw(rectangle);
     g2d.setColor(color);
-    g2d.fillRect((int) (getX()), (int) (getY()), (int) squareLength, (int) squareLength);
+    g2d.fill(rectangle);
     drawDisc(g2d);
     numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
-            , (int) (getX() - 5)
-            , (int) (getY())));
+            , (int) (getX() + squareLength/2)
+            , (int) ((getY())+ squareLength/2)));
   }
 
   private void drawDisc(Graphics2D g) {
@@ -103,6 +104,6 @@ public class DrawnSquare implements DrawnShape {
    * @return Returns true if the point is inside the hex, false otherwise.
    */
   public boolean containsPoint(int x, int y) {
-    return (squareCenterCoordX - x) < squareLength / 2 && Math.abs(squareCenterCoordY - y) < squareLength / 2;
+    return rectangle.contains(x, y);
   }
 }

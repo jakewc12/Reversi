@@ -120,21 +120,21 @@ public class HexManager extends JPanel implements DigitalBoardManager {
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if (hintsEnabled) {
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
-                    0, Color.CYAN, hexLength
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
+                    Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
           } else {
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
-                    0, Color.CYAN, hexLength
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord)
+                    , Color.CYAN, hexLength
                     , Optional.empty()));
           }
         } else {
-          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
-                  0, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord)
+                  , Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         tiles.add(
-                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0, 0,
+                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord),
                         Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
