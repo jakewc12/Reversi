@@ -1,13 +1,15 @@
 package digitalviews;
 
 import java.awt.Graphics;
+
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Meant to represent a drawn digital hexagon which mirrors a logical hexagon in the game of
  * reversi.
  */
-public interface DrawnHexagonInterface {
+public interface DrawnShape {
 
   /**
    * Draws the hexagon on the graphic.
@@ -36,7 +38,7 @@ public interface DrawnHexagonInterface {
    *
    * @return the coordinates of the hex.
    */
-  LogicalHexCoordinate getLogicalHexCoord();
+  Coordinate getLogicalCoord();
 
   /**
    * Checks if the hex contains the given digital (x,y) point.
@@ -44,5 +46,4 @@ public interface DrawnHexagonInterface {
    * @return Returns true if the point is inside the hex, false otherwise.
    */
   boolean containsPoint(int x, int y);
-
 }

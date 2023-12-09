@@ -1,5 +1,6 @@
 package controller;
 
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
@@ -12,7 +13,7 @@ public interface PlayerActions {
    *
    * @param logicalCoordinate the logicalCoordinate of the disc to be placed.
    */
-  void placeDisc(LogicalHexCoordinate logicalCoordinate);
+  void placeDisc(Coordinate logicalCoordinate);
 
   /**
    * Skips the turn of the Reversi game.

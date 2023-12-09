@@ -3,6 +3,7 @@ package helpers;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
@@ -70,7 +71,7 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
   }
 
   @Override
-  public boolean isLegalMove(LogicalHexCoordinate coordinate) {
+  public boolean isLegalMove(Coordinate coordinate) {
     for (GameCell cell : cells) {
       if (cell.getCoordinate().equals(coordinate)
               && cell.cellContents().getColor() != DiscColor.GREY) {
@@ -81,7 +82,7 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
   }
 
   @Override
-  public void placeDisc(LogicalHexCoordinate coordinate) {
+  public void placeDisc(Coordinate coordinate) {
     if (!ban.contains("placeDisc")) {
       append("Place disc called at " + coordinate);
     }
@@ -128,7 +129,7 @@ public class MockMutableHexReversiModel extends MutableHexReversi {
    * @return the number of discs flipped if the player makes that move.
    */
   @Override
-  public int getNumFlipsOnMove(LogicalHexCoordinate coordinate, DiscColor playerColor) {
+  public int getNumFlipsOnMove(Coordinate coordinate, DiscColor playerColor) {
     if (!ban.contains("getNumFlipsOnMove")) {
       append("Checked legal at " + coordinate.toString());
     }

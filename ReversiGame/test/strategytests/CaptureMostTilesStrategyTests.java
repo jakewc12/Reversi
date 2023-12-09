@@ -2,6 +2,7 @@ package strategytests;
 
 import helpers.MockMutableHexReversiModel;
 import java.util.List;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
@@ -120,8 +121,8 @@ public class CaptureMostTilesStrategyTests {
   public void checksAllPossibleMovesOnBoard() {
     StringBuilder expected = new StringBuilder();
     model.setUpGame(model.getBoard());
-    List<LogicalHexCoordinate> allCoords = model.getAllCoordinates();
-    for (LogicalHexCoordinate coordinate : allCoords) {
+    List<Coordinate> allCoords = model.getAllCoordinates();
+    for (Coordinate coordinate : allCoords) {
       expected.append("Checked legal at ").append(coordinate).append("\n");
     }
     expected.append("Place disc called at (1, -2, 1)\n");

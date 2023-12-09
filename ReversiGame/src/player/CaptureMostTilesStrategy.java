@@ -1,7 +1,8 @@
 package player;
 
 import java.util.Optional;
-import model.hexreversi.LogicalHexCoordinate;
+
+import model.Coordinate;
 import model.ReadOnlyReversiModel;
 
 /**
@@ -20,24 +21,26 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
    * @return a move if one is found by the strategy, the strategy may be empty if none is found.
    */
   @Override
-  public Optional<LogicalHexCoordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
-    LogicalHexCoordinate currentBestMove = model.getAllCoordinates().get(0);
+  public Optional<Coordinate> chooseMove(ReadOnlyReversiModel model, Player player) {
+    Coordinate currentBestMove = model.getAllCoordinates().get(0);
     int highestFlips = 0;
 
-    for (LogicalHexCoordinate currentCoord : model.getAllCoordinates()) {
-      int currentNumFlips = model.getNumFlipsOnMove(currentCoord, player.getPlayerColor());
+    for (Coordinate currentCord : model.getAllCoordinates()) {
+      Coordinate coord = currentCord;
+
+      int currentNumFlips = model.getNumFlipsOnMove(currentCord, player.getPlayerColor());
       if (highestFlips > currentNumFlips || currentNumFlips == 0) {
         continue;
       }
       if (highestFlips < currentNumFlips) {
-        currentBestMove = currentCoord;
+        currentBestMove = coord;
       }
-      if (highestFlips == currentNumFlips && currentCoord.getIntR() <= currentBestMove.getIntR()) {
-        if (currentCoord.getIntR() == currentBestMove.getIntR()
-            && Math.abs(currentCoord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
-          currentBestMove = currentCoord;
-        } else if (currentCoord.getIntR() < currentBestMove.getIntR()) {
-          currentBestMove = currentCoord;
+      if (highestFlips == currentNumFlips && coord.getIntR() <= currentBestMove.getIntR()) {
+        if (coord.getIntR() == currentBestMove.getIntR()
+                && Math.abs(coord.getIntQ()) < Math.abs(currentBestMove.getIntQ())) {
+          currentBestMove = coord;
+        } else if (coord.getIntR() < currentBestMove.getIntR()) {
+          currentBestMove = coord;
         }
       }
       highestFlips = currentNumFlips;
@@ -45,6 +48,6 @@ public class CaptureMostTilesStrategy implements ReversiStrategy {
     if (highestFlips == 0) {
       return Optional.empty();
     }
-    return Optional.ofNullable(currentBestMove);
+    return Optional.ofNullable((Coordinate) currentBestMove);
   }
 }

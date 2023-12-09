@@ -1,11 +1,12 @@
 package model.hexreversi;
 
 import java.util.Objects;
+import model.Coordinate;
 
 /**
  * This class represents a position system of (Q,R,S).
  */
-public class HexCoordinate implements LogicalHexCoordinate, Coordinate{
+public class HexCoordinate implements LogicalHexCoordinate, Coordinate {
 
   private final int intQ;
   private final int intR;
@@ -43,13 +44,11 @@ public class HexCoordinate implements LogicalHexCoordinate, Coordinate{
     if (this == a) {
       return true;
     }
-    if (!(a instanceof LogicalHexCoordinate)) {
+    if (!(a instanceof Coordinate)) {
       return false;
     }
     HexCoordinate other = (HexCoordinate) a;
-    return ((Math.abs(this.intQ - other.getIntQ()) < 0.01) && (Math.abs(this.intR - other.getIntR())
-        < 0.01)
-        && Math.abs(this.intS - other.getIntS()) < 0.01);
+    return intQ == other.intQ && intR == other.intR && intS == other.intS;
   }
 
   @Override

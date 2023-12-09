@@ -5,6 +5,7 @@ import dustinraymondreversi.model.HexPosn;
 import java.util.List;
 import java.util.Optional;
 
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import player.Player;
 
@@ -25,7 +26,7 @@ public class RaDusStrategyAdapter implements player.ReversiStrategy {
   }
 
   @Override
-  public Optional<LogicalHexCoordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
+  public Optional<Coordinate> chooseMove(model.ReadOnlyReversiModel model, Player who) {
     RaDusModelAdapter adapter = new RaDusModelAdapter(model.getBoardRadius());
     adapter.setUpGame(model);
     List<HexPosn> possibleMoves = raDusStrategy.chooseMoves(adapter);

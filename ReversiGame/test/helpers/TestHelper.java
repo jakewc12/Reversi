@@ -1,7 +1,7 @@
 package helpers;
 
 import model.ReadOnlyReversiModel;
-import textualview.ReversiTextualView;
+import textualview.HexReversiTextualView;
 import textualview.TextualView;
 
 /**
@@ -17,7 +17,7 @@ public class TestHelper {
    * @param model The ReadOnlyReversiModel representing the game state.
    */
   public static void printModelBoard(ReadOnlyReversiModel model) {
-    TextualView tv = new ReversiTextualView(model);
+    TextualView tv = new HexReversiTextualView(model);
     System.out.println(tv);
   }
 }

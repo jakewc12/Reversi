@@ -5,16 +5,7 @@ import model.hexreversi.HexDirections;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
- * Makes a game cell that has Q, R and S coordinates. 0,0,0 is the dead center of the board called
- * the origin which is located halfway down and halfway from the side.
- *
- * <p>Q decrease when going left of the origin and increases when going right of the origin.
- *
- * <p>R decreases when going up a row from the origin and increases when going down a row.
- *
- * <p>S decrease when going right of the origin and increases when going left of the origin.
- *
- * <p>A more detailed explanation is shown here https://www.redblobgames.com/grids/hexagons/.
+ * Meant as a template for a generic game cell.
  */
 public interface GameCell {
 
@@ -30,31 +21,14 @@ public interface GameCell {
    *
    * @return a coordinate that contains q,r,s.
    */
-  LogicalHexCoordinate getCoordinate();
+  Coordinate getCoordinate();
 
   /**
-   * Gets the Q coordinate of this cell. The Q LogicalHexCoordinate decreases when going left of the
-   * origin and increases when going right of the origin.
+   * Gets the coordinate of this cell.
    *
-   * @return an integer which follows the above pattern.
+   * @return a coordinate that contains q,r,s.
    */
-  int getCoordinateQ();
-
-  /**
-   * Gets the R coordinate of this cell. The R LogicalHexCoordinate decreases when going up a row from
-   * the origin and increases when going down a row.
-   *
-   * @return an integer which follows the above pattern.
-   */
-  int getCoordinateR();
-
-  /**
-   * Gets the S coordinate of this cell. The S LogicalHexCoordinate decreases when going right of the
-   * origin and increases when going left of the origin.
-   *
-   * @return an integer which follows the above pattern.
-   */
-  int getCoordinateS();
+  Boolean containsCoordinate(Coordinate otherCoord);
 
   /**
    * Gets this neighbors cell in a hexDirections.
@@ -63,5 +37,5 @@ public interface GameCell {
    *                  descriptions.
    * @return a Cell without contents that has the coordinates of a neighboring cell in hexDirections.
    */
-  LogicalHexCoordinate getCellNeighbor(HexDirections hexDirections);
+  Coordinate getCellNeighbor(Direction hexDirections);
 }

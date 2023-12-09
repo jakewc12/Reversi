@@ -1,6 +1,8 @@
 package reversimodeltests;
 
 import java.util.List;
+
+import model.Coordinate;
 import model.hexreversi.MutableHexReversi;
 import model.hexreversi.HexCoordinate;
 import model.DiscColor;
@@ -128,7 +130,7 @@ public class ReversiReadTests {
   public void getAllCoordinatesWorks() {
     game.setUpGame(game.getBoard());
     int boardRadius = 5;
-    List<LogicalHexCoordinate> givenCoords = game.getAllCoordinates();
+    List<Coordinate> givenCoords = game.getAllCoordinates();
     for (int q = -boardRadius; q < boardRadius; q++) {
       for (int r = -boardRadius; r < boardRadius; r++) {
         for (int s = -boardRadius; s < boardRadius; s++) {

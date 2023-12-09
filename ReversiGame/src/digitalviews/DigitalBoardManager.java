@@ -1,6 +1,9 @@
 package digitalviews;
 
+import java.util.List;
 import java.util.Optional;
+
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 
 /**
@@ -18,10 +21,22 @@ public interface DigitalBoardManager {
    *
    * @return the current highlighted cell on the board.
    */
-  Optional<LogicalHexCoordinate> getHighlightedCord();
+  Optional<Coordinate> getHighlightedCord();
 
   /**
    * Shows hints of how many flips would happen if the player places on highlighted cord.
    */
   void enableHints();
+
+  /**
+   * True if a tile is currently highlighted, false else.
+   * @return if a tile is highlighted.
+   */
+  boolean tileCurrentlyClicked() ;
+
+  /**
+   * Returns all of the shapes in the manager.
+   * @return all of the drawnshapes.
+   */
+  List<DrawnShape> getShapes();
 }

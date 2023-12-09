@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-import model.hexreversi.LogicalHexCoordinate;
 
 /**
  * Anything observable about a reversi game should be included here.
@@ -16,7 +15,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if game hasn't started.
    * @throws IllegalArgumentException coordinates are illegal.
    */
-  DiscColor getColorAt(LogicalHexCoordinate logicalCoordinate);
+  DiscColor getColorAt(Coordinate logicalCoordinate);
 
   /**
    * Returns the color of whos turn it is. This is denoted by DiscColor.
@@ -76,7 +75,7 @@ public interface ReadOnlyReversiModel {
    * @throws IllegalStateException    if the game hasn't started yet.
    */
 
-  boolean isLegalMove(LogicalHexCoordinate logicalCoordinate);
+  boolean isLegalMove(Coordinate logicalCoordinate);
 
   /**
    * Checks if the current player has any legal moves and returns that.
@@ -104,14 +103,14 @@ public interface ReadOnlyReversiModel {
    * @param playerColor       The color of the player who is placing the disc
    * @return the number of discs flipped if the player makes that move.
    */
-  int getNumFlipsOnMove(LogicalHexCoordinate logicalCoordinate, DiscColor playerColor);
+  int getNumFlipsOnMove(Coordinate logicalCoordinate, DiscColor playerColor);
 
   /**
    * Gets all the coordinates for the current board.
    *
    * @return all the possible coordinates.
    */
-  List<LogicalHexCoordinate> getAllCoordinates();
+  List<Coordinate> getAllCoordinates();
 
   /**
    * Begins the game and allows for moves to be made.

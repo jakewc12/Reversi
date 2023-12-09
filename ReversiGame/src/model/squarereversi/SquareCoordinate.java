@@ -1,7 +1,8 @@
 package model.squarereversi;
 
 import java.util.Objects;
-import model.hexreversi.Coordinate;
+
+import model.Coordinate;
 
 /**
  * This class represents a position system of (Q,R,S).
@@ -18,11 +19,23 @@ public class SquareCoordinate implements Coordinate {
   }
 
 
-  public int getRow() {
+  /**
+   * Represents the row.
+   *
+   * @return the row int.
+   */
+  @Override
+  public int getIntR() {
     return row;
   }
 
-  public int getCol() {
+  /**
+   * Represents the column.
+   *
+   * @return the column int.
+   */
+  @Override
+  public int getIntQ() {
     return col;
   }
 
@@ -40,8 +53,8 @@ public class SquareCoordinate implements Coordinate {
       return false;
     }
     SquareCoordinate other = (SquareCoordinate) a;
-    return ((Math.abs(this.row - other.getRow()) < 0.01) && (Math.abs(this.col - other.getCol())
-        < 0.01));
+    return ((Math.abs(this.row - other.getIntR()) < 0.01) && (Math.abs(this.col - other.getIntQ())
+            < 0.01));
   }
 
   @Override

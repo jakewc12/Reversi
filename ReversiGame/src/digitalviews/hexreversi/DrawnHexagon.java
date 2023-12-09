@@ -1,4 +1,4 @@
-package digitalviews;
+package digitalviews.hexreversi;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,13 +6,17 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.util.Optional;
 
+import digitalviews.CommandPatternHelpers.DrawDiscs;
+import digitalviews.CommandPatternHelpers.DrawHints;
+import digitalviews.DrawnShape;
+import model.Coordinate;
 import model.hexreversi.LogicalHexCoordinate;
 import model.DiscColor;
 
 /**
  * A single digital hexagon tile on the game board.
  */
-public class DrawnHexagon implements DrawnHexagonInterface {
+public class DrawnHexagon implements DrawnShape {
 
   public static final double THETA = (Math.PI * 2) / 6.0;
   //default hexagon radius
@@ -99,10 +103,9 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     Graphics2D g2d = (Graphics2D) g;
     drawHex(g2d);
     drawDisc(g2d);
-    if (numFlipsOnHex.isPresent()) {
-      g.setColor(Color.BLACK);
-      g.drawString(String.valueOf(numFlipsOnHex.get()), poly.getBounds().x + hexagonRadius / 2 + 6, poly.getBounds().y + hexagonRadius / 2 + 12);
-    }
+    numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
+            , poly.getBounds().x + hexagonRadius / 2 + 6
+            , poly.getBounds().y + hexagonRadius / 2 + 12));
   }
 
   private void drawHex(Graphics2D g) {
@@ -116,11 +119,8 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    g.setColor(discColor);
-    g.drawOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-            hexagonRadius, hexagonRadius);
-    g.fillOval(poly.getBounds().x + hexagonRadius / 2, poly.getBounds().y + hexagonRadius / 2,
-            hexagonRadius, hexagonRadius);
+    new DrawDiscs().run(g, poly.getBounds().x + hexagonRadius / 2
+            , poly.getBounds().y + hexagonRadius / 2, hexagonRadius, discColor);
   }
 
   /**
@@ -141,17 +141,18 @@ public class DrawnHexagon implements DrawnHexagonInterface {
     return hexCenterCoordX;
   }
 
+
   /**
    * The logical coordinates of the hex which the model will use to make moves.
    *
    * @return The (q,r,s) coordinates of the hex.
    */
-  public LogicalHexCoordinate getLogicalHexCoord() {
+  @Override
+  public Coordinate getLogicalCoord() {
     return this.logicalHexCoord;
   }
 
   public boolean containsPoint(int x, int y) {
     return poly.contains(x, y);
   }
-
 }

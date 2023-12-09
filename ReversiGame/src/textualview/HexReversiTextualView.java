@@ -7,30 +7,30 @@ import model.ReadOnlyReversiModel;
 /**
  * A simple text-based rendering of the Reversi game. This will render Black as X and white as O.
  */
-public class ReversiTextualView implements TextualView {
+public class HexReversiTextualView implements TextualView {
 
   private final ReadOnlyReversiModel model;
 
   private Appendable output;
 
   /**
-   * creates a ReversiTextualView.
+   * creates a HexReversiTextualView.
    *
    * @param model is the ReadOnlyReversiModel which it generates text based on.
    */
 
-  public ReversiTextualView(ReadOnlyReversiModel model) {
+  public HexReversiTextualView(ReadOnlyReversiModel model) {
     this.model = model;
   }
 
   /**
-   * Creates a ReversiTextualView with an appendable.
+   * Creates a HexReversiTextualView with an appendable.
    *
    * @param model is the ReadOnlyReversiModel which it generates text based on.
    * @param r     is an appendable which allows for output.
    */
 
-  public ReversiTextualView(ReadOnlyReversiModel model, Appendable r) {
+  public HexReversiTextualView(ReadOnlyReversiModel model, Appendable r) {
     this.model = model;
     this.output = r;
   }

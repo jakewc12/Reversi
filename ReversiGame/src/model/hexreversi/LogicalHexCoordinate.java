@@ -1,9 +1,11 @@
 package model.hexreversi;
 
+import model.Coordinate;
+
 /**
  * Represents a hex coordinate representation using the Q,R,S system.
  */
-public interface LogicalHexCoordinate {
+public interface LogicalHexCoordinate extends Coordinate {
 
   /**
    * Gets the Q coordinate. The Q LogicalHexCoordinate decreases when going left of the origin and

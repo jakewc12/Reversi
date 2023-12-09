@@ -1,17 +1,16 @@
 package digitalviews;
 
-import static digitalviews.DrawnHexagon.hexagonRadius;
-
 import controller.PlayerActions;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import model.Disc;
 import model.DiscColor;
 import model.ReadOnlyReversiModel;
 import player.Player;
@@ -23,7 +22,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
   private final ReadOnlyReversiModel model;
   private final DigitalWindow window = this;
-  private HexManager manager;
+  private ShapeManager manager;
+  private final int hexagonRadius = 25;
 
   /**
    * Creates a new DigitalReversiWindow.
@@ -40,7 +40,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
 
     int windowSize = (radius * 2 + 1) * hexagonRadius * 2;
     this.setSize(new Dimension(windowSize, windowSize));
-    manager = new HexManager(windowSize, windowSize, model);
+    manager = new ShapeManager(windowSize, windowSize, model);
     init();
 
   }
@@ -59,7 +59,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
     this.setSize(500, 500);
 
     int windowSize = (model.getBoardSize()) * hexagonRadius * 2;
-    manager = new HexManager(windowSize, windowSize, model);
+    manager = new ShapeManager(windowSize, windowSize, model);
     this.add(manager);
 
     this.refresh();
@@ -78,7 +78,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
       } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
-          DiscColor.WHITE)) {
+              DiscColor.WHITE)) {
         winner = " Winner is BLACK";
       } else {
         winner = " TIE";
@@ -123,10 +123,8 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
         } else if (e.getKeyChar() == 's') {
           System.out.println("Skipped turn.");
           features.skipTurn();
-        }
-        else if(e.getKeyChar() == 'h'){
+        } else if (e.getKeyChar() == 'h') {
           manager.enableHints();
-          System.out.println("Hints enabled");
         }
         window.refresh();
       }
@@ -148,9 +146,9 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
    * Creates a window which informs the player a illegal move has been made.
    */
   @Override
-  public void showErrorMessage(DiscColor player) {
+  public void showErrorMessage(Player player) {
     JOptionPane.showMessageDialog(null, "Illegal move for player "
-            + player);
+            + player.getPlayerColor());
 
   }
 }
