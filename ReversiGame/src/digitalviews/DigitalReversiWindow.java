@@ -3,11 +3,13 @@ package digitalviews;
 import static digitalviews.DrawnHexagon.hexagonRadius;
 
 import controller.PlayerActions;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -79,7 +81,7 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
       if (model.checkScoreOfPlayer(DiscColor.WHITE) > model.checkScoreOfPlayer(DiscColor.BLACK)) {
         winner = " Winner is WHITE";
       } else if (model.checkScoreOfPlayer(DiscColor.BLACK) > model.checkScoreOfPlayer(
-          DiscColor.WHITE)) {
+              DiscColor.WHITE)) {
         winner = " Winner is BLACK";
       } else {
         winner = " TIE";
@@ -117,17 +119,15 @@ public class DigitalReversiWindow extends JFrame implements DigitalWindow {
         if (e.getKeyChar() == 'p') {
           if (manager.getHighlightedCord().isPresent()) {
             System.out.println("Placed disc at " + manager.getHighlightedCord().get());
-            features.placeDisc((Coordinate) manager.getHighlightedCord().get());
+            features.placeDisc(manager.getHighlightedCord().get());
           } else {
             System.out.println("No disc selected to place.");
           }
         } else if (e.getKeyChar() == 's') {
           System.out.println("Skipped turn.");
           features.skipTurn();
-        }
-        else if(e.getKeyChar() == 'h'){
+        } else if (e.getKeyChar() == 'h') {
           manager.enableHints();
-          System.out.println("Hints enabled");
         }
         window.refresh();
       }

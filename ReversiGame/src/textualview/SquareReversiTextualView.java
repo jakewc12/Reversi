@@ -51,7 +51,7 @@ public class SquareReversiTextualView implements TextualView {
 
     for (int row = 0; row < boardLength; row++) {
       //Append the start with spaces
-      for (int col = 0; col <= boardLength; col++) {
+      for (int col = 0; col < boardLength; col++) {
         //If its black place an X, if white place an O, otherwise do underscore.
           switch (model.getColorAt(new SquareCoordinate(col, row))) {
             case BLACK:

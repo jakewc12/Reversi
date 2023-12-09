@@ -16,4 +16,8 @@ public interface Coordinate {
    * @return an integer which follows the above pattern.
    */
   int getIntR();
+
+  String toString();
+
+  boolean equals(Object a);
 }

@@ -59,9 +59,9 @@ public class ReversiController implements Controller, PlayerActions, ModelStatus
       if (this.player.getPlayerColor().equals(model.getCurrentTurn())) {
         try {
           model.placeDisc(logicalCoordinate);
+
         } catch (Exception ignore) {
           //if the move is illegal.
-          System.out.println(ignore);
           view.showErrorMessage(this.player);
         }
       }

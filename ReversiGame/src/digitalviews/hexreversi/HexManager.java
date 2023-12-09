@@ -116,28 +116,25 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     tiles = new ArrayList<>();
     List<Coordinate> allLogicalCoordinates = model.getAllCoordinates();
     for (Coordinate logicalCoord : allLogicalCoordinates) {
-      int hexLength = (Math.min(centerCordX, centerCordY)) / (model.getBoardSize());
+      int hexLength = Math.min(centerCordY, centerCordX) * 2 / model.getBoardSize();
       if (highlightedCord.isPresent()) {
         if (logicalCoord.equals(highlightedCord.get())) {
           if (hintsEnabled) {
-
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                    centerCordY, Color.CYAN, hexLength
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
+                    0, Color.CYAN, hexLength
                     , Optional.of(model.getNumFlipsOnMove(logicalCoord, model.getCurrentTurn()))));
-
-
           } else {
-            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                    centerCordY, Color.CYAN, hexLength
+            tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
+                    0, Color.CYAN, hexLength
                     , Optional.empty()));
           }
         } else {
-          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX,
-                  centerCordY, Color.LIGHT_GRAY, hexLength, Optional.empty()));
+          tiles.add(new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0,
+                  0, Color.LIGHT_GRAY, hexLength, Optional.empty()));
         }
       } else {
         tiles.add(
-                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), centerCordX, centerCordY,
+                new DrawnSquare((SquareCoordinate) logicalCoord, model.getColorAt(logicalCoord), 0, 0,
                         Color.LIGHT_GRAY, hexLength, Optional.empty()));
       }
     }
@@ -168,8 +165,8 @@ public class HexManager extends JPanel implements DigitalBoardManager {
     this.setBackground(Color.DARK_GRAY);
     g2d.setColor(Color.DARK_GRAY);
     g2d.fillRect(0, 0, getWidth(), getHeight());
-    for (DrawnShape hex : tiles) {
-      hex.draw(g2d);
+    for (DrawnShape tile : tiles) {
+      tile.draw(g2d);
     }
   }
 

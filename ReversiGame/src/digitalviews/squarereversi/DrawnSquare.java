@@ -8,29 +8,26 @@ import digitalviews.CommandPatternHelpers.DrawHints;
 import digitalviews.DrawnShape;
 import model.Coordinate;
 import model.DiscColor;
-import model.hexreversi.LogicalHexCoordinate;
 import model.squarereversi.SquareCoordinate;
 
 /*
 TODO:: NEED TO mAKE THIS IMPLEMENT DRAWNSHAPE
  */
 public class DrawnSquare implements DrawnShape {
-  private Polygon poly;
   private final SquareCoordinate logicalSquareCord;
   private final double squareCenterCoordX;
   private final double squareCenterCoordY;
   private final Color color;
   private Color discColor;
   private Optional<Integer> numFlipsOnHex;
-  private final int squareLength;
+  private final double squareLength;
 
   public DrawnSquare(SquareCoordinate logicalSquareCord, DiscColor discColor
           , double squareCenterCoordX, double squareCenterCoordY
           , Color color, int squareLength, Optional<Integer> numFlipsOnHex) {
-    this.poly = poly;
     this.logicalSquareCord = logicalSquareCord;
-    this.squareCenterCoordX = squareCenterCoordX;
-    this.squareCenterCoordY = squareCenterCoordY;
+    this.squareCenterCoordX = squareCenterCoordX + logicalSquareCord.getIntQ()* squareLength;
+    this.squareCenterCoordY = squareCenterCoordY + logicalSquareCord.getIntR()* squareLength;
     this.color = color;
     if (discColor == DiscColor.BLACK) {
       this.discColor = Color.BLACK;
@@ -49,43 +46,24 @@ public class DrawnSquare implements DrawnShape {
    * @param g the graphic to be drawn on.
    */
   public void draw(Graphics g) {
-    resetPolygon();
     Graphics2D g2d = (Graphics2D) g;
-    drawSquare(g2d);
+    //drawSquare(g2d);
+    g2d.setColor(Color.BLACK);
+    g2d.drawRect((int)( getX()- squareLength/2), (int) ( getY()- squareLength/2), (int) squareLength, (int) squareLength);
+    g2d.setColor(color);
+    g2d.fillRect((int) ( getX()- squareLength/2), (int) ( getY()- squareLength/2), (int) squareLength, (int) squareLength);
     drawDisc(g2d);
     numFlipsOnHex.ifPresent(integer -> new DrawHints().draw(g, String.valueOf(integer)
-            , poly.getBounds().x + squareLength / 2 + 6
-            , poly.getBounds().y + squareLength / 2 + 12));
-  }
-
-  private void resetPolygon() {
-    poly = new Polygon();
-    for (int i = 0; i < 6; i++) {
-      int x1 = (int) (getX() + squareLength * Math.sin(i));
-      int y1 = (int) (getY() + squareLength * Math.cos(i));
-      poly.addPoint(x1, y1);
-    }
-  }
-
-  private void drawSquare(Graphics2D g) {
-    g.setColor(Color.BLACK);
-    g.drawPolygon(poly);
-    g.setColor(color);
-    g.fillPolygon(poly);
-    if (numFlipsOnHex.isPresent()) {
-      g.setColor(Color.BLACK);
-      g.drawString(String.valueOf(numFlipsOnHex.get())
-              , poly.getBounds().x + squareLength / 2 + 6
-              , poly.getBounds().y + squareLength / 2 + 12);
-    }
+            , (int) (getX()-5)
+            , (int) (getY())));
   }
 
   private void drawDisc(Graphics2D g) {
     if (discColor != Color.WHITE && discColor != Color.BLACK) {
       discColor = color;
     }
-    new DrawDiscs().run(g, poly.getBounds().x + squareLength / 2
-            , poly.getBounds().y + squareLength / 2, squareLength, discColor);
+    new DrawDiscs().run(g, (int) (getX() - squareLength / 3)
+            , (int) (getY() - squareLength / 3), (int) (squareLength/1.5), discColor);
   }
 
   /**
@@ -125,6 +103,6 @@ public class DrawnSquare implements DrawnShape {
    * @return Returns true if the point is inside the hex, false otherwise.
    */
   public boolean containsPoint(int x, int y) {
-    return poly.contains(x, y);
+    return (squareCenterCoordX - x) < squareLength / 2 && Math.abs(squareCenterCoordY - y) < squareLength / 2;
   }
 }
